@@ -196,7 +196,8 @@ function applyLang(){
   $$("[data-i]").forEach(el=>el.textContent=t(el.dataset.i));
   $("#consentTxt").innerHTML=t("consent").replace("{link}",`<a href="privacy.html" target="_blank">${t("privacy_link")}</a>`);
   const em=(content.settings.contact||{}).email||"";
-  $("#deleteLink").href=`mailto:${em}?subject=${encodeURIComponent(t("delete_account"))}`;
+  const waNum=String((content.settings.contact||{}).whatsapp||"").replace(/\D/g,"");
+  $("#deleteLink").href= em ? `mailto:${em}?subject=${encodeURIComponent(t("delete_account"))}` : `https://wa.me/${waNum}?text=${encodeURIComponent(t("delete_account"))}`;
   if(profile) $("#hello").textContent=`${t("hello")} ${(profile.full_name||"").split(" ")[0]}!`;
   fillItems(); updateBookingFields();
   if(user){ renderBookings(); renderMaterials(); }

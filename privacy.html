@@ -268,7 +268,7 @@ function render(){
     .replaceAll("{owner}",S.owner_name?esc(S.owner_name):todo(lang==="it"?"NOME E COGNOME DEL TITOLARE":lang==="pl"?"IMIĘ I NAZWISKO":"FULL NAME"))
     .replaceAll("{address}",S.address?esc(S.address):todo(lang==="it"?"INDIRIZZO":lang==="pl"?"ADRES":"ADDRESS"))
     .replaceAll("{vat}",esc(S.vat||"03800250791"))
-    .replaceAll("{email}",c.email?`<b>${esc(c.email)}</b>`:todo("E-MAIL"));
+    .replaceAll("{email}",c.email?`<b>${esc(c.email)}</b>`:(c.phone||c.whatsapp)?`<b>${esc(c.phone||"+"+c.whatsapp)}</b> (WhatsApp)`:todo("E-MAIL"));
   document.getElementById("doc").innerHTML=html;
   if(location.hash){ const el=document.querySelector(location.hash); if(el) el.scrollIntoView(); }
 }

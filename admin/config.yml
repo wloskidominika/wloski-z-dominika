@@ -1011,12 +1011,16 @@ collections:
       - name: email
         label: E-mail
         widget: string
+        required: false
+        hint: Facoltativa. Se la lasci vuota, il modulo «Scrivimi» manda il messaggio su WhatsApp.
       - name: phone
         label: Telefono (come appare)
         widget: string
+        required: false
       - name: whatsapp
         label: Numero WhatsApp (solo cifre, es. 393331234567)
         widget: string
+        required: false
       - name: place
         label: Dove
         widget: object

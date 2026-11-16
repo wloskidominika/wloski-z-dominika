@@ -191,8 +191,8 @@ function renderGallery(){
 function renderContact(){
   const c=SITE.contact;
   document.getElementById("contactList").innerHTML = `
-    <li><b>✉️</b><div><small>${t("c_mail")}</small><a href="mailto:${esc(c.email)}">${esc(c.email)}</a></div></li>
-    <li><b>📱</b><div><small>${t("c_phone")}</small><a href="https://wa.me/${esc(c.whatsapp)}" target="_blank" rel="noopener">${esc(c.phone)}</a></div></li>
+    ${c.email?`<li><b>✉️</b><div><small>${t("c_mail")}</small><a href="mailto:${esc(c.email)}">${esc(c.email)}</a></div></li>`:""}
+    ${c.phone||c.whatsapp?`<li><b>📱</b><div><small>${t("c_phone")}</small><a href="https://wa.me/${esc(String(c.whatsapp||c.phone).replace(/\D/g,""))}" target="_blank" rel="noopener">${esc(c.phone||"+"+c.whatsapp)}</a></div></li>`:""}
     <li><b>📍</b><div><small>${t("c_place")}</small>${esc(L(c.place))}</div></li>`;
   document.getElementById("socials").innerHTML = SITE.socials.map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="${esc(s.label)}">${esc(s.label)}</a>`).join("");
 }
@@ -375,8 +375,13 @@ document.getElementById("form").addEventListener("submit", e=>{
   if(!name || !/^\S+@\S+\.\S+$/.test(mail)){ n.textContent=t("fm_err"); n.classList.add("show"); return; }
   const topicTxt=e.target.topic.selectedOptions[0].textContent;
   const body=`${name} <${mail}>\n\n${fd.get("msg")||""}`;
-  const href=`mailto:${SITE.contact.email}?subject=${encodeURIComponent(topicTxt+" – "+name)}&body=${encodeURIComponent(body)}`;
-  n.textContent=t("fm_ok")+SITE.contact.email; n.classList.add("show");
+  const c=SITE.contact||{}, wa=String(c.whatsapp||c.phone||"").replace(/\D/g,"");
+  if(!c.email && wa){
+    window.open(`https://wa.me/${wa}?text=${encodeURIComponent(topicTxt+" – "+body)}`,"_blank","noopener");
+    n.textContent="WhatsApp ✓"; n.classList.add("show"); return;
+  }
+  const href=`mailto:${c.email}?subject=${encodeURIComponent(topicTxt+" – "+name)}&body=${encodeURIComponent(body)}`;
+  n.textContent=t("fm_ok")+c.email; n.classList.add("show");
   try{ window.location.href=href; }catch(_){}
 });
 
