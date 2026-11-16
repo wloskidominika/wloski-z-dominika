@@ -21,7 +21,7 @@ collections:
   format: json
   slug: '{{slug}}'
   identifier_field: title
-  summary: '{{title}} · {{lang}} · {{date}}{{#draft}} · BOZZA{{/draft}}'
+  summary: '{{title}} · {{lang}} · {{date}}'
   sortable_fields:
   - date
   - title
