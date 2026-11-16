@@ -47,6 +47,8 @@ async function loadLook(){
   if (PAGE === "home") for (const id in hs) if (hs[id] === false) { const el = document.getElementById(id); if (el) el.style.display = "none"; }
   const mn = LOOK.menu || {};
   document.querySelectorAll(".menu a[data-i], .f-links a[data-i], .nav-right a[data-i]").forEach(a => { if (mn[a.dataset.i] === false) (a.closest("li") || a).style.display = "none"; });
+  const TILE_NAV = { houses:"nav_house", hotels:"nav_hotel", exc:"nav_exc", exp:"nav_exp", transfer:"nav_tr", rental:"nav_rent", boat:"nav_boat", media:"nav_media" };
+  for (const k in TILE_NAV) if (mn[TILE_NAV[k]] === false) document.querySelectorAll('[data-tile="' + k + '"]').forEach(el => el.style.display = "none");
   const hc = LOOK.home_counts || {};
   if (hc.exc) HOME_MAX.exc = +hc.exc; if (hc.house) HOME_MAX.house = +hc.house; if (hc.serv) HOME_MAX.serv = +hc.serv;
 }

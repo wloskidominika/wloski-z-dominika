@@ -53,9 +53,13 @@ MENU = [  # (indirizzo, testo, pagina)
 ]
 PARENT = {"house": "houses", "hotel": "hotels", "excd": "exc", "expd": "exp", "post": "blog"}
 
+def hidden_nav():
+    return {k for k, v in (load("look.json").get("menu") or {}).items() if v is False}
+
 def header(page, P):
     cur = PARENT.get(page, page)
-    items = "\n".join(f'      <li><a href="{h if h.startswith("#") else P + h}" data-i="{k}"{" class=\"cur\"" if p == cur else ""}></a></li>' for h, k, p in MENU)
+    HID = hidden_nav()
+    items = "\n".join(f'      <li><a href="{h if h.startswith("#") else P + h}" data-i="{k}"{" class=\"cur\"" if p == cur else ""}></a></li>' for h, k, p in MENU if k not in HID)
     return f'''
 <header>
   <div class="wrap nav">
@@ -77,7 +81,7 @@ def header(page, P):
 '''
 
 def footer(P):
-    links = "".join(f'<a href="{P + h}" data-i="{k}"></a>' for h, k, p in MENU if p != "contact")
+    links = "".join(f'<a href="{P + h}" data-i="{k}"></a>' for h, k, p in MENU if p != "contact" and k not in hidden_nav())
     links = f'<a href="{P}index.html#lessons" data-i="nav_les"></a>' + links + f'<a href="{P}area.html" data-i="nav_area"></a>'
     return f'''<footer>
   <div class="wrap">
@@ -133,7 +137,11 @@ def crumbs(P, *parts):
         out.append(f'<a href="{P}{href}"{inner}</a>' if href else f'<span{inner}</span>')
     return '<div class="wrap crumbs">' + " › ".join(out) + "</div>\n"
 
+PAGE_NAV = {"case-vacanze.html": "nav_house", "hotel-bb.html": "nav_hotel", "escursioni.html": "nav_exc", "esperienze.html": "nav_exp",
+            "transfer.html": "nav_tr", "noleggio.html": "nav_rent", "noleggio-nautico.html": "nav_boat", "foto-e-video.html": "nav_media"}
 def page(fname, pg, title, desc, body, P="", img="media/hero.jpg", extra="", body_attrs=""):
+    hidden = {k for k, v in (load("look.json").get("menu") or {}).items() if v is False}
+    if PAGE_NAV.get(fname) in hidden: extra += '<meta name="robots" content="noindex">\n'
     canon = DOMAIN + "/" + ("" if fname == "index.html" else fname)
     out = head(esc(title), esc(desc), canon, pg, P, img, extra, body_attrs)
     out += header(pg, P) + "\n<main" + (' class="page-top"' if pg != "home" else "") + ">\n" + prefix(body, P) + "\n" + prefix(sec("contact"), P) + "\n</main>\n\n" + footer(P) + tail(P)
@@ -172,7 +180,7 @@ TILES = [("case-vacanze.html", "nav_house", "vt_house", "houses", "media/villa-m
          ("noleggio-nautico.html", "nav_boat", "vt_boat", "boat", "media/noleggio-nautico-2.jpg"),
          ("foto-e-video.html", "nav_media", "vt_media", "media", "media/tour-gommone-tropea-capo-vaticano-1.jpg")]
 def vacanze():
-    tiles = "\n".join(f'''      <a class="tile" href="{h}" data-tile="{key}"><div class="media-slot" data-src="{img}"></div><div class="tile-body"><h3 data-i="{t}"></h3><p data-i="{d}"></p></div></a>''' for h, t, d, key, img in TILES)
+    tiles = "\n".join(f'''      <a class="tile" href="{h}" data-tile="{key}"><div class="media-slot" data-src="{img}"></div><div class="tile-body"><h3 data-i="{t}"></h3><p data-i="{d}"></p></div></a>''' for h, t, d, key, img in TILES if t not in hidden_nav())
     return f'''<section id="vacanze" style="background:var(--paper)">
   <div class="wrap">
     <div class="section-head center">

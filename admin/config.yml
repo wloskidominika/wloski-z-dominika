@@ -218,64 +218,65 @@ collections:
         default: true
         required: false
     - name: menu
-      label: Voci visibili nel menu
+      label: 👁️ Pagine visibili sul sito
       widget: object
       fields:
       - name: nav_les
-        label: Lezioni
+        label: Lezioni — visibile
         widget: boolean
         default: true
         required: false
       - name: nav_house
-        label: Case vacanze
+        label: Case vacanze — visibile
         widget: boolean
         default: true
         required: false
       - name: nav_hotel
-        label: Hotel e B&B
+        label: Hotel e B&B — visibile
         widget: boolean
         default: true
         required: false
       - name: nav_exc
-        label: Escursioni
+        label: Escursioni — visibile
         widget: boolean
         default: true
         required: false
       - name: nav_exp
-        label: Guida turistica ed esperienze locali
+        label: Guida turistica ed esperienze locali — visibile
         widget: boolean
         default: true
         required: false
       - name: nav_tr
-        label: Transfer
+        label: Transfer — visibile
         widget: boolean
         default: true
         required: false
       - name: nav_rent
-        label: Noleggio auto, scooter e bici
+        label: Noleggio auto, scooter e bici — visibile
         widget: boolean
         default: true
         required: false
       - name: nav_boat
-        label: Noleggio nautico
+        label: Noleggio nautico — visibile
         widget: boolean
         default: true
         required: false
       - name: nav_media
-        label: Foto e video
+        label: Foto e video — visibile
         widget: boolean
         default: true
         required: false
       - name: nav_blog
-        label: Blog
+        label: Blog — visibile
         widget: boolean
         default: true
         required: false
       - name: nav_con
-        label: Contatti
+        label: Contatti — visibile
         widget: boolean
         default: true
         required: false
+      hint: Interruttore ACCESO = la pagina è visibile (menu, riquadro in Home, piè di pagina). SPENTO = nascosta dal sito. Poi clicca Pubblica.
   - name: excursions
     label: 🚐 Escursioni
     file: content/excursions.json
