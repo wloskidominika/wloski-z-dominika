@@ -1,0 +1,30 @@
+{
+ "houses": [
+  "appartamento-capo-mary-primo-piano",
+  "appartamento-sole",
+  "ortensia",
+  "villa-mimosa",
+  "appartamenti-noemi-con-piscina",
+  "appartamento-natus",
+  "casa-sonia-2-camere",
+  "casa-mare"
+ ],
+ "excursions": [
+  "tour-isole-eolie-da-tropea",
+  "pesca-turistica-a-tropea-con-pescatori-professionali",
+  "tour-in-barca-da-tropea-a-capo-vaticano",
+  "tour-in-gommone-da-tropea-a-capo-vaticano",
+  "escursione-alla-costa-viola-da-tropea",
+  "cucina-contadina-e-cena-al-tramonto",
+  "degustazione-vini-e-visita-ai-vigneti",
+  "dormi-sotto-le-stelle-in-calabria",
+  "giornata-in-campagna-per-famiglie",
+  "corso-di-pasta-e-pane-in-calabria",
+  "passeggiata-notturna-con-gli-asini-e-cena",
+  "serata-di-balli-e-musica-popolare-calabrese",
+  "trekking-con-gli-asinelli-sul-monte-poro",
+  "tour-a-reggio-calabria-da-tropea",
+  "volo-in-parapendio-sulla-costa-degli-dei",
+  "alla-scoperta-della-costa-degli-dei-e-dei-suoi-borghi-piu-suggestivi"
+ ]
+}

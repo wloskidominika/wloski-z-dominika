@@ -1,0 +1,29 @@
+<section id="contact" style="background:var(--cream-2)">
+  <div class="wrap contact-grid">
+    <div>
+      <div class="eyebrow" data-i="con_eyebrow"></div>
+      <h2 style="font-size:clamp(2rem,4vw,2.8rem);margin-top:8px" data-i="con_title"></h2>
+      <p style="color:var(--muted);margin-top:14px" data-i="con_sub"></p>
+      <ul class="c-list" id="contactList"></ul>
+    </div>
+    <form id="form" novalidate>
+      <div class="row">
+        <label><span data-i="fm_name"></span><input name="name" required></label>
+        <label><span data-i="fm_email"></span><input name="email" type="email" required></label>
+      </div>
+      <label><span data-i="fm_topic"></span>
+        <select name="topic" id="topic">
+          <option value="exc" data-i="fm_o1"></option>
+          <option value="it" data-i="fm_o2"></option>
+          <option value="pl" data-i="fm_o3"></option>
+          <option value="house" data-i="fm_o5"></option>
+          <option value="other" data-i="fm_o4"></option>
+        </select>
+      </label>
+      <label><span data-i="fm_msg"></span><textarea name="msg"></textarea></label>
+      <button class="btn btn-red" type="submit" style="justify-self:start" data-i="fm_send"></button>
+      <div class="notice" id="notice"></div>
+      <p style="font-size:.82rem;color:var(--muted)"><a href="privacy.html" data-i="fm_privacy"></a></p>
+    </form>
+  </div>
+</section>

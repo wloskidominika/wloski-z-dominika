@@ -1,6 +1,7 @@
 {
   "items": [
     {
+      "kind": "exc",
       "title": {
         "it": "Tour Isole Eolie da Tropea · Stromboli, Vulcano, Lipari",
         "en": "Aeolian Islands Tour from Tropea · Stromboli, Vulcano, Lipari",
@@ -34,6 +35,7 @@
       }
     },
     {
+      "kind": "exc",
       "title": {
         "it": "Pesca Turistica a Tropea con Pescatori Professionali",
         "en": "Sport Fishing in Tropea with Professional Fishermen",
@@ -59,6 +61,7 @@
       "url": ""
     },
     {
+      "kind": "exc",
       "title": {
         "it": "Tour in Barca da Tropea a Capo Vaticano · Costa degli Dei",
         "en": "Boat Tour from Tropea to Capo Vaticano · Costa degli Dei",
@@ -85,6 +88,7 @@
       "url": ""
     },
     {
+      "kind": "exc",
       "title": {
         "it": "Tour in Gommone da Tropea a Capo Vaticano · Calabria",
         "en": "Speedboat Tour from Tropea to Capo Vaticano · Calabria",
@@ -116,6 +120,7 @@
       "url": ""
     },
     {
+      "kind": "exc",
       "title": {
         "it": "Escursione alla Costa Viola da Tropea · Scilla e Bagnara",
         "en": "Excursion to Costa Viola from Tropea · Scilla and Bagnara",
@@ -139,6 +144,7 @@
       "url": ""
     },
     {
+      "kind": "exp",
       "title": {
         "it": "Cucina Contadina e Cena al Tramonto · Capo Vaticano",
         "en": "Cucina Contadina and Sunset Dinner · Capo Vaticano",
@@ -162,6 +168,7 @@
       "url": ""
     },
     {
+      "kind": "exp",
       "title": {
         "it": "Degustazione Vini e Visita ai Vigneti · Vicino a Tropea",
         "en": "Wine Tasting and Vineyard Visit · Near Tropea",
@@ -191,6 +198,7 @@
       "url": ""
     },
     {
+      "kind": "exp",
       "title": {
         "it": "Dormi Sotto le Stelle in Calabria · Vicino a Tropea",
         "en": "Sleep Under the Stars in Calabria · Near Tropea",
@@ -214,6 +222,7 @@
       "url": ""
     },
     {
+      "kind": "exp",
       "title": {
         "it": "Giornata in Campagna per Famiglie · Vicino a Tropea",
         "en": "Family Day in the Countryside · Near Tropea",
@@ -237,6 +246,7 @@
       "url": ""
     },
     {
+      "kind": "exp",
       "title": {
         "it": "Corso di Pasta e Pane in Calabria · Vicino a Tropea",
         "en": "Pasta and Bread Course in Calabria · Near Tropea",
@@ -261,6 +271,7 @@
       "url": ""
     },
     {
+      "kind": "exp",
       "title": {
         "it": "Passeggiata Notturna con gli Asini e Cena · Calabria",
         "en": "Night Walk with Donkeys and Dinner · Calabria",
@@ -284,6 +295,7 @@
       "url": ""
     },
     {
+      "kind": "exp",
       "title": {
         "it": "Serata di Balli e Musica Popolare Calabrese · Tropea",
         "en": "Evening of Calabrese Folk Dances and Music · Tropea",
@@ -307,6 +319,7 @@
       "url": ""
     },
     {
+      "kind": "exp",
       "title": {
         "it": "Trekking con gli Asinelli sul Monte Poro · Calabria",
         "en": "Trekking with Donkeys on Monte Poro · Calabria",
@@ -331,6 +344,7 @@
       "url": ""
     },
     {
+      "kind": "exc",
       "title": {
         "it": "Tour a Reggio Calabria da Tropea · Bronzi di Riace e Scilla",
         "en": "Tour to Reggio Calabria from Tropea · Bronzes of Riace and Scilla",
@@ -353,6 +367,7 @@
       "url": ""
     },
     {
+      "kind": "exc",
       "title": {
         "it": "Volo in Parapendio sulla Costa degli Dei · Tropea",
         "en": "Paragliding Flight over the Costa degli Dei · Tropea",
@@ -376,6 +391,7 @@
       "url": ""
     },
     {
+      "kind": "exp",
       "title": {
         "it": "Alla scoperta della Costa degli Dei e dei suoi borghi più suggestivi",
         "en": "Discovering the Costa degli Dei and its most charming villages",

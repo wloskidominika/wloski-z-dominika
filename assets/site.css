@@ -185,11 +185,7 @@ footer .script{color:#fff;font-size:1.8rem}
 .brand{flex:none}
 header .wrap.nav{max-width:1380px}
 .menu{gap:22px}
-@media (max-width:1340px){
-  .menu{position:fixed;top:76px;left:0;right:0;flex-direction:column;align-items:flex-start;background:var(--cream);padding:24px;gap:18px;display:none;box-shadow:0 12px 20px rgba(0,0,0,.08);max-height:calc(100vh - 76px);overflow:auto}
-  .menu.open{display:flex}
-  .burger{display:block}
-}
+
 @media (max-width:920px){
   .hero-grid,.about-grid,.contact-grid,.lang-cards{grid-template-columns:1fr}
   .grid-3,.formats{grid-template-columns:1fr 1fr}
@@ -238,3 +234,78 @@ header .wrap.nav{max-width:1380px}
 .post-other{margin:0 0 18px}
 .post-other a{display:inline-block;background:var(--cream-2);border:1px solid rgba(0,0,0,.08);border-radius:999px;padding:8px 16px;font-weight:700;color:var(--red,#a02a22);text-decoration:none}
 .post-other a:hover{text-decoration:underline}
+
+/* ---- Intestazione su due righe: logo + area/lingue, poi il menu ---- */
+.nav{height:70px}
+.nav-right{display:flex;align-items:center;gap:14px}
+.nav-right a{text-decoration:none;font-weight:700;white-space:nowrap}
+.nav-right .area-btn{background:var(--red);color:#fff;padding:7px 14px;border-radius:999px;font-size:.85rem}
+.nav-right .area-btn:hover{background:var(--red-dark)}
+.nav-right .les-btn{border:1.5px solid var(--green);color:var(--green);padding:6px 14px;border-radius:999px;font-size:.85rem}
+.nav-right .les-btn:hover{background:var(--green);color:#fff}
+.mainnav{border-top:1px solid rgba(155,35,24,.08)}
+.mainnav .menu{max-width:1380px;margin:0 auto;padding:0 24px;min-height:46px;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px 24px}
+.mainnav .menu a{font-size:.92rem}
+.menu a.cur{color:var(--red);border-bottom:2px solid var(--orange)}
+.m-only{display:none}
+@media (max-width:1100px){
+  .mainnav{border:0}
+  .mainnav .menu{position:fixed;top:70px;left:0;right:0;flex-direction:column;align-items:flex-start;justify-content:flex-start;flex-wrap:nowrap;background:var(--cream);padding:22px 24px;gap:16px;display:none;box-shadow:0 12px 20px rgba(0,0,0,.08);max-height:calc(100vh - 70px);overflow:auto}
+  .mainnav .menu.open{display:flex}
+  .mainnav .menu a{font-size:1rem}
+  .burger{display:block}
+  .nav-right .les-btn{display:none}
+  .m-only{display:list-item}
+}
+@media (max-width:640px){
+  .nav-right{gap:8px}
+  .nav-right .area-btn span{display:none}
+  .nav-right .area-btn{padding:7px 10px}
+  .brand img{width:44px;height:44px}
+  .brand span{font-size:1rem}
+  .lang button{padding:5px 6px;font-size:.72rem}
+}
+@media (max-width:420px){ .brand span{display:none} }
+
+/* ---- Home: due porte (lezioni / vacanze) ---- */
+.doors{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:600px}
+.door{display:flex;gap:14px;align-items:flex-start;background:var(--paper);border-radius:18px;padding:18px 18px;text-decoration:none;color:var(--ink);box-shadow:var(--shadow);border:2px solid transparent;transition:.2s}
+.door:hover{border-color:var(--orange);transform:translateY(-2px)}
+.door b{font-size:1.7rem;line-height:1}
+.door strong{display:block;font-family:'Lora',serif;color:var(--red);font-size:1.12rem;font-weight:500;margin-bottom:4px}
+.door span{font-size:.92rem;color:var(--muted)}
+.hero h1{font-size:clamp(2.3rem,5vw,3.8rem)}
+@media (max-width:600px){ .doors{grid-template-columns:1fr} }
+
+/* ---- Home: riquadri "Vacanze in Calabria" ---- */
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.tile{display:block;background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);text-decoration:none;color:var(--ink);transition:.2s}
+.tile:hover{transform:translateY(-4px)}
+.tile .media-slot{aspect-ratio:4/3}
+.tile-body{padding:16px 18px 20px}
+.tile h3{font-size:1.15rem;margin-bottom:4px}
+.tile p{font-size:.9rem;color:var(--muted);margin:0}
+@media (max-width:1000px){ .tiles{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:480px){ .tiles{grid-template-columns:1fr} }
+
+/* ---- Pagina di una casa / escursione ---- */
+.detail{padding-top:28px}
+.detail-top{display:grid;grid-template-columns:1.25fr 1fr;gap:38px;align-items:start}
+.detail-top .mg-main,.detail-top>div>.media-slot{aspect-ratio:4/3;border-radius:var(--radius);overflow:hidden}
+.detail-cover{width:100%;border-radius:var(--radius);aspect-ratio:4/3;object-fit:cover}
+.detail-info{display:flex;flex-direction:column;gap:14px;background:var(--paper);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
+.detail-info h1{font-size:clamp(1.8rem,3.4vw,2.5rem)}
+.detail-info .btns{display:flex;gap:10px;flex-wrap:wrap}
+.muted{color:var(--muted)}
+.detail-cols{display:grid;grid-template-columns:1.6fr 1fr;gap:38px;margin-top:38px}
+.detail-text{font-size:1.06rem;line-height:1.75}
+.detail-text p{margin:0 0 14px}
+.detail-aside{background:var(--paper);border-radius:var(--radius);padding:24px 26px;align-self:start}
+.detail-aside h3{font-size:1.2rem;margin:4px 0 10px}
+.detail-aside ul{margin:0 0 18px 18px}
+.detail-aside li{margin-bottom:4px}
+@media (max-width:900px){ .detail-top,.detail-cols{grid-template-columns:1fr} }
+.empty-box{grid-column:1/-1;background:var(--paper);border-radius:var(--radius);padding:34px;text-align:center;box-shadow:var(--shadow)}
+.empty-box p{font-size:1.1rem;margin-bottom:18px}
+.detail-top>*,.detail-cols>*{min-width:0}
+.detail-top .mg-thumbs{overflow-x:auto;flex-wrap:nowrap}

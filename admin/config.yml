@@ -57,7 +57,7 @@ collections:
     label: Traduzione di… (collega le versioni in lingue diverse)
     widget: string
     required: false
-    hint: 'Scrivi lo stesso codice in tutte le traduzioni dello stesso articolo (es. «cosa-vedere-a-tropea»). Così chi cambia lingua passa alla versione giusta. Per un articolo nuovo puoi lasciarlo vuoto.'
+    hint: Scrivi lo stesso codice in tutte le traduzioni dello stesso articolo (es. «cosa-vedere-a-tropea»). Così chi cambia lingua passa alla versione giusta. Per un articolo nuovo puoi lasciarlo vuoto.
   - name: description
     label: Descrizione per Google
     widget: text
@@ -155,22 +155,60 @@ collections:
       label: Logo rotondo nella sezione «Chi sono»
       widget: image
       required: false
+    - name: tiles
+      label: Foto dei riquadri «Vacanze in Calabria» nella Home
+      widget: object
+      collapsed: true
+      required: false
+      fields:
+      - name: houses
+        label: Case vacanze
+        widget: image
+        required: false
+      - name: hotels
+        label: Hotel e B&B
+        widget: image
+        required: false
+      - name: exc
+        label: Escursioni
+        widget: image
+        required: false
+      - name: exp
+        label: Guida turistica ed esperienze locali
+        widget: image
+        required: false
+      - name: transfer
+        label: Transfer
+        widget: image
+        required: false
+      - name: rental
+        label: Noleggio auto, scooter e bici
+        widget: image
+        required: false
+      - name: boat
+        label: Noleggio nautico
+        widget: image
+        required: false
+      - name: media
+        label: Foto e video
+        widget: image
+        required: false
     - name: home_sections
       label: Sezioni visibili nella Home
       widget: object
       fields:
+      - name: lessons
+        label: Lezioni di italiano e polacco
+        widget: boolean
+        default: true
+        required: false
+      - name: vacanze
+        label: Vacanze in Calabria (riquadri)
+        widget: boolean
+        default: true
+        required: false
       - name: about
         label: Chi sono
-        widget: boolean
-        default: true
-        required: false
-      - name: excursions
-        label: Escursioni
-        widget: boolean
-        default: true
-        required: false
-      - name: lessons
-        label: Lezioni
         widget: boolean
         default: true
         required: false
@@ -179,8 +217,8 @@ collections:
         widget: boolean
         default: true
         required: false
-      - name: services
-        label: Servizi
+      - name: excursions
+        label: Escursioni
         widget: boolean
         default: true
         required: false
@@ -190,7 +228,7 @@ collections:
         default: true
         required: false
       - name: gallery
-        label: Galleria
+        label: Foto e video
         widget: boolean
         default: true
         required: false
@@ -198,13 +236,28 @@ collections:
       label: Voci visibili nel menu
       widget: object
       fields:
-      - name: nav_exc
-        label: Escursioni
+      - name: nav_les
+        label: Lezioni
         widget: boolean
         default: true
         required: false
       - name: nav_house
         label: Case vacanze
+        widget: boolean
+        default: true
+        required: false
+      - name: nav_hotel
+        label: Hotel e B&B
+        widget: boolean
+        default: true
+        required: false
+      - name: nav_exc
+        label: Escursioni
+        widget: boolean
+        default: true
+        required: false
+      - name: nav_exp
+        label: Guida turistica ed esperienze locali
         widget: boolean
         default: true
         required: false
@@ -214,22 +267,22 @@ collections:
         default: true
         required: false
       - name: nav_rent
-        label: Noleggio
+        label: Noleggio auto, scooter e bici
         widget: boolean
         default: true
         required: false
-      - name: nav_serv
-        label: Servizi
+      - name: nav_boat
+        label: Noleggio nautico
+        widget: boolean
+        default: true
+        required: false
+      - name: nav_media
+        label: Foto e video
         widget: boolean
         default: true
         required: false
       - name: nav_blog
         label: Blog
-        widget: boolean
-        default: true
-        required: false
-      - name: nav_les
-        label: Lezioni
         widget: boolean
         default: true
         required: false
@@ -298,6 +351,16 @@ collections:
           label: Español
           widget: string
           required: false
+      - name: kind
+        label: In quale pagina compare?
+        widget: select
+        default: exc
+        required: false
+        options:
+        - label: Escursioni
+          value: exc
+        - label: Guida turistica ed esperienze locali
+          value: exp
       - name: area
         label: Tipo di escursione
         widget: select
@@ -498,6 +561,7 @@ collections:
           value: agriturismo
         - label: Residence
           value: residence
+        hint: Hotel e B&B compaiono nella pagina «Hotel e B&B»; tutti gli altri in «Case vacanze». Ogni alloggio ha anche la sua pagina.
       - name: title
         label: Nome
         widget: object
@@ -702,15 +766,17 @@ collections:
       summary: '{{fields.title.it}}'
       fields:
       - name: kind
-        label: In quale pagina compare? (tutti compaiono anche in «Servizi»)
+        label: In quale pagina compare?
         widget: select
         default: other
         options:
         - label: Transfer
           value: transfer
-        - label: Noleggio
+        - label: Noleggio auto, scooter e bici
           value: rental
-        - label: Altro servizio
+        - label: Noleggio nautico (barche e gommoni)
+          value: boat
+        - label: Altro servizio (solo pagina Servizi)
           value: other
       - name: title
         label: Nome del servizio
@@ -1063,23 +1129,23 @@ collections:
         widget: string
         required: false
       - name: hero_t1
-        label: hero_t1  —  «Scopri la Calabria»
+        label: hero_t1  —  «Lezioni di italiano e polacco»
         widget: string
         required: false
       - name: hero_t2
-        label: hero_t2  —  «e impara le lingue»
+        label: hero_t2  —  «e vacanze in Calabria»
         widget: string
         required: false
       - name: hero_lead
-        label: hero_lead  —  «Escursioni guidate in italiano, polacco e ing»
-        widget: text
+        label: hero_lead  —  «Impara l'italiano o il polacco con lezioni su misura, e vivi»
+        widget: string
         required: false
       - name: hero_cta1
-        label: hero_cta1  —  «Vedi le escursioni»
+        label: hero_cta1  —  «Lezioni di lingua»
         widget: string
         required: false
       - name: hero_cta2
-        label: hero_cta2  —  «Lezioni di lingua»
+        label: hero_cta2  —  «Vacanze in Calabria»
         widget: string
         required: false
       - name: b1
@@ -1103,12 +1169,12 @@ collections:
         widget: string
         required: false
       - name: about_p1
-        label: about_p1  —  «Sono polacca, mi sono innamorata della Calabr»
-        widget: text
+        label: about_p1  —  «Sono polacca, mi sono innamorata della Calabria e ci vivo st»
+        widget: string
         required: false
       - name: about_p2
-        label: about_p2  —  «Nelle mie escursioni – in italiano, polacco o»
-        widget: text
+        label: about_p2  —  «Nelle mie escursioni – in italiano, polacco o inglese – non »
+        widget: string
         required: false
       - name: exc_eyebrow
         label: exc_eyebrow  —  «Escursioni»
@@ -1119,8 +1185,8 @@ collections:
         widget: string
         required: false
       - name: exc_sub
-        label: exc_sub  —  «Piccoli gruppi, guida in italiano, polacco o »
-        widget: text
+        label: exc_sub  —  «Piccoli gruppi, guida in italiano, polacco o inglese e luogh»
+        widget: string
         required: false
       - name: dur_full
         label: dur_full  —  «Giornata intera»
@@ -1155,15 +1221,15 @@ collections:
         widget: string
         required: false
       - name: les_sub
-        label: les_sub  —  «Lezioni su misura per il tuo livello e obiett»
-        widget: text
+        label: les_sub  —  «Lezioni su misura per il tuo livello e obiettivo – dal vivo »
+        widget: string
         required: false
       - name: it_title
         label: it_title  —  «Lezioni di italiano»
         widget: string
         required: false
       - name: it_sub
-        label: it_sub  —  «Per chi vuole parlare italiano davvero, con t»
+        label: it_sub  —  «Per chi vuole parlare italiano davvero, con tanta conversazi»
         widget: string
         required: false
       - name: pl_title
@@ -1171,7 +1237,7 @@ collections:
         widget: string
         required: false
       - name: pl_sub
-        label: pl_sub  —  «Il polacco spiegato passo dopo passo, senza p»
+        label: pl_sub  —  «Il polacco spiegato passo dopo passo, senza paura della gram»
         widget: string
         required: false
       - name: les_cta
@@ -1191,7 +1257,7 @@ collections:
         widget: string
         required: false
       - name: f2_d
-        label: f2_d  —  «Piccoli gruppi di 3–6 persone, più conversazi»
+        label: f2_d  —  «Piccoli gruppi di 3–6 persone, più conversazione e divertime»
         widget: string
         required: false
       - name: f3_t
@@ -1199,7 +1265,7 @@ collections:
         widget: string
         required: false
       - name: f3_d
-        label: f3_d  —  «Lezioni su Zoom o Google Meet, ovunque tu sia»
+        label: f3_d  —  «Lezioni su Zoom o Google Meet, ovunque tu sia.»
         widget: string
         required: false
       - name: h_eyebrow
@@ -1211,8 +1277,8 @@ collections:
         widget: string
         required: false
       - name: h_sub
-        label: h_sub  —  «Alloggi selezionati per il tuo soggiorno in C»
-        widget: text
+        label: h_sub  —  «Alloggi selezionati per il tuo soggiorno in Calabria. Clicca»
+        widget: string
         required: false
       - name: h_btn
         label: h_btn  —  «Vedi l’offerta»
@@ -1227,8 +1293,8 @@ collections:
         widget: string
         required: false
       - name: gal_sub
-        label: gal_sub  —  «Momenti dalle escursioni e dalle lezioni. Cli»
-        widget: text
+        label: gal_sub  —  «Momenti dalle escursioni e dalle lezioni. Clicca per ingrand»
+        widget: string
         required: false
       - name: g_all
         label: g_all  —  «Tutto»
@@ -1255,8 +1321,8 @@ collections:
         widget: string
         required: false
       - name: con_sub
-        label: con_sub  —  «Hai una domanda su un'escursione o sulle lezi»
-        widget: text
+        label: con_sub  —  «Hai una domanda su un'escursione o sulle lezioni? Ti rispond»
+        widget: string
         required: false
       - name: c_mail
         label: c_mail  —  «E-mail»
@@ -1311,8 +1377,8 @@ collections:
         widget: string
         required: false
       - name: fm_ok
-        label: fm_ok  —  «Grazie! Sto aprendo il tuo programma di posta»
-        widget: text
+        label: fm_ok  —  «Grazie! Sto aprendo il tuo programma di posta. Se non si apr»
+        widget: string
         required: false
       - name: fm_err
         label: fm_err  —  «Inserisci il nome e un'e-mail valida.»
@@ -1339,7 +1405,7 @@ collections:
         widget: string
         required: false
       - name: fm_privacy
-        label: fm_privacy  —  «I dati che invii sono trattati secondo l'info»
+        label: fm_privacy  —  «I dati che invii sono trattati secondo l'informativa privacy»
         widget: string
         required: false
       - name: nav_serv
@@ -1355,8 +1421,8 @@ collections:
         widget: string
         required: false
       - name: s_sub
-        label: s_sub  —  «Transfer, esperienze e altri servizi per vive»
-        widget: text
+        label: s_sub  —  «Transfer, esperienze e altri servizi per vivere la Calabria »
+        widget: string
         required: false
       - name: s_info
         label: s_info  —  «Chiedi info»
@@ -1439,7 +1505,7 @@ collections:
         widget: string
         required: false
       - name: nav_rent
-        label: nav_rent  —  «Noleggio»
+        label: nav_rent  —  «Noleggio auto, scooter e bici»
         widget: string
         required: false
       - name: see_exc
@@ -1467,20 +1533,20 @@ collections:
         widget: string
         required: false
       - name: tr_sub
-        label: tr_sub  —  «Dall'aeroporto di Lamezia Terme a Tropea e al»
-        widget: text
+        label: tr_sub  —  «Dall'aeroporto di Lamezia Terme a Tropea e alla Costa degli »
+        widget: string
         required: false
       - name: rent_eyebrow
         label: rent_eyebrow  —  «Noleggio»
         widget: string
         required: false
       - name: rent_title
-        label: rent_title  —  «Noleggio barche, auto e scooter»
+        label: rent_title  —  «Noleggio auto, scooter e bici»
         widget: string
         required: false
       - name: rent_sub
-        label: rent_sub  —  «Gommoni e barche anche senza patente, auto, s»
-        widget: text
+        label: rent_sub  —  «Auto, scooter e bici per muoverti in libertà tra Tropea, Cap»
+        widget: string
         required: false
       - name: pt_houses
         label: pt_houses  —  «Case vacanze a Tropea e Capo Vaticano»
@@ -1495,7 +1561,7 @@ collections:
         widget: string
         required: false
       - name: pt_rental
-        label: pt_rental  —  «Noleggio barche, auto e scooter a Tropea»
+        label: pt_rental  —  «Noleggio auto, scooter e bici a Tropea»
         widget: string
         required: false
       - name: pt_services
@@ -1519,8 +1585,8 @@ collections:
         widget: string
         required: false
       - name: blog_sub
-        label: blog_sub  —  «Cosa vedere, le spiagge più belle, come arriv»
-        widget: text
+        label: blog_sub  —  «Cosa vedere, le spiagge più belle, come arrivare e i sapori »
+        widget: string
         required: false
       - name: read_more
         label: read_more  —  «Leggi l'articolo →»
@@ -1547,11 +1613,171 @@ collections:
         widget: string
         required: false
       - name: post_cta_text
-        label: post_cta_text  —  «Escursioni, case vacanze e transfer dall'aero»
-        widget: text
+        label: 'post_cta_text  —  «Escursioni, case vacanze e transfer dall''aeroporto: scrivici»'
+        widget: string
         required: false
       - name: pt_blog
         label: 'pt_blog  —  «Blog: guide e consigli sulla Calabria»'
+        widget: string
+        required: false
+      - name: nav_hotel
+        label: nav_hotel  —  «Hotel e B&B»
+        widget: string
+        required: false
+      - name: nav_exp
+        label: nav_exp  —  «Guida turistica ed esperienze locali»
+        widget: string
+        required: false
+      - name: nav_boat
+        label: nav_boat  —  «Noleggio nautico»
+        widget: string
+        required: false
+      - name: nav_media
+        label: nav_media  —  «Foto e video»
+        widget: string
+        required: false
+      - name: door1_t
+        label: door1_t  —  «Lezioni di italiano e polacco»
+        widget: string
+        required: false
+      - name: door1_d
+        label: door1_d  —  «Individuali, in piccoli gruppi o online.»
+        widget: string
+        required: false
+      - name: door2_t
+        label: door2_t  —  «Vacanze in Calabria»
+        widget: string
+        required: false
+      - name: door2_d
+        label: door2_d  —  «Case vacanze, escursioni, transfer e noleggi.»
+        widget: string
+        required: false
+      - name: vac_eyebrow
+        label: vac_eyebrow  —  «Vacanze in Calabria»
+        widget: string
+        required: false
+      - name: vac_title
+        label: vac_title  —  «Tutto per la tua vacanza»
+        widget: string
+        required: false
+      - name: vac_sub
+        label: 'vac_sub  —  «Scegli cosa ti serve tra Tropea e Capo Vaticano: dove dormir»'
+        widget: string
+        required: false
+      - name: vt_house
+        label: vt_house  —  «Appartamenti, case e ville al mare»
+        widget: string
+        required: false
+      - name: vt_hotel
+        label: vt_hotel  —  «Hotel e bed & breakfast selezionati»
+        widget: string
+        required: false
+      - name: vt_exc
+        label: vt_exc  —  «Isole Eolie, barca, gommone e tour»
+        widget: string
+        required: false
+      - name: vt_exp
+        label: vt_exp  —  «Visite guidate, cucina, vino e tradizioni»
+        widget: string
+        required: false
+      - name: vt_tr
+        label: vt_tr  —  «Dall'aeroporto di Lamezia, anche di notte»
+        widget: string
+        required: false
+      - name: vt_rent
+        label: vt_rent  —  «Muoviti libero tra spiagge e borghi»
+        widget: string
+        required: false
+      - name: vt_boat
+        label: vt_boat  —  «Barche e gommoni, anche senza patente»
+        widget: string
+        required: false
+      - name: vt_media
+        label: vt_media  —  «Le nostre foto e i video»
+        widget: string
+        required: false
+      - name: hotel_eyebrow
+        label: hotel_eyebrow  —  «Alloggi»
+        widget: string
+        required: false
+      - name: hotel_title
+        label: hotel_title  —  «Hotel e B&B»
+        widget: string
+        required: false
+      - name: hotel_sub
+        label: hotel_sub  —  «Hotel e bed & breakfast selezionati a Tropea e dintorni.»
+        widget: string
+        required: false
+      - name: hotel_empty
+        label: 'hotel_empty  —  «Stiamo selezionando hotel e B&B. Scrivici: ti consigliamo la»'
+        widget: string
+        required: false
+      - name: exp_eyebrow
+        label: exp_eyebrow  —  «Guida turistica»
+        widget: string
+        required: false
+      - name: exp_title
+        label: exp_title  —  «Guida turistica ed esperienze locali»
+        widget: string
+        required: false
+      - name: exp_sub
+        label: exp_sub  —  «Visite guidate in italiano, polacco e inglese ed esperienze »
+        widget: string
+        required: false
+      - name: boat_eyebrow
+        label: boat_eyebrow  —  «Noleggio nautico»
+        widget: string
+        required: false
+      - name: boat_title
+        label: boat_title  —  «Noleggio barche e gommoni»
+        widget: string
+        required: false
+      - name: boat_sub
+        label: boat_sub  —  «Barche e gommoni anche senza patente per scoprire le calette»
+        widget: string
+        required: false
+      - name: pt_hotels
+        label: pt_hotels  —  «Hotel e B&B a Tropea»
+        widget: string
+        required: false
+      - name: pt_exp
+        label: pt_exp  —  «Guida turistica ed esperienze locali a Tropea»
+        widget: string
+        required: false
+      - name: pt_boat
+        label: pt_boat  —  «Noleggio barche e gommoni a Tropea»
+        widget: string
+        required: false
+      - name: pt_media
+        label: pt_media  —  «Foto e video»
+        widget: string
+        required: false
+      - name: back_houses
+        label: back_houses  —  «← Tutte le case vacanze»
+        widget: string
+        required: false
+      - name: back_hotels
+        label: back_hotels  —  «← Tutti gli hotel e B&B»
+        widget: string
+        required: false
+      - name: back_exc
+        label: back_exc  —  «← Tutte le escursioni»
+        widget: string
+        required: false
+      - name: back_exp
+        label: back_exp  —  «← Tutte le esperienze»
+        widget: string
+        required: false
+      - name: see_media
+        label: see_media  —  «Tutte le foto e i video →»
+        widget: string
+        required: false
+      - name: see_exp
+        label: see_exp  —  «Tutte le esperienze →»
+        widget: string
+        required: false
+      - name: also_like
+        label: also_like  —  «Potrebbe interessarti anche»
         widget: string
         required: false
     - name: de
@@ -1588,23 +1814,23 @@ collections:
         widget: string
         required: false
       - name: hero_t1
-        label: hero_t1  —  «Scopri la Calabria»
+        label: hero_t1  —  «Lezioni di italiano e polacco»
         widget: string
         required: false
       - name: hero_t2
-        label: hero_t2  —  «e impara le lingue»
+        label: hero_t2  —  «e vacanze in Calabria»
         widget: string
         required: false
       - name: hero_lead
-        label: hero_lead  —  «Escursioni guidate in italiano, polacco e ing»
-        widget: text
+        label: hero_lead  —  «Impara l'italiano o il polacco con lezioni su misura, e vivi»
+        widget: string
         required: false
       - name: hero_cta1
-        label: hero_cta1  —  «Vedi le escursioni»
+        label: hero_cta1  —  «Lezioni di lingua»
         widget: string
         required: false
       - name: hero_cta2
-        label: hero_cta2  —  «Lezioni di lingua»
+        label: hero_cta2  —  «Vacanze in Calabria»
         widget: string
         required: false
       - name: b1
@@ -1628,12 +1854,12 @@ collections:
         widget: string
         required: false
       - name: about_p1
-        label: about_p1  —  «Sono polacca, mi sono innamorata della Calabr»
-        widget: text
+        label: about_p1  —  «Sono polacca, mi sono innamorata della Calabria e ci vivo st»
+        widget: string
         required: false
       - name: about_p2
-        label: about_p2  —  «Nelle mie escursioni – in italiano, polacco o»
-        widget: text
+        label: about_p2  —  «Nelle mie escursioni – in italiano, polacco o inglese – non »
+        widget: string
         required: false
       - name: exc_eyebrow
         label: exc_eyebrow  —  «Escursioni»
@@ -1644,8 +1870,8 @@ collections:
         widget: string
         required: false
       - name: exc_sub
-        label: exc_sub  —  «Piccoli gruppi, guida in italiano, polacco o »
-        widget: text
+        label: exc_sub  —  «Piccoli gruppi, guida in italiano, polacco o inglese e luogh»
+        widget: string
         required: false
       - name: dur_full
         label: dur_full  —  «Giornata intera»
@@ -1680,15 +1906,15 @@ collections:
         widget: string
         required: false
       - name: les_sub
-        label: les_sub  —  «Lezioni su misura per il tuo livello e obiett»
-        widget: text
+        label: les_sub  —  «Lezioni su misura per il tuo livello e obiettivo – dal vivo »
+        widget: string
         required: false
       - name: it_title
         label: it_title  —  «Lezioni di italiano»
         widget: string
         required: false
       - name: it_sub
-        label: it_sub  —  «Per chi vuole parlare italiano davvero, con t»
+        label: it_sub  —  «Per chi vuole parlare italiano davvero, con tanta conversazi»
         widget: string
         required: false
       - name: pl_title
@@ -1696,7 +1922,7 @@ collections:
         widget: string
         required: false
       - name: pl_sub
-        label: pl_sub  —  «Il polacco spiegato passo dopo passo, senza p»
+        label: pl_sub  —  «Il polacco spiegato passo dopo passo, senza paura della gram»
         widget: string
         required: false
       - name: les_cta
@@ -1716,7 +1942,7 @@ collections:
         widget: string
         required: false
       - name: f2_d
-        label: f2_d  —  «Piccoli gruppi di 3–6 persone, più conversazi»
+        label: f2_d  —  «Piccoli gruppi di 3–6 persone, più conversazione e divertime»
         widget: string
         required: false
       - name: f3_t
@@ -1724,7 +1950,7 @@ collections:
         widget: string
         required: false
       - name: f3_d
-        label: f3_d  —  «Lezioni su Zoom o Google Meet, ovunque tu sia»
+        label: f3_d  —  «Lezioni su Zoom o Google Meet, ovunque tu sia.»
         widget: string
         required: false
       - name: h_eyebrow
@@ -1736,8 +1962,8 @@ collections:
         widget: string
         required: false
       - name: h_sub
-        label: h_sub  —  «Alloggi selezionati per il tuo soggiorno in C»
-        widget: text
+        label: h_sub  —  «Alloggi selezionati per il tuo soggiorno in Calabria. Clicca»
+        widget: string
         required: false
       - name: h_btn
         label: h_btn  —  «Vedi l’offerta»
@@ -1752,8 +1978,8 @@ collections:
         widget: string
         required: false
       - name: gal_sub
-        label: gal_sub  —  «Momenti dalle escursioni e dalle lezioni. Cli»
-        widget: text
+        label: gal_sub  —  «Momenti dalle escursioni e dalle lezioni. Clicca per ingrand»
+        widget: string
         required: false
       - name: g_all
         label: g_all  —  «Tutto»
@@ -1780,8 +2006,8 @@ collections:
         widget: string
         required: false
       - name: con_sub
-        label: con_sub  —  «Hai una domanda su un'escursione o sulle lezi»
-        widget: text
+        label: con_sub  —  «Hai una domanda su un'escursione o sulle lezioni? Ti rispond»
+        widget: string
         required: false
       - name: c_mail
         label: c_mail  —  «E-mail»
@@ -1836,8 +2062,8 @@ collections:
         widget: string
         required: false
       - name: fm_ok
-        label: fm_ok  —  «Grazie! Sto aprendo il tuo programma di posta»
-        widget: text
+        label: fm_ok  —  «Grazie! Sto aprendo il tuo programma di posta. Se non si apr»
+        widget: string
         required: false
       - name: fm_err
         label: fm_err  —  «Inserisci il nome e un'e-mail valida.»
@@ -1864,7 +2090,7 @@ collections:
         widget: string
         required: false
       - name: fm_privacy
-        label: fm_privacy  —  «I dati che invii sono trattati secondo l'info»
+        label: fm_privacy  —  «I dati che invii sono trattati secondo l'informativa privacy»
         widget: string
         required: false
       - name: nav_serv
@@ -1880,8 +2106,8 @@ collections:
         widget: string
         required: false
       - name: s_sub
-        label: s_sub  —  «Transfer, esperienze e altri servizi per vive»
-        widget: text
+        label: s_sub  —  «Transfer, esperienze e altri servizi per vivere la Calabria »
+        widget: string
         required: false
       - name: s_info
         label: s_info  —  «Chiedi info»
@@ -1964,7 +2190,7 @@ collections:
         widget: string
         required: false
       - name: nav_rent
-        label: nav_rent  —  «Noleggio»
+        label: nav_rent  —  «Noleggio auto, scooter e bici»
         widget: string
         required: false
       - name: see_exc
@@ -1992,20 +2218,20 @@ collections:
         widget: string
         required: false
       - name: tr_sub
-        label: tr_sub  —  «Dall'aeroporto di Lamezia Terme a Tropea e al»
-        widget: text
+        label: tr_sub  —  «Dall'aeroporto di Lamezia Terme a Tropea e alla Costa degli »
+        widget: string
         required: false
       - name: rent_eyebrow
         label: rent_eyebrow  —  «Noleggio»
         widget: string
         required: false
       - name: rent_title
-        label: rent_title  —  «Noleggio barche, auto e scooter»
+        label: rent_title  —  «Noleggio auto, scooter e bici»
         widget: string
         required: false
       - name: rent_sub
-        label: rent_sub  —  «Gommoni e barche anche senza patente, auto, s»
-        widget: text
+        label: rent_sub  —  «Auto, scooter e bici per muoverti in libertà tra Tropea, Cap»
+        widget: string
         required: false
       - name: pt_houses
         label: pt_houses  —  «Case vacanze a Tropea e Capo Vaticano»
@@ -2020,7 +2246,7 @@ collections:
         widget: string
         required: false
       - name: pt_rental
-        label: pt_rental  —  «Noleggio barche, auto e scooter a Tropea»
+        label: pt_rental  —  «Noleggio auto, scooter e bici a Tropea»
         widget: string
         required: false
       - name: pt_services
@@ -2044,8 +2270,8 @@ collections:
         widget: string
         required: false
       - name: blog_sub
-        label: blog_sub  —  «Cosa vedere, le spiagge più belle, come arriv»
-        widget: text
+        label: blog_sub  —  «Cosa vedere, le spiagge più belle, come arrivare e i sapori »
+        widget: string
         required: false
       - name: read_more
         label: read_more  —  «Leggi l'articolo →»
@@ -2072,11 +2298,171 @@ collections:
         widget: string
         required: false
       - name: post_cta_text
-        label: post_cta_text  —  «Escursioni, case vacanze e transfer dall'aero»
-        widget: text
+        label: 'post_cta_text  —  «Escursioni, case vacanze e transfer dall''aeroporto: scrivici»'
+        widget: string
         required: false
       - name: pt_blog
         label: 'pt_blog  —  «Blog: guide e consigli sulla Calabria»'
+        widget: string
+        required: false
+      - name: nav_hotel
+        label: nav_hotel  —  «Hotel e B&B»
+        widget: string
+        required: false
+      - name: nav_exp
+        label: nav_exp  —  «Guida turistica ed esperienze locali»
+        widget: string
+        required: false
+      - name: nav_boat
+        label: nav_boat  —  «Noleggio nautico»
+        widget: string
+        required: false
+      - name: nav_media
+        label: nav_media  —  «Foto e video»
+        widget: string
+        required: false
+      - name: door1_t
+        label: door1_t  —  «Lezioni di italiano e polacco»
+        widget: string
+        required: false
+      - name: door1_d
+        label: door1_d  —  «Individuali, in piccoli gruppi o online.»
+        widget: string
+        required: false
+      - name: door2_t
+        label: door2_t  —  «Vacanze in Calabria»
+        widget: string
+        required: false
+      - name: door2_d
+        label: door2_d  —  «Case vacanze, escursioni, transfer e noleggi.»
+        widget: string
+        required: false
+      - name: vac_eyebrow
+        label: vac_eyebrow  —  «Vacanze in Calabria»
+        widget: string
+        required: false
+      - name: vac_title
+        label: vac_title  —  «Tutto per la tua vacanza»
+        widget: string
+        required: false
+      - name: vac_sub
+        label: 'vac_sub  —  «Scegli cosa ti serve tra Tropea e Capo Vaticano: dove dormir»'
+        widget: string
+        required: false
+      - name: vt_house
+        label: vt_house  —  «Appartamenti, case e ville al mare»
+        widget: string
+        required: false
+      - name: vt_hotel
+        label: vt_hotel  —  «Hotel e bed & breakfast selezionati»
+        widget: string
+        required: false
+      - name: vt_exc
+        label: vt_exc  —  «Isole Eolie, barca, gommone e tour»
+        widget: string
+        required: false
+      - name: vt_exp
+        label: vt_exp  —  «Visite guidate, cucina, vino e tradizioni»
+        widget: string
+        required: false
+      - name: vt_tr
+        label: vt_tr  —  «Dall'aeroporto di Lamezia, anche di notte»
+        widget: string
+        required: false
+      - name: vt_rent
+        label: vt_rent  —  «Muoviti libero tra spiagge e borghi»
+        widget: string
+        required: false
+      - name: vt_boat
+        label: vt_boat  —  «Barche e gommoni, anche senza patente»
+        widget: string
+        required: false
+      - name: vt_media
+        label: vt_media  —  «Le nostre foto e i video»
+        widget: string
+        required: false
+      - name: hotel_eyebrow
+        label: hotel_eyebrow  —  «Alloggi»
+        widget: string
+        required: false
+      - name: hotel_title
+        label: hotel_title  —  «Hotel e B&B»
+        widget: string
+        required: false
+      - name: hotel_sub
+        label: hotel_sub  —  «Hotel e bed & breakfast selezionati a Tropea e dintorni.»
+        widget: string
+        required: false
+      - name: hotel_empty
+        label: 'hotel_empty  —  «Stiamo selezionando hotel e B&B. Scrivici: ti consigliamo la»'
+        widget: string
+        required: false
+      - name: exp_eyebrow
+        label: exp_eyebrow  —  «Guida turistica»
+        widget: string
+        required: false
+      - name: exp_title
+        label: exp_title  —  «Guida turistica ed esperienze locali»
+        widget: string
+        required: false
+      - name: exp_sub
+        label: exp_sub  —  «Visite guidate in italiano, polacco e inglese ed esperienze »
+        widget: string
+        required: false
+      - name: boat_eyebrow
+        label: boat_eyebrow  —  «Noleggio nautico»
+        widget: string
+        required: false
+      - name: boat_title
+        label: boat_title  —  «Noleggio barche e gommoni»
+        widget: string
+        required: false
+      - name: boat_sub
+        label: boat_sub  —  «Barche e gommoni anche senza patente per scoprire le calette»
+        widget: string
+        required: false
+      - name: pt_hotels
+        label: pt_hotels  —  «Hotel e B&B a Tropea»
+        widget: string
+        required: false
+      - name: pt_exp
+        label: pt_exp  —  «Guida turistica ed esperienze locali a Tropea»
+        widget: string
+        required: false
+      - name: pt_boat
+        label: pt_boat  —  «Noleggio barche e gommoni a Tropea»
+        widget: string
+        required: false
+      - name: pt_media
+        label: pt_media  —  «Foto e video»
+        widget: string
+        required: false
+      - name: back_houses
+        label: back_houses  —  «← Tutte le case vacanze»
+        widget: string
+        required: false
+      - name: back_hotels
+        label: back_hotels  —  «← Tutti gli hotel e B&B»
+        widget: string
+        required: false
+      - name: back_exc
+        label: back_exc  —  «← Tutte le escursioni»
+        widget: string
+        required: false
+      - name: back_exp
+        label: back_exp  —  «← Tutte le esperienze»
+        widget: string
+        required: false
+      - name: see_media
+        label: see_media  —  «Tutte le foto e i video →»
+        widget: string
+        required: false
+      - name: see_exp
+        label: see_exp  —  «Tutte le esperienze →»
+        widget: string
+        required: false
+      - name: also_like
+        label: also_like  —  «Potrebbe interessarti anche»
         widget: string
         required: false
     - name: en
@@ -2113,23 +2499,23 @@ collections:
         widget: string
         required: false
       - name: hero_t1
-        label: hero_t1  —  «Scopri la Calabria»
+        label: hero_t1  —  «Lezioni di italiano e polacco»
         widget: string
         required: false
       - name: hero_t2
-        label: hero_t2  —  «e impara le lingue»
+        label: hero_t2  —  «e vacanze in Calabria»
         widget: string
         required: false
       - name: hero_lead
-        label: hero_lead  —  «Escursioni guidate in italiano, polacco e ing»
-        widget: text
+        label: hero_lead  —  «Impara l'italiano o il polacco con lezioni su misura, e vivi»
+        widget: string
         required: false
       - name: hero_cta1
-        label: hero_cta1  —  «Vedi le escursioni»
+        label: hero_cta1  —  «Lezioni di lingua»
         widget: string
         required: false
       - name: hero_cta2
-        label: hero_cta2  —  «Lezioni di lingua»
+        label: hero_cta2  —  «Vacanze in Calabria»
         widget: string
         required: false
       - name: b1
@@ -2153,12 +2539,12 @@ collections:
         widget: string
         required: false
       - name: about_p1
-        label: about_p1  —  «Sono polacca, mi sono innamorata della Calabr»
-        widget: text
+        label: about_p1  —  «Sono polacca, mi sono innamorata della Calabria e ci vivo st»
+        widget: string
         required: false
       - name: about_p2
-        label: about_p2  —  «Nelle mie escursioni – in italiano, polacco o»
-        widget: text
+        label: about_p2  —  «Nelle mie escursioni – in italiano, polacco o inglese – non »
+        widget: string
         required: false
       - name: exc_eyebrow
         label: exc_eyebrow  —  «Escursioni»
@@ -2169,8 +2555,8 @@ collections:
         widget: string
         required: false
       - name: exc_sub
-        label: exc_sub  —  «Piccoli gruppi, guida in italiano, polacco o »
-        widget: text
+        label: exc_sub  —  «Piccoli gruppi, guida in italiano, polacco o inglese e luogh»
+        widget: string
         required: false
       - name: dur_full
         label: dur_full  —  «Giornata intera»
@@ -2205,15 +2591,15 @@ collections:
         widget: string
         required: false
       - name: les_sub
-        label: les_sub  —  «Lezioni su misura per il tuo livello e obiett»
-        widget: text
+        label: les_sub  —  «Lezioni su misura per il tuo livello e obiettivo – dal vivo »
+        widget: string
         required: false
       - name: it_title
         label: it_title  —  «Lezioni di italiano»
         widget: string
         required: false
       - name: it_sub
-        label: it_sub  —  «Per chi vuole parlare italiano davvero, con t»
+        label: it_sub  —  «Per chi vuole parlare italiano davvero, con tanta conversazi»
         widget: string
         required: false
       - name: pl_title
@@ -2221,7 +2607,7 @@ collections:
         widget: string
         required: false
       - name: pl_sub
-        label: pl_sub  —  «Il polacco spiegato passo dopo passo, senza p»
+        label: pl_sub  —  «Il polacco spiegato passo dopo passo, senza paura della gram»
         widget: string
         required: false
       - name: les_cta
@@ -2241,7 +2627,7 @@ collections:
         widget: string
         required: false
       - name: f2_d
-        label: f2_d  —  «Piccoli gruppi di 3–6 persone, più conversazi»
+        label: f2_d  —  «Piccoli gruppi di 3–6 persone, più conversazione e divertime»
         widget: string
         required: false
       - name: f3_t
@@ -2249,7 +2635,7 @@ collections:
         widget: string
         required: false
       - name: f3_d
-        label: f3_d  —  «Lezioni su Zoom o Google Meet, ovunque tu sia»
+        label: f3_d  —  «Lezioni su Zoom o Google Meet, ovunque tu sia.»
         widget: string
         required: false
       - name: h_eyebrow
@@ -2261,8 +2647,8 @@ collections:
         widget: string
         required: false
       - name: h_sub
-        label: h_sub  —  «Alloggi selezionati per il tuo soggiorno in C»
-        widget: text
+        label: h_sub  —  «Alloggi selezionati per il tuo soggiorno in Calabria. Clicca»
+        widget: string
         required: false
       - name: h_btn
         label: h_btn  —  «Vedi l’offerta»
@@ -2277,8 +2663,8 @@ collections:
         widget: string
         required: false
       - name: gal_sub
-        label: gal_sub  —  «Momenti dalle escursioni e dalle lezioni. Cli»
-        widget: text
+        label: gal_sub  —  «Momenti dalle escursioni e dalle lezioni. Clicca per ingrand»
+        widget: string
         required: false
       - name: g_all
         label: g_all  —  «Tutto»
@@ -2305,8 +2691,8 @@ collections:
         widget: string
         required: false
       - name: con_sub
-        label: con_sub  —  «Hai una domanda su un'escursione o sulle lezi»
-        widget: text
+        label: con_sub  —  «Hai una domanda su un'escursione o sulle lezioni? Ti rispond»
+        widget: string
         required: false
       - name: c_mail
         label: c_mail  —  «E-mail»
@@ -2361,8 +2747,8 @@ collections:
         widget: string
         required: false
       - name: fm_ok
-        label: fm_ok  —  «Grazie! Sto aprendo il tuo programma di posta»
-        widget: text
+        label: fm_ok  —  «Grazie! Sto aprendo il tuo programma di posta. Se non si apr»
+        widget: string
         required: false
       - name: fm_err
         label: fm_err  —  «Inserisci il nome e un'e-mail valida.»
@@ -2389,7 +2775,7 @@ collections:
         widget: string
         required: false
       - name: fm_privacy
-        label: fm_privacy  —  «I dati che invii sono trattati secondo l'info»
+        label: fm_privacy  —  «I dati che invii sono trattati secondo l'informativa privacy»
         widget: string
         required: false
       - name: nav_serv
@@ -2405,8 +2791,8 @@ collections:
         widget: string
         required: false
       - name: s_sub
-        label: s_sub  —  «Transfer, esperienze e altri servizi per vive»
-        widget: text
+        label: s_sub  —  «Transfer, esperienze e altri servizi per vivere la Calabria »
+        widget: string
         required: false
       - name: s_info
         label: s_info  —  «Chiedi info»
@@ -2489,7 +2875,7 @@ collections:
         widget: string
         required: false
       - name: nav_rent
-        label: nav_rent  —  «Noleggio»
+        label: nav_rent  —  «Noleggio auto, scooter e bici»
         widget: string
         required: false
       - name: see_exc
@@ -2517,20 +2903,20 @@ collections:
         widget: string
         required: false
       - name: tr_sub
-        label: tr_sub  —  «Dall'aeroporto di Lamezia Terme a Tropea e al»
-        widget: text
+        label: tr_sub  —  «Dall'aeroporto di Lamezia Terme a Tropea e alla Costa degli »
+        widget: string
         required: false
       - name: rent_eyebrow
         label: rent_eyebrow  —  «Noleggio»
         widget: string
         required: false
       - name: rent_title
-        label: rent_title  —  «Noleggio barche, auto e scooter»
+        label: rent_title  —  «Noleggio auto, scooter e bici»
         widget: string
         required: false
       - name: rent_sub
-        label: rent_sub  —  «Gommoni e barche anche senza patente, auto, s»
-        widget: text
+        label: rent_sub  —  «Auto, scooter e bici per muoverti in libertà tra Tropea, Cap»
+        widget: string
         required: false
       - name: pt_houses
         label: pt_houses  —  «Case vacanze a Tropea e Capo Vaticano»
@@ -2545,7 +2931,7 @@ collections:
         widget: string
         required: false
       - name: pt_rental
-        label: pt_rental  —  «Noleggio barche, auto e scooter a Tropea»
+        label: pt_rental  —  «Noleggio auto, scooter e bici a Tropea»
         widget: string
         required: false
       - name: pt_services
@@ -2569,8 +2955,8 @@ collections:
         widget: string
         required: false
       - name: blog_sub
-        label: blog_sub  —  «Cosa vedere, le spiagge più belle, come arriv»
-        widget: text
+        label: blog_sub  —  «Cosa vedere, le spiagge più belle, come arrivare e i sapori »
+        widget: string
         required: false
       - name: read_more
         label: read_more  —  «Leggi l'articolo →»
@@ -2597,11 +2983,171 @@ collections:
         widget: string
         required: false
       - name: post_cta_text
-        label: post_cta_text  —  «Escursioni, case vacanze e transfer dall'aero»
-        widget: text
+        label: 'post_cta_text  —  «Escursioni, case vacanze e transfer dall''aeroporto: scrivici»'
+        widget: string
         required: false
       - name: pt_blog
         label: 'pt_blog  —  «Blog: guide e consigli sulla Calabria»'
+        widget: string
+        required: false
+      - name: nav_hotel
+        label: nav_hotel  —  «Hotel e B&B»
+        widget: string
+        required: false
+      - name: nav_exp
+        label: nav_exp  —  «Guida turistica ed esperienze locali»
+        widget: string
+        required: false
+      - name: nav_boat
+        label: nav_boat  —  «Noleggio nautico»
+        widget: string
+        required: false
+      - name: nav_media
+        label: nav_media  —  «Foto e video»
+        widget: string
+        required: false
+      - name: door1_t
+        label: door1_t  —  «Lezioni di italiano e polacco»
+        widget: string
+        required: false
+      - name: door1_d
+        label: door1_d  —  «Individuali, in piccoli gruppi o online.»
+        widget: string
+        required: false
+      - name: door2_t
+        label: door2_t  —  «Vacanze in Calabria»
+        widget: string
+        required: false
+      - name: door2_d
+        label: door2_d  —  «Case vacanze, escursioni, transfer e noleggi.»
+        widget: string
+        required: false
+      - name: vac_eyebrow
+        label: vac_eyebrow  —  «Vacanze in Calabria»
+        widget: string
+        required: false
+      - name: vac_title
+        label: vac_title  —  «Tutto per la tua vacanza»
+        widget: string
+        required: false
+      - name: vac_sub
+        label: 'vac_sub  —  «Scegli cosa ti serve tra Tropea e Capo Vaticano: dove dormir»'
+        widget: string
+        required: false
+      - name: vt_house
+        label: vt_house  —  «Appartamenti, case e ville al mare»
+        widget: string
+        required: false
+      - name: vt_hotel
+        label: vt_hotel  —  «Hotel e bed & breakfast selezionati»
+        widget: string
+        required: false
+      - name: vt_exc
+        label: vt_exc  —  «Isole Eolie, barca, gommone e tour»
+        widget: string
+        required: false
+      - name: vt_exp
+        label: vt_exp  —  «Visite guidate, cucina, vino e tradizioni»
+        widget: string
+        required: false
+      - name: vt_tr
+        label: vt_tr  —  «Dall'aeroporto di Lamezia, anche di notte»
+        widget: string
+        required: false
+      - name: vt_rent
+        label: vt_rent  —  «Muoviti libero tra spiagge e borghi»
+        widget: string
+        required: false
+      - name: vt_boat
+        label: vt_boat  —  «Barche e gommoni, anche senza patente»
+        widget: string
+        required: false
+      - name: vt_media
+        label: vt_media  —  «Le nostre foto e i video»
+        widget: string
+        required: false
+      - name: hotel_eyebrow
+        label: hotel_eyebrow  —  «Alloggi»
+        widget: string
+        required: false
+      - name: hotel_title
+        label: hotel_title  —  «Hotel e B&B»
+        widget: string
+        required: false
+      - name: hotel_sub
+        label: hotel_sub  —  «Hotel e bed & breakfast selezionati a Tropea e dintorni.»
+        widget: string
+        required: false
+      - name: hotel_empty
+        label: 'hotel_empty  —  «Stiamo selezionando hotel e B&B. Scrivici: ti consigliamo la»'
+        widget: string
+        required: false
+      - name: exp_eyebrow
+        label: exp_eyebrow  —  «Guida turistica»
+        widget: string
+        required: false
+      - name: exp_title
+        label: exp_title  —  «Guida turistica ed esperienze locali»
+        widget: string
+        required: false
+      - name: exp_sub
+        label: exp_sub  —  «Visite guidate in italiano, polacco e inglese ed esperienze »
+        widget: string
+        required: false
+      - name: boat_eyebrow
+        label: boat_eyebrow  —  «Noleggio nautico»
+        widget: string
+        required: false
+      - name: boat_title
+        label: boat_title  —  «Noleggio barche e gommoni»
+        widget: string
+        required: false
+      - name: boat_sub
+        label: boat_sub  —  «Barche e gommoni anche senza patente per scoprire le calette»
+        widget: string
+        required: false
+      - name: pt_hotels
+        label: pt_hotels  —  «Hotel e B&B a Tropea»
+        widget: string
+        required: false
+      - name: pt_exp
+        label: pt_exp  —  «Guida turistica ed esperienze locali a Tropea»
+        widget: string
+        required: false
+      - name: pt_boat
+        label: pt_boat  —  «Noleggio barche e gommoni a Tropea»
+        widget: string
+        required: false
+      - name: pt_media
+        label: pt_media  —  «Foto e video»
+        widget: string
+        required: false
+      - name: back_houses
+        label: back_houses  —  «← Tutte le case vacanze»
+        widget: string
+        required: false
+      - name: back_hotels
+        label: back_hotels  —  «← Tutti gli hotel e B&B»
+        widget: string
+        required: false
+      - name: back_exc
+        label: back_exc  —  «← Tutte le escursioni»
+        widget: string
+        required: false
+      - name: back_exp
+        label: back_exp  —  «← Tutte le esperienze»
+        widget: string
+        required: false
+      - name: see_media
+        label: see_media  —  «Tutte le foto e i video →»
+        widget: string
+        required: false
+      - name: see_exp
+        label: see_exp  —  «Tutte le esperienze →»
+        widget: string
+        required: false
+      - name: also_like
+        label: also_like  —  «Potrebbe interessarti anche»
         widget: string
         required: false
     - name: pl
@@ -2638,23 +3184,23 @@ collections:
         widget: string
         required: false
       - name: hero_t1
-        label: hero_t1  —  «Scopri la Calabria»
+        label: hero_t1  —  «Lezioni di italiano e polacco»
         widget: string
         required: false
       - name: hero_t2
-        label: hero_t2  —  «e impara le lingue»
+        label: hero_t2  —  «e vacanze in Calabria»
         widget: string
         required: false
       - name: hero_lead
-        label: hero_lead  —  «Escursioni guidate in italiano, polacco e ing»
-        widget: text
+        label: hero_lead  —  «Impara l'italiano o il polacco con lezioni su misura, e vivi»
+        widget: string
         required: false
       - name: hero_cta1
-        label: hero_cta1  —  «Vedi le escursioni»
+        label: hero_cta1  —  «Lezioni di lingua»
         widget: string
         required: false
       - name: hero_cta2
-        label: hero_cta2  —  «Lezioni di lingua»
+        label: hero_cta2  —  «Vacanze in Calabria»
         widget: string
         required: false
       - name: b1
@@ -2678,12 +3224,12 @@ collections:
         widget: string
         required: false
       - name: about_p1
-        label: about_p1  —  «Sono polacca, mi sono innamorata della Calabr»
-        widget: text
+        label: about_p1  —  «Sono polacca, mi sono innamorata della Calabria e ci vivo st»
+        widget: string
         required: false
       - name: about_p2
-        label: about_p2  —  «Nelle mie escursioni – in italiano, polacco o»
-        widget: text
+        label: about_p2  —  «Nelle mie escursioni – in italiano, polacco o inglese – non »
+        widget: string
         required: false
       - name: exc_eyebrow
         label: exc_eyebrow  —  «Escursioni»
@@ -2694,8 +3240,8 @@ collections:
         widget: string
         required: false
       - name: exc_sub
-        label: exc_sub  —  «Piccoli gruppi, guida in italiano, polacco o »
-        widget: text
+        label: exc_sub  —  «Piccoli gruppi, guida in italiano, polacco o inglese e luogh»
+        widget: string
         required: false
       - name: dur_full
         label: dur_full  —  «Giornata intera»
@@ -2730,15 +3276,15 @@ collections:
         widget: string
         required: false
       - name: les_sub
-        label: les_sub  —  «Lezioni su misura per il tuo livello e obiett»
-        widget: text
+        label: les_sub  —  «Lezioni su misura per il tuo livello e obiettivo – dal vivo »
+        widget: string
         required: false
       - name: it_title
         label: it_title  —  «Lezioni di italiano»
         widget: string
         required: false
       - name: it_sub
-        label: it_sub  —  «Per chi vuole parlare italiano davvero, con t»
+        label: it_sub  —  «Per chi vuole parlare italiano davvero, con tanta conversazi»
         widget: string
         required: false
       - name: pl_title
@@ -2746,7 +3292,7 @@ collections:
         widget: string
         required: false
       - name: pl_sub
-        label: pl_sub  —  «Il polacco spiegato passo dopo passo, senza p»
+        label: pl_sub  —  «Il polacco spiegato passo dopo passo, senza paura della gram»
         widget: string
         required: false
       - name: les_cta
@@ -2766,7 +3312,7 @@ collections:
         widget: string
         required: false
       - name: f2_d
-        label: f2_d  —  «Piccoli gruppi di 3–6 persone, più conversazi»
+        label: f2_d  —  «Piccoli gruppi di 3–6 persone, più conversazione e divertime»
         widget: string
         required: false
       - name: f3_t
@@ -2774,7 +3320,7 @@ collections:
         widget: string
         required: false
       - name: f3_d
-        label: f3_d  —  «Lezioni su Zoom o Google Meet, ovunque tu sia»
+        label: f3_d  —  «Lezioni su Zoom o Google Meet, ovunque tu sia.»
         widget: string
         required: false
       - name: h_eyebrow
@@ -2786,8 +3332,8 @@ collections:
         widget: string
         required: false
       - name: h_sub
-        label: h_sub  —  «Alloggi selezionati per il tuo soggiorno in C»
-        widget: text
+        label: h_sub  —  «Alloggi selezionati per il tuo soggiorno in Calabria. Clicca»
+        widget: string
         required: false
       - name: h_btn
         label: h_btn  —  «Vedi l’offerta»
@@ -2802,8 +3348,8 @@ collections:
         widget: string
         required: false
       - name: gal_sub
-        label: gal_sub  —  «Momenti dalle escursioni e dalle lezioni. Cli»
-        widget: text
+        label: gal_sub  —  «Momenti dalle escursioni e dalle lezioni. Clicca per ingrand»
+        widget: string
         required: false
       - name: g_all
         label: g_all  —  «Tutto»
@@ -2830,8 +3376,8 @@ collections:
         widget: string
         required: false
       - name: con_sub
-        label: con_sub  —  «Hai una domanda su un'escursione o sulle lezi»
-        widget: text
+        label: con_sub  —  «Hai una domanda su un'escursione o sulle lezioni? Ti rispond»
+        widget: string
         required: false
       - name: c_mail
         label: c_mail  —  «E-mail»
@@ -2886,8 +3432,8 @@ collections:
         widget: string
         required: false
       - name: fm_ok
-        label: fm_ok  —  «Grazie! Sto aprendo il tuo programma di posta»
-        widget: text
+        label: fm_ok  —  «Grazie! Sto aprendo il tuo programma di posta. Se non si apr»
+        widget: string
         required: false
       - name: fm_err
         label: fm_err  —  «Inserisci il nome e un'e-mail valida.»
@@ -2914,7 +3460,7 @@ collections:
         widget: string
         required: false
       - name: fm_privacy
-        label: fm_privacy  —  «I dati che invii sono trattati secondo l'info»
+        label: fm_privacy  —  «I dati che invii sono trattati secondo l'informativa privacy»
         widget: string
         required: false
       - name: nav_serv
@@ -2930,8 +3476,8 @@ collections:
         widget: string
         required: false
       - name: s_sub
-        label: s_sub  —  «Transfer, esperienze e altri servizi per vive»
-        widget: text
+        label: s_sub  —  «Transfer, esperienze e altri servizi per vivere la Calabria »
+        widget: string
         required: false
       - name: s_info
         label: s_info  —  «Chiedi info»
@@ -3014,7 +3560,7 @@ collections:
         widget: string
         required: false
       - name: nav_rent
-        label: nav_rent  —  «Noleggio»
+        label: nav_rent  —  «Noleggio auto, scooter e bici»
         widget: string
         required: false
       - name: see_exc
@@ -3042,20 +3588,20 @@ collections:
         widget: string
         required: false
       - name: tr_sub
-        label: tr_sub  —  «Dall'aeroporto di Lamezia Terme a Tropea e al»
-        widget: text
+        label: tr_sub  —  «Dall'aeroporto di Lamezia Terme a Tropea e alla Costa degli »
+        widget: string
         required: false
       - name: rent_eyebrow
         label: rent_eyebrow  —  «Noleggio»
         widget: string
         required: false
       - name: rent_title
-        label: rent_title  —  «Noleggio barche, auto e scooter»
+        label: rent_title  —  «Noleggio auto, scooter e bici»
         widget: string
         required: false
       - name: rent_sub
-        label: rent_sub  —  «Gommoni e barche anche senza patente, auto, s»
-        widget: text
+        label: rent_sub  —  «Auto, scooter e bici per muoverti in libertà tra Tropea, Cap»
+        widget: string
         required: false
       - name: pt_houses
         label: pt_houses  —  «Case vacanze a Tropea e Capo Vaticano»
@@ -3070,7 +3616,7 @@ collections:
         widget: string
         required: false
       - name: pt_rental
-        label: pt_rental  —  «Noleggio barche, auto e scooter a Tropea»
+        label: pt_rental  —  «Noleggio auto, scooter e bici a Tropea»
         widget: string
         required: false
       - name: pt_services
@@ -3094,8 +3640,8 @@ collections:
         widget: string
         required: false
       - name: blog_sub
-        label: blog_sub  —  «Cosa vedere, le spiagge più belle, come arriv»
-        widget: text
+        label: blog_sub  —  «Cosa vedere, le spiagge più belle, come arrivare e i sapori »
+        widget: string
         required: false
       - name: read_more
         label: read_more  —  «Leggi l'articolo →»
@@ -3122,11 +3668,171 @@ collections:
         widget: string
         required: false
       - name: post_cta_text
-        label: post_cta_text  —  «Escursioni, case vacanze e transfer dall'aero»
-        widget: text
+        label: 'post_cta_text  —  «Escursioni, case vacanze e transfer dall''aeroporto: scrivici»'
+        widget: string
         required: false
       - name: pt_blog
         label: 'pt_blog  —  «Blog: guide e consigli sulla Calabria»'
+        widget: string
+        required: false
+      - name: nav_hotel
+        label: nav_hotel  —  «Hotel e B&B»
+        widget: string
+        required: false
+      - name: nav_exp
+        label: nav_exp  —  «Guida turistica ed esperienze locali»
+        widget: string
+        required: false
+      - name: nav_boat
+        label: nav_boat  —  «Noleggio nautico»
+        widget: string
+        required: false
+      - name: nav_media
+        label: nav_media  —  «Foto e video»
+        widget: string
+        required: false
+      - name: door1_t
+        label: door1_t  —  «Lezioni di italiano e polacco»
+        widget: string
+        required: false
+      - name: door1_d
+        label: door1_d  —  «Individuali, in piccoli gruppi o online.»
+        widget: string
+        required: false
+      - name: door2_t
+        label: door2_t  —  «Vacanze in Calabria»
+        widget: string
+        required: false
+      - name: door2_d
+        label: door2_d  —  «Case vacanze, escursioni, transfer e noleggi.»
+        widget: string
+        required: false
+      - name: vac_eyebrow
+        label: vac_eyebrow  —  «Vacanze in Calabria»
+        widget: string
+        required: false
+      - name: vac_title
+        label: vac_title  —  «Tutto per la tua vacanza»
+        widget: string
+        required: false
+      - name: vac_sub
+        label: 'vac_sub  —  «Scegli cosa ti serve tra Tropea e Capo Vaticano: dove dormir»'
+        widget: string
+        required: false
+      - name: vt_house
+        label: vt_house  —  «Appartamenti, case e ville al mare»
+        widget: string
+        required: false
+      - name: vt_hotel
+        label: vt_hotel  —  «Hotel e bed & breakfast selezionati»
+        widget: string
+        required: false
+      - name: vt_exc
+        label: vt_exc  —  «Isole Eolie, barca, gommone e tour»
+        widget: string
+        required: false
+      - name: vt_exp
+        label: vt_exp  —  «Visite guidate, cucina, vino e tradizioni»
+        widget: string
+        required: false
+      - name: vt_tr
+        label: vt_tr  —  «Dall'aeroporto di Lamezia, anche di notte»
+        widget: string
+        required: false
+      - name: vt_rent
+        label: vt_rent  —  «Muoviti libero tra spiagge e borghi»
+        widget: string
+        required: false
+      - name: vt_boat
+        label: vt_boat  —  «Barche e gommoni, anche senza patente»
+        widget: string
+        required: false
+      - name: vt_media
+        label: vt_media  —  «Le nostre foto e i video»
+        widget: string
+        required: false
+      - name: hotel_eyebrow
+        label: hotel_eyebrow  —  «Alloggi»
+        widget: string
+        required: false
+      - name: hotel_title
+        label: hotel_title  —  «Hotel e B&B»
+        widget: string
+        required: false
+      - name: hotel_sub
+        label: hotel_sub  —  «Hotel e bed & breakfast selezionati a Tropea e dintorni.»
+        widget: string
+        required: false
+      - name: hotel_empty
+        label: 'hotel_empty  —  «Stiamo selezionando hotel e B&B. Scrivici: ti consigliamo la»'
+        widget: string
+        required: false
+      - name: exp_eyebrow
+        label: exp_eyebrow  —  «Guida turistica»
+        widget: string
+        required: false
+      - name: exp_title
+        label: exp_title  —  «Guida turistica ed esperienze locali»
+        widget: string
+        required: false
+      - name: exp_sub
+        label: exp_sub  —  «Visite guidate in italiano, polacco e inglese ed esperienze »
+        widget: string
+        required: false
+      - name: boat_eyebrow
+        label: boat_eyebrow  —  «Noleggio nautico»
+        widget: string
+        required: false
+      - name: boat_title
+        label: boat_title  —  «Noleggio barche e gommoni»
+        widget: string
+        required: false
+      - name: boat_sub
+        label: boat_sub  —  «Barche e gommoni anche senza patente per scoprire le calette»
+        widget: string
+        required: false
+      - name: pt_hotels
+        label: pt_hotels  —  «Hotel e B&B a Tropea»
+        widget: string
+        required: false
+      - name: pt_exp
+        label: pt_exp  —  «Guida turistica ed esperienze locali a Tropea»
+        widget: string
+        required: false
+      - name: pt_boat
+        label: pt_boat  —  «Noleggio barche e gommoni a Tropea»
+        widget: string
+        required: false
+      - name: pt_media
+        label: pt_media  —  «Foto e video»
+        widget: string
+        required: false
+      - name: back_houses
+        label: back_houses  —  «← Tutte le case vacanze»
+        widget: string
+        required: false
+      - name: back_hotels
+        label: back_hotels  —  «← Tutti gli hotel e B&B»
+        widget: string
+        required: false
+      - name: back_exc
+        label: back_exc  —  «← Tutte le escursioni»
+        widget: string
+        required: false
+      - name: back_exp
+        label: back_exp  —  «← Tutte le esperienze»
+        widget: string
+        required: false
+      - name: see_media
+        label: see_media  —  «Tutte le foto e i video →»
+        widget: string
+        required: false
+      - name: see_exp
+        label: see_exp  —  «Tutte le esperienze →»
+        widget: string
+        required: false
+      - name: also_like
+        label: also_like  —  «Potrebbe interessarti anche»
         widget: string
         required: false
     - name: es
@@ -3163,23 +3869,23 @@ collections:
         widget: string
         required: false
       - name: hero_t1
-        label: hero_t1  —  «Scopri la Calabria»
+        label: hero_t1  —  «Lezioni di italiano e polacco»
         widget: string
         required: false
       - name: hero_t2
-        label: hero_t2  —  «e impara le lingue»
+        label: hero_t2  —  «e vacanze in Calabria»
         widget: string
         required: false
       - name: hero_lead
-        label: hero_lead  —  «Escursioni guidate in italiano, polacco e ing»
-        widget: text
+        label: hero_lead  —  «Impara l'italiano o il polacco con lezioni su misura, e vivi»
+        widget: string
         required: false
       - name: hero_cta1
-        label: hero_cta1  —  «Vedi le escursioni»
+        label: hero_cta1  —  «Lezioni di lingua»
         widget: string
         required: false
       - name: hero_cta2
-        label: hero_cta2  —  «Lezioni di lingua»
+        label: hero_cta2  —  «Vacanze in Calabria»
         widget: string
         required: false
       - name: b1
@@ -3203,12 +3909,12 @@ collections:
         widget: string
         required: false
       - name: about_p1
-        label: about_p1  —  «Sono polacca, mi sono innamorata della Calabr»
-        widget: text
+        label: about_p1  —  «Sono polacca, mi sono innamorata della Calabria e ci vivo st»
+        widget: string
         required: false
       - name: about_p2
-        label: about_p2  —  «Nelle mie escursioni – in italiano, polacco o»
-        widget: text
+        label: about_p2  —  «Nelle mie escursioni – in italiano, polacco o inglese – non »
+        widget: string
         required: false
       - name: exc_eyebrow
         label: exc_eyebrow  —  «Escursioni»
@@ -3219,8 +3925,8 @@ collections:
         widget: string
         required: false
       - name: exc_sub
-        label: exc_sub  —  «Piccoli gruppi, guida in italiano, polacco o »
-        widget: text
+        label: exc_sub  —  «Piccoli gruppi, guida in italiano, polacco o inglese e luogh»
+        widget: string
         required: false
       - name: dur_full
         label: dur_full  —  «Giornata intera»
@@ -3255,15 +3961,15 @@ collections:
         widget: string
         required: false
       - name: les_sub
-        label: les_sub  —  «Lezioni su misura per il tuo livello e obiett»
-        widget: text
+        label: les_sub  —  «Lezioni su misura per il tuo livello e obiettivo – dal vivo »
+        widget: string
         required: false
       - name: it_title
         label: it_title  —  «Lezioni di italiano»
         widget: string
         required: false
       - name: it_sub
-        label: it_sub  —  «Per chi vuole parlare italiano davvero, con t»
+        label: it_sub  —  «Per chi vuole parlare italiano davvero, con tanta conversazi»
         widget: string
         required: false
       - name: pl_title
@@ -3271,7 +3977,7 @@ collections:
         widget: string
         required: false
       - name: pl_sub
-        label: pl_sub  —  «Il polacco spiegato passo dopo passo, senza p»
+        label: pl_sub  —  «Il polacco spiegato passo dopo passo, senza paura della gram»
         widget: string
         required: false
       - name: les_cta
@@ -3291,7 +3997,7 @@ collections:
         widget: string
         required: false
       - name: f2_d
-        label: f2_d  —  «Piccoli gruppi di 3–6 persone, più conversazi»
+        label: f2_d  —  «Piccoli gruppi di 3–6 persone, più conversazione e divertime»
         widget: string
         required: false
       - name: f3_t
@@ -3299,7 +4005,7 @@ collections:
         widget: string
         required: false
       - name: f3_d
-        label: f3_d  —  «Lezioni su Zoom o Google Meet, ovunque tu sia»
+        label: f3_d  —  «Lezioni su Zoom o Google Meet, ovunque tu sia.»
         widget: string
         required: false
       - name: h_eyebrow
@@ -3311,8 +4017,8 @@ collections:
         widget: string
         required: false
       - name: h_sub
-        label: h_sub  —  «Alloggi selezionati per il tuo soggiorno in C»
-        widget: text
+        label: h_sub  —  «Alloggi selezionati per il tuo soggiorno in Calabria. Clicca»
+        widget: string
         required: false
       - name: h_btn
         label: h_btn  —  «Vedi l’offerta»
@@ -3327,8 +4033,8 @@ collections:
         widget: string
         required: false
       - name: gal_sub
-        label: gal_sub  —  «Momenti dalle escursioni e dalle lezioni. Cli»
-        widget: text
+        label: gal_sub  —  «Momenti dalle escursioni e dalle lezioni. Clicca per ingrand»
+        widget: string
         required: false
       - name: g_all
         label: g_all  —  «Tutto»
@@ -3355,8 +4061,8 @@ collections:
         widget: string
         required: false
       - name: con_sub
-        label: con_sub  —  «Hai una domanda su un'escursione o sulle lezi»
-        widget: text
+        label: con_sub  —  «Hai una domanda su un'escursione o sulle lezioni? Ti rispond»
+        widget: string
         required: false
       - name: c_mail
         label: c_mail  —  «E-mail»
@@ -3411,8 +4117,8 @@ collections:
         widget: string
         required: false
       - name: fm_ok
-        label: fm_ok  —  «Grazie! Sto aprendo il tuo programma di posta»
-        widget: text
+        label: fm_ok  —  «Grazie! Sto aprendo il tuo programma di posta. Se non si apr»
+        widget: string
         required: false
       - name: fm_err
         label: fm_err  —  «Inserisci il nome e un'e-mail valida.»
@@ -3439,7 +4145,7 @@ collections:
         widget: string
         required: false
       - name: fm_privacy
-        label: fm_privacy  —  «I dati che invii sono trattati secondo l'info»
+        label: fm_privacy  —  «I dati che invii sono trattati secondo l'informativa privacy»
         widget: string
         required: false
       - name: nav_serv
@@ -3455,8 +4161,8 @@ collections:
         widget: string
         required: false
       - name: s_sub
-        label: s_sub  —  «Transfer, esperienze e altri servizi per vive»
-        widget: text
+        label: s_sub  —  «Transfer, esperienze e altri servizi per vivere la Calabria »
+        widget: string
         required: false
       - name: s_info
         label: s_info  —  «Chiedi info»
@@ -3539,7 +4245,7 @@ collections:
         widget: string
         required: false
       - name: nav_rent
-        label: nav_rent  —  «Noleggio»
+        label: nav_rent  —  «Noleggio auto, scooter e bici»
         widget: string
         required: false
       - name: see_exc
@@ -3567,20 +4273,20 @@ collections:
         widget: string
         required: false
       - name: tr_sub
-        label: tr_sub  —  «Dall'aeroporto di Lamezia Terme a Tropea e al»
-        widget: text
+        label: tr_sub  —  «Dall'aeroporto di Lamezia Terme a Tropea e alla Costa degli »
+        widget: string
         required: false
       - name: rent_eyebrow
         label: rent_eyebrow  —  «Noleggio»
         widget: string
         required: false
       - name: rent_title
-        label: rent_title  —  «Noleggio barche, auto e scooter»
+        label: rent_title  —  «Noleggio auto, scooter e bici»
         widget: string
         required: false
       - name: rent_sub
-        label: rent_sub  —  «Gommoni e barche anche senza patente, auto, s»
-        widget: text
+        label: rent_sub  —  «Auto, scooter e bici per muoverti in libertà tra Tropea, Cap»
+        widget: string
         required: false
       - name: pt_houses
         label: pt_houses  —  «Case vacanze a Tropea e Capo Vaticano»
@@ -3595,7 +4301,7 @@ collections:
         widget: string
         required: false
       - name: pt_rental
-        label: pt_rental  —  «Noleggio barche, auto e scooter a Tropea»
+        label: pt_rental  —  «Noleggio auto, scooter e bici a Tropea»
         widget: string
         required: false
       - name: pt_services
@@ -3619,8 +4325,8 @@ collections:
         widget: string
         required: false
       - name: blog_sub
-        label: blog_sub  —  «Cosa vedere, le spiagge più belle, come arriv»
-        widget: text
+        label: blog_sub  —  «Cosa vedere, le spiagge più belle, come arrivare e i sapori »
+        widget: string
         required: false
       - name: read_more
         label: read_more  —  «Leggi l'articolo →»
@@ -3647,11 +4353,171 @@ collections:
         widget: string
         required: false
       - name: post_cta_text
-        label: post_cta_text  —  «Escursioni, case vacanze e transfer dall'aero»
-        widget: text
+        label: 'post_cta_text  —  «Escursioni, case vacanze e transfer dall''aeroporto: scrivici»'
+        widget: string
         required: false
       - name: pt_blog
         label: 'pt_blog  —  «Blog: guide e consigli sulla Calabria»'
+        widget: string
+        required: false
+      - name: nav_hotel
+        label: nav_hotel  —  «Hotel e B&B»
+        widget: string
+        required: false
+      - name: nav_exp
+        label: nav_exp  —  «Guida turistica ed esperienze locali»
+        widget: string
+        required: false
+      - name: nav_boat
+        label: nav_boat  —  «Noleggio nautico»
+        widget: string
+        required: false
+      - name: nav_media
+        label: nav_media  —  «Foto e video»
+        widget: string
+        required: false
+      - name: door1_t
+        label: door1_t  —  «Lezioni di italiano e polacco»
+        widget: string
+        required: false
+      - name: door1_d
+        label: door1_d  —  «Individuali, in piccoli gruppi o online.»
+        widget: string
+        required: false
+      - name: door2_t
+        label: door2_t  —  «Vacanze in Calabria»
+        widget: string
+        required: false
+      - name: door2_d
+        label: door2_d  —  «Case vacanze, escursioni, transfer e noleggi.»
+        widget: string
+        required: false
+      - name: vac_eyebrow
+        label: vac_eyebrow  —  «Vacanze in Calabria»
+        widget: string
+        required: false
+      - name: vac_title
+        label: vac_title  —  «Tutto per la tua vacanza»
+        widget: string
+        required: false
+      - name: vac_sub
+        label: 'vac_sub  —  «Scegli cosa ti serve tra Tropea e Capo Vaticano: dove dormir»'
+        widget: string
+        required: false
+      - name: vt_house
+        label: vt_house  —  «Appartamenti, case e ville al mare»
+        widget: string
+        required: false
+      - name: vt_hotel
+        label: vt_hotel  —  «Hotel e bed & breakfast selezionati»
+        widget: string
+        required: false
+      - name: vt_exc
+        label: vt_exc  —  «Isole Eolie, barca, gommone e tour»
+        widget: string
+        required: false
+      - name: vt_exp
+        label: vt_exp  —  «Visite guidate, cucina, vino e tradizioni»
+        widget: string
+        required: false
+      - name: vt_tr
+        label: vt_tr  —  «Dall'aeroporto di Lamezia, anche di notte»
+        widget: string
+        required: false
+      - name: vt_rent
+        label: vt_rent  —  «Muoviti libero tra spiagge e borghi»
+        widget: string
+        required: false
+      - name: vt_boat
+        label: vt_boat  —  «Barche e gommoni, anche senza patente»
+        widget: string
+        required: false
+      - name: vt_media
+        label: vt_media  —  «Le nostre foto e i video»
+        widget: string
+        required: false
+      - name: hotel_eyebrow
+        label: hotel_eyebrow  —  «Alloggi»
+        widget: string
+        required: false
+      - name: hotel_title
+        label: hotel_title  —  «Hotel e B&B»
+        widget: string
+        required: false
+      - name: hotel_sub
+        label: hotel_sub  —  «Hotel e bed & breakfast selezionati a Tropea e dintorni.»
+        widget: string
+        required: false
+      - name: hotel_empty
+        label: 'hotel_empty  —  «Stiamo selezionando hotel e B&B. Scrivici: ti consigliamo la»'
+        widget: string
+        required: false
+      - name: exp_eyebrow
+        label: exp_eyebrow  —  «Guida turistica»
+        widget: string
+        required: false
+      - name: exp_title
+        label: exp_title  —  «Guida turistica ed esperienze locali»
+        widget: string
+        required: false
+      - name: exp_sub
+        label: exp_sub  —  «Visite guidate in italiano, polacco e inglese ed esperienze »
+        widget: string
+        required: false
+      - name: boat_eyebrow
+        label: boat_eyebrow  —  «Noleggio nautico»
+        widget: string
+        required: false
+      - name: boat_title
+        label: boat_title  —  «Noleggio barche e gommoni»
+        widget: string
+        required: false
+      - name: boat_sub
+        label: boat_sub  —  «Barche e gommoni anche senza patente per scoprire le calette»
+        widget: string
+        required: false
+      - name: pt_hotels
+        label: pt_hotels  —  «Hotel e B&B a Tropea»
+        widget: string
+        required: false
+      - name: pt_exp
+        label: pt_exp  —  «Guida turistica ed esperienze locali a Tropea»
+        widget: string
+        required: false
+      - name: pt_boat
+        label: pt_boat  —  «Noleggio barche e gommoni a Tropea»
+        widget: string
+        required: false
+      - name: pt_media
+        label: pt_media  —  «Foto e video»
+        widget: string
+        required: false
+      - name: back_houses
+        label: back_houses  —  «← Tutte le case vacanze»
+        widget: string
+        required: false
+      - name: back_hotels
+        label: back_hotels  —  «← Tutti gli hotel e B&B»
+        widget: string
+        required: false
+      - name: back_exc
+        label: back_exc  —  «← Tutte le escursioni»
+        widget: string
+        required: false
+      - name: back_exp
+        label: back_exp  —  «← Tutte le esperienze»
+        widget: string
+        required: false
+      - name: see_media
+        label: see_media  —  «Tutte le foto e i video →»
+        widget: string
+        required: false
+      - name: see_exp
+        label: see_exp  —  «Tutte le esperienze →»
+        widget: string
+        required: false
+      - name: also_like
+        label: also_like  —  «Potrebbe interessarti anche»
         widget: string
         required: false
 publish_mode: editorial_workflow

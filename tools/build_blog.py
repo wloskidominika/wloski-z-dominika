@@ -16,7 +16,8 @@ FLAGS = {"it": "🇮🇹", "de": "🇩🇪", "en": "🇬🇧", "pl": "🇵🇱",
 MONTHS = {"it": "gen feb mar apr mag giu lug ago set ott nov dic", "de": "Jan Feb Mär Apr Mai Jun Jul Aug Sep Okt Nov Dez",
           "en": "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec", "pl": "sty lut mar kwi maj cze lip sie wrz paź lis gru",
           "es": "ene feb mar abr may jun jul ago sep oct nov dic"}
-STATIC_PAGES = ["", "escursioni.html", "case-vacanze.html", "transfer.html", "noleggio.html", "servizi.html", "blog.html", "privacy.html"]
+STATIC_PAGES = ["", "case-vacanze.html", "hotel-bb.html", "escursioni.html", "esperienze.html", "transfer.html", "noleggio.html",
+                "noleggio-nautico.html", "foto-e-video.html", "servizi.html", "blog.html", "privacy.html"]
 
 def esc(s): return html.escape(str(s or ""), quote=True)
 
@@ -161,6 +162,10 @@ def main():
     # ---- sitemap ----
     today = datetime.date.today().isoformat()
     urls = [f"  <url><loc>{DOMAIN}/{u}</loc><lastmod>{today}</lastmod></url>" for u in STATIC_PAGES]
+    try: sl = json.load(open(os.path.join(ROOT, "content", "slugs.json"), encoding="utf-8"))
+    except Exception: sl = {}
+    urls += [f"  <url><loc>{DOMAIN}/casa/{x}.html</loc><lastmod>{today}</lastmod></url>" for x in sl.get("houses", [])]
+    urls += [f"  <url><loc>{DOMAIN}/escursione/{x}.html</loc><lastmod>{today}</lastmod></url>" for x in sl.get("excursions", [])]
     urls += [f"  <url><loc>{DOMAIN}/blog/{p['slug']}.html</loc><lastmod>{p['date']}</lastmod></url>" for p in posts]
     open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8").write(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "\n".join(urls) + "\n</urlset>\n")

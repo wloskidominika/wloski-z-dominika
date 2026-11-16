@@ -10,7 +10,7 @@
    ===================================================================== */
 const LANGS = ["it","de","en","pl","es"];
 const ROOT = window.SITE_ROOT || "";
-let SITE = {}, T = {}, GUIDE_LANGS = "";
+let SITE = {}, T = {}, GUIDE_LANGS = "", SLUGS = {};
 function fixPaths(o){
   if (typeof o === "string") return /^\/(?!\/)[\w.-]+(\/|$)/.test(o) ? ROOT + o.slice(1) : o;
   if (Array.isArray(o)) return o.map(fixPaths);
@@ -19,7 +19,8 @@ function fixPaths(o){
 }
 async function loadContent(){
   const get = n => fetch(ROOT + "content/" + n + "?v=" + Date.now()).then(r => r.json());
-  const [st, ex, le, ho, ga, tx, sv] = await Promise.all(["settings.json","excursions.json","lessons.json","houses.json","gallery.json","texts.json","services.json"].map(n => get(n).catch(() => ({}))));
+  const [st, ex, le, ho, ga, tx, sv, sl] = await Promise.all(["settings.json","excursions.json","lessons.json","houses.json","gallery.json","texts.json","services.json","slugs.json"].map(n => get(n).catch(() => ({}))));
+  SLUGS = sl || {};
   SITE = { contact: st.contact, socials: st.socials || [], excursions: ex.items || [], lessonsIT: le.italian, lessonsPL: le.polish, houses: ho.items || [], gallery: ga.items || [], services: sv.items || [] };
   GUIDE_LANGS = st.guide_langs || ""; T = tx;
   SITE = fixPaths(SITE);
@@ -40,17 +41,26 @@ async function loadLook(){
   setSlot(".about-photo .media-slot", LOOK.about_img);
   if (LOOK.icon) document.querySelectorAll(".brand img").forEach(i => i.src = LOOK.icon);
   if (LOOK.badge) document.querySelectorAll(".about-photo > img").forEach(i => i.src = LOOK.badge);
+  const tl = LOOK.tiles || {};
+  for (const k in tl) if (tl[k]) setSlot('[data-tile="' + k + '"] .media-slot', tl[k]);
   const hs = LOOK.home_sections || {};
   if (PAGE === "home") for (const id in hs) if (hs[id] === false) { const el = document.getElementById(id); if (el) el.style.display = "none"; }
   const mn = LOOK.menu || {};
-  document.querySelectorAll(".menu a[data-i], .f-links a[data-i]").forEach(a => { if (mn[a.dataset.i] === false) (a.closest("li") || a).style.display = "none"; });
+  document.querySelectorAll(".menu a[data-i], .f-links a[data-i], .nav-right a[data-i]").forEach(a => { if (mn[a.dataset.i] === false) (a.closest("li") || a).style.display = "none"; });
   const hc = LOOK.home_counts || {};
   if (hc.exc) HOME_MAX.exc = +hc.exc; if (hc.house) HOME_MAX.house = +hc.house; if (hc.serv) HOME_MAX.serv = +hc.serv;
 }
 
 /* ===================== Logika strony / Logica ===================== */
 const PAGE = document.body.dataset.page || "home";
-const HOME_MAX = { exc: 6, house: 6, serv: 3 };
+const HOME_MAX = { exc: 6, house: 6, serv: 3, gal: 8 };
+const HOTEL_TYPES = ["hotel","bnb"];
+/* quali elementi mostra ogni pagina */
+const isHotel = h => HOTEL_TYPES.includes(h.type);
+function housesForPage(){ const all=SITE.houses||[]; return (PAGE==="hotels"||PAGE==="hotel") ? all.filter(isHotel) : all.filter(h=>!isHotel(h)); }
+function excForPage(){ const all=SITE.excursions||[]; return (PAGE==="exp"||PAGE==="expd") ? all.filter(x=>x.kind==="exp") : all.filter(x=>x.kind!=="exp"); }
+const houseUrl = i => (SLUGS.houses||[])[i] ? ROOT + "casa/" + SLUGS.houses[i] + ".html" : "";
+const excUrl = i => (SLUGS.excursions||[])[i] ? ROOT + "escursione/" + SLUGS.excursions[i] + ".html" : "";
 let lang = "it";
 try { const b=(navigator.language||"it").slice(0,2); lang = localStorage.getItem("wzd-lang") || (LANGS.includes(b)?b:"it"); } catch(e){}
 if (!LANGS.includes(lang)) lang = "it";
@@ -77,21 +87,22 @@ let eFilter="all";
 const durTxt = x => L(x.dur_text) || (x.dur ? t("dur_"+x.dur) : "");
 function renderExcursions(){
   if(!document.getElementById("excList")) return;
-  const areas=[...new Set(SITE.excursions.map(x=>x.area).filter(Boolean))];
+  const list=excForPage();
+  const areas=[...new Set(list.map(x=>x.area).filter(Boolean))];
   document.getElementById("excFilters").innerHTML = areas.length>1
     ? [`<button class="${eFilter==="all"?"on":""}" data-ef="all">${t("ex_all")}</button>`].concat(areas.map(a=>`<button class="${eFilter===a?"on":""}" data-ef="${esc(a)}">${esc(t("ex_"+a)||a)}</button>`)).join("") : "";
   if(!document.getElementById("excList")) return;
   let shown=0;
-  document.getElementById("excList").innerHTML = SITE.excursions.map((x,i)=> ((eFilter!=="all"&&x.area!==eFilter) || (PAGE==="home" && ++shown>HOME_MAX.exc)) ? "" : `
+  document.getElementById("excList").innerHTML = list.map(x=>{ const i=SITE.excursions.indexOf(x); return ((eFilter!=="all"&&x.area!==eFilter) || (PAGE==="home" && ++shown>HOME_MAX.exc)) ? "" : `
     <article class="card">
-      ${slot(x.img, L(x.title))}
+      ${excUrl(i)?`<a href="${excUrl(i)}" tabindex="-1">${slot(x.img, L(x.title))}</a>`:slot(x.img, L(x.title))}
       <div class="card-body">
         <div class="meta">${x.area?`<span class="chip">${x.area==="sea"?"⛵":x.area==="land"?"🚐":""} ${esc(t("ex_"+x.area))}</span>`:""}${L(x.tag)?`<span class="chip">${esc(L(x.tag))}</span>`:""}${durTxt(x)?`<span class="chip">⏱ ${esc(durTxt(x))}</span>`:""}${x.guide&&GUIDE_LANGS?`<span class="chip">${GUIDE_LANGS}</span>`:""}</div>
         <h3>${esc(L(x.title))}</h3>
         <p class="clamp">${esc(L(x.desc))}</p>
-        <div class="card-foot"><span class="price">${x.price?esc(t("price_from")+" "+x.price):""}</span><div class="btns" style="align-items:center">${x.pay?`<a class="btn btn-red btn-pay" href="${esc(x.pay)}" target="_blank" rel="noopener">💳 ${t("pay_book")}</a>`:""}<button class="link" data-exc="${i}">${t("details")}</button></div></div>
+        <div class="card-foot"><span class="price">${x.price?esc(t("price_from")+" "+x.price):""}</span><div class="btns" style="align-items:center">${x.pay?`<a class="btn btn-red btn-pay" href="${esc(x.pay)}" target="_blank" rel="noopener">💳 ${t("pay_book")}</a>`:""}${excUrl(i)?`<a class="link" href="${excUrl(i)}">${t("details")}</a>`:`<button class="link" data-exc="${i}">${t("details")}</button>`}</div></div>
       </div>
-    </article>`).join("");
+    </article>`; }).join("");
 }
 
 function renderLessons(){
@@ -104,21 +115,27 @@ let gFilter="all";
 let hFilter="all";
 function renderHouses(){
   if(!document.getElementById("houseList")) return;
-  const all=SITE.houses||[];
+  const all=housesForPage();
+  const sec=document.getElementById("houses");
+  if(PAGE==="hotels" && !all.length){
+    document.getElementById("houseFilters").innerHTML="";
+    document.getElementById("houseList").innerHTML=`<div class="empty-box"><p>${esc(t("hotel_empty"))}</p><a class="btn btn-red" href="#contact" data-pick="house">${t("s_info")}</a></div>`;
+    return;
+  }
   const types=[...new Set(all.map(h=>h.type).filter(Boolean))];
   document.getElementById("houseFilters").innerHTML = types.length>1
     ? [`<button class="${hFilter==="all"?"on":""}" data-hf="all">${t("h_all")}</button>`].concat(types.map(ty=>`<button class="${hFilter===ty?"on":""}" data-hf="${esc(ty)}">${esc(t("ty_"+ty)||ty)}</button>`)).join("")
     : "";
   document.getElementById("houseList").innerHTML = all.filter(h=>hFilter==="all"||h.type===hFilter).slice(0, PAGE==="home"?HOME_MAX.house:999).map(h=>`
     <article class="card">
-      ${slot(h.img, L(h.title))}
+      ${houseUrl(SITE.houses.indexOf(h))?`<a href="${houseUrl(SITE.houses.indexOf(h))}" tabindex="-1">${slot(h.img, L(h.title))}</a>`:slot(h.img, L(h.title))}
       <div class="card-body">
         <div class="meta">${h.type?`<span class="chip">${esc(t("ty_"+h.type)||h.type)}</span>`:""}${h.place?`<span class="chip">📍 ${esc(h.place)}</span>`:""}</div>
         <h3>${esc(L(h.title))}</h3>
         ${L(h.info)?`<p>${esc(L(h.info))}</p>`:""}
         ${L(h.desc)?`<p class="clamp">${esc(L(h.desc))}</p>`:""}
         ${h.cin||h.cir?`<div class="codes">${h.cin?"CIN "+esc(h.cin):""}${h.cin&&h.cir?" · ":""}${h.cir?"CIR "+esc(h.cir):""}</div>`:""}
-        <div class="card-foot"><span class="price">${h.price?esc(t("price_from")+" "+h.price):""}</span><div class="btns"><button class="link" data-house="${SITE.houses.indexOf(h)}">${t("details")}</button>${h.pay?`<a class="btn btn-red btn-pay" href="${esc(h.pay)}" target="_blank" rel="noopener">💳 ${t("pay_book")}</a>`:""}${h.url?`<a class="btn btn-line" style="padding:10px 20px" href="${esc(h.url)}" target="_blank" rel="noopener">${t("h_btn")} ↗</a>`:`<a class="btn btn-line" style="padding:10px 20px" href="#contact" data-pick="house" data-title="${esc(L(h.title))}">${t("s_info")}</a>`}</div></div>
+        <div class="card-foot"><span class="price">${h.price?esc(t("price_from")+" "+h.price):""}</span><div class="btns">${houseUrl(SITE.houses.indexOf(h))?`<a class="link" href="${houseUrl(SITE.houses.indexOf(h))}">${t("details")}</a>`:`<button class="link" data-house="${SITE.houses.indexOf(h)}">${t("details")}</button>`}${h.pay?`<a class="btn btn-red btn-pay" href="${esc(h.pay)}" target="_blank" rel="noopener">💳 ${t("pay_book")}</a>`:""}${h.url?`<a class="btn btn-line" style="padding:10px 20px" href="${esc(h.url)}" target="_blank" rel="noopener">${t("h_btn")} ↗</a>`:`<a class="btn btn-line" style="padding:10px 20px" href="#contact" data-pick="house" data-title="${esc(L(h.title))}">${t("s_info")}</a>`}</div></div>
       </div>
     </article>`).join("");
 }
@@ -127,13 +144,14 @@ function servicesForPage(){
   const all=SITE.services||[];
   if(PAGE==="transfer") return all.filter(x=>x.kind==="transfer");
   if(PAGE==="rental") return all.filter(x=>x.kind==="rental");
+  if(PAGE==="boat") return all.filter(x=>x.kind==="boat");
   return all;
 }
 function renderServices(){
   const sec=document.getElementById("services"); if(!sec) return;
   const list=servicesForPage().slice(0, PAGE==="home"?HOME_MAX.serv:999);
   sec.style.display = list.length ? "" : "none";
-  if(PAGE==="transfer"||PAGE==="rental"){
+  if(PAGE==="transfer"||PAGE==="rental"||PAGE==="boat"){
     const box=document.getElementById("serviceList"); box.classList.add("wides");
     box.innerHTML = list.map(x=>`<article class="wide"><div>${gallery([x.img].concat(x.photos||[]), L(x.title))}</div><div class="w-body">
       ${L(x.cat)?`<div class="meta"><span class="chip">${esc(L(x.cat))}</span></div>`:""}
@@ -159,7 +177,8 @@ function renderServices(){
 
 function renderGallery(){
   if(!document.getElementById("galleryList")) return;
-  document.getElementById("galleryList").innerHTML = SITE.gallery.map((g,i)=> (gFilter==="all"||g.type===gFilter) ? `
+  let gs=0;
+  document.getElementById("galleryList").innerHTML = SITE.gallery.map((g,i)=> ((gFilter==="all"||g.type===gFilter) && !(PAGE==="home" && ++gs>HOME_MAX.gal)) ? `
     <figure class="g-item" data-g="${i}" style="--ar:${esc(g.ar||"4/3")}">
       ${slot(g.img, L(g.cap))}
       ${g.type==="video"?'<span class="play"></span>':""}
@@ -174,6 +193,55 @@ function renderContact(){
     <li><b>📱</b><div><small>${t("c_phone")}</small><a href="https://wa.me/${esc(c.whatsapp)}" target="_blank" rel="noopener">${esc(c.phone)}</a></div></li>
     <li><b>📍</b><div><small>${t("c_place")}</small>${esc(L(c.place))}</div></li>`;
   document.getElementById("socials").innerHTML = SITE.socials.map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="${esc(s.label)}">${esc(s.label)}</a>`).join("");
+}
+
+
+/* Pagina di una casa / escursione (casa/*.html, escursione/*.html) */
+const paras = s => String(s||"").split(/\n+/).filter(p=>p.trim()).map(p=>`<p>${esc(p)}</p>`).join("");
+function miniCard(href, img, title, chips){
+  return `<article class="card"><a href="${href}" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;height:100%">${slot(img, title)}
+    <div class="card-body"><div class="meta">${chips}</div><h3>${esc(title)}</h3><div class="card-foot"><span class="link">${t("details")}</span></div></div></a></article>`;
+}
+function renderDetail(){
+  const box=document.getElementById("detail"); if(!box) return;
+  const i=+box.dataset.idx, more=document.getElementById("moreList");
+  if(box.dataset.kind==="house"){
+    const h=(SITE.houses||[])[i]; if(!h) return;
+    const am=L(h.amenities)||[], di=L(h.distances)||[];
+    const mapUrl=h.map?(/^https?:/.test(h.map)?h.map:"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(h.map)):"";
+    document.title = L(h.title) + " · Włoski z Dominiką";
+    box.innerHTML = `<div class="detail-top"><div>${gallery([h.img].concat(h.photos||[]), L(h.title))}</div>
+      <div class="detail-info">
+        <div class="meta">${h.type?`<span class="chip">${esc(t("ty_"+h.type)||h.type)}</span>`:""}${h.place?`<span class="chip">📍 ${esc(h.place)}</span>`:""}${h.guests?`<span class="chip">👥 ${esc(h.guests)} ${t("guests")}</span>`:""}</div>
+        <h1>${esc(L(h.title))}</h1>
+        ${L(h.info)?`<p class="muted">${esc(L(h.info))}</p>`:""}
+        ${h.price?`<div class="price">${esc(t("price_from")+" "+h.price)}</div>`:""}
+        ${h.cin||h.cir?`<div class="codes">${h.cin?"CIN "+esc(h.cin):""}${h.cin&&h.cir?" · ":""}${h.cir?"CIR "+esc(h.cir):""}</div>`:""}
+        <div class="btns">${h.pay?`<a class="btn btn-red" href="${esc(h.pay)}" target="_blank" rel="noopener">💳 ${t("pay_book")}</a>`:""}${h.url?`<a class="btn ${h.pay?"btn-line":"btn-red"}" href="${esc(h.url)}" target="_blank" rel="noopener">${t("h_btn")} ↗</a>`:""}<a class="btn btn-line" href="#contact" data-pick="house" data-title="${esc(L(h.title))}">${t("s_info")}</a></div>
+        ${mapUrl?`<p><a class="link" href="${esc(mapUrl)}" target="_blank" rel="noopener">🗺️ ${t("see_map")}</a></p>`:""}
+      </div></div>
+      <div class="detail-cols"><div class="detail-text">${paras(L(h.desc))}</div>
+      ${am.length||di.length?`<aside class="detail-aside">${am.length?`<h3>${t("amenities")}</h3><ul class="amen">${am.map(s=>`<li>${esc(s)}</li>`).join("")}</ul>`:""}${di.length?`<h3>${t("distances")}</h3><ul>${di.map(s=>`<li>${esc(s)}</li>`).join("")}</ul>`:""}</aside>`:""}</div>`;
+    if(more){ const others=housesForPage().filter(x=>x!==h).slice(0,3);
+      more.closest("section").style.display = others.length ? "" : "none";
+      more.innerHTML = others.map(x=>{ const j=SITE.houses.indexOf(x); return miniCard(houseUrl(j), x.img, L(x.title), x.place?`<span class="chip">📍 ${esc(x.place)}</span>`:""); }).join(""); }
+  } else {
+    const x=(SITE.excursions||[])[i]; if(!x) return;
+    const inc=L(x.incl)||[];
+    document.title = L(x.title) + " · Włoski z Dominiką";
+    box.innerHTML = `<div class="detail-top"><div>${gallery([x.img].concat(x.photos||[]), L(x.title))}</div>
+      <div class="detail-info">
+        <div class="meta">${x.area?`<span class="chip">${x.area==="sea"?"⛵":x.area==="land"?"🚐":""} ${esc(t("ex_"+x.area))}</span>`:""}${L(x.tag)?`<span class="chip">${esc(L(x.tag))}</span>`:""}${durTxt(x)?`<span class="chip">⏱ ${esc(durTxt(x))}</span>`:""}${x.guide&&GUIDE_LANGS?`<span class="chip">${GUIDE_LANGS}</span>`:""}</div>
+        <h1>${esc(L(x.title))}</h1>
+        ${x.price?`<div class="price">${esc(t("price_from")+" "+x.price)}</div>`:""}${L(x.price_note)?`<p class="muted" style="font-size:.9rem">${esc(L(x.price_note))}</p>`:""}
+        <div class="btns">${x.pay?`<a class="btn btn-red" href="${esc(x.pay)}" target="_blank" rel="noopener">💳 ${t("pay_book")}</a>`:""}<a class="btn ${x.pay?"btn-line":"btn-red"}" href="#contact" data-pick="exc" data-title="${esc(L(x.title))}">${t("book")}</a></div>
+      </div></div>
+      <div class="detail-cols"><div class="detail-text">${paras(L(x.desc))}</div>
+      ${inc.length?`<aside class="detail-aside"><h3>${t("included")}</h3><ul>${inc.map(s=>`<li>${esc(s)}</li>`).join("")}</ul></aside>`:""}</div>`;
+    if(more){ const others=excForPage().filter(y=>y!==x).slice(0,3);
+      more.closest("section").style.display = others.length ? "" : "none";
+      more.innerHTML = others.map(y=>{ const j=SITE.excursions.indexOf(y); return miniCard(excUrl(j), y.img, L(y.title), durTxt(y)?`<span class="chip">⏱ ${esc(durTxt(y))}</span>`:""); }).join(""); }
+  }
 }
 
 /* Articoli del blog tradotti: ogni lingua ha la sua pagina */
@@ -196,7 +264,7 @@ function applyLang(){
   document.querySelectorAll("[data-i]").forEach(el=>{ el.textContent = t(el.dataset.i); });
   document.getElementById("langBtns").innerHTML = LANGS.map(l=>`<button data-lang="${l}">${l.toUpperCase()}</button>`).join("");
   document.querySelectorAll(".lang button").forEach(b=>b.classList.toggle("on", b.dataset.lang===lang));
-  renderExcursions(); renderLessons(); renderHouses(); renderServices(); renderGallery(); renderContact(); renderBlog();
+  renderExcursions(); renderLessons(); renderHouses(); renderServices(); renderGallery(); renderContact(); renderBlog(); renderDetail();
 }
 
 /* Blog: ultimi articoli in Home + filtri nella pagina Blog */

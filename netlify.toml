@@ -1,7 +1,7 @@
 # Netlify: a ogni pubblicazione rigenera le pagine del blog e la sitemap
 [build]
   publish = "."
-  command = "python3 tools/build_blog.py"
+  command = "python3 tools/build_site.py && python3 tools/build_blog.py"
 
 [[headers]]
   for = "/admin/*"

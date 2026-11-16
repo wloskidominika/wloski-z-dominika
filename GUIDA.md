@@ -165,3 +165,21 @@ Gli articoli in polacco, tedesco o inglese hanno la loro pagina: scrivi ogni lin
 
 **Cosa cambi dal pannello:** tutti i contenuti, le foto, i testi in 5 lingue, i colori, le sezioni e il menu.
 **Cosa richiede di toccare il codice:** cambiare la disposizione grafica, aggiungere un tipo di pagina nuovo o funzioni nuove. Il codice è tuo: puoi chiedere a Claude o a qualsiasi programmatore di modificarlo, partendo dai file su GitHub.
+
+## Le pagine del sito (menu)
+
+| Voce del menu | Pagina | Cosa mostra |
+|---|---|---|
+| Case vacanze | case-vacanze.html | gli alloggi di tipo Appartamento, Casa, Villa… |
+| Hotel e B&B | hotel-bb.html | gli alloggi di tipo **Hotel** o **B&B** |
+| Escursioni | escursioni.html | le escursioni con «In quale pagina» = *Escursioni* |
+| Guida turistica ed esperienze locali | esperienze.html | le escursioni con «In quale pagina» = *Guida turistica ed esperienze* |
+| Transfer | transfer.html | i servizi con pagina *Transfer* |
+| Noleggio auto, scooter e bici | noleggio.html | i servizi con pagina *Noleggio auto, scooter e bici* |
+| Noleggio nautico | noleggio-nautico.html | i servizi con pagina *Noleggio nautico* |
+| Foto e video | foto-e-video.html | tutta la galleria |
+
+Ogni casa, hotel, B&B, escursione ed esperienza ha **la sua pagina** (cartelle `casa/` e `escursione/`):
+si crea da sola quando aggiungi l'elemento nel pannello e pubblichi.
+La Home mostra in alto le **Lezioni di italiano e polacco** e i riquadri **Vacanze in Calabria**;
+le foto dei riquadri si cambiano in 🎨 Aspetto del sito → «Foto dei riquadri».

@@ -10,24 +10,37 @@
   "about_img": "",
   "icon": "/sun.jpg",
   "badge": "/logo.jpg",
+  "tiles": {
+    "houses": "",
+    "hotels": "",
+    "exc": "",
+    "exp": "",
+    "transfer": "",
+    "rental": "",
+    "boat": "",
+    "media": ""
+  },
   "home_sections": {
-    "about": true,
-    "excursions": true,
     "lessons": true,
+    "vacanze": true,
+    "about": true,
     "houses": true,
-    "services": true,
-    "gallery": true,
-    "blog": true
+    "excursions": true,
+    "blog": true,
+    "gallery": true
   },
   "menu": {
-    "nav_exc": true,
+    "nav_les": true,
     "nav_house": true,
+    "nav_hotel": true,
+    "nav_exc": true,
+    "nav_exp": true,
     "nav_tr": true,
     "nav_rent": true,
-    "nav_serv": true,
-    "nav_les": true,
-    "nav_con": true,
-    "nav_blog": true
+    "nav_boat": true,
+    "nav_media": true,
+    "nav_blog": true,
+    "nav_con": true
   },
   "home_counts": {
     "exc": 6,

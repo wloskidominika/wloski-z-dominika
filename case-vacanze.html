@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Case vacanze a Tropea e Capo Vaticano · Włoski z Dominiką</title>
-<meta name="description" content="Appartamenti, case e ville a Tropea, Capo Vaticano e Santa Domenica di Ricadi, con foto, dotazioni e codici CIN.">
+<meta name="description" content="Appartamenti, case e ville a Tropea, Capo Vaticano e Ricadi, con foto, dotazioni e codici CIN.">
 <link rel="canonical" href="https://wloskizdominika.com/case-vacanze.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Włoski z Dominiką i Podróże do Kalabrii">
 <meta property="og:title" content="Case vacanze a Tropea e Capo Vaticano · Włoski z Dominiką">
-<meta property="og:description" content="Appartamenti, case e ville a Tropea, Capo Vaticano e Santa Domenica di Ricadi, con foto, dotazioni e codici CIN.">
+<meta property="og:description" content="Appartamenti, case e ville a Tropea, Capo Vaticano e Ricadi, con foto, dotazioni e codici CIN.">
 <meta property="og:image" content="https://wloskizdominika.com/media/hero.jpg">
 <meta property="og:url" content="https://wloskizdominika.com/case-vacanze.html">
 <link rel="icon" href="sun.jpg">
@@ -21,20 +21,28 @@
 <header>
   <div class="wrap nav">
     <a class="brand" href="index.html"><img src="sun.jpg" alt="Włoski z Dominiką"><span>Włoski z Dominiką</span></a>
+    <div class="nav-right">
+      <a href="index.html#lessons" class="les-btn" data-i="nav_les"></a>
+      <a href="area.html" class="area-btn">👤 <span data-i="nav_area"></span></a>
+      <div class="lang" id="langBtns"></div>
+      <button class="burger" aria-label="Menu" onclick="document.getElementById('menu').classList.toggle('open')"><i></i><i></i><i></i></button>
+    </div>
+  </div>
+  <nav class="mainnav">
     <ul class="menu" id="menu">
-      <li><a href="escursioni.html" data-i="nav_exc"></a></li>
+      <li class="m-only"><a href="index.html#lessons" data-i="nav_les"></a></li>
       <li><a href="case-vacanze.html" data-i="nav_house" class="cur"></a></li>
+      <li><a href="hotel-bb.html" data-i="nav_hotel"></a></li>
+      <li><a href="escursioni.html" data-i="nav_exc"></a></li>
+      <li><a href="esperienze.html" data-i="nav_exp"></a></li>
       <li><a href="transfer.html" data-i="nav_tr"></a></li>
       <li><a href="noleggio.html" data-i="nav_rent"></a></li>
-      <li><a href="servizi.html" data-i="nav_serv"></a></li>
+      <li><a href="noleggio-nautico.html" data-i="nav_boat"></a></li>
+      <li><a href="foto-e-video.html" data-i="nav_media"></a></li>
       <li><a href="blog.html" data-i="nav_blog"></a></li>
-      <li><a href="index.html#lessons" data-i="nav_les"></a></li>
       <li><a href="#contact" data-i="nav_con"></a></li>
-      <li><a href="area.html" class="area-btn">👤 <span data-i="nav_area"></span></a></li>
-      <li class="lang" id="langBtns"></li>
     </ul>
-    <button class="burger" aria-label="Menu" onclick="document.getElementById('menu').classList.toggle('open')"><i></i><i></i><i></i></button>
-  </div>
+  </nav>
 </header>
 
 <main class="page-top">
@@ -50,6 +58,7 @@
     <div class="grid-3" id="houseList"></div>
   </div>
 </section>
+
 <section id="contact" style="background:var(--cream-2)">
   <div class="wrap contact-grid">
     <div>
@@ -79,6 +88,7 @@
     </form>
   </div>
 </section>
+
 </main>
 
 <footer>
@@ -87,7 +97,7 @@
       <div><div class="script">Włoski z Dominiką i Podróże do Kalabrii</div><div data-i="foot_tag" style="opacity:.85"></div></div>
       <div class="socials" id="socials"></div>
     </div>
-    <div class="f-links"><a href="escursioni.html" data-i="nav_exc"></a><a href="case-vacanze.html" data-i="nav_house"></a><a href="transfer.html" data-i="nav_tr"></a><a href="noleggio.html" data-i="nav_rent"></a><a href="servizi.html" data-i="nav_serv"></a><a href="blog.html" data-i="nav_blog"></a><a href="index.html#lessons" data-i="nav_les"></a><a href="area.html" data-i="nav_area"></a></div>
+    <div class="f-links"><a href="index.html#lessons" data-i="nav_les"></a><a href="case-vacanze.html" data-i="nav_house"></a><a href="hotel-bb.html" data-i="nav_hotel"></a><a href="escursioni.html" data-i="nav_exc"></a><a href="esperienze.html" data-i="nav_exp"></a><a href="transfer.html" data-i="nav_tr"></a><a href="noleggio.html" data-i="nav_rent"></a><a href="noleggio-nautico.html" data-i="nav_boat"></a><a href="foto-e-video.html" data-i="nav_media"></a><a href="blog.html" data-i="nav_blog"></a><a href="area.html" data-i="nav_area"></a></div>
     <div class="copy"><span>© <span id="yr"></span> Włoski z Dominiką i Podróże do Kalabrii · <span id="vat">P.IVA 03800250791</span> · <a href="privacy.html" data-i="privacy" style="color:#fff"></a></span><span>Calabria <span class="tricolor"><i style="background:#1C8A4E"></i><i style="background:#fff"></i><i style="background:#CE3A2B"></i></span></span></div>
   </div>
 </footer>
