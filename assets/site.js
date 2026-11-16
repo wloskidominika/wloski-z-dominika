@@ -19,9 +19,9 @@ function fixPaths(o){
 }
 async function loadContent(){
   const get = n => fetch(ROOT + "content/" + n + "?v=" + Date.now()).then(r => r.json());
-  const [st, ex, le, ho, ga, tx, sv, sl] = await Promise.all(["settings.json","excursions.json","lessons.json","houses.json","gallery.json","texts.json","services.json","slugs.json"].map(n => get(n).catch(() => ({}))));
+  const [st, ex, le, ho, ga, tx, sv, sl, hb] = await Promise.all(["settings.json","excursions.json","lessons.json","houses.json","gallery.json","texts.json","services.json","slugs.json","hotels.json"].map(n => get(n).catch(() => ({}))));
   SLUGS = sl || {};
-  SITE = { contact: st.contact, socials: st.socials || [], excursions: ex.items || [], lessonsIT: le.italian, lessonsPL: le.polish, houses: ho.items || [], gallery: ga.items || [], services: sv.items || [] };
+  SITE = { contact: st.contact, socials: st.socials || [], excursions: ex.items || [], lessonsIT: le.italian, lessonsPL: le.polish, houses: (ho.items || []).concat((hb.items || []).map(h => Object.assign({ type: "hotel" }, h))), gallery: ga.items || [], services: sv.items || [] };
   GUIDE_LANGS = st.guide_langs || ""; T = tx;
   SITE = fixPaths(SITE);
   if (st.vat) document.getElementById("vat").textContent = "P.IVA " + st.vat;
@@ -59,8 +59,9 @@ const HOME_MAX = { exc: 6, house: 6, serv: 3, gal: 8 };
 const HOTEL_TYPES = ["hotel","bnb"];
 /* quali elementi mostra ogni pagina */
 const isHotel = h => HOTEL_TYPES.includes(h.type);
-function housesForPage(){ const all=SITE.houses||[]; return (PAGE==="hotels"||PAGE==="hotel") ? all.filter(isHotel) : all.filter(h=>!isHotel(h)); }
-function excForPage(){ const all=SITE.excursions||[]; return (PAGE==="exp"||PAGE==="expd") ? all.filter(x=>x.kind==="exp") : all.filter(x=>x.kind!=="exp"); }
+const isVis = x => x && x.visible !== false;
+function housesForPage(){ const all=(SITE.houses||[]).filter(isVis); return (PAGE==="hotels"||PAGE==="hotel") ? all.filter(isHotel) : all.filter(h=>!isHotel(h)); }
+function excForPage(){ const all=(SITE.excursions||[]).filter(isVis); return (PAGE==="exp"||PAGE==="expd") ? all.filter(x=>x.kind==="exp") : all.filter(x=>x.kind!=="exp"); }
 const houseUrl = i => (SLUGS.houses||[])[i] ? ROOT + "casa/" + SLUGS.houses[i] + ".html" : "";
 const excUrl = i => (SLUGS.excursions||[])[i] ? ROOT + "escursione/" + SLUGS.excursions[i] + ".html" : "";
 let lang = "it";
@@ -143,7 +144,7 @@ function renderHouses(){
 }
 
 function servicesForPage(){
-  const all=SITE.services||[];
+  const all=(SITE.services||[]).filter(isVis);
   if(PAGE==="transfer") return all.filter(x=>x.kind==="transfer");
   if(PAGE==="rental") return all.filter(x=>x.kind==="rental");
   if(PAGE==="boat") return all.filter(x=>x.kind==="boat");
@@ -390,22 +391,39 @@ document.addEventListener("click", e=>{
   if(e.target.closest(".menu a")) document.getElementById("menu").classList.remove("open");
 });
 
-/* Formularz → otwiera e-mail / il modulo apre l'e-mail */
-document.getElementById("form").addEventListener("submit", e=>{
+/* Modulo «Scrivimi»: la richiesta arriva nel pannello (gestione.html → 📩 Richieste)
+   e nell'elenco «Forms» di Netlify. Se nessuno dei due risponde, si apre WhatsApp o l'e-mail. */
+document.getElementById("form").addEventListener("submit", async e=>{
   e.preventDefault();
-  const fd=new FormData(e.target), n=document.getElementById("notice");
-  const name=(fd.get("name")||"").trim(), mail=(fd.get("email")||"").trim();
-  if(!name || !/^\S+@\S+\.\S+$/.test(mail)){ n.textContent=t("fm_err"); n.classList.add("show"); return; }
-  const topicTxt=e.target.topic.selectedOptions[0].textContent;
-  const body=`${name} <${mail}>\n\n${fd.get("msg")||""}`;
-  const c=SITE.contact||{}, wa=String(c.whatsapp||c.phone||"").replace(/\D/g,"");
-  if(!c.email && wa){
-    window.open(`https://wa.me/${wa}?text=${encodeURIComponent(topicTxt+" – "+body)}`,"_blank","noopener");
-    n.textContent="WhatsApp ✓"; n.classList.add("show"); return;
+  const f=e.target, fd=new FormData(f), n=document.getElementById("notice"), btn=f.querySelector('button[type=submit]');
+  if((fd.get("bot-field")||"").trim()) return;
+  const name=(fd.get("name")||"").trim(), mail=(fd.get("email")||"").trim(), phone=(fd.get("phone")||"").trim();
+  const okMail=/^\S+@\S+\.\S+$/.test(mail), okPhone=phone.replace(/\D/g,"").length>=6;
+  if(!name || (!okMail && !okPhone) || (mail && !okMail)){ n.textContent=t("fm_err"); n.classList.add("show"); return; }
+  const topicTxt=f.topic.selectedOptions[0].textContent, msg=(fd.get("msg")||"").trim();
+  btn.disabled=true; n.textContent=t("fm_sending"); n.classList.add("show");
+  let saved=false;
+  const cfg=window.WZD_CONFIG||{};
+  if(cfg.SUPABASE_URL && !/INSERISCI/.test(cfg.SUPABASE_URL)){
+    try{
+      const r=await fetch(cfg.SUPABASE_URL.replace(/\/$/,"")+"/rest/v1/requests",{method:"POST",
+        headers:{"apikey":cfg.SUPABASE_ANON_KEY,"Authorization":"Bearer "+cfg.SUPABASE_ANON_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},
+        body:JSON.stringify({name,email:mail||null,phone:phone||null,topic:topicTxt,message:msg||null,lang,page:location.pathname})});
+      saved = saved || r.ok;
+    }catch(_){}
   }
-  const href=`mailto:${c.email}?subject=${encodeURIComponent(topicTxt+" – "+name)}&body=${encodeURIComponent(body)}`;
-  n.textContent=t("fm_ok")+c.email; n.classList.add("show");
-  try{ window.location.href=href; }catch(_){}
+  try{
+    const body=new URLSearchParams({"form-name":"contatto",name,email:mail,phone,topic:topicTxt,msg,lang,page:location.pathname});
+    const r=await fetch("/",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:body.toString()});
+    saved = saved || r.ok;
+  }catch(_){}
+  btn.disabled=false;
+  if(saved){ f.reset(); n.textContent=t("fm_sent"); n.classList.add("show"); return; }
+  // piano B: WhatsApp o e-mail
+  const text=`${topicTxt} – ${name}${mail?" <"+mail+">":""}${phone?" ☎ "+phone:""}\n\n${msg}`;
+  const c=SITE.contact||{}, wa=String(c.whatsapp||c.phone||"").replace(/\D/g,"");
+  if(wa){ window.open(`https://wa.me/${wa}?text=${encodeURIComponent(text)}`,"_blank","noopener"); n.textContent="WhatsApp ✓"; return; }
+  if(c.email){ n.textContent=t("fm_ok")+c.email; try{ location.href=`mailto:${c.email}?subject=${encodeURIComponent(topicTxt+" – "+name)}&body=${encodeURIComponent(text)}`; }catch(_){} }
 });
 
 document.getElementById("yr").textContent=new Date().getFullYear();

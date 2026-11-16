@@ -38,20 +38,35 @@
 
   <section id="app" class="hidden">
     <div class="stats">
-      <div class="stat"><b id="sPending">0</b><span>Richieste in attesa</span></div>
+      <div class="stat"><b id="sNew">0</b><span>Messaggi nuovi dal sito</span></div>
+      <div class="stat"><b id="sPending">0</b><span>Prenotazioni in attesa</span></div>
       <div class="stat"><b id="sUpcoming">0</b><span>Confermate in arrivo</span></div>
       <div class="stat"><b id="sUsers">0</b><span>Persone registrate</span></div>
       <div class="stat"><b id="sStudents">0</b><span>Studenti iscritti</span></div>
     </div>
 
     <div class="tabs">
-      <button class="on" data-tab="bookings">📅 Prenotazioni <span class="badge hidden" id="pendBadge"></span></button>
+      <button class="on" data-tab="requests">📩 Richieste dal sito <span class="badge hidden" id="newBadge"></span></button>
+      <button data-tab="bookings">📅 Prenotazioni <span class="badge hidden" id="pendBadge"></span></button>
       <button data-tab="users">👥 Clienti e studenti</button>
       <button data-tab="materials">📚 Materiali corsi</button>
     </div>
 
+    <!-- RICHIESTE DAL SITO -->
+    <div data-pane="requests">
+      <div class="toolbar">
+        <div class="filters">
+          <select id="fReq"><option value="new">Nuove</option><option value="answered">Risposte</option><option value="closed">Archiviate</option><option value="all">Tutte</option></select>
+        </div>
+        <button class="btn btn-line btn-sm" id="reloadR">↻ Aggiorna</button>
+      </div>
+      <p class="muted" style="margin-bottom:14px">Qui arrivano i messaggi del modulo «Scrivimi» del sito. Rispondi con un clic su ✉️ o 💬, poi segna la richiesta come <b>Risposta</b>.</p>
+      <div class="msg" id="rMsg" style="margin-bottom:12px"></div>
+      <div class="list" id="rList"></div>
+    </div>
+
     <!-- PRENOTAZIONI -->
-    <div data-pane="bookings">
+    <div data-pane="bookings" class="hidden">
       <div class="toolbar">
         <div class="filters">
           <select id="fStatus"><option value="pending">In attesa</option><option value="confirmed">Confermate</option><option value="cancelled">Annullate</option><option value="all">Tutte</option></select>
@@ -136,7 +151,40 @@ let sb, bookings=[], users=[], materials=[], armed=null;
 })();
 $("#logoutBtn").onclick=async()=>{ await sb.auth.signOut(); location.href="area.html"; };
 
-async function loadAll(){ await Promise.all([loadBookings(),loadUsers(),loadMaterials()]); stats(); }
+async function loadAll(){ await Promise.all([loadRequests(),loadBookings(),loadUsers(),loadMaterials()]); stats(); }
+
+/* ---------- richieste dal sito ---------- */
+const RST={new:"Nuova",answered:"Risposta",closed:"Archiviata"};
+let requests=[];
+async function loadRequests(){
+  const {data,error}=await sb.from("requests").select("*").order("created_at",{ascending:false});
+  if(error) return show($("#rMsg"),"Errore: "+error.message+" — hai eseguito l'ultima versione di supabase/setup.sql?","err");
+  requests=data; renderRequests();
+}
+function renderRequests(){
+  const fs=$("#fReq").value, list=requests.filter(r=>fs==="all"||r.status===fs);
+  if(!list.length){ $("#rList").innerHTML='<div class="empty">Nessun messaggio qui.</div>'; return; }
+  $("#rList").innerHTML=list.map(r=>{ const ph=digits(r.phone);
+    return `<div class="item" data-r="${r.id}">
+      <div class="item-head">
+        <div>
+          <h3>${esc(r.topic||"Messaggio")}</h3>
+          <div class="chips"><span class="chip st-${r.status==="new"?"pending":r.status==="answered"?"confirmed":"cancelled"}">${RST[r.status]}</span>${r.lang?`<span class="chip">${LANGN[r.lang]||r.lang}</span>`:""}</div>
+          <div><b>${esc(r.name)}</b></div>
+          <div class="contact">${r.email?`<a href="mailto:${esc(r.email)}?subject=${encodeURIComponent("Re: "+(r.topic||""))}">✉️ ${esc(r.email)}</a>`:""}${ph?`<a href="https://wa.me/${ph}" target="_blank" rel="noopener">💬 ${esc(r.phone)}</a>`:""}</div>
+        </div>
+        <div class="muted" style="text-align:right"><small>${fmtTs(r.created_at)}</small></div>
+      </div>
+      ${r.message?`<div class="body-text">${esc(r.message)}</div>`:""}
+      <div class="ctrl">
+        <label>Stato<select data-f="status">${Object.entries(RST).map(([k,v])=>`<option value="${k}" ${k===r.status?"selected":""}>${v}</option>`).join("")}</select></label>
+        <label>Nota per te (non la vede nessuno)<textarea data-f="note">${esc(r.note||"")}</textarea></label>
+        <div style="display:flex;gap:6px"><button class="btn btn-red btn-sm" data-save-r>Salva</button><button class="btn btn-line btn-sm" data-del-r>${armed==="r"+r.id?"Sicura?":"🗑"}</button></div>
+      </div>
+    </div>`;}).join("");
+}
+$("#fReq").onchange=renderRequests;
+$("#reloadR").onclick=async()=>{ await loadRequests(); stats(); };
 function stats(){
   const today=new Date().toISOString().slice(0,10);
   const pend=bookings.filter(b=>b.status==="pending").length;
@@ -145,6 +193,8 @@ function stats(){
   $("#sUsers").textContent=users.length;
   $("#sStudents").textContent=users.filter(u=>(u.courses||[]).length).length;
   const bd=$("#pendBadge"); bd.textContent=pend; bd.classList.toggle("hidden",!pend);
+  const nw=requests.filter(r=>r.status==="new").length;
+  $("#sNew").textContent=nw; const nb=$("#newBadge"); nb.textContent=nw; nb.classList.toggle("hidden",!nw);
 }
 
 /* ---------- prenotazioni ---------- */
@@ -271,6 +321,21 @@ $("#mForm").addEventListener("submit",async e=>{
 document.addEventListener("click",async e=>{
   const tb=e.target.closest("[data-tab]");
   if(tb){ $$("[data-tab]").forEach(b=>b.classList.toggle("on",b===tb)); $$("[data-pane]").forEach(p=>p.classList.toggle("hidden",p.dataset.pane!==tb.dataset.tab)); return; }
+
+  const rEl=e.target.closest("[data-r]");
+  if(rEl && e.target.closest("[data-save-r]")){
+    const id=+rEl.dataset.r, upd={status:rEl.querySelector('[data-f="status"]').value,note:rEl.querySelector('[data-f="note"]').value.trim()||null};
+    const {error}=await sb.from("requests").update(upd).eq("id",id);
+    if(error) return show($("#rMsg"),"Errore: "+error.message,"err");
+    Object.assign(requests.find(r=>r.id===id),upd); show($("#rMsg"),"Salvato.","ok"); renderRequests(); stats(); return;
+  }
+  if(rEl && e.target.closest("[data-del-r]")){
+    const id=+rEl.dataset.r;
+    if(armed!=="r"+id){ armed="r"+id; renderRequests(); return; }
+    armed=null; const {error}=await sb.from("requests").delete().eq("id",id);
+    if(error) return show($("#rMsg"),"Errore: "+error.message,"err");
+    requests=requests.filter(r=>r.id!==id); renderRequests(); stats(); return;
+  }
 
   const bEl=e.target.closest("[data-b]");
   if(bEl && e.target.closest("[data-save-b]")){

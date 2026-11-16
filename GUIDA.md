@@ -183,3 +183,12 @@ Ogni casa, hotel, B&B, escursione ed esperienza ha **la sua pagina** (cartelle `
 si crea da sola quando aggiungi l'elemento nel pannello e pubblichi.
 La Home mostra in alto le **Lezioni di italiano e polacco** e i riquadri **Vacanze in Calabria**;
 le foto dei riquadri si cambiano in 🎨 Aspetto del sito → «Foto dei riquadri».
+
+## Hotel e B&B, elementi visibili / nascosti
+- Pannello → Contenuti del sito → **🏨 Hotel e B&B**: aggiungi le strutture e accendi **«Mostra la pagina Hotel e B&B»** quando sei pronta.
+- Ogni casa, hotel, escursione e servizio ha l'interruttore **👁️ Visibile sul sito**: spento = nascosto ma salvato.
+
+## Richieste dal sito (modulo «Scrivimi»)
+- Arrivano in **gestione.html → 📩 Richieste dal sito** (pulsante rosso «📩 Richieste e prenotazioni» in basso a sinistra nel pannello).
+- Arrivano anche su Netlify → progetto → **Forms**, dove puoi attivare l'avviso via e-mail (Forms → Form notifications → Email).
+- Per la prima volta su Netlify: Project configuration → **Forms** → **Enable form detection**.

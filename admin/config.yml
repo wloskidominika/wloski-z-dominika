@@ -231,11 +231,6 @@ collections:
         widget: boolean
         default: true
         required: false
-      - name: nav_hotel
-        label: Hotel e B&B — visibile
-        widget: boolean
-        default: true
-        required: false
       - name: nav_exc
         label: Escursioni — visibile
         widget: boolean
@@ -287,6 +282,12 @@ collections:
       widget: list
       summary: '{{fields.title.it}}'
       fields:
+      - name: visible
+        label: 👁️ Visibile sul sito
+        widget: boolean
+        default: true
+        required: false
+        hint: Acceso = si vede sul sito. Spento = nascosto (resta salvato qui, puoi riaccenderlo quando vuoi).
       - name: title
         label: Titolo
         widget: object
@@ -495,7 +496,7 @@ collections:
           widget: list
           required: false
   - name: houses
-    label: 🏡 Case vacanze (appartamenti, ville, hotel, B&B…)
+    label: 🏡 Case vacanze (appartamenti, case, ville…)
     file: content/houses.json
     fields:
     - name: items
@@ -504,6 +505,12 @@ collections:
       widget: list
       summary: '{{fields.title.it}} – {{fields.place}}'
       fields:
+      - name: visible
+        label: 👁️ Visibile sul sito
+        widget: boolean
+        default: true
+        required: false
+        hint: Acceso = si vede sul sito. Spento = nascosto (resta salvato qui, puoi riaccenderlo quando vuoi).
       - name: type
         label: Tipo
         widget: select
@@ -514,15 +521,11 @@ collections:
           value: house
         - label: Villa
           value: villa
-        - label: Hotel
-          value: hotel
-        - label: B&B
-          value: bnb
         - label: Agriturismo
           value: agriturismo
         - label: Residence
           value: residence
-        hint: Hotel e B&B compaiono nella pagina «Hotel e B&B»; tutti gli altri in «Case vacanze». Ogni alloggio ha anche la sua pagina.
+        hint: Per hotel e B&B usa la sezione «🏨 Hotel e B&B».
       - name: title
         label: Nome
         widget: object
@@ -716,6 +719,231 @@ collections:
         label: Link al sito esterno (Booking, Airbnb, holidayscalabria.com…). Se vuoto, il pulsante porta al modulo contatti
         widget: string
         required: false
+  - name: hotels
+    label: 🏨 Hotel e B&B
+    file: content/hotels.json
+    fields:
+    - name: page_visible
+      label: 👁️ Mostra la pagina «Hotel e B&B» sul sito (menu e Home)
+      widget: boolean
+      default: false
+      required: false
+      hint: Spento = la pagina è nascosta. Accendilo quando hai inserito le strutture, poi Salva e Pubblica.
+    - name: items
+      label: Strutture
+      label_singular: Struttura
+      widget: list
+      summary: '{{fields.title.it}} – {{fields.place}}'
+      fields:
+      - name: visible
+        label: 👁️ Visibile sul sito
+        widget: boolean
+        default: true
+        required: false
+        hint: Acceso = si vede sul sito. Spento = nascosto (resta salvato qui, puoi riaccenderlo quando vuoi).
+      - name: type
+        label: Tipo
+        widget: select
+        options:
+        - label: Hotel
+          value: hotel
+        - label: B&B
+          value: bnb
+        default: hotel
+      - name: title
+        label: Nome
+        widget: object
+        collapsed: false
+        fields:
+        - name: it
+          label: Italiano
+          widget: string
+          required: true
+        - name: de
+          label: Deutsch
+          widget: string
+          required: false
+        - name: en
+          label: English
+          widget: string
+          required: false
+        - name: pl
+          label: Polski
+          widget: string
+          required: false
+        - name: es
+          label: Español
+          widget: string
+          required: false
+      - name: place
+        label: Località
+        widget: string
+      - name: img
+        label: Foto
+        widget: image
+        required: false
+      - name: photos
+        label: Altre foto (la prima foto è quella sopra)
+        widget: list
+        required: false
+        field:
+          name: src
+          label: Foto
+          widget: image
+      - name: guests
+        label: Ospiti (es. 2–4)
+        widget: string
+        required: false
+      - name: amenities
+        label: Dotazioni e servizi (una per riga)
+        widget: object
+        collapsed: true
+        fields:
+        - name: it
+          label: Italiano
+          widget: list
+          required: false
+        - name: de
+          label: Deutsch
+          widget: list
+          required: false
+        - name: en
+          label: English
+          widget: list
+          required: false
+        - name: pl
+          label: Polski
+          widget: list
+          required: false
+        - name: es
+          label: Español
+          widget: list
+          required: false
+      - name: distances
+        label: 'Distanze (es. Spiaggia: 300 m)'
+        widget: object
+        collapsed: true
+        fields:
+        - name: it
+          label: Italiano
+          widget: list
+          required: false
+        - name: de
+          label: Deutsch
+          widget: list
+          required: false
+        - name: en
+          label: English
+          widget: list
+          required: false
+        - name: pl
+          label: Polski
+          widget: list
+          required: false
+        - name: es
+          label: Español
+          widget: list
+          required: false
+      - name: map
+        label: 'Mappa: indirizzo o link Google Maps'
+        widget: string
+        required: false
+      - name: cin
+        label: CIN (Codice Identificativo Nazionale)
+        widget: string
+        required: false
+      - name: cir
+        label: CIR (codice regionale)
+        widget: string
+        required: false
+      - name: info
+        label: Info brevi (persone, camere, distanza dal mare…)
+        widget: object
+        collapsed: false
+        fields:
+        - name: it
+          label: Italiano
+          widget: string
+          required: false
+        - name: de
+          label: Deutsch
+          widget: string
+          required: false
+        - name: en
+          label: English
+          widget: string
+          required: false
+        - name: pl
+          label: Polski
+          widget: string
+          required: false
+        - name: es
+          label: Español
+          widget: string
+          required: false
+      - name: desc
+        label: Descrizione (facoltativa)
+        widget: object
+        collapsed: false
+        fields:
+        - name: it
+          label: Italiano
+          widget: text
+          required: false
+        - name: de
+          label: Deutsch
+          widget: text
+          required: false
+        - name: en
+          label: English
+          widget: text
+          required: false
+        - name: pl
+          label: Polski
+          widget: text
+          required: false
+        - name: es
+          label: Español
+          widget: text
+          required: false
+      - name: price
+        label: Prezzo (es. 80 €/notte – la parola «da» si aggiunge da sola)
+        widget: string
+        required: false
+      - name: price_note
+        label: Nota sul prezzo (es. «a persona · bambini 10 €»)
+        widget: object
+        collapsed: true
+        fields:
+        - name: it
+          label: Italiano
+          widget: string
+          required: false
+        - name: de
+          label: Deutsch
+          widget: string
+          required: false
+        - name: en
+          label: English
+          widget: string
+          required: false
+        - name: pl
+          label: Polski
+          widget: string
+          required: false
+        - name: es
+          label: Español
+          widget: string
+          required: false
+      - name: pay
+        label: 💳 Link di pagamento (Stripe o PayPal) – facoltativo. Se c'è, compare il pulsante «Prenota e paga»
+        widget: string
+        required: false
+      - name: url
+        label: Link al sito esterno (Booking, Airbnb, holidayscalabria.com…). Se vuoto, il pulsante porta al modulo contatti
+        widget: string
+        required: false
+    description: Le strutture che aggiungi qui compaiono nella pagina «Hotel e B&B». Accendi «Mostra la pagina» quando sei pronta.
   - name: services
     label: 🧭 Servizi (Transfer, Noleggio e altri)
     file: content/services.json
@@ -726,6 +954,12 @@ collections:
       widget: list
       summary: '{{fields.title.it}}'
       fields:
+      - name: visible
+        label: 👁️ Visibile sul sito
+        widget: boolean
+        default: true
+        required: false
+        hint: Acceso = si vede sul sito. Spento = nascosto (resta salvato qui, puoi riaccenderlo quando vuoi).
       - name: kind
         label: In quale pagina compare?
         widget: select

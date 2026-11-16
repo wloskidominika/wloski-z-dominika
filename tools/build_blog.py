@@ -163,13 +163,16 @@ def main():
     today = datetime.date.today().isoformat()
     try: hidden = {k for k, v in (json.load(open(os.path.join(ROOT, "content", "look.json"), encoding="utf-8")).get("menu") or {}).items() if v is False}
     except Exception: hidden = set()
+    try:
+        if not json.load(open(os.path.join(ROOT, "content", "hotels.json"), encoding="utf-8")).get("page_visible"): hidden.add("nav_hotel")
+    except Exception: hidden.add("nav_hotel")
     PAGE_NAV = {"case-vacanze.html": "nav_house", "hotel-bb.html": "nav_hotel", "escursioni.html": "nav_exc", "esperienze.html": "nav_exp",
                 "transfer.html": "nav_tr", "noleggio.html": "nav_rent", "noleggio-nautico.html": "nav_boat", "foto-e-video.html": "nav_media", "blog.html": "nav_blog"}
     urls = [f"  <url><loc>{DOMAIN}/{u}</loc><lastmod>{today}</lastmod></url>" for u in STATIC_PAGES if PAGE_NAV.get(u) not in hidden]
     try: sl = json.load(open(os.path.join(ROOT, "content", "slugs.json"), encoding="utf-8"))
     except Exception: sl = {}
-    urls += [f"  <url><loc>{DOMAIN}/casa/{x}.html</loc><lastmod>{today}</lastmod></url>" for x in sl.get("houses", [])]
-    urls += [f"  <url><loc>{DOMAIN}/escursione/{x}.html</loc><lastmod>{today}</lastmod></url>" for x in sl.get("excursions", [])]
+    urls += [f"  <url><loc>{DOMAIN}/casa/{x}.html</loc><lastmod>{today}</lastmod></url>" for x in sl.get("houses", []) if x]
+    urls += [f"  <url><loc>{DOMAIN}/escursione/{x}.html</loc><lastmod>{today}</lastmod></url>" for x in sl.get("excursions", []) if x]
     urls += [f"  <url><loc>{DOMAIN}/blog/{p['slug']}.html</loc><lastmod>{p['date']}</lastmod></url>" for p in posts]
     open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8").write(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "\n".join(urls) + "\n</urlset>\n")

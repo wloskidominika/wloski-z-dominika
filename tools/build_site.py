@@ -54,7 +54,9 @@ MENU = [  # (indirizzo, testo, pagina)
 PARENT = {"house": "houses", "hotel": "hotels", "excd": "exc", "expd": "exp", "post": "blog"}
 
 def hidden_nav():
-    return {k for k, v in (load("look.json").get("menu") or {}).items() if v is False}
+    h = {k for k, v in (load("look.json").get("menu") or {}).items() if v is False}
+    if not load("hotels.json").get("page_visible"): h.add("nav_hotel")
+    return h
 
 def header(page, P):
     cur = PARENT.get(page, page)
@@ -120,7 +122,8 @@ def tail(P):
     root = f'<script>window.SITE_ROOT="{P}";</script>\n' if P else ""
     return f'''
 <div class="lb" id="lb"><button class="lb-close" aria-label="Chiudi">×</button><div class="lb-inner" id="lbInner"></div></div>
-{root}<script src="{P}assets/site.js"></script>
+{root}<script src="{P}config.js"></script>
+<script src="{P}assets/site.js"></script>
 </body>
 </html>
 '''
@@ -140,7 +143,7 @@ def crumbs(P, *parts):
 PAGE_NAV = {"case-vacanze.html": "nav_house", "hotel-bb.html": "nav_hotel", "escursioni.html": "nav_exc", "esperienze.html": "nav_exp",
             "transfer.html": "nav_tr", "noleggio.html": "nav_rent", "noleggio-nautico.html": "nav_boat", "foto-e-video.html": "nav_media"}
 def page(fname, pg, title, desc, body, P="", img="media/hero.jpg", extra="", body_attrs=""):
-    hidden = {k for k, v in (load("look.json").get("menu") or {}).items() if v is False}
+    hidden = hidden_nav()
     if PAGE_NAV.get(fname) in hidden: extra += '<meta name="robots" content="noindex">\n'
     canon = DOMAIN + "/" + ("" if fname == "index.html" else fname)
     out = head(esc(title), esc(desc), canon, pg, P, img, extra, body_attrs)
@@ -239,11 +242,12 @@ def short(s, n=155):
     return s if len(s) <= n else s[:n - 1].rsplit(" ", 1)[0] + "…"
 
 def main():
-    houses = load("houses.json").get("items", [])
+    houses = load("houses.json").get("items", []) + [dict({"type": "hotel"}, **h) for h in load("hotels.json").get("items", [])]
     excs = load("excursions.json").get("items", [])
     used = set()
-    slugs = {"houses": [slugify(L(h.get("title")), used) for h in houses],
-             "excursions": [slugify(L(x.get("title")), used) for x in excs]}
+    vis = lambda x: x.get("visible") is not False
+    slugs = {"houses": [slugify(L(h.get("title")), used) if vis(h) else "" for h in houses],
+             "excursions": [slugify(L(x.get("title")), used) if vis(x) else "" for x in excs]}
     json.dump(slugs, open(os.path.join(ROOT, "content", "slugs.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
     S = {n: sec(n) for n in ("about", "excursions", "lessons", "houses", "services", "gallery")}
@@ -284,6 +288,7 @@ def main():
     for d in ("casa", "escursione"):
         for old in glob.glob(os.path.join(ROOT, d, "*.html")): os.remove(old)
     for i, h in enumerate(houses):
+        if not vis(h): continue
         hotel = h.get("type") in HOTEL_TYPES
         lst, key, back, pg = ("hotel-bb.html", "nav_hotel", "back_hotels", "hotel") if hotel else ("case-vacanze.html", "nav_house", "back_houses", "house")
         t = L(h.get("title")); place = h.get("place") or ""
@@ -291,6 +296,7 @@ def main():
              short(L(h.get("desc")) or L(h.get("info")) or t), detail_body("house", i, h, "../", lst, key, back),
              P="../", img=media(h.get("img")) or "media/hero.jpg", body_attrs=f' data-idx="{i}"')
     for i, x in enumerate(excs):
+        if not vis(x): continue
         exp = x.get("kind") == "exp"
         lst, key, back, pg = ("esperienze.html", "nav_exp", "back_exp", "expd") if exp else ("escursioni.html", "nav_exc", "back_exc", "excd")
         t = L(x.get("title"))

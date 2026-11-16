@@ -67,11 +67,14 @@
       <ul class="c-list" id="contactList"></ul>
       <div class="socials socials-c" id="socialsC"></div>
     </div>
-    <form id="form" novalidate>
+    <form id="form" name="contatto" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+      <input type="hidden" name="form-name" value="contatto">
+      <p class="hp" aria-hidden="true"><label>Non compilare<input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
       <div class="row">
         <label><span data-i="fm_name"></span><input name="name" required></label>
-        <label><span data-i="fm_email"></span><input name="email" type="email" required></label>
+        <label><span data-i="fm_email"></span><input name="email" type="email"></label>
       </div>
+      <label><span data-i="fm_phone"></span><input name="phone" type="tel" autocomplete="tel"></label>
       <label><span data-i="fm_topic"></span>
         <select name="topic" id="topic">
           <option value="exc" data-i="fm_o1"></option>
@@ -102,6 +105,7 @@
   </div>
 </footer>
 <div class="lb" id="lb"><button class="lb-close" aria-label="Chiudi">×</button><div class="lb-inner" id="lbInner"></div></div>
+<script src="config.js"></script>
 <script src="assets/site.js"></script>
 </body>
 </html>

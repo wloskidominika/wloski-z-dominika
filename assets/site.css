@@ -315,3 +315,5 @@ header .wrap.nav{max-width:1380px}
 .socials-c{margin-top:22px}
 .socials-c a{border-color:var(--green);color:var(--green)}
 .socials-c a:hover{background:var(--green);color:#fff}
+
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}

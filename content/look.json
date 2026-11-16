@@ -32,7 +32,6 @@
   "menu": {
     "nav_les": true,
     "nav_house": true,
-    "nav_hotel": false,
     "nav_exc": true,
     "nav_exp": true,
     "nav_tr": true,

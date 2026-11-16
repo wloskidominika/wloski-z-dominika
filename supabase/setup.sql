@@ -155,6 +155,34 @@ create policy "file materiali: studenti" on storage.objects for select using (
   )
 );
 
+
+-- ---------------------------------------------------------------------
+--  RICHIESTE DAL SITO (modulo «Scrivimi»): chiunque può inviarne una,
+--  solo l'amministratrice le legge (pagina gestione.html → 📩 Richieste)
+-- ---------------------------------------------------------------------
+create table if not exists public.requests (
+  id         bigint generated always as identity primary key,
+  created_at timestamptz not null default now(),
+  name       text not null check (char_length(name) between 1 and 120),
+  email      text check (email is null or char_length(email) <= 200),
+  phone      text check (phone is null or char_length(phone) <= 40),
+  topic      text check (topic is null or char_length(topic) <= 120),
+  message    text check (message is null or char_length(message) <= 5000),
+  lang       text check (lang is null or char_length(lang) <= 5),
+  page       text check (page is null or char_length(page) <= 300),
+  status     text not null default 'new' check (status in ('new','answered','closed')),
+  note       text
+);
+alter table public.requests enable row level security;
+grant insert on public.requests to anon, authenticated;
+grant select, update, delete on public.requests to authenticated;
+drop policy if exists "richieste: invia"    on public.requests;
+drop policy if exists "richieste: gestisci" on public.requests;
+create policy "richieste: invia" on public.requests for insert to anon, authenticated
+  with check (status = 'new' and note is null);
+create policy "richieste: gestisci" on public.requests for all to authenticated
+  using (public.is_admin()) with check (public.is_admin());
+
 -- =====================================================================
 --  DOPO esserti registrata dall'area riservata del sito, esegui SOLO
 --  questa riga (con la tua e-mail) per diventare amministratrice:

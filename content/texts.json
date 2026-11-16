@@ -70,7 +70,7 @@
     "fm_msg": "Messaggio",
     "fm_send": "Invia messaggio",
     "fm_ok": "Grazie! Sto aprendo il tuo programma di posta. Se non si apre, scrivi direttamente a: ",
-    "fm_err": "Inserisci il nome e un'e-mail valida.",
+    "fm_err": "Inserisci il nome e almeno un'e-mail o un telefono.",
     "foot_tag": "Lingua italiana e viaggi in Calabria",
     "photo_ph": "La tua foto",
     "price_from": "da",
@@ -169,7 +169,10 @@
     "back_exp": "← Tutte le esperienze",
     "see_media": "Tutte le foto e i video →",
     "see_exp": "Tutte le esperienze →",
-    "also_like": "Potrebbe interessarti anche"
+    "also_like": "Potrebbe interessarti anche",
+    "fm_phone": "Telefono / WhatsApp (facoltativo)",
+    "fm_sent": "Grazie! Ho ricevuto il tuo messaggio: ti rispondo il prima possibile.",
+    "fm_sending": "Invio in corso…"
   },
   "de": {
     "nav_about": "Über mich",
@@ -242,7 +245,7 @@
     "fm_msg": "Nachricht",
     "fm_send": "Nachricht senden",
     "fm_ok": "Danke! Dein E-Mail-Programm wird geöffnet. Falls nicht, schreib direkt an: ",
-    "fm_err": "Bitte gib deinen Namen und eine gültige E-Mail ein.",
+    "fm_err": "Bitte gib deinen Namen und eine E-Mail oder Telefonnummer ein.",
     "foot_tag": "Italienisch lernen und Reisen nach Kalabrien",
     "photo_ph": "Dein Foto",
     "price_from": "ab",
@@ -341,7 +344,10 @@
     "back_exp": "← Alle Erlebnisse",
     "see_media": "Alle Fotos und Videos →",
     "see_exp": "Alle Erlebnisse →",
-    "also_like": "Das könnte Sie auch interessieren"
+    "also_like": "Das könnte Sie auch interessieren",
+    "fm_phone": "Telefon / WhatsApp (optional)",
+    "fm_sent": "Danke! Deine Nachricht ist angekommen – ich antworte so schnell wie möglich.",
+    "fm_sending": "Wird gesendet…"
   },
   "en": {
     "nav_about": "About me",
@@ -414,7 +420,7 @@
     "fm_msg": "Message",
     "fm_send": "Send message",
     "fm_ok": "Thank you! Your email app is opening. If it doesn't, write directly to: ",
-    "fm_err": "Please enter your name and a valid email.",
+    "fm_err": "Please enter your name and an email or phone number.",
     "foot_tag": "Italian language & travel to Calabria",
     "photo_ph": "Your photo",
     "price_from": "from",
@@ -513,7 +519,10 @@
     "back_exp": "← All experiences",
     "see_media": "All photos and videos →",
     "see_exp": "All experiences →",
-    "also_like": "You might also like"
+    "also_like": "You might also like",
+    "fm_phone": "Phone / WhatsApp (optional)",
+    "fm_sent": "Thank you! I've received your message and will reply as soon as I can.",
+    "fm_sending": "Sending…"
   },
   "pl": {
     "nav_about": "O mnie",
@@ -586,7 +595,7 @@
     "fm_msg": "Wiadomość",
     "fm_send": "Wyślij wiadomość",
     "fm_ok": "Dziękuję! Otwieram Twój program pocztowy. Jeśli się nie otworzył, napisz bezpośrednio na: ",
-    "fm_err": "Uzupełnij imię i poprawny e-mail.",
+    "fm_err": "Podaj imię oraz e-mail lub numer telefonu.",
     "foot_tag": "Język włoski i podróże do Kalabrii",
     "photo_ph": "Twoje zdjęcie",
     "price_from": "od",
@@ -685,7 +694,10 @@
     "back_exp": "← Wszystkie atrakcje",
     "see_media": "Wszystkie zdjęcia i filmy →",
     "see_exp": "Wszystkie atrakcje →",
-    "also_like": "Może Cię też zainteresować"
+    "also_like": "Może Cię też zainteresować",
+    "fm_phone": "Telefon / WhatsApp (opcjonalnie)",
+    "fm_sent": "Dziękuję! Otrzymałam Twoją wiadomość – odpowiem jak najszybciej.",
+    "fm_sending": "Wysyłanie…"
   },
   "es": {
     "nav_about": "Sobre mí",
@@ -758,7 +770,7 @@
     "fm_msg": "Mensaje",
     "fm_send": "Enviar mensaje",
     "fm_ok": "¡Gracias! Se está abriendo tu programa de correo. Si no se abre, escribe directamente a: ",
-    "fm_err": "Introduce tu nombre y un correo válido.",
+    "fm_err": "Introduce tu nombre y un correo o un teléfono.",
     "foot_tag": "Lengua italiana y viajes a Calabria",
     "photo_ph": "Tu foto",
     "price_from": "desde",
@@ -857,6 +869,9 @@
     "back_exp": "← Todas las experiencias",
     "see_media": "Todas las fotos y vídeos →",
     "see_exp": "Todas las experiencias →",
-    "also_like": "También te puede interesar"
+    "also_like": "También te puede interesar",
+    "fm_phone": "Teléfono / WhatsApp (opcional)",
+    "fm_sent": "¡Gracias! He recibido tu mensaje y te responderé lo antes posible.",
+    "fm_sending": "Enviando…"
   }
 }
