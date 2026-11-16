@@ -1,0 +1,32 @@
+{
+  "owner_name": "",
+  "address": "",
+  "guide_langs": "🗣 IT · PL · EN",
+  "contact": {
+    "email": "kontakt@wloskizdominika.pl",
+    "phone": "+39 000 000 0000",
+    "whatsapp": "390000000000",
+    "place": {
+      "it": "Calabria, Italia · lezioni anche online",
+      "de": "Kalabrien, Italien · Unterricht auch online",
+      "en": "Calabria, Italy · lessons also online",
+      "pl": "Kalabria, Włochy · lekcje także online",
+      "es": "Calabria, Italia · clases también online"
+    }
+  },
+  "socials": [
+    {
+      "label": "IG",
+      "url": "https://instagram.com/"
+    },
+    {
+      "label": "FB",
+      "url": "https://www.facebook.com/profile.php?id=61556969993687"
+    },
+    {
+      "label": "YT",
+      "url": "https://youtube.com/"
+    }
+  ],
+  "vat": "03800250791"
+}

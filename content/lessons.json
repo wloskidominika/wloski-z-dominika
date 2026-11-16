@@ -1,0 +1,66 @@
+{
+  "italian": {
+    "it": [
+      "Da zero alla conversazione fluente (A1–C1)",
+      "Italiano per le vacanze e per il lavoro",
+      "Preparazione agli esami CILS / CELI",
+      "Cultura, cucina e dialetto calabrese"
+    ],
+    "de": [
+      "Von null bis zur fließenden Konversation (A1–C1)",
+      "Italienisch für Urlaub und Beruf",
+      "Vorbereitung auf CILS / CELI",
+      "Kultur, Küche und kalabrischer Dialekt"
+    ],
+    "en": [
+      "From zero to fluent conversation (A1–C1)",
+      "Italian for holidays and work",
+      "CILS / CELI exam preparation",
+      "Culture, food and Calabrian dialect"
+    ],
+    "pl": [
+      "Od zera do swobodnej rozmowy (A1–C1)",
+      "Włoski na wakacje i do pracy",
+      "Przygotowanie do egzaminów CILS / CELI",
+      "Kultura, kuchnia i dialekt kalabryjski"
+    ],
+    "es": [
+      "De cero a conversación fluida (A1–C1)",
+      "Italiano para viajes y trabajo",
+      "Preparación de exámenes CILS / CELI",
+      "Cultura, cocina y dialecto calabrés"
+    ]
+  },
+  "polish": {
+    "it": [
+      "Polacco da zero",
+      "Conversazione e pronuncia",
+      "Polacco per famiglie e coppie miste",
+      "Materiali spiegati in italiano"
+    ],
+    "de": [
+      "Polnisch von Anfang an",
+      "Konversation und Aussprache",
+      "Polnisch für Familien und gemischte Paare",
+      "Erklärungen auch auf Italienisch oder Englisch"
+    ],
+    "en": [
+      "Polish from scratch",
+      "Conversation and pronunciation",
+      "Polish for families and mixed couples",
+      "Explanations in Italian or English"
+    ],
+    "pl": [
+      "Polski od podstaw",
+      "Konwersacje i wymowa",
+      "Polski dla rodzin i par mieszanych",
+      "Materiały wyjaśniane po włosku"
+    ],
+    "es": [
+      "Polaco desde cero",
+      "Conversación y pronunciación",
+      "Polaco para familias y parejas mixtas",
+      "Explicaciones en italiano o inglés"
+    ]
+  }
+}

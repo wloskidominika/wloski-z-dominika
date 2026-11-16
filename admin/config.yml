@@ -1,0 +1,3656 @@
+# Pannello di amministrazione – Decap CMS
+backend:
+  name: github
+  repo: wloskidominika/wloski-z-dominika
+  branch: main
+local_backend: true
+locale: it
+site_url: https://wloskizdominika.com
+display_url: https://wloskizdominika.com
+logo_url: /logo.jpg
+media_folder: media
+public_folder: /media
+collections:
+- name: blog
+  label: 📝 Blog
+  label_singular: articolo
+  folder: content/blog
+  create: true
+  delete: true
+  extension: json
+  format: json
+  slug: '{{slug}}'
+  identifier_field: title
+  summary: '{{title}} · {{lang}} · {{date}}{{#draft}} · BOZZA{{/draft}}'
+  sortable_fields:
+  - date
+  - title
+  description: 'Scrivi un articolo: a destra il 🔍 Correttore SEO ti dice cosa migliorare. L''indirizzo della pagina nasce dal titolo quando crei l''articolo.'
+  editor:
+    preview: true
+  fields:
+  - name: title
+    label: Titolo dell'articolo
+    widget: string
+    hint: Ideale 30–60 caratteri, con la frase chiave all'inizio.
+  - name: keyword
+    label: Frase chiave (cosa cercano i clienti su Google)
+    widget: string
+    required: false
+    hint: Es. «cosa vedere a Tropea», «Tropea co zobaczyć», «Tropea Sehenswürdigkeiten».
+  - name: lang
+    label: Lingua dell'articolo
+    widget: select
+    default: it
+    options:
+    - label: Italiano
+      value: it
+    - label: Polski
+      value: pl
+    - label: Deutsch
+      value: de
+    - label: English
+      value: en
+    - label: Español
+      value: es
+  - name: description
+    label: Descrizione per Google
+    widget: text
+    hint: '1–2 frasi, 120–155 caratteri: è il testo che compare sotto il titolo nei risultati di Google.'
+  - name: seo_title
+    label: Titolo per Google (facoltativo)
+    widget: string
+    required: false
+    hint: Solo se vuoi un titolo diverso nei risultati di Google.
+  - name: date
+    label: Data
+    widget: datetime
+    format: YYYY-MM-DD
+    date_format: DD/MM/YYYY
+    time_format: false
+    picker_utc: true
+    default: '{{now}}'
+    required: false
+  - name: category
+    label: Categoria
+    widget: select
+    default: Guide
+    options:
+    - Guide
+    - Escursioni
+    - Informazioni pratiche
+    - Sapori
+    - Lingua italiana
+    - Język polski
+    - Notizie
+  - name: cover
+    label: Foto di copertina
+    widget: image
+    required: false
+  - name: cover_alt
+    label: Descrizione della foto (testo alternativo)
+    widget: string
+    required: false
+    hint: Cosa si vede nella foto, in poche parole.
+  - name: body
+    label: Testo dell'articolo
+    widget: markdown
+    hint: 'Per i sottotitoli usa il pulsante «H» (Titolo 2). Aggiungi link alle tue pagine con il pulsante 🔗: /escursioni.html, /case-vacanze.html, /transfer.html, /noleggio.html.'
+  - name: draft
+    label: Bozza (non pubblicare ancora)
+    widget: boolean
+    default: false
+    required: false
+- name: sito
+  label: Contenuti del sito
+  editor:
+    preview: false
+  files:
+  - name: look
+    label: 🎨 Aspetto del sito (colori, foto, menu)
+    file: content/look.json
+    fields:
+    - name: colors
+      label: Colori
+      widget: object
+      fields:
+      - name: primary
+        label: Colore principale (titoli e pulsanti)
+        widget: color
+        required: false
+      - name: secondary
+        label: Colore secondario (lezioni, filtri, link)
+        widget: color
+        required: false
+      - name: background
+        label: Colore di sfondo
+        widget: color
+        required: false
+      - name: accent
+        label: Colore di accento
+        widget: color
+        required: false
+      - name: text
+        label: Colore del testo
+        widget: color
+        required: false
+    - name: hero_img
+      label: Foto grande in alto nella Home
+      widget: image
+      required: false
+    - name: about_img
+      label: Foto di Dominika (sezione «Chi sono»)
+      widget: image
+      required: false
+    - name: icon
+      label: Icona accanto al nome, in alto a sinistra
+      widget: image
+      required: false
+    - name: badge
+      label: Logo rotondo nella sezione «Chi sono»
+      widget: image
+      required: false
+    - name: home_sections
+      label: Sezioni visibili nella Home
+      widget: object
+      fields:
+      - name: about
+        label: Chi sono
+        widget: boolean
+        default: true
+        required: false
+      - name: excursions
+        label: Escursioni
+        widget: boolean
+        default: true
+        required: false
+      - name: lessons
+        label: Lezioni
+        widget: boolean
+        default: true
+        required: false
+      - name: houses
+        label: Case vacanze
+        widget: boolean
+        default: true
+        required: false
+      - name: services
+        label: Servizi
+        widget: boolean
+        default: true
+        required: false
+      - name: blog
+        label: Dal blog
+        widget: boolean
+        default: true
+        required: false
+      - name: gallery
+        label: Galleria
+        widget: boolean
+        default: true
+        required: false
+    - name: menu
+      label: Voci visibili nel menu
+      widget: object
+      fields:
+      - name: nav_exc
+        label: Escursioni
+        widget: boolean
+        default: true
+        required: false
+      - name: nav_house
+        label: Case vacanze
+        widget: boolean
+        default: true
+        required: false
+      - name: nav_tr
+        label: Transfer
+        widget: boolean
+        default: true
+        required: false
+      - name: nav_rent
+        label: Noleggio
+        widget: boolean
+        default: true
+        required: false
+      - name: nav_serv
+        label: Servizi
+        widget: boolean
+        default: true
+        required: false
+      - name: nav_blog
+        label: Blog
+        widget: boolean
+        default: true
+        required: false
+      - name: nav_les
+        label: Lezioni
+        widget: boolean
+        default: true
+        required: false
+      - name: nav_con
+        label: Contatti
+        widget: boolean
+        default: true
+        required: false
+    - name: home_counts
+      label: Quanti elementi mostrare nella Home
+      widget: object
+      fields:
+      - name: exc
+        label: Escursioni
+        widget: number
+        value_type: int
+        min: 1
+        max: 30
+        required: false
+      - name: house
+        label: Case vacanze
+        widget: number
+        value_type: int
+        min: 1
+        max: 30
+        required: false
+      - name: serv
+        label: Servizi
+        widget: number
+        value_type: int
+        min: 1
+        max: 30
+        required: false
+  - name: excursions
+    label: 🚐 Escursioni
+    file: content/excursions.json
+    fields:
+    - name: items
+      label: Escursioni
+      label_singular: Escursione
+      widget: list
+      summary: '{{fields.title.it}}'
+      fields:
+      - name: title
+        label: Titolo
+        widget: object
+        collapsed: false
+        fields:
+        - name: it
+          label: Italiano
+          widget: string
+          required: true
+        - name: de
+          label: Deutsch
+          widget: string
+          required: false
+        - name: en
+          label: English
+          widget: string
+          required: false
+        - name: pl
+          label: Polski
+          widget: string
+          required: false
+        - name: es
+          label: Español
+          widget: string
+          required: false
+      - name: area
+        label: Tipo di escursione
+        widget: select
+        required: false
+        options:
+        - label: Via terra
+          value: land
+        - label: Via mare
+          value: sea
+        - label: Altro
+          value: other
+      - name: guide
+        label: Guida con Dominika (mostra l'etichetta IT · PL · EN)
+        widget: boolean
+        required: false
+        default: false
+      - name: img
+        label: Foto
+        widget: image
+        required: false
+      - name: photos
+        label: Altre foto (la prima foto è quella sopra)
+        widget: list
+        required: false
+        field:
+          name: src
+          label: Foto
+          widget: image
+      - name: price
+        label: Prezzo (es. 45 € – la parola «da» si aggiunge da sola)
+        widget: string
+        required: false
+      - name: price_note
+        label: Nota sul prezzo (es. «a persona · bambini 10 €»)
+        widget: object
+        collapsed: true
+        fields:
+        - name: it
+          label: Italiano
+          widget: string
+          required: false
+        - name: de
+          label: Deutsch
+          widget: string
+          required: false
+        - name: en
+          label: English
+          widget: string
+          required: false
+        - name: pl
+          label: Polski
+          widget: string
+          required: false
+        - name: es
+          label: Español
+          widget: string
+          required: false
+      - name: pay
+        label: 💳 Link di pagamento (Stripe o PayPal) – facoltativo. Se c'è, compare il pulsante «Prenota e paga»
+        widget: string
+        required: false
+      - name: dur
+        label: Durata
+        widget: select
+        options:
+        - label: Giornata intera
+          value: full
+        - label: Mezza giornata
+          value: half
+        - label: Pomeriggio
+          value: afternoon
+        required: false
+      - name: dur_text
+        label: Durata scritta a mano (facoltativa, es. «4 ore», sostituisce quella sopra)
+        widget: object
+        collapsed: true
+        fields:
+        - name: it
+          label: Italiano
+          widget: string
+          required: false
+        - name: de
+          label: Deutsch
+          widget: string
+          required: false
+        - name: en
+          label: English
+          widget: string
+          required: false
+        - name: pl
+          label: Polski
+          widget: string
+          required: false
+        - name: es
+          label: Español
+          widget: string
+          required: false
+      - name: tag
+        label: Etichetta (es. Mare e borgo)
+        widget: object
+        collapsed: false
+        fields:
+        - name: it
+          label: Italiano
+          widget: string
+          required: false
+        - name: de
+          label: Deutsch
+          widget: string
+          required: false
+        - name: en
+          label: English
+          widget: string
+          required: false
+        - name: pl
+          label: Polski
+          widget: string
+          required: false
+        - name: es
+          label: Español
+          widget: string
+          required: false
+      - name: desc
+        label: Descrizione
+        widget: object
+        collapsed: false
+        fields:
+        - name: it
+          label: Italiano
+          widget: text
+          required: false
+        - name: de
+          label: Deutsch
+          widget: text
+          required: false
+        - name: en
+          label: English
+          widget: text
+          required: false
+        - name: pl
+          label: Polski
+          widget: text
+          required: false
+        - name: es
+          label: Español
+          widget: text
+          required: false
+      - name: incl
+        label: Cosa è incluso (un elemento per riga)
+        widget: object
+        collapsed: true
+        fields:
+        - name: it
+          label: Italiano
+          widget: list
+          required: false
+        - name: de
+          label: Deutsch
+          widget: list
+          required: false
+        - name: en
+          label: English
+          widget: list
+          required: false
+        - name: pl
+          label: Polski
+          widget: list
+          required: false
+        - name: es
+          label: Español
+          widget: list
+          required: false
+  - name: houses
+    label: 🏡 Case vacanze (appartamenti, ville, hotel, B&B…)
+    file: content/houses.json
+    fields:
+    - name: items
+      label: Alloggi
+      label_singular: Alloggio
+      widget: list
+      summary: '{{fields.title.it}} – {{fields.place}}'
+      fields:
+      - name: type
+        label: Tipo
+        widget: select
+        options:
+        - label: Appartamento
+          value: apartment
+        - label: Casa
+          value: house
+        - label: Villa
+          value: villa
+        - label: Hotel
+          value: hotel
+        - label: B&B
+          value: bnb
+        - label: Agriturismo
+          value: agriturismo
+        - label: Residence
+          value: residence
+      - name: title
+        label: Nome
+        widget: object
+        collapsed: false
+        fields:
+        - name: it
+          label: Italiano
+          widget: string
+          required: true
+        - name: de
+          label: Deutsch
+          widget: string
+          required: false
+        - name: en
+          label: English
+          widget: string
+          required: false
+        - name: pl
+          label: Polski
+          widget: string
+          required: false
+        - name: es
+          label: Español
+          widget: string
+          required: false
+      - name: place
+        label: Località
+        widget: string
+      - name: img
+        label: Foto
+        widget: image
+        required: false
+      - name: photos
+        label: Altre foto (la prima foto è quella sopra)
+        widget: list
+        required: false
+        field:
+          name: src
+          label: Foto
+          widget: image
+      - name: guests
+        label: Ospiti (es. 2–4)
+        widget: string
+        required: false
+      - name: amenities
+        label: Dotazioni e servizi (una per riga)
+        widget: object
+        collapsed: true
+        fields:
+        - name: it
+          label: Italiano
+          widget: list
+          required: false
+        - name: de
+          label: Deutsch
+          widget: list
+          required: false
+        - name: en
+          label: English
+          widget: list
+          required: false
+        - name: pl
+          label: Polski
+          widget: list
+          required: false
+        - name: es
+          label: Español
+          widget: list
+          required: false
+      - name: distances
+        label: 'Distanze (es. Spiaggia: 300 m)'
+        widget: object
+        collapsed: true
+        fields:
+        - name: it
+          label: Italiano
+          widget: list
+          required: false
+        - name: de
+          label: Deutsch
+          widget: list
+          required: false
+        - name: en
+          label: English
+          widget: list
+          required: false
+        - name: pl
+          label: Polski
+          widget: list
+          required: false
+        - name: es
+          label: Español
+          widget: list
+          required: false
+      - name: map
+        label: 'Mappa: indirizzo o link Google Maps'
+        widget: string
+        required: false
+      - name: cin
+        label: CIN (Codice Identificativo Nazionale)
+        widget: string
+        required: false
+      - name: cir
+        label: CIR (codice regionale)
+        widget: string
+        required: false
+      - name: info
+        label: Info brevi (persone, camere, distanza dal mare…)
+        widget: object
+        collapsed: false
+        fields:
+        - name: it
+          label: Italiano
+          widget: string
+          required: false
+        - name: de
+          label: Deutsch
+          widget: string
+          required: false
+        - name: en
+          label: English
+          widget: string
+          required: false
+        - name: pl
+          label: Polski
+          widget: string
+          required: false
+        - name: es
+          label: Español
+          widget: string
+          required: false
+      - name: desc
+        label: Descrizione (facoltativa)
+        widget: object
+        collapsed: false
+        fields:
+        - name: it
+          label: Italiano
+          widget: text
+          required: false
+        - name: de
+          label: Deutsch
+          widget: text
+          required: false
+        - name: en
+          label: English
+          widget: text
+          required: false
+        - name: pl
+          label: Polski
+          widget: text
+          required: false
+        - name: es
+          label: Español
+          widget: text
+          required: false
+      - name: price
+        label: Prezzo (es. 80 €/notte – la parola «da» si aggiunge da sola)
+        widget: string
+        required: false
+      - name: price_note
+        label: Nota sul prezzo (es. «a persona · bambini 10 €»)
+        widget: object
+        collapsed: true
+        fields:
+        - name: it
+          label: Italiano
+          widget: string
+          required: false
+        - name: de
+          label: Deutsch
+          widget: string
+          required: false
+        - name: en
+          label: English
+          widget: string
+          required: false
+        - name: pl
+          label: Polski
+          widget: string
+          required: false
+        - name: es
+          label: Español
+          widget: string
+          required: false
+      - name: pay
+        label: 💳 Link di pagamento (Stripe o PayPal) – facoltativo. Se c'è, compare il pulsante «Prenota e paga»
+        widget: string
+        required: false
+      - name: url
+        label: Link al sito esterno (Booking, Airbnb, holidayscalabria.com…). Se vuoto, il pulsante porta al modulo contatti
+        widget: string
+        required: false
+  - name: services
+    label: 🧭 Servizi (Transfer, Noleggio e altri)
+    file: content/services.json
+    fields:
+    - name: items
+      label: Servizi
+      label_singular: Servizio
+      widget: list
+      summary: '{{fields.title.it}}'
+      fields:
+      - name: kind
+        label: In quale pagina compare? (tutti compaiono anche in «Servizi»)
+        widget: select
+        default: other
+        options:
+        - label: Transfer
+          value: transfer
+        - label: Noleggio
+          value: rental
+        - label: Altro servizio
+          value: other
+      - name: title
+        label: Nome del servizio
+        widget: object
+        collapsed: false
+        fields:
+        - name: it
+          label: Italiano
+          widget: string
+          required: true
+        - name: de
+          label: Deutsch
+          widget: string
+          required: false
+        - name: en
+          label: English
+          widget: string
+          required: false
+        - name: pl
+          label: Polski
+          widget: string
+          required: false
+        - name: es
+          label: Español
+          widget: string
+          required: false
+      - name: cat
+        label: Categoria (es. Trasporti, Esperienze)
+        widget: object
+        collapsed: false
+        fields:
+        - name: it
+          label: Italiano
+          widget: string
+          required: false
+        - name: de
+          label: Deutsch
+          widget: string
+          required: false
+        - name: en
+          label: English
+          widget: string
+          required: false
+        - name: pl
+          label: Polski
+          widget: string
+          required: false
+        - name: es
+          label: Español
+          widget: string
+          required: false
+      - name: img
+        label: Foto
+        widget: image
+        required: false
+      - name: photos
+        label: Altre foto
+        widget: list
+        required: false
+        field:
+          name: src
+          label: Foto
+          widget: image
+      - name: desc
+        label: Descrizione
+        widget: object
+        collapsed: false
+        fields:
+        - name: it
+          label: Italiano
+          widget: text
+          required: false
+        - name: de
+          label: Deutsch
+          widget: text
+          required: false
+        - name: en
+          label: English
+          widget: text
+          required: false
+        - name: pl
+          label: Polski
+          widget: text
+          required: false
+        - name: es
+          label: Español
+          widget: text
+          required: false
+      - name: price
+        label: Prezzo (es. 40 € – la parola «da» si aggiunge da sola)
+        widget: string
+        required: false
+      - name: price_note
+        label: Nota sul prezzo (es. «a persona · bambini 10 €»)
+        widget: object
+        collapsed: true
+        fields:
+        - name: it
+          label: Italiano
+          widget: string
+          required: false
+        - name: de
+          label: Deutsch
+          widget: string
+          required: false
+        - name: en
+          label: English
+          widget: string
+          required: false
+        - name: pl
+          label: Polski
+          widget: string
+          required: false
+        - name: es
+          label: Español
+          widget: string
+          required: false
+      - name: pay
+        label: 💳 Link di pagamento (Stripe o PayPal) – facoltativo. Se c'è, compare il pulsante «Prenota e paga»
+        widget: string
+        required: false
+      - name: url
+        label: Link esterno (facoltativo). Se vuoto, il pulsante porta al modulo contatti
+        widget: string
+        required: false
+  - name: gallery
+    label: 📸 Galleria foto e video
+    file: content/gallery.json
+    fields:
+    - name: items
+      label: Elementi
+      label_singular: Foto o video
+      widget: list
+      summary: '{{fields.type}} – {{fields.cap.it}}'
+      fields:
+      - name: type
+        label: Tipo
+        widget: select
+        options:
+        - label: Foto
+          value: photo
+        - label: Video
+          value: video
+      - name: img
+        label: 'Foto (per i video: immagine di copertina)'
+        widget: image
+        required: false
+      - name: youtube
+        label: Link YouTube (solo video)
+        widget: string
+        required: false
+      - name: video
+        label: Oppure file video .mp4 (solo video)
+        widget: file
+        required: false
+      - name: ar
+        label: Formato
+        widget: select
+        default: 4/3
+        options:
+        - label: Orizzontale 4:3
+          value: 4/3
+        - label: Panoramico 16:9
+          value: 16/9
+        - label: Quadrato
+          value: 1/1
+        - label: Verticale 3:4
+          value: 3/4
+      - name: cap
+        label: Didascalia
+        widget: object
+        collapsed: false
+        fields:
+        - name: it
+          label: Italiano
+          widget: string
+          required: false
+        - name: de
+          label: Deutsch
+          widget: string
+          required: false
+        - name: en
+          label: English
+          widget: string
+          required: false
+        - name: pl
+          label: Polski
+          widget: string
+          required: false
+        - name: es
+          label: Español
+          widget: string
+          required: false
+  - name: lessons
+    label: 📚 Lezioni (elenchi)
+    file: content/lessons.json
+    fields:
+    - name: italian
+      label: Lezioni di italiano – punti elenco
+      widget: object
+      collapsed: true
+      fields:
+      - name: it
+        label: Italiano
+        widget: list
+        required: false
+      - name: de
+        label: Deutsch
+        widget: list
+        required: false
+      - name: en
+        label: English
+        widget: list
+        required: false
+      - name: pl
+        label: Polski
+        widget: list
+        required: false
+      - name: es
+        label: Español
+        widget: list
+        required: false
+    - name: polish
+      label: Lezioni di polacco – punti elenco
+      widget: object
+      collapsed: true
+      fields:
+      - name: it
+        label: Italiano
+        widget: list
+        required: false
+      - name: de
+        label: Deutsch
+        widget: list
+        required: false
+      - name: en
+        label: English
+        widget: list
+        required: false
+      - name: pl
+        label: Polski
+        widget: list
+        required: false
+      - name: es
+        label: Español
+        widget: list
+        required: false
+  - name: settings
+    label: ☎️ Contatti e social
+    file: content/settings.json
+    fields:
+    - name: owner_name
+      label: Nome e cognome della titolare (per la Privacy)
+      widget: string
+      required: false
+    - name: address
+      label: Indirizzo della sede (per la Privacy)
+      widget: string
+      required: false
+    - name: vat
+      label: Partita IVA (appare in fondo al sito)
+      widget: string
+      required: false
+    - name: guide_langs
+      label: Lingue delle guide (etichetta)
+      widget: string
+    - name: contact
+      label: Contatti
+      widget: object
+      fields:
+      - name: email
+        label: E-mail
+        widget: string
+      - name: phone
+        label: Telefono (come appare)
+        widget: string
+      - name: whatsapp
+        label: Numero WhatsApp (solo cifre, es. 393331234567)
+        widget: string
+      - name: place
+        label: Dove
+        widget: object
+        collapsed: false
+        fields:
+        - name: it
+          label: Italiano
+          widget: string
+          required: true
+        - name: de
+          label: Deutsch
+          widget: string
+          required: false
+        - name: en
+          label: English
+          widget: string
+          required: false
+        - name: pl
+          label: Polski
+          widget: string
+          required: false
+        - name: es
+          label: Español
+          widget: string
+          required: false
+    - name: socials
+      label: Social
+      widget: list
+      fields:
+      - name: label
+        label: Sigla (IG, FB, YT, TT…)
+        widget: string
+      - name: url
+        label: Link
+        widget: string
+  - name: texts
+    label: ✍️ Testi delle pagine (5 lingue)
+    file: content/texts.json
+    fields:
+    - name: it
+      label: Testi in Italiano
+      widget: object
+      collapsed: true
+      fields:
+      - name: nav_about
+        label: nav_about  —  «Chi sono»
+        widget: string
+        required: false
+      - name: nav_exc
+        label: nav_exc  —  «Escursioni»
+        widget: string
+        required: false
+      - name: nav_les
+        label: nav_les  —  «Lezioni»
+        widget: string
+        required: false
+      - name: nav_house
+        label: nav_house  —  «Case vacanze»
+        widget: string
+        required: false
+      - name: nav_gal
+        label: nav_gal  —  «Galleria»
+        widget: string
+        required: false
+      - name: nav_con
+        label: nav_con  —  «Contatti»
+        widget: string
+        required: false
+      - name: hero_eyebrow
+        label: hero_eyebrow  —  «Lingua italiana e viaggi in Calabria»
+        widget: string
+        required: false
+      - name: hero_t1
+        label: hero_t1  —  «Scopri la Calabria»
+        widget: string
+        required: false
+      - name: hero_t2
+        label: hero_t2  —  «e impara le lingue»
+        widget: string
+        required: false
+      - name: hero_lead
+        label: hero_lead  —  «Escursioni guidate in italiano, polacco e ing»
+        widget: text
+        required: false
+      - name: hero_cta1
+        label: hero_cta1  —  «Vedi le escursioni»
+        widget: string
+        required: false
+      - name: hero_cta2
+        label: hero_cta2  —  «Lezioni di lingua»
+        widget: string
+        required: false
+      - name: b1
+        label: b1  —  «Guida locale»
+        widget: string
+        required: false
+      - name: b2
+        label: b2  —  «Lezioni IT ⇄ PL»
+        widget: string
+        required: false
+      - name: b3
+        label: b3  —  «Calabria autentica»
+        widget: string
+        required: false
+      - name: about_eyebrow
+        label: about_eyebrow  —  «Piacere!»
+        widget: string
+        required: false
+      - name: about_title
+        label: about_title  —  «Ciao! Sono Dominika»
+        widget: string
+        required: false
+      - name: about_p1
+        label: about_p1  —  «Sono polacca, mi sono innamorata della Calabr»
+        widget: text
+        required: false
+      - name: about_p2
+        label: about_p2  —  «Nelle mie escursioni – in italiano, polacco o»
+        widget: text
+        required: false
+      - name: exc_eyebrow
+        label: exc_eyebrow  —  «Escursioni»
+        widget: string
+        required: false
+      - name: exc_title
+        label: exc_title  —  «La Calabria da vicino»
+        widget: string
+        required: false
+      - name: exc_sub
+        label: exc_sub  —  «Piccoli gruppi, guida in italiano, polacco o »
+        widget: text
+        required: false
+      - name: dur_full
+        label: dur_full  —  «Giornata intera»
+        widget: string
+        required: false
+      - name: dur_half
+        label: dur_half  —  «Mezza giornata»
+        widget: string
+        required: false
+      - name: dur_afternoon
+        label: dur_afternoon  —  «Pomeriggio»
+        widget: string
+        required: false
+      - name: details
+        label: details  —  «Dettagli →»
+        widget: string
+        required: false
+      - name: included
+        label: included  —  «Incluso:»
+        widget: string
+        required: false
+      - name: book
+        label: book  —  «Prenota»
+        widget: string
+        required: false
+      - name: les_eyebrow
+        label: les_eyebrow  —  «Lezioni di lingua»
+        widget: string
+        required: false
+      - name: les_title
+        label: les_title  —  «Italiano e polacco»
+        widget: string
+        required: false
+      - name: les_sub
+        label: les_sub  —  «Lezioni su misura per il tuo livello e obiett»
+        widget: text
+        required: false
+      - name: it_title
+        label: it_title  —  «Lezioni di italiano»
+        widget: string
+        required: false
+      - name: it_sub
+        label: it_sub  —  «Per chi vuole parlare italiano davvero, con t»
+        widget: string
+        required: false
+      - name: pl_title
+        label: pl_title  —  «Lezioni di polacco»
+        widget: string
+        required: false
+      - name: pl_sub
+        label: pl_sub  —  «Il polacco spiegato passo dopo passo, senza p»
+        widget: string
+        required: false
+      - name: les_cta
+        label: les_cta  —  «Iscriviti»
+        widget: string
+        required: false
+      - name: f1_t
+        label: f1_t  —  «Individuali»
+        widget: string
+        required: false
+      - name: f1_d
+        label: f1_d  —  «Programma su misura, orari flessibili.»
+        widget: string
+        required: false
+      - name: f2_t
+        label: f2_t  —  «In gruppo»
+        widget: string
+        required: false
+      - name: f2_d
+        label: f2_d  —  «Piccoli gruppi di 3–6 persone, più conversazi»
+        widget: string
+        required: false
+      - name: f3_t
+        label: f3_t  —  «Online»
+        widget: string
+        required: false
+      - name: f3_d
+        label: f3_d  —  «Lezioni su Zoom o Google Meet, ovunque tu sia»
+        widget: string
+        required: false
+      - name: h_eyebrow
+        label: h_eyebrow  —  «Alloggi»
+        widget: string
+        required: false
+      - name: h_title
+        label: h_title  —  «Dove dormire»
+        widget: string
+        required: false
+      - name: h_sub
+        label: h_sub  —  «Alloggi selezionati per il tuo soggiorno in C»
+        widget: text
+        required: false
+      - name: h_btn
+        label: h_btn  —  «Vedi l’offerta»
+        widget: string
+        required: false
+      - name: gal_eyebrow
+        label: gal_eyebrow  —  «Galleria»
+        widget: string
+        required: false
+      - name: gal_title
+        label: gal_title  —  «Foto e video»
+        widget: string
+        required: false
+      - name: gal_sub
+        label: gal_sub  —  «Momenti dalle escursioni e dalle lezioni. Cli»
+        widget: text
+        required: false
+      - name: g_all
+        label: g_all  —  «Tutto»
+        widget: string
+        required: false
+      - name: g_photo
+        label: g_photo  —  «Foto»
+        widget: string
+        required: false
+      - name: g_video
+        label: g_video  —  «Video»
+        widget: string
+        required: false
+      - name: watch_yt
+        label: watch_yt  —  «Guarda su YouTube»
+        widget: string
+        required: false
+      - name: con_eyebrow
+        label: con_eyebrow  —  «Contatti»
+        widget: string
+        required: false
+      - name: con_title
+        label: con_title  —  «Scrivimi»
+        widget: string
+        required: false
+      - name: con_sub
+        label: con_sub  —  «Hai una domanda su un'escursione o sulle lezi»
+        widget: text
+        required: false
+      - name: c_mail
+        label: c_mail  —  «E-mail»
+        widget: string
+        required: false
+      - name: c_phone
+        label: c_phone  —  «Telefono / WhatsApp»
+        widget: string
+        required: false
+      - name: c_place
+        label: c_place  —  «Dove»
+        widget: string
+        required: false
+      - name: fm_name
+        label: fm_name  —  «Nome»
+        widget: string
+        required: false
+      - name: fm_email
+        label: fm_email  —  «E-mail»
+        widget: string
+        required: false
+      - name: fm_topic
+        label: fm_topic  —  «Argomento»
+        widget: string
+        required: false
+      - name: fm_o1
+        label: fm_o1  —  «Escursione»
+        widget: string
+        required: false
+      - name: fm_o2
+        label: fm_o2  —  «Lezioni di italiano»
+        widget: string
+        required: false
+      - name: fm_o3
+        label: fm_o3  —  «Lezioni di polacco»
+        widget: string
+        required: false
+      - name: fm_o5
+        label: fm_o5  —  «Case vacanze»
+        widget: string
+        required: false
+      - name: fm_o4
+        label: fm_o4  —  «Altro»
+        widget: string
+        required: false
+      - name: fm_msg
+        label: fm_msg  —  «Messaggio»
+        widget: string
+        required: false
+      - name: fm_send
+        label: fm_send  —  «Invia messaggio»
+        widget: string
+        required: false
+      - name: fm_ok
+        label: fm_ok  —  «Grazie! Sto aprendo il tuo programma di posta»
+        widget: text
+        required: false
+      - name: fm_err
+        label: fm_err  —  «Inserisci il nome e un'e-mail valida.»
+        widget: string
+        required: false
+      - name: foot_tag
+        label: foot_tag  —  «Lingua italiana e viaggi in Calabria»
+        widget: string
+        required: false
+      - name: photo_ph
+        label: photo_ph  —  «La tua foto»
+        widget: string
+        required: false
+      - name: price_from
+        label: price_from  —  «da»
+        widget: string
+        required: false
+      - name: nav_area
+        label: nav_area  —  «Area riservata»
+        widget: string
+        required: false
+      - name: privacy
+        label: privacy  —  «Privacy e Cookie»
+        widget: string
+        required: false
+      - name: fm_privacy
+        label: fm_privacy  —  «I dati che invii sono trattati secondo l'info»
+        widget: string
+        required: false
+      - name: nav_serv
+        label: nav_serv  —  «Servizi»
+        widget: string
+        required: false
+      - name: s_eyebrow
+        label: s_eyebrow  —  «Servizi»
+        widget: string
+        required: false
+      - name: s_title
+        label: s_title  —  «Tutto per la tua vacanza»
+        widget: string
+        required: false
+      - name: s_sub
+        label: s_sub  —  «Transfer, esperienze e altri servizi per vive»
+        widget: text
+        required: false
+      - name: s_info
+        label: s_info  —  «Chiedi info»
+        widget: string
+        required: false
+      - name: s_more
+        label: s_more  —  «Scopri di più»
+        widget: string
+        required: false
+      - name: h_all
+        label: h_all  —  «Tutti»
+        widget: string
+        required: false
+      - name: ty_apartment
+        label: ty_apartment  —  «Appartamento»
+        widget: string
+        required: false
+      - name: ty_house
+        label: ty_house  —  «Casa»
+        widget: string
+        required: false
+      - name: ty_villa
+        label: ty_villa  —  «Villa»
+        widget: string
+        required: false
+      - name: ty_hotel
+        label: ty_hotel  —  «Hotel»
+        widget: string
+        required: false
+      - name: ty_bnb
+        label: ty_bnb  —  «B&B»
+        widget: string
+        required: false
+      - name: ty_agriturismo
+        label: ty_agriturismo  —  «Agriturismo»
+        widget: string
+        required: false
+      - name: ty_residence
+        label: ty_residence  —  «Residence»
+        widget: string
+        required: false
+      - name: pay_book
+        label: pay_book  —  «Prenota e paga»
+        widget: string
+        required: false
+      - name: guests
+        label: guests  —  «ospiti»
+        widget: string
+        required: false
+      - name: amenities
+        label: amenities  —  «Dotazioni e servizi»
+        widget: string
+        required: false
+      - name: distances
+        label: distances  —  «Distanze»
+        widget: string
+        required: false
+      - name: see_map
+        label: see_map  —  «Vedi sulla mappa»
+        widget: string
+        required: false
+      - name: ex_all
+        label: ex_all  —  «Tutte»
+        widget: string
+        required: false
+      - name: ex_land
+        label: ex_land  —  «Via terra»
+        widget: string
+        required: false
+      - name: ex_sea
+        label: ex_sea  —  «Via mare»
+        widget: string
+        required: false
+      - name: ex_other
+        label: ex_other  —  «Altre»
+        widget: string
+        required: false
+      - name: nav_tr
+        label: nav_tr  —  «Transfer»
+        widget: string
+        required: false
+      - name: nav_rent
+        label: nav_rent  —  «Noleggio»
+        widget: string
+        required: false
+      - name: see_exc
+        label: see_exc  —  «Tutte le escursioni →»
+        widget: string
+        required: false
+      - name: see_house
+        label: see_house  —  «Tutte le case vacanze →»
+        widget: string
+        required: false
+      - name: see_serv
+        label: see_serv  —  «Tutti i servizi →»
+        widget: string
+        required: false
+      - name: crumb_home
+        label: crumb_home  —  «Home»
+        widget: string
+        required: false
+      - name: tr_eyebrow
+        label: tr_eyebrow  —  «Transfer»
+        widget: string
+        required: false
+      - name: tr_title
+        label: tr_title  —  «Transfer dall'aeroporto»
+        widget: string
+        required: false
+      - name: tr_sub
+        label: tr_sub  —  «Dall'aeroporto di Lamezia Terme a Tropea e al»
+        widget: text
+        required: false
+      - name: rent_eyebrow
+        label: rent_eyebrow  —  «Noleggio»
+        widget: string
+        required: false
+      - name: rent_title
+        label: rent_title  —  «Noleggio barche, auto e scooter»
+        widget: string
+        required: false
+      - name: rent_sub
+        label: rent_sub  —  «Gommoni e barche anche senza patente, auto, s»
+        widget: text
+        required: false
+      - name: pt_houses
+        label: pt_houses  —  «Case vacanze a Tropea e Capo Vaticano»
+        widget: string
+        required: false
+      - name: pt_exc
+        label: pt_exc  —  «Escursioni da Tropea via mare e via terra»
+        widget: string
+        required: false
+      - name: pt_transfer
+        label: pt_transfer  —  «Transfer aeroporto Lamezia Terme – Tropea»
+        widget: string
+        required: false
+      - name: pt_rental
+        label: pt_rental  —  «Noleggio barche, auto e scooter a Tropea»
+        widget: string
+        required: false
+      - name: pt_services
+        label: pt_services  —  «Servizi per la tua vacanza in Calabria»
+        widget: string
+        required: false
+      - name: nav_blog
+        label: nav_blog  —  «Blog»
+        widget: string
+        required: false
+      - name: blog_eyebrow
+        label: blog_eyebrow  —  «Blog»
+        widget: string
+        required: false
+      - name: blog_title
+        label: blog_title  —  «Guide e consigli sulla Calabria»
+        widget: string
+        required: false
+      - name: blog_latest
+        label: blog_latest  —  «Dal blog»
+        widget: string
+        required: false
+      - name: blog_sub
+        label: blog_sub  —  «Cosa vedere, le spiagge più belle, come arriv»
+        widget: text
+        required: false
+      - name: read_more
+        label: read_more  —  «Leggi l'articolo →»
+        widget: string
+        required: false
+      - name: see_blog
+        label: see_blog  —  «Tutti gli articoli →»
+        widget: string
+        required: false
+      - name: blog_all
+        label: blog_all  —  «Tutte le lingue»
+        widget: string
+        required: false
+      - name: blog_empty
+        label: blog_empty  —  «Presto nuovi articoli.»
+        widget: string
+        required: false
+      - name: post_related
+        label: post_related  —  «Leggi anche»
+        widget: string
+        required: false
+      - name: post_cta_title
+        label: post_cta_title  —  «Organizziamo insieme la tua vacanza»
+        widget: string
+        required: false
+      - name: post_cta_text
+        label: post_cta_text  —  «Escursioni, case vacanze e transfer dall'aero»
+        widget: text
+        required: false
+      - name: pt_blog
+        label: 'pt_blog  —  «Blog: guide e consigli sulla Calabria»'
+        widget: string
+        required: false
+    - name: de
+      label: Testi in Deutsch
+      widget: object
+      collapsed: true
+      fields:
+      - name: nav_about
+        label: nav_about  —  «Chi sono»
+        widget: string
+        required: false
+      - name: nav_exc
+        label: nav_exc  —  «Escursioni»
+        widget: string
+        required: false
+      - name: nav_les
+        label: nav_les  —  «Lezioni»
+        widget: string
+        required: false
+      - name: nav_house
+        label: nav_house  —  «Case vacanze»
+        widget: string
+        required: false
+      - name: nav_gal
+        label: nav_gal  —  «Galleria»
+        widget: string
+        required: false
+      - name: nav_con
+        label: nav_con  —  «Contatti»
+        widget: string
+        required: false
+      - name: hero_eyebrow
+        label: hero_eyebrow  —  «Lingua italiana e viaggi in Calabria»
+        widget: string
+        required: false
+      - name: hero_t1
+        label: hero_t1  —  «Scopri la Calabria»
+        widget: string
+        required: false
+      - name: hero_t2
+        label: hero_t2  —  «e impara le lingue»
+        widget: string
+        required: false
+      - name: hero_lead
+        label: hero_lead  —  «Escursioni guidate in italiano, polacco e ing»
+        widget: text
+        required: false
+      - name: hero_cta1
+        label: hero_cta1  —  «Vedi le escursioni»
+        widget: string
+        required: false
+      - name: hero_cta2
+        label: hero_cta2  —  «Lezioni di lingua»
+        widget: string
+        required: false
+      - name: b1
+        label: b1  —  «Guida locale»
+        widget: string
+        required: false
+      - name: b2
+        label: b2  —  «Lezioni IT ⇄ PL»
+        widget: string
+        required: false
+      - name: b3
+        label: b3  —  «Calabria autentica»
+        widget: string
+        required: false
+      - name: about_eyebrow
+        label: about_eyebrow  —  «Piacere!»
+        widget: string
+        required: false
+      - name: about_title
+        label: about_title  —  «Ciao! Sono Dominika»
+        widget: string
+        required: false
+      - name: about_p1
+        label: about_p1  —  «Sono polacca, mi sono innamorata della Calabr»
+        widget: text
+        required: false
+      - name: about_p2
+        label: about_p2  —  «Nelle mie escursioni – in italiano, polacco o»
+        widget: text
+        required: false
+      - name: exc_eyebrow
+        label: exc_eyebrow  —  «Escursioni»
+        widget: string
+        required: false
+      - name: exc_title
+        label: exc_title  —  «La Calabria da vicino»
+        widget: string
+        required: false
+      - name: exc_sub
+        label: exc_sub  —  «Piccoli gruppi, guida in italiano, polacco o »
+        widget: text
+        required: false
+      - name: dur_full
+        label: dur_full  —  «Giornata intera»
+        widget: string
+        required: false
+      - name: dur_half
+        label: dur_half  —  «Mezza giornata»
+        widget: string
+        required: false
+      - name: dur_afternoon
+        label: dur_afternoon  —  «Pomeriggio»
+        widget: string
+        required: false
+      - name: details
+        label: details  —  «Dettagli →»
+        widget: string
+        required: false
+      - name: included
+        label: included  —  «Incluso:»
+        widget: string
+        required: false
+      - name: book
+        label: book  —  «Prenota»
+        widget: string
+        required: false
+      - name: les_eyebrow
+        label: les_eyebrow  —  «Lezioni di lingua»
+        widget: string
+        required: false
+      - name: les_title
+        label: les_title  —  «Italiano e polacco»
+        widget: string
+        required: false
+      - name: les_sub
+        label: les_sub  —  «Lezioni su misura per il tuo livello e obiett»
+        widget: text
+        required: false
+      - name: it_title
+        label: it_title  —  «Lezioni di italiano»
+        widget: string
+        required: false
+      - name: it_sub
+        label: it_sub  —  «Per chi vuole parlare italiano davvero, con t»
+        widget: string
+        required: false
+      - name: pl_title
+        label: pl_title  —  «Lezioni di polacco»
+        widget: string
+        required: false
+      - name: pl_sub
+        label: pl_sub  —  «Il polacco spiegato passo dopo passo, senza p»
+        widget: string
+        required: false
+      - name: les_cta
+        label: les_cta  —  «Iscriviti»
+        widget: string
+        required: false
+      - name: f1_t
+        label: f1_t  —  «Individuali»
+        widget: string
+        required: false
+      - name: f1_d
+        label: f1_d  —  «Programma su misura, orari flessibili.»
+        widget: string
+        required: false
+      - name: f2_t
+        label: f2_t  —  «In gruppo»
+        widget: string
+        required: false
+      - name: f2_d
+        label: f2_d  —  «Piccoli gruppi di 3–6 persone, più conversazi»
+        widget: string
+        required: false
+      - name: f3_t
+        label: f3_t  —  «Online»
+        widget: string
+        required: false
+      - name: f3_d
+        label: f3_d  —  «Lezioni su Zoom o Google Meet, ovunque tu sia»
+        widget: string
+        required: false
+      - name: h_eyebrow
+        label: h_eyebrow  —  «Alloggi»
+        widget: string
+        required: false
+      - name: h_title
+        label: h_title  —  «Dove dormire»
+        widget: string
+        required: false
+      - name: h_sub
+        label: h_sub  —  «Alloggi selezionati per il tuo soggiorno in C»
+        widget: text
+        required: false
+      - name: h_btn
+        label: h_btn  —  «Vedi l’offerta»
+        widget: string
+        required: false
+      - name: gal_eyebrow
+        label: gal_eyebrow  —  «Galleria»
+        widget: string
+        required: false
+      - name: gal_title
+        label: gal_title  —  «Foto e video»
+        widget: string
+        required: false
+      - name: gal_sub
+        label: gal_sub  —  «Momenti dalle escursioni e dalle lezioni. Cli»
+        widget: text
+        required: false
+      - name: g_all
+        label: g_all  —  «Tutto»
+        widget: string
+        required: false
+      - name: g_photo
+        label: g_photo  —  «Foto»
+        widget: string
+        required: false
+      - name: g_video
+        label: g_video  —  «Video»
+        widget: string
+        required: false
+      - name: watch_yt
+        label: watch_yt  —  «Guarda su YouTube»
+        widget: string
+        required: false
+      - name: con_eyebrow
+        label: con_eyebrow  —  «Contatti»
+        widget: string
+        required: false
+      - name: con_title
+        label: con_title  —  «Scrivimi»
+        widget: string
+        required: false
+      - name: con_sub
+        label: con_sub  —  «Hai una domanda su un'escursione o sulle lezi»
+        widget: text
+        required: false
+      - name: c_mail
+        label: c_mail  —  «E-mail»
+        widget: string
+        required: false
+      - name: c_phone
+        label: c_phone  —  «Telefono / WhatsApp»
+        widget: string
+        required: false
+      - name: c_place
+        label: c_place  —  «Dove»
+        widget: string
+        required: false
+      - name: fm_name
+        label: fm_name  —  «Nome»
+        widget: string
+        required: false
+      - name: fm_email
+        label: fm_email  —  «E-mail»
+        widget: string
+        required: false
+      - name: fm_topic
+        label: fm_topic  —  «Argomento»
+        widget: string
+        required: false
+      - name: fm_o1
+        label: fm_o1  —  «Escursione»
+        widget: string
+        required: false
+      - name: fm_o2
+        label: fm_o2  —  «Lezioni di italiano»
+        widget: string
+        required: false
+      - name: fm_o3
+        label: fm_o3  —  «Lezioni di polacco»
+        widget: string
+        required: false
+      - name: fm_o5
+        label: fm_o5  —  «Case vacanze»
+        widget: string
+        required: false
+      - name: fm_o4
+        label: fm_o4  —  «Altro»
+        widget: string
+        required: false
+      - name: fm_msg
+        label: fm_msg  —  «Messaggio»
+        widget: string
+        required: false
+      - name: fm_send
+        label: fm_send  —  «Invia messaggio»
+        widget: string
+        required: false
+      - name: fm_ok
+        label: fm_ok  —  «Grazie! Sto aprendo il tuo programma di posta»
+        widget: text
+        required: false
+      - name: fm_err
+        label: fm_err  —  «Inserisci il nome e un'e-mail valida.»
+        widget: string
+        required: false
+      - name: foot_tag
+        label: foot_tag  —  «Lingua italiana e viaggi in Calabria»
+        widget: string
+        required: false
+      - name: photo_ph
+        label: photo_ph  —  «La tua foto»
+        widget: string
+        required: false
+      - name: price_from
+        label: price_from  —  «da»
+        widget: string
+        required: false
+      - name: nav_area
+        label: nav_area  —  «Area riservata»
+        widget: string
+        required: false
+      - name: privacy
+        label: privacy  —  «Privacy e Cookie»
+        widget: string
+        required: false
+      - name: fm_privacy
+        label: fm_privacy  —  «I dati che invii sono trattati secondo l'info»
+        widget: string
+        required: false
+      - name: nav_serv
+        label: nav_serv  —  «Servizi»
+        widget: string
+        required: false
+      - name: s_eyebrow
+        label: s_eyebrow  —  «Servizi»
+        widget: string
+        required: false
+      - name: s_title
+        label: s_title  —  «Tutto per la tua vacanza»
+        widget: string
+        required: false
+      - name: s_sub
+        label: s_sub  —  «Transfer, esperienze e altri servizi per vive»
+        widget: text
+        required: false
+      - name: s_info
+        label: s_info  —  «Chiedi info»
+        widget: string
+        required: false
+      - name: s_more
+        label: s_more  —  «Scopri di più»
+        widget: string
+        required: false
+      - name: h_all
+        label: h_all  —  «Tutti»
+        widget: string
+        required: false
+      - name: ty_apartment
+        label: ty_apartment  —  «Appartamento»
+        widget: string
+        required: false
+      - name: ty_house
+        label: ty_house  —  «Casa»
+        widget: string
+        required: false
+      - name: ty_villa
+        label: ty_villa  —  «Villa»
+        widget: string
+        required: false
+      - name: ty_hotel
+        label: ty_hotel  —  «Hotel»
+        widget: string
+        required: false
+      - name: ty_bnb
+        label: ty_bnb  —  «B&B»
+        widget: string
+        required: false
+      - name: ty_agriturismo
+        label: ty_agriturismo  —  «Agriturismo»
+        widget: string
+        required: false
+      - name: ty_residence
+        label: ty_residence  —  «Residence»
+        widget: string
+        required: false
+      - name: pay_book
+        label: pay_book  —  «Prenota e paga»
+        widget: string
+        required: false
+      - name: guests
+        label: guests  —  «ospiti»
+        widget: string
+        required: false
+      - name: amenities
+        label: amenities  —  «Dotazioni e servizi»
+        widget: string
+        required: false
+      - name: distances
+        label: distances  —  «Distanze»
+        widget: string
+        required: false
+      - name: see_map
+        label: see_map  —  «Vedi sulla mappa»
+        widget: string
+        required: false
+      - name: ex_all
+        label: ex_all  —  «Tutte»
+        widget: string
+        required: false
+      - name: ex_land
+        label: ex_land  —  «Via terra»
+        widget: string
+        required: false
+      - name: ex_sea
+        label: ex_sea  —  «Via mare»
+        widget: string
+        required: false
+      - name: ex_other
+        label: ex_other  —  «Altre»
+        widget: string
+        required: false
+      - name: nav_tr
+        label: nav_tr  —  «Transfer»
+        widget: string
+        required: false
+      - name: nav_rent
+        label: nav_rent  —  «Noleggio»
+        widget: string
+        required: false
+      - name: see_exc
+        label: see_exc  —  «Tutte le escursioni →»
+        widget: string
+        required: false
+      - name: see_house
+        label: see_house  —  «Tutte le case vacanze →»
+        widget: string
+        required: false
+      - name: see_serv
+        label: see_serv  —  «Tutti i servizi →»
+        widget: string
+        required: false
+      - name: crumb_home
+        label: crumb_home  —  «Home»
+        widget: string
+        required: false
+      - name: tr_eyebrow
+        label: tr_eyebrow  —  «Transfer»
+        widget: string
+        required: false
+      - name: tr_title
+        label: tr_title  —  «Transfer dall'aeroporto»
+        widget: string
+        required: false
+      - name: tr_sub
+        label: tr_sub  —  «Dall'aeroporto di Lamezia Terme a Tropea e al»
+        widget: text
+        required: false
+      - name: rent_eyebrow
+        label: rent_eyebrow  —  «Noleggio»
+        widget: string
+        required: false
+      - name: rent_title
+        label: rent_title  —  «Noleggio barche, auto e scooter»
+        widget: string
+        required: false
+      - name: rent_sub
+        label: rent_sub  —  «Gommoni e barche anche senza patente, auto, s»
+        widget: text
+        required: false
+      - name: pt_houses
+        label: pt_houses  —  «Case vacanze a Tropea e Capo Vaticano»
+        widget: string
+        required: false
+      - name: pt_exc
+        label: pt_exc  —  «Escursioni da Tropea via mare e via terra»
+        widget: string
+        required: false
+      - name: pt_transfer
+        label: pt_transfer  —  «Transfer aeroporto Lamezia Terme – Tropea»
+        widget: string
+        required: false
+      - name: pt_rental
+        label: pt_rental  —  «Noleggio barche, auto e scooter a Tropea»
+        widget: string
+        required: false
+      - name: pt_services
+        label: pt_services  —  «Servizi per la tua vacanza in Calabria»
+        widget: string
+        required: false
+      - name: nav_blog
+        label: nav_blog  —  «Blog»
+        widget: string
+        required: false
+      - name: blog_eyebrow
+        label: blog_eyebrow  —  «Blog»
+        widget: string
+        required: false
+      - name: blog_title
+        label: blog_title  —  «Guide e consigli sulla Calabria»
+        widget: string
+        required: false
+      - name: blog_latest
+        label: blog_latest  —  «Dal blog»
+        widget: string
+        required: false
+      - name: blog_sub
+        label: blog_sub  —  «Cosa vedere, le spiagge più belle, come arriv»
+        widget: text
+        required: false
+      - name: read_more
+        label: read_more  —  «Leggi l'articolo →»
+        widget: string
+        required: false
+      - name: see_blog
+        label: see_blog  —  «Tutti gli articoli →»
+        widget: string
+        required: false
+      - name: blog_all
+        label: blog_all  —  «Tutte le lingue»
+        widget: string
+        required: false
+      - name: blog_empty
+        label: blog_empty  —  «Presto nuovi articoli.»
+        widget: string
+        required: false
+      - name: post_related
+        label: post_related  —  «Leggi anche»
+        widget: string
+        required: false
+      - name: post_cta_title
+        label: post_cta_title  —  «Organizziamo insieme la tua vacanza»
+        widget: string
+        required: false
+      - name: post_cta_text
+        label: post_cta_text  —  «Escursioni, case vacanze e transfer dall'aero»
+        widget: text
+        required: false
+      - name: pt_blog
+        label: 'pt_blog  —  «Blog: guide e consigli sulla Calabria»'
+        widget: string
+        required: false
+    - name: en
+      label: Testi in English
+      widget: object
+      collapsed: true
+      fields:
+      - name: nav_about
+        label: nav_about  —  «Chi sono»
+        widget: string
+        required: false
+      - name: nav_exc
+        label: nav_exc  —  «Escursioni»
+        widget: string
+        required: false
+      - name: nav_les
+        label: nav_les  —  «Lezioni»
+        widget: string
+        required: false
+      - name: nav_house
+        label: nav_house  —  «Case vacanze»
+        widget: string
+        required: false
+      - name: nav_gal
+        label: nav_gal  —  «Galleria»
+        widget: string
+        required: false
+      - name: nav_con
+        label: nav_con  —  «Contatti»
+        widget: string
+        required: false
+      - name: hero_eyebrow
+        label: hero_eyebrow  —  «Lingua italiana e viaggi in Calabria»
+        widget: string
+        required: false
+      - name: hero_t1
+        label: hero_t1  —  «Scopri la Calabria»
+        widget: string
+        required: false
+      - name: hero_t2
+        label: hero_t2  —  «e impara le lingue»
+        widget: string
+        required: false
+      - name: hero_lead
+        label: hero_lead  —  «Escursioni guidate in italiano, polacco e ing»
+        widget: text
+        required: false
+      - name: hero_cta1
+        label: hero_cta1  —  «Vedi le escursioni»
+        widget: string
+        required: false
+      - name: hero_cta2
+        label: hero_cta2  —  «Lezioni di lingua»
+        widget: string
+        required: false
+      - name: b1
+        label: b1  —  «Guida locale»
+        widget: string
+        required: false
+      - name: b2
+        label: b2  —  «Lezioni IT ⇄ PL»
+        widget: string
+        required: false
+      - name: b3
+        label: b3  —  «Calabria autentica»
+        widget: string
+        required: false
+      - name: about_eyebrow
+        label: about_eyebrow  —  «Piacere!»
+        widget: string
+        required: false
+      - name: about_title
+        label: about_title  —  «Ciao! Sono Dominika»
+        widget: string
+        required: false
+      - name: about_p1
+        label: about_p1  —  «Sono polacca, mi sono innamorata della Calabr»
+        widget: text
+        required: false
+      - name: about_p2
+        label: about_p2  —  «Nelle mie escursioni – in italiano, polacco o»
+        widget: text
+        required: false
+      - name: exc_eyebrow
+        label: exc_eyebrow  —  «Escursioni»
+        widget: string
+        required: false
+      - name: exc_title
+        label: exc_title  —  «La Calabria da vicino»
+        widget: string
+        required: false
+      - name: exc_sub
+        label: exc_sub  —  «Piccoli gruppi, guida in italiano, polacco o »
+        widget: text
+        required: false
+      - name: dur_full
+        label: dur_full  —  «Giornata intera»
+        widget: string
+        required: false
+      - name: dur_half
+        label: dur_half  —  «Mezza giornata»
+        widget: string
+        required: false
+      - name: dur_afternoon
+        label: dur_afternoon  —  «Pomeriggio»
+        widget: string
+        required: false
+      - name: details
+        label: details  —  «Dettagli →»
+        widget: string
+        required: false
+      - name: included
+        label: included  —  «Incluso:»
+        widget: string
+        required: false
+      - name: book
+        label: book  —  «Prenota»
+        widget: string
+        required: false
+      - name: les_eyebrow
+        label: les_eyebrow  —  «Lezioni di lingua»
+        widget: string
+        required: false
+      - name: les_title
+        label: les_title  —  «Italiano e polacco»
+        widget: string
+        required: false
+      - name: les_sub
+        label: les_sub  —  «Lezioni su misura per il tuo livello e obiett»
+        widget: text
+        required: false
+      - name: it_title
+        label: it_title  —  «Lezioni di italiano»
+        widget: string
+        required: false
+      - name: it_sub
+        label: it_sub  —  «Per chi vuole parlare italiano davvero, con t»
+        widget: string
+        required: false
+      - name: pl_title
+        label: pl_title  —  «Lezioni di polacco»
+        widget: string
+        required: false
+      - name: pl_sub
+        label: pl_sub  —  «Il polacco spiegato passo dopo passo, senza p»
+        widget: string
+        required: false
+      - name: les_cta
+        label: les_cta  —  «Iscriviti»
+        widget: string
+        required: false
+      - name: f1_t
+        label: f1_t  —  «Individuali»
+        widget: string
+        required: false
+      - name: f1_d
+        label: f1_d  —  «Programma su misura, orari flessibili.»
+        widget: string
+        required: false
+      - name: f2_t
+        label: f2_t  —  «In gruppo»
+        widget: string
+        required: false
+      - name: f2_d
+        label: f2_d  —  «Piccoli gruppi di 3–6 persone, più conversazi»
+        widget: string
+        required: false
+      - name: f3_t
+        label: f3_t  —  «Online»
+        widget: string
+        required: false
+      - name: f3_d
+        label: f3_d  —  «Lezioni su Zoom o Google Meet, ovunque tu sia»
+        widget: string
+        required: false
+      - name: h_eyebrow
+        label: h_eyebrow  —  «Alloggi»
+        widget: string
+        required: false
+      - name: h_title
+        label: h_title  —  «Dove dormire»
+        widget: string
+        required: false
+      - name: h_sub
+        label: h_sub  —  «Alloggi selezionati per il tuo soggiorno in C»
+        widget: text
+        required: false
+      - name: h_btn
+        label: h_btn  —  «Vedi l’offerta»
+        widget: string
+        required: false
+      - name: gal_eyebrow
+        label: gal_eyebrow  —  «Galleria»
+        widget: string
+        required: false
+      - name: gal_title
+        label: gal_title  —  «Foto e video»
+        widget: string
+        required: false
+      - name: gal_sub
+        label: gal_sub  —  «Momenti dalle escursioni e dalle lezioni. Cli»
+        widget: text
+        required: false
+      - name: g_all
+        label: g_all  —  «Tutto»
+        widget: string
+        required: false
+      - name: g_photo
+        label: g_photo  —  «Foto»
+        widget: string
+        required: false
+      - name: g_video
+        label: g_video  —  «Video»
+        widget: string
+        required: false
+      - name: watch_yt
+        label: watch_yt  —  «Guarda su YouTube»
+        widget: string
+        required: false
+      - name: con_eyebrow
+        label: con_eyebrow  —  «Contatti»
+        widget: string
+        required: false
+      - name: con_title
+        label: con_title  —  «Scrivimi»
+        widget: string
+        required: false
+      - name: con_sub
+        label: con_sub  —  «Hai una domanda su un'escursione o sulle lezi»
+        widget: text
+        required: false
+      - name: c_mail
+        label: c_mail  —  «E-mail»
+        widget: string
+        required: false
+      - name: c_phone
+        label: c_phone  —  «Telefono / WhatsApp»
+        widget: string
+        required: false
+      - name: c_place
+        label: c_place  —  «Dove»
+        widget: string
+        required: false
+      - name: fm_name
+        label: fm_name  —  «Nome»
+        widget: string
+        required: false
+      - name: fm_email
+        label: fm_email  —  «E-mail»
+        widget: string
+        required: false
+      - name: fm_topic
+        label: fm_topic  —  «Argomento»
+        widget: string
+        required: false
+      - name: fm_o1
+        label: fm_o1  —  «Escursione»
+        widget: string
+        required: false
+      - name: fm_o2
+        label: fm_o2  —  «Lezioni di italiano»
+        widget: string
+        required: false
+      - name: fm_o3
+        label: fm_o3  —  «Lezioni di polacco»
+        widget: string
+        required: false
+      - name: fm_o5
+        label: fm_o5  —  «Case vacanze»
+        widget: string
+        required: false
+      - name: fm_o4
+        label: fm_o4  —  «Altro»
+        widget: string
+        required: false
+      - name: fm_msg
+        label: fm_msg  —  «Messaggio»
+        widget: string
+        required: false
+      - name: fm_send
+        label: fm_send  —  «Invia messaggio»
+        widget: string
+        required: false
+      - name: fm_ok
+        label: fm_ok  —  «Grazie! Sto aprendo il tuo programma di posta»
+        widget: text
+        required: false
+      - name: fm_err
+        label: fm_err  —  «Inserisci il nome e un'e-mail valida.»
+        widget: string
+        required: false
+      - name: foot_tag
+        label: foot_tag  —  «Lingua italiana e viaggi in Calabria»
+        widget: string
+        required: false
+      - name: photo_ph
+        label: photo_ph  —  «La tua foto»
+        widget: string
+        required: false
+      - name: price_from
+        label: price_from  —  «da»
+        widget: string
+        required: false
+      - name: nav_area
+        label: nav_area  —  «Area riservata»
+        widget: string
+        required: false
+      - name: privacy
+        label: privacy  —  «Privacy e Cookie»
+        widget: string
+        required: false
+      - name: fm_privacy
+        label: fm_privacy  —  «I dati che invii sono trattati secondo l'info»
+        widget: string
+        required: false
+      - name: nav_serv
+        label: nav_serv  —  «Servizi»
+        widget: string
+        required: false
+      - name: s_eyebrow
+        label: s_eyebrow  —  «Servizi»
+        widget: string
+        required: false
+      - name: s_title
+        label: s_title  —  «Tutto per la tua vacanza»
+        widget: string
+        required: false
+      - name: s_sub
+        label: s_sub  —  «Transfer, esperienze e altri servizi per vive»
+        widget: text
+        required: false
+      - name: s_info
+        label: s_info  —  «Chiedi info»
+        widget: string
+        required: false
+      - name: s_more
+        label: s_more  —  «Scopri di più»
+        widget: string
+        required: false
+      - name: h_all
+        label: h_all  —  «Tutti»
+        widget: string
+        required: false
+      - name: ty_apartment
+        label: ty_apartment  —  «Appartamento»
+        widget: string
+        required: false
+      - name: ty_house
+        label: ty_house  —  «Casa»
+        widget: string
+        required: false
+      - name: ty_villa
+        label: ty_villa  —  «Villa»
+        widget: string
+        required: false
+      - name: ty_hotel
+        label: ty_hotel  —  «Hotel»
+        widget: string
+        required: false
+      - name: ty_bnb
+        label: ty_bnb  —  «B&B»
+        widget: string
+        required: false
+      - name: ty_agriturismo
+        label: ty_agriturismo  —  «Agriturismo»
+        widget: string
+        required: false
+      - name: ty_residence
+        label: ty_residence  —  «Residence»
+        widget: string
+        required: false
+      - name: pay_book
+        label: pay_book  —  «Prenota e paga»
+        widget: string
+        required: false
+      - name: guests
+        label: guests  —  «ospiti»
+        widget: string
+        required: false
+      - name: amenities
+        label: amenities  —  «Dotazioni e servizi»
+        widget: string
+        required: false
+      - name: distances
+        label: distances  —  «Distanze»
+        widget: string
+        required: false
+      - name: see_map
+        label: see_map  —  «Vedi sulla mappa»
+        widget: string
+        required: false
+      - name: ex_all
+        label: ex_all  —  «Tutte»
+        widget: string
+        required: false
+      - name: ex_land
+        label: ex_land  —  «Via terra»
+        widget: string
+        required: false
+      - name: ex_sea
+        label: ex_sea  —  «Via mare»
+        widget: string
+        required: false
+      - name: ex_other
+        label: ex_other  —  «Altre»
+        widget: string
+        required: false
+      - name: nav_tr
+        label: nav_tr  —  «Transfer»
+        widget: string
+        required: false
+      - name: nav_rent
+        label: nav_rent  —  «Noleggio»
+        widget: string
+        required: false
+      - name: see_exc
+        label: see_exc  —  «Tutte le escursioni →»
+        widget: string
+        required: false
+      - name: see_house
+        label: see_house  —  «Tutte le case vacanze →»
+        widget: string
+        required: false
+      - name: see_serv
+        label: see_serv  —  «Tutti i servizi →»
+        widget: string
+        required: false
+      - name: crumb_home
+        label: crumb_home  —  «Home»
+        widget: string
+        required: false
+      - name: tr_eyebrow
+        label: tr_eyebrow  —  «Transfer»
+        widget: string
+        required: false
+      - name: tr_title
+        label: tr_title  —  «Transfer dall'aeroporto»
+        widget: string
+        required: false
+      - name: tr_sub
+        label: tr_sub  —  «Dall'aeroporto di Lamezia Terme a Tropea e al»
+        widget: text
+        required: false
+      - name: rent_eyebrow
+        label: rent_eyebrow  —  «Noleggio»
+        widget: string
+        required: false
+      - name: rent_title
+        label: rent_title  —  «Noleggio barche, auto e scooter»
+        widget: string
+        required: false
+      - name: rent_sub
+        label: rent_sub  —  «Gommoni e barche anche senza patente, auto, s»
+        widget: text
+        required: false
+      - name: pt_houses
+        label: pt_houses  —  «Case vacanze a Tropea e Capo Vaticano»
+        widget: string
+        required: false
+      - name: pt_exc
+        label: pt_exc  —  «Escursioni da Tropea via mare e via terra»
+        widget: string
+        required: false
+      - name: pt_transfer
+        label: pt_transfer  —  «Transfer aeroporto Lamezia Terme – Tropea»
+        widget: string
+        required: false
+      - name: pt_rental
+        label: pt_rental  —  «Noleggio barche, auto e scooter a Tropea»
+        widget: string
+        required: false
+      - name: pt_services
+        label: pt_services  —  «Servizi per la tua vacanza in Calabria»
+        widget: string
+        required: false
+      - name: nav_blog
+        label: nav_blog  —  «Blog»
+        widget: string
+        required: false
+      - name: blog_eyebrow
+        label: blog_eyebrow  —  «Blog»
+        widget: string
+        required: false
+      - name: blog_title
+        label: blog_title  —  «Guide e consigli sulla Calabria»
+        widget: string
+        required: false
+      - name: blog_latest
+        label: blog_latest  —  «Dal blog»
+        widget: string
+        required: false
+      - name: blog_sub
+        label: blog_sub  —  «Cosa vedere, le spiagge più belle, come arriv»
+        widget: text
+        required: false
+      - name: read_more
+        label: read_more  —  «Leggi l'articolo →»
+        widget: string
+        required: false
+      - name: see_blog
+        label: see_blog  —  «Tutti gli articoli →»
+        widget: string
+        required: false
+      - name: blog_all
+        label: blog_all  —  «Tutte le lingue»
+        widget: string
+        required: false
+      - name: blog_empty
+        label: blog_empty  —  «Presto nuovi articoli.»
+        widget: string
+        required: false
+      - name: post_related
+        label: post_related  —  «Leggi anche»
+        widget: string
+        required: false
+      - name: post_cta_title
+        label: post_cta_title  —  «Organizziamo insieme la tua vacanza»
+        widget: string
+        required: false
+      - name: post_cta_text
+        label: post_cta_text  —  «Escursioni, case vacanze e transfer dall'aero»
+        widget: text
+        required: false
+      - name: pt_blog
+        label: 'pt_blog  —  «Blog: guide e consigli sulla Calabria»'
+        widget: string
+        required: false
+    - name: pl
+      label: Testi in Polski
+      widget: object
+      collapsed: true
+      fields:
+      - name: nav_about
+        label: nav_about  —  «Chi sono»
+        widget: string
+        required: false
+      - name: nav_exc
+        label: nav_exc  —  «Escursioni»
+        widget: string
+        required: false
+      - name: nav_les
+        label: nav_les  —  «Lezioni»
+        widget: string
+        required: false
+      - name: nav_house
+        label: nav_house  —  «Case vacanze»
+        widget: string
+        required: false
+      - name: nav_gal
+        label: nav_gal  —  «Galleria»
+        widget: string
+        required: false
+      - name: nav_con
+        label: nav_con  —  «Contatti»
+        widget: string
+        required: false
+      - name: hero_eyebrow
+        label: hero_eyebrow  —  «Lingua italiana e viaggi in Calabria»
+        widget: string
+        required: false
+      - name: hero_t1
+        label: hero_t1  —  «Scopri la Calabria»
+        widget: string
+        required: false
+      - name: hero_t2
+        label: hero_t2  —  «e impara le lingue»
+        widget: string
+        required: false
+      - name: hero_lead
+        label: hero_lead  —  «Escursioni guidate in italiano, polacco e ing»
+        widget: text
+        required: false
+      - name: hero_cta1
+        label: hero_cta1  —  «Vedi le escursioni»
+        widget: string
+        required: false
+      - name: hero_cta2
+        label: hero_cta2  —  «Lezioni di lingua»
+        widget: string
+        required: false
+      - name: b1
+        label: b1  —  «Guida locale»
+        widget: string
+        required: false
+      - name: b2
+        label: b2  —  «Lezioni IT ⇄ PL»
+        widget: string
+        required: false
+      - name: b3
+        label: b3  —  «Calabria autentica»
+        widget: string
+        required: false
+      - name: about_eyebrow
+        label: about_eyebrow  —  «Piacere!»
+        widget: string
+        required: false
+      - name: about_title
+        label: about_title  —  «Ciao! Sono Dominika»
+        widget: string
+        required: false
+      - name: about_p1
+        label: about_p1  —  «Sono polacca, mi sono innamorata della Calabr»
+        widget: text
+        required: false
+      - name: about_p2
+        label: about_p2  —  «Nelle mie escursioni – in italiano, polacco o»
+        widget: text
+        required: false
+      - name: exc_eyebrow
+        label: exc_eyebrow  —  «Escursioni»
+        widget: string
+        required: false
+      - name: exc_title
+        label: exc_title  —  «La Calabria da vicino»
+        widget: string
+        required: false
+      - name: exc_sub
+        label: exc_sub  —  «Piccoli gruppi, guida in italiano, polacco o »
+        widget: text
+        required: false
+      - name: dur_full
+        label: dur_full  —  «Giornata intera»
+        widget: string
+        required: false
+      - name: dur_half
+        label: dur_half  —  «Mezza giornata»
+        widget: string
+        required: false
+      - name: dur_afternoon
+        label: dur_afternoon  —  «Pomeriggio»
+        widget: string
+        required: false
+      - name: details
+        label: details  —  «Dettagli →»
+        widget: string
+        required: false
+      - name: included
+        label: included  —  «Incluso:»
+        widget: string
+        required: false
+      - name: book
+        label: book  —  «Prenota»
+        widget: string
+        required: false
+      - name: les_eyebrow
+        label: les_eyebrow  —  «Lezioni di lingua»
+        widget: string
+        required: false
+      - name: les_title
+        label: les_title  —  «Italiano e polacco»
+        widget: string
+        required: false
+      - name: les_sub
+        label: les_sub  —  «Lezioni su misura per il tuo livello e obiett»
+        widget: text
+        required: false
+      - name: it_title
+        label: it_title  —  «Lezioni di italiano»
+        widget: string
+        required: false
+      - name: it_sub
+        label: it_sub  —  «Per chi vuole parlare italiano davvero, con t»
+        widget: string
+        required: false
+      - name: pl_title
+        label: pl_title  —  «Lezioni di polacco»
+        widget: string
+        required: false
+      - name: pl_sub
+        label: pl_sub  —  «Il polacco spiegato passo dopo passo, senza p»
+        widget: string
+        required: false
+      - name: les_cta
+        label: les_cta  —  «Iscriviti»
+        widget: string
+        required: false
+      - name: f1_t
+        label: f1_t  —  «Individuali»
+        widget: string
+        required: false
+      - name: f1_d
+        label: f1_d  —  «Programma su misura, orari flessibili.»
+        widget: string
+        required: false
+      - name: f2_t
+        label: f2_t  —  «In gruppo»
+        widget: string
+        required: false
+      - name: f2_d
+        label: f2_d  —  «Piccoli gruppi di 3–6 persone, più conversazi»
+        widget: string
+        required: false
+      - name: f3_t
+        label: f3_t  —  «Online»
+        widget: string
+        required: false
+      - name: f3_d
+        label: f3_d  —  «Lezioni su Zoom o Google Meet, ovunque tu sia»
+        widget: string
+        required: false
+      - name: h_eyebrow
+        label: h_eyebrow  —  «Alloggi»
+        widget: string
+        required: false
+      - name: h_title
+        label: h_title  —  «Dove dormire»
+        widget: string
+        required: false
+      - name: h_sub
+        label: h_sub  —  «Alloggi selezionati per il tuo soggiorno in C»
+        widget: text
+        required: false
+      - name: h_btn
+        label: h_btn  —  «Vedi l’offerta»
+        widget: string
+        required: false
+      - name: gal_eyebrow
+        label: gal_eyebrow  —  «Galleria»
+        widget: string
+        required: false
+      - name: gal_title
+        label: gal_title  —  «Foto e video»
+        widget: string
+        required: false
+      - name: gal_sub
+        label: gal_sub  —  «Momenti dalle escursioni e dalle lezioni. Cli»
+        widget: text
+        required: false
+      - name: g_all
+        label: g_all  —  «Tutto»
+        widget: string
+        required: false
+      - name: g_photo
+        label: g_photo  —  «Foto»
+        widget: string
+        required: false
+      - name: g_video
+        label: g_video  —  «Video»
+        widget: string
+        required: false
+      - name: watch_yt
+        label: watch_yt  —  «Guarda su YouTube»
+        widget: string
+        required: false
+      - name: con_eyebrow
+        label: con_eyebrow  —  «Contatti»
+        widget: string
+        required: false
+      - name: con_title
+        label: con_title  —  «Scrivimi»
+        widget: string
+        required: false
+      - name: con_sub
+        label: con_sub  —  «Hai una domanda su un'escursione o sulle lezi»
+        widget: text
+        required: false
+      - name: c_mail
+        label: c_mail  —  «E-mail»
+        widget: string
+        required: false
+      - name: c_phone
+        label: c_phone  —  «Telefono / WhatsApp»
+        widget: string
+        required: false
+      - name: c_place
+        label: c_place  —  «Dove»
+        widget: string
+        required: false
+      - name: fm_name
+        label: fm_name  —  «Nome»
+        widget: string
+        required: false
+      - name: fm_email
+        label: fm_email  —  «E-mail»
+        widget: string
+        required: false
+      - name: fm_topic
+        label: fm_topic  —  «Argomento»
+        widget: string
+        required: false
+      - name: fm_o1
+        label: fm_o1  —  «Escursione»
+        widget: string
+        required: false
+      - name: fm_o2
+        label: fm_o2  —  «Lezioni di italiano»
+        widget: string
+        required: false
+      - name: fm_o3
+        label: fm_o3  —  «Lezioni di polacco»
+        widget: string
+        required: false
+      - name: fm_o5
+        label: fm_o5  —  «Case vacanze»
+        widget: string
+        required: false
+      - name: fm_o4
+        label: fm_o4  —  «Altro»
+        widget: string
+        required: false
+      - name: fm_msg
+        label: fm_msg  —  «Messaggio»
+        widget: string
+        required: false
+      - name: fm_send
+        label: fm_send  —  «Invia messaggio»
+        widget: string
+        required: false
+      - name: fm_ok
+        label: fm_ok  —  «Grazie! Sto aprendo il tuo programma di posta»
+        widget: text
+        required: false
+      - name: fm_err
+        label: fm_err  —  «Inserisci il nome e un'e-mail valida.»
+        widget: string
+        required: false
+      - name: foot_tag
+        label: foot_tag  —  «Lingua italiana e viaggi in Calabria»
+        widget: string
+        required: false
+      - name: photo_ph
+        label: photo_ph  —  «La tua foto»
+        widget: string
+        required: false
+      - name: price_from
+        label: price_from  —  «da»
+        widget: string
+        required: false
+      - name: nav_area
+        label: nav_area  —  «Area riservata»
+        widget: string
+        required: false
+      - name: privacy
+        label: privacy  —  «Privacy e Cookie»
+        widget: string
+        required: false
+      - name: fm_privacy
+        label: fm_privacy  —  «I dati che invii sono trattati secondo l'info»
+        widget: string
+        required: false
+      - name: nav_serv
+        label: nav_serv  —  «Servizi»
+        widget: string
+        required: false
+      - name: s_eyebrow
+        label: s_eyebrow  —  «Servizi»
+        widget: string
+        required: false
+      - name: s_title
+        label: s_title  —  «Tutto per la tua vacanza»
+        widget: string
+        required: false
+      - name: s_sub
+        label: s_sub  —  «Transfer, esperienze e altri servizi per vive»
+        widget: text
+        required: false
+      - name: s_info
+        label: s_info  —  «Chiedi info»
+        widget: string
+        required: false
+      - name: s_more
+        label: s_more  —  «Scopri di più»
+        widget: string
+        required: false
+      - name: h_all
+        label: h_all  —  «Tutti»
+        widget: string
+        required: false
+      - name: ty_apartment
+        label: ty_apartment  —  «Appartamento»
+        widget: string
+        required: false
+      - name: ty_house
+        label: ty_house  —  «Casa»
+        widget: string
+        required: false
+      - name: ty_villa
+        label: ty_villa  —  «Villa»
+        widget: string
+        required: false
+      - name: ty_hotel
+        label: ty_hotel  —  «Hotel»
+        widget: string
+        required: false
+      - name: ty_bnb
+        label: ty_bnb  —  «B&B»
+        widget: string
+        required: false
+      - name: ty_agriturismo
+        label: ty_agriturismo  —  «Agriturismo»
+        widget: string
+        required: false
+      - name: ty_residence
+        label: ty_residence  —  «Residence»
+        widget: string
+        required: false
+      - name: pay_book
+        label: pay_book  —  «Prenota e paga»
+        widget: string
+        required: false
+      - name: guests
+        label: guests  —  «ospiti»
+        widget: string
+        required: false
+      - name: amenities
+        label: amenities  —  «Dotazioni e servizi»
+        widget: string
+        required: false
+      - name: distances
+        label: distances  —  «Distanze»
+        widget: string
+        required: false
+      - name: see_map
+        label: see_map  —  «Vedi sulla mappa»
+        widget: string
+        required: false
+      - name: ex_all
+        label: ex_all  —  «Tutte»
+        widget: string
+        required: false
+      - name: ex_land
+        label: ex_land  —  «Via terra»
+        widget: string
+        required: false
+      - name: ex_sea
+        label: ex_sea  —  «Via mare»
+        widget: string
+        required: false
+      - name: ex_other
+        label: ex_other  —  «Altre»
+        widget: string
+        required: false
+      - name: nav_tr
+        label: nav_tr  —  «Transfer»
+        widget: string
+        required: false
+      - name: nav_rent
+        label: nav_rent  —  «Noleggio»
+        widget: string
+        required: false
+      - name: see_exc
+        label: see_exc  —  «Tutte le escursioni →»
+        widget: string
+        required: false
+      - name: see_house
+        label: see_house  —  «Tutte le case vacanze →»
+        widget: string
+        required: false
+      - name: see_serv
+        label: see_serv  —  «Tutti i servizi →»
+        widget: string
+        required: false
+      - name: crumb_home
+        label: crumb_home  —  «Home»
+        widget: string
+        required: false
+      - name: tr_eyebrow
+        label: tr_eyebrow  —  «Transfer»
+        widget: string
+        required: false
+      - name: tr_title
+        label: tr_title  —  «Transfer dall'aeroporto»
+        widget: string
+        required: false
+      - name: tr_sub
+        label: tr_sub  —  «Dall'aeroporto di Lamezia Terme a Tropea e al»
+        widget: text
+        required: false
+      - name: rent_eyebrow
+        label: rent_eyebrow  —  «Noleggio»
+        widget: string
+        required: false
+      - name: rent_title
+        label: rent_title  —  «Noleggio barche, auto e scooter»
+        widget: string
+        required: false
+      - name: rent_sub
+        label: rent_sub  —  «Gommoni e barche anche senza patente, auto, s»
+        widget: text
+        required: false
+      - name: pt_houses
+        label: pt_houses  —  «Case vacanze a Tropea e Capo Vaticano»
+        widget: string
+        required: false
+      - name: pt_exc
+        label: pt_exc  —  «Escursioni da Tropea via mare e via terra»
+        widget: string
+        required: false
+      - name: pt_transfer
+        label: pt_transfer  —  «Transfer aeroporto Lamezia Terme – Tropea»
+        widget: string
+        required: false
+      - name: pt_rental
+        label: pt_rental  —  «Noleggio barche, auto e scooter a Tropea»
+        widget: string
+        required: false
+      - name: pt_services
+        label: pt_services  —  «Servizi per la tua vacanza in Calabria»
+        widget: string
+        required: false
+      - name: nav_blog
+        label: nav_blog  —  «Blog»
+        widget: string
+        required: false
+      - name: blog_eyebrow
+        label: blog_eyebrow  —  «Blog»
+        widget: string
+        required: false
+      - name: blog_title
+        label: blog_title  —  «Guide e consigli sulla Calabria»
+        widget: string
+        required: false
+      - name: blog_latest
+        label: blog_latest  —  «Dal blog»
+        widget: string
+        required: false
+      - name: blog_sub
+        label: blog_sub  —  «Cosa vedere, le spiagge più belle, come arriv»
+        widget: text
+        required: false
+      - name: read_more
+        label: read_more  —  «Leggi l'articolo →»
+        widget: string
+        required: false
+      - name: see_blog
+        label: see_blog  —  «Tutti gli articoli →»
+        widget: string
+        required: false
+      - name: blog_all
+        label: blog_all  —  «Tutte le lingue»
+        widget: string
+        required: false
+      - name: blog_empty
+        label: blog_empty  —  «Presto nuovi articoli.»
+        widget: string
+        required: false
+      - name: post_related
+        label: post_related  —  «Leggi anche»
+        widget: string
+        required: false
+      - name: post_cta_title
+        label: post_cta_title  —  «Organizziamo insieme la tua vacanza»
+        widget: string
+        required: false
+      - name: post_cta_text
+        label: post_cta_text  —  «Escursioni, case vacanze e transfer dall'aero»
+        widget: text
+        required: false
+      - name: pt_blog
+        label: 'pt_blog  —  «Blog: guide e consigli sulla Calabria»'
+        widget: string
+        required: false
+    - name: es
+      label: Testi in Español
+      widget: object
+      collapsed: true
+      fields:
+      - name: nav_about
+        label: nav_about  —  «Chi sono»
+        widget: string
+        required: false
+      - name: nav_exc
+        label: nav_exc  —  «Escursioni»
+        widget: string
+        required: false
+      - name: nav_les
+        label: nav_les  —  «Lezioni»
+        widget: string
+        required: false
+      - name: nav_house
+        label: nav_house  —  «Case vacanze»
+        widget: string
+        required: false
+      - name: nav_gal
+        label: nav_gal  —  «Galleria»
+        widget: string
+        required: false
+      - name: nav_con
+        label: nav_con  —  «Contatti»
+        widget: string
+        required: false
+      - name: hero_eyebrow
+        label: hero_eyebrow  —  «Lingua italiana e viaggi in Calabria»
+        widget: string
+        required: false
+      - name: hero_t1
+        label: hero_t1  —  «Scopri la Calabria»
+        widget: string
+        required: false
+      - name: hero_t2
+        label: hero_t2  —  «e impara le lingue»
+        widget: string
+        required: false
+      - name: hero_lead
+        label: hero_lead  —  «Escursioni guidate in italiano, polacco e ing»
+        widget: text
+        required: false
+      - name: hero_cta1
+        label: hero_cta1  —  «Vedi le escursioni»
+        widget: string
+        required: false
+      - name: hero_cta2
+        label: hero_cta2  —  «Lezioni di lingua»
+        widget: string
+        required: false
+      - name: b1
+        label: b1  —  «Guida locale»
+        widget: string
+        required: false
+      - name: b2
+        label: b2  —  «Lezioni IT ⇄ PL»
+        widget: string
+        required: false
+      - name: b3
+        label: b3  —  «Calabria autentica»
+        widget: string
+        required: false
+      - name: about_eyebrow
+        label: about_eyebrow  —  «Piacere!»
+        widget: string
+        required: false
+      - name: about_title
+        label: about_title  —  «Ciao! Sono Dominika»
+        widget: string
+        required: false
+      - name: about_p1
+        label: about_p1  —  «Sono polacca, mi sono innamorata della Calabr»
+        widget: text
+        required: false
+      - name: about_p2
+        label: about_p2  —  «Nelle mie escursioni – in italiano, polacco o»
+        widget: text
+        required: false
+      - name: exc_eyebrow
+        label: exc_eyebrow  —  «Escursioni»
+        widget: string
+        required: false
+      - name: exc_title
+        label: exc_title  —  «La Calabria da vicino»
+        widget: string
+        required: false
+      - name: exc_sub
+        label: exc_sub  —  «Piccoli gruppi, guida in italiano, polacco o »
+        widget: text
+        required: false
+      - name: dur_full
+        label: dur_full  —  «Giornata intera»
+        widget: string
+        required: false
+      - name: dur_half
+        label: dur_half  —  «Mezza giornata»
+        widget: string
+        required: false
+      - name: dur_afternoon
+        label: dur_afternoon  —  «Pomeriggio»
+        widget: string
+        required: false
+      - name: details
+        label: details  —  «Dettagli →»
+        widget: string
+        required: false
+      - name: included
+        label: included  —  «Incluso:»
+        widget: string
+        required: false
+      - name: book
+        label: book  —  «Prenota»
+        widget: string
+        required: false
+      - name: les_eyebrow
+        label: les_eyebrow  —  «Lezioni di lingua»
+        widget: string
+        required: false
+      - name: les_title
+        label: les_title  —  «Italiano e polacco»
+        widget: string
+        required: false
+      - name: les_sub
+        label: les_sub  —  «Lezioni su misura per il tuo livello e obiett»
+        widget: text
+        required: false
+      - name: it_title
+        label: it_title  —  «Lezioni di italiano»
+        widget: string
+        required: false
+      - name: it_sub
+        label: it_sub  —  «Per chi vuole parlare italiano davvero, con t»
+        widget: string
+        required: false
+      - name: pl_title
+        label: pl_title  —  «Lezioni di polacco»
+        widget: string
+        required: false
+      - name: pl_sub
+        label: pl_sub  —  «Il polacco spiegato passo dopo passo, senza p»
+        widget: string
+        required: false
+      - name: les_cta
+        label: les_cta  —  «Iscriviti»
+        widget: string
+        required: false
+      - name: f1_t
+        label: f1_t  —  «Individuali»
+        widget: string
+        required: false
+      - name: f1_d
+        label: f1_d  —  «Programma su misura, orari flessibili.»
+        widget: string
+        required: false
+      - name: f2_t
+        label: f2_t  —  «In gruppo»
+        widget: string
+        required: false
+      - name: f2_d
+        label: f2_d  —  «Piccoli gruppi di 3–6 persone, più conversazi»
+        widget: string
+        required: false
+      - name: f3_t
+        label: f3_t  —  «Online»
+        widget: string
+        required: false
+      - name: f3_d
+        label: f3_d  —  «Lezioni su Zoom o Google Meet, ovunque tu sia»
+        widget: string
+        required: false
+      - name: h_eyebrow
+        label: h_eyebrow  —  «Alloggi»
+        widget: string
+        required: false
+      - name: h_title
+        label: h_title  —  «Dove dormire»
+        widget: string
+        required: false
+      - name: h_sub
+        label: h_sub  —  «Alloggi selezionati per il tuo soggiorno in C»
+        widget: text
+        required: false
+      - name: h_btn
+        label: h_btn  —  «Vedi l’offerta»
+        widget: string
+        required: false
+      - name: gal_eyebrow
+        label: gal_eyebrow  —  «Galleria»
+        widget: string
+        required: false
+      - name: gal_title
+        label: gal_title  —  «Foto e video»
+        widget: string
+        required: false
+      - name: gal_sub
+        label: gal_sub  —  «Momenti dalle escursioni e dalle lezioni. Cli»
+        widget: text
+        required: false
+      - name: g_all
+        label: g_all  —  «Tutto»
+        widget: string
+        required: false
+      - name: g_photo
+        label: g_photo  —  «Foto»
+        widget: string
+        required: false
+      - name: g_video
+        label: g_video  —  «Video»
+        widget: string
+        required: false
+      - name: watch_yt
+        label: watch_yt  —  «Guarda su YouTube»
+        widget: string
+        required: false
+      - name: con_eyebrow
+        label: con_eyebrow  —  «Contatti»
+        widget: string
+        required: false
+      - name: con_title
+        label: con_title  —  «Scrivimi»
+        widget: string
+        required: false
+      - name: con_sub
+        label: con_sub  —  «Hai una domanda su un'escursione o sulle lezi»
+        widget: text
+        required: false
+      - name: c_mail
+        label: c_mail  —  «E-mail»
+        widget: string
+        required: false
+      - name: c_phone
+        label: c_phone  —  «Telefono / WhatsApp»
+        widget: string
+        required: false
+      - name: c_place
+        label: c_place  —  «Dove»
+        widget: string
+        required: false
+      - name: fm_name
+        label: fm_name  —  «Nome»
+        widget: string
+        required: false
+      - name: fm_email
+        label: fm_email  —  «E-mail»
+        widget: string
+        required: false
+      - name: fm_topic
+        label: fm_topic  —  «Argomento»
+        widget: string
+        required: false
+      - name: fm_o1
+        label: fm_o1  —  «Escursione»
+        widget: string
+        required: false
+      - name: fm_o2
+        label: fm_o2  —  «Lezioni di italiano»
+        widget: string
+        required: false
+      - name: fm_o3
+        label: fm_o3  —  «Lezioni di polacco»
+        widget: string
+        required: false
+      - name: fm_o5
+        label: fm_o5  —  «Case vacanze»
+        widget: string
+        required: false
+      - name: fm_o4
+        label: fm_o4  —  «Altro»
+        widget: string
+        required: false
+      - name: fm_msg
+        label: fm_msg  —  «Messaggio»
+        widget: string
+        required: false
+      - name: fm_send
+        label: fm_send  —  «Invia messaggio»
+        widget: string
+        required: false
+      - name: fm_ok
+        label: fm_ok  —  «Grazie! Sto aprendo il tuo programma di posta»
+        widget: text
+        required: false
+      - name: fm_err
+        label: fm_err  —  «Inserisci il nome e un'e-mail valida.»
+        widget: string
+        required: false
+      - name: foot_tag
+        label: foot_tag  —  «Lingua italiana e viaggi in Calabria»
+        widget: string
+        required: false
+      - name: photo_ph
+        label: photo_ph  —  «La tua foto»
+        widget: string
+        required: false
+      - name: price_from
+        label: price_from  —  «da»
+        widget: string
+        required: false
+      - name: nav_area
+        label: nav_area  —  «Area riservata»
+        widget: string
+        required: false
+      - name: privacy
+        label: privacy  —  «Privacy e Cookie»
+        widget: string
+        required: false
+      - name: fm_privacy
+        label: fm_privacy  —  «I dati che invii sono trattati secondo l'info»
+        widget: string
+        required: false
+      - name: nav_serv
+        label: nav_serv  —  «Servizi»
+        widget: string
+        required: false
+      - name: s_eyebrow
+        label: s_eyebrow  —  «Servizi»
+        widget: string
+        required: false
+      - name: s_title
+        label: s_title  —  «Tutto per la tua vacanza»
+        widget: string
+        required: false
+      - name: s_sub
+        label: s_sub  —  «Transfer, esperienze e altri servizi per vive»
+        widget: text
+        required: false
+      - name: s_info
+        label: s_info  —  «Chiedi info»
+        widget: string
+        required: false
+      - name: s_more
+        label: s_more  —  «Scopri di più»
+        widget: string
+        required: false
+      - name: h_all
+        label: h_all  —  «Tutti»
+        widget: string
+        required: false
+      - name: ty_apartment
+        label: ty_apartment  —  «Appartamento»
+        widget: string
+        required: false
+      - name: ty_house
+        label: ty_house  —  «Casa»
+        widget: string
+        required: false
+      - name: ty_villa
+        label: ty_villa  —  «Villa»
+        widget: string
+        required: false
+      - name: ty_hotel
+        label: ty_hotel  —  «Hotel»
+        widget: string
+        required: false
+      - name: ty_bnb
+        label: ty_bnb  —  «B&B»
+        widget: string
+        required: false
+      - name: ty_agriturismo
+        label: ty_agriturismo  —  «Agriturismo»
+        widget: string
+        required: false
+      - name: ty_residence
+        label: ty_residence  —  «Residence»
+        widget: string
+        required: false
+      - name: pay_book
+        label: pay_book  —  «Prenota e paga»
+        widget: string
+        required: false
+      - name: guests
+        label: guests  —  «ospiti»
+        widget: string
+        required: false
+      - name: amenities
+        label: amenities  —  «Dotazioni e servizi»
+        widget: string
+        required: false
+      - name: distances
+        label: distances  —  «Distanze»
+        widget: string
+        required: false
+      - name: see_map
+        label: see_map  —  «Vedi sulla mappa»
+        widget: string
+        required: false
+      - name: ex_all
+        label: ex_all  —  «Tutte»
+        widget: string
+        required: false
+      - name: ex_land
+        label: ex_land  —  «Via terra»
+        widget: string
+        required: false
+      - name: ex_sea
+        label: ex_sea  —  «Via mare»
+        widget: string
+        required: false
+      - name: ex_other
+        label: ex_other  —  «Altre»
+        widget: string
+        required: false
+      - name: nav_tr
+        label: nav_tr  —  «Transfer»
+        widget: string
+        required: false
+      - name: nav_rent
+        label: nav_rent  —  «Noleggio»
+        widget: string
+        required: false
+      - name: see_exc
+        label: see_exc  —  «Tutte le escursioni →»
+        widget: string
+        required: false
+      - name: see_house
+        label: see_house  —  «Tutte le case vacanze →»
+        widget: string
+        required: false
+      - name: see_serv
+        label: see_serv  —  «Tutti i servizi →»
+        widget: string
+        required: false
+      - name: crumb_home
+        label: crumb_home  —  «Home»
+        widget: string
+        required: false
+      - name: tr_eyebrow
+        label: tr_eyebrow  —  «Transfer»
+        widget: string
+        required: false
+      - name: tr_title
+        label: tr_title  —  «Transfer dall'aeroporto»
+        widget: string
+        required: false
+      - name: tr_sub
+        label: tr_sub  —  «Dall'aeroporto di Lamezia Terme a Tropea e al»
+        widget: text
+        required: false
+      - name: rent_eyebrow
+        label: rent_eyebrow  —  «Noleggio»
+        widget: string
+        required: false
+      - name: rent_title
+        label: rent_title  —  «Noleggio barche, auto e scooter»
+        widget: string
+        required: false
+      - name: rent_sub
+        label: rent_sub  —  «Gommoni e barche anche senza patente, auto, s»
+        widget: text
+        required: false
+      - name: pt_houses
+        label: pt_houses  —  «Case vacanze a Tropea e Capo Vaticano»
+        widget: string
+        required: false
+      - name: pt_exc
+        label: pt_exc  —  «Escursioni da Tropea via mare e via terra»
+        widget: string
+        required: false
+      - name: pt_transfer
+        label: pt_transfer  —  «Transfer aeroporto Lamezia Terme – Tropea»
+        widget: string
+        required: false
+      - name: pt_rental
+        label: pt_rental  —  «Noleggio barche, auto e scooter a Tropea»
+        widget: string
+        required: false
+      - name: pt_services
+        label: pt_services  —  «Servizi per la tua vacanza in Calabria»
+        widget: string
+        required: false
+      - name: nav_blog
+        label: nav_blog  —  «Blog»
+        widget: string
+        required: false
+      - name: blog_eyebrow
+        label: blog_eyebrow  —  «Blog»
+        widget: string
+        required: false
+      - name: blog_title
+        label: blog_title  —  «Guide e consigli sulla Calabria»
+        widget: string
+        required: false
+      - name: blog_latest
+        label: blog_latest  —  «Dal blog»
+        widget: string
+        required: false
+      - name: blog_sub
+        label: blog_sub  —  «Cosa vedere, le spiagge più belle, come arriv»
+        widget: text
+        required: false
+      - name: read_more
+        label: read_more  —  «Leggi l'articolo →»
+        widget: string
+        required: false
+      - name: see_blog
+        label: see_blog  —  «Tutti gli articoli →»
+        widget: string
+        required: false
+      - name: blog_all
+        label: blog_all  —  «Tutte le lingue»
+        widget: string
+        required: false
+      - name: blog_empty
+        label: blog_empty  —  «Presto nuovi articoli.»
+        widget: string
+        required: false
+      - name: post_related
+        label: post_related  —  «Leggi anche»
+        widget: string
+        required: false
+      - name: post_cta_title
+        label: post_cta_title  —  «Organizziamo insieme la tua vacanza»
+        widget: string
+        required: false
+      - name: post_cta_text
+        label: post_cta_text  —  «Escursioni, case vacanze e transfer dall'aero»
+        widget: text
+        required: false
+      - name: pt_blog
+        label: 'pt_blog  —  «Blog: guide e consigli sulla Calabria»'
+        widget: string
+        required: false
+publish_mode: editorial_workflow
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: '-'

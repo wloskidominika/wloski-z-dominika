@@ -1,0 +1,4 @@
+# SITO IN PREPARAZIONE: Google e gli altri motori di ricerca non lo leggono.
+# Quando il sito e pronto, cancella questo file da GitHub (vedi GUIDA.md, "Lancio del sito").
+User-agent: *
+Disallow: /

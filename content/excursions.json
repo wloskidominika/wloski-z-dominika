@@ -1,0 +1,422 @@
+{
+  "items": [
+    {
+      "title": {
+        "it": "Tour Isole Eolie da Tropea · Stromboli, Vulcano, Lipari",
+        "en": "Aeolian Islands Tour from Tropea · Stromboli, Vulcano, Lipari",
+        "de": "Äolische Inseln Tour von Tropea · Stromboli, Vulcano, Lipari",
+        "pl": "Wycieczka na Wyspy Liparyjskie z Tropei · Stromboli, Vulcano, Lipari",
+        "es": "Tour Islas Eolias desde Tropea · Stromboli, Vulcano, Lipari"
+      },
+      "img": "/media/escursioni-2.jpg",
+      "photos": [
+        "/media/mini-crociere-isole-eolie-1.jpg",
+        "/media/costa-viola-1.jpg",
+        "/media/mini-crociere-isole-eolie-2.jpg",
+        "/media/mini-crociere-isole-eolie-3.jpg"
+      ],
+      "desc": {
+        "it": "Una giornata intera in mini crociera alle Isole Eolie, con partenza dal porto di Tropea alle 7:45 e rientro alle 18:40. Il giro tocca Vulcano, Lipari e Stromboli: mare cristallino, paesaggi vulcanici, un po' di storia e tempo per rilassarsi.\n\nC'è anche un itinerario con Panarea e Stromboli, per vedere al tramonto la Sciara del Fuoco di uno dei vulcani più attivi al mondo.\n\nPrezzi: adulti da 65 €, bambini 3–10 anni 45 €, più 5 € di tassa di sbarco. Per gruppi fino a 8 persone si può anche noleggiare un gommone o una barca privata.",
+        "en": "A full-day mini cruise to the Aeolian Islands, leaving Tropea harbour at 7:45 am and returning at 6:40 pm. The trip takes in Vulcano, Lipari and Stromboli: crystal-clear water, volcanic landscapes, a little history and time to relax.\n\nThere's also a route to Panarea and Stromboli, to watch the Sciara del Fuoco of one of the world's most active volcanoes at sunset.\n\nPrices: adults from €65, children 3–10 €45, plus a €5 landing tax. Groups of up to 8 can also hire a private dinghy or boat.",
+        "de": "Ein ganzer Tag Mini-Kreuzfahrt zu den Liparischen Inseln: Abfahrt im Hafen von Tropea um 7:45 Uhr, Rückkehr um 18:40 Uhr. Die Tour führt nach Vulcano, Lipari und Stromboli – kristallklares Wasser, Vulkanlandschaften, ein wenig Geschichte und Zeit zum Entspannen.\n\nEs gibt auch eine Route nach Panarea und Stromboli, um bei Sonnenuntergang die Sciara del Fuoco eines der aktivsten Vulkane der Welt zu sehen.\n\nPreise: Erwachsene ab 65 €, Kinder 3–10 Jahre 45 €, zzgl. 5 € Anlandungsgebühr. Gruppen bis 8 Personen können auch ein privates Schlauchboot oder Boot mieten.",
+        "pl": "Całodniowy mini-rejs na Wyspy Liparyjskie: wypłynięcie z portu w Tropei o 7:45, powrót o 18:40. Trasa obejmuje Vulcano, Lipari i Stromboli – krystalicznie czyste morze, wulkaniczne krajobrazy, trochę historii i czas na odpoczynek.\n\nJest też trasa przez Panareę i Stromboli, by o zachodzie słońca zobaczyć Sciara del Fuoco jednego z najbardziej aktywnych wulkanów świata.\n\nCeny: dorośli od 65 €, dzieci 3–10 lat 45 €, plus 5 € opłaty za zejście na ląd. Grupy do 8 osób mogą też wynająć prywatny ponton lub łódź.",
+        "es": "Un día entero de minicrucero a las islas Eolias, con salida del puerto de Tropea a las 7:45 y regreso a las 18:40. La ruta recorre Vulcano, Lipari y Stromboli: mar cristalino, paisajes volcánicos, algo de historia y tiempo para relajarse.\n\nTambién hay una ruta a Panarea y Stromboli para ver al atardecer la Sciara del Fuoco de uno de los volcanes más activos del mundo.\n\nPrecios: adultos desde 65 €, niños de 3 a 10 años 45 €, más 5 € de tasa de desembarque. Los grupos de hasta 8 personas también pueden alquilar una lancha o un barco privado."
+      },
+      "area": "sea",
+      "url": "",
+      "price": "65 €",
+      "price_note": {
+        "it": "adulti · bambini 3–10 anni 45 € · + 5 € tassa di sbarco",
+        "en": "adults · children 3–10 €45 · + €5 landing tax",
+        "de": "Erwachsene · Kinder 3–10 Jahre 45 € · + 5 € Anlandungsgebühr",
+        "pl": "dorośli · dzieci 3–10 lat 45 € · + 5 € opłaty za zejście na ląd",
+        "es": "adultos · niños de 3 a 10 años 45 € · + 5 € tasa de desembarque"
+      }
+    },
+    {
+      "title": {
+        "it": "Pesca Turistica a Tropea con Pescatori Professionali",
+        "en": "Sport Fishing in Tropea with Professional Fishermen",
+        "de": "Sportfischen in Tropea mit professionellen Fischern",
+        "pl": "Wędkarstwo Turystyczne w Tropea z Zawodowymi Rybakami",
+        "es": "Pesca Turística en Tropea con Pescadores Profesionales"
+      },
+      "img": "/media/escursioni-4.jpg",
+      "photos": [
+        "/media/pesca-turistica-tropea-1.jpg",
+        "/media/pesca-turistica-tropea-2.jpg",
+        "/media/pesca-turistica-tropea-3.jpg",
+        "/media/pesca-turistica-tropea-4.jpg"
+      ],
+      "desc": {
+        "it": "Si esce in mare da Tropea con pescatori di mestiere e si passa qualche ora con loro, come un membro dell'equipaggio. Si vedono da vicino le tecniche tradizionali, si prova a pescare e si ascoltano storie, usanze e i vecchi detti dei pescatori di questa costa.\n\nIntorno, il tratto di mare più bello della Costa degli Dei. Un'uscita sicura e adatta a tutti, per scoprire il lato più autentico di Tropea: quello di chi il mare lo vive ogni giorno.",
+        "en": "Head out to sea from Tropea with working fishermen and spend a few hours with them, almost like part of the crew. You'll see traditional techniques up close, try your hand at fishing and hear stories, customs and the old sayings of the fishermen on this coast.\n\nAll around you is the most beautiful stretch of the Coast of the Gods. A safe outing suitable for everyone, showing the most authentic side of Tropea – the people who live the sea every day.",
+        "de": "Von Tropea aus geht es mit echten Berufsfischern aufs Meer – ein paar Stunden fast wie ein Teil der Crew. Du siehst traditionelle Fangtechniken aus nächster Nähe, darfst selbst mitmachen und hörst Geschichten, Bräuche und alte Fischersprüche dieser Küste.\n\nRundherum der schönste Abschnitt der Costa degli Dei. Ein sicherer Ausflug für alle, der die ursprünglichste Seite von Tropea zeigt: die Menschen, die jeden Tag vom Meer leben.",
+        "pl": "Wypływasz z Tropei z zawodowymi rybakami i spędzasz z nimi kilka godzin niemal jak członek załogi. Z bliska zobaczysz tradycyjne techniki połowu, sam spróbujesz łowić i posłuchasz historii, zwyczajów i starych rybackich powiedzeń z tego wybrzeża.\n\nDookoła najpiękniejszy odcinek Wybrzeża Bogów. Bezpieczny rejs dla każdego, który pokazuje najbardziej autentyczną stronę Tropei – ludzi, którzy żyją z morza na co dzień.",
+        "es": "Sales al mar desde Tropea con pescadores de oficio y pasas unas horas con ellos, casi como parte de la tripulación. Verás de cerca las técnicas tradicionales, probarás a pescar y escucharás historias, costumbres y los viejos dichos de los pescadores de esta costa.\n\nAlrededor, el tramo más bonito de la Costa de los Dioses. Una salida segura y apta para todos, para conocer el lado más auténtico de Tropea: el de quienes viven el mar cada día."
+      },
+      "area": "sea",
+      "url": ""
+    },
+    {
+      "title": {
+        "it": "Tour in Barca da Tropea a Capo Vaticano · Costa degli Dei",
+        "en": "Boat Tour from Tropea to Capo Vaticano · Costa degli Dei",
+        "de": "Bootsfahrt von Tropea nach Capo Vaticano · Costa degli Dei",
+        "pl": "Wycieczka łodzią z Tropei do Capo Vaticano · Costa degli Dei",
+        "es": "Excursión en barco de Tropea a Capo Vaticano · Costa degli Dei"
+      },
+      "img": "/media/tour-barca-tropea-capo-vaticano-1.jpg",
+      "photos": [
+        "/media/tour-barca-tropea-capo-vaticano-2.jpg",
+        "/media/escursioni-1.jpg",
+        "/media/tour-barca-tropea-capo-vaticano-3.jpg",
+        "/media/tour-barca-tropea-capo-vaticano-4.jpg",
+        "/media/pesca-turistica-tropea-4.jpg"
+      ],
+      "desc": {
+        "it": "Da Tropea a Capo Vaticano a bordo della Blue Ocean, lungo la parte più bella della Costa degli Dei. Sono previste tre soste per fare il bagno nelle baie più belle, con tempo per nuotare, guardare i fondali o rilassarsi a bordo.\n\nUn'audioguida racconta i miti e le leggende legati a questi luoghi, e durante il giro viene servito un aperitivo con prodotti del territorio e vini calabresi. Un modo semplice e piacevole per vedere la costa dal mare.",
+        "en": "From Tropea to Capo Vaticano aboard the Blue Ocean, along the loveliest part of the Coast of the Gods. There are three swimming stops in the most beautiful bays, with time to swim, look at the seabed or relax on board.\n\nAn audio guide tells the myths and legends linked to these places, and an aperitif with local products and Calabrian wines is served during the trip. An easy, enjoyable way to see the coast from the sea.",
+        "de": "Von Tropea nach Capo Vaticano an Bord der Blue Ocean, entlang des schönsten Teils der Costa degli Dei. Es gibt drei Badestopps in den schönsten Buchten – Zeit zum Schwimmen, Schnorcheln oder Entspannen an Bord.\n\nEin Audioguide erzählt die Mythen und Legenden dieser Orte, und unterwegs wird ein Aperitif mit regionalen Produkten und kalabrischen Weinen serviert. Eine einfache, schöne Art, die Küste vom Meer aus zu sehen.",
+        "pl": "Z Tropei do Capo Vaticano na pokładzie Blue Ocean, wzdłuż najpiękniejszej części Wybrzeża Bogów. Po drodze trzy postoje na kąpiel w najładniejszych zatokach – czas na pływanie, oglądanie dna lub odpoczynek na pokładzie.\n\nAudioprzewodnik opowiada mity i legendy związane z tymi miejscami, a w trakcie rejsu serwowany jest aperitif z lokalnymi produktami i kalabryjskimi winami. Prosty i przyjemny sposób, by zobaczyć wybrzeże od strony morza.",
+        "es": "De Tropea a Capo Vaticano a bordo del Blue Ocean, por la parte más bonita de la Costa de los Dioses. Hay tres paradas para bañarse en las calas más bonitas, con tiempo para nadar, mirar el fondo marino o relajarse a bordo.\n\nUna audioguía cuenta los mitos y leyendas de estos lugares y durante el paseo se sirve un aperitivo con productos locales y vinos calabreses. Una forma sencilla y agradable de ver la costa desde el mar."
+      },
+      "area": "sea",
+      "url": ""
+    },
+    {
+      "title": {
+        "it": "Tour in Gommone da Tropea a Capo Vaticano · Calabria",
+        "en": "Speedboat Tour from Tropea to Capo Vaticano · Calabria",
+        "de": "Schnellbootfahrt von Tropea zu Capo Vaticano · Kalabrien",
+        "pl": "Wycieczka Motorówką z Tropea do Capo Vaticano · Calabria",
+        "es": "Tour en Lancha Rápida de Tropea a Capo Vaticano · Calabria"
+      },
+      "img": "/media/escursioni-3.jpg",
+      "photos": [
+        "/media/tour-gommone-tropea-capo-vaticano-1.jpg",
+        "/media/tour-gommone-tropea-capo-vaticano-2.jpg",
+        "/media/tour-gommone-tropea-capo-vaticano-3.jpg",
+        "/media/tour-barca-tropea-capo-vaticano-4.jpg",
+        "/media/tour-gommone-tropea-capo-vaticano-4.jpg",
+        "/media/tour-gommone-tropea-capo-vaticano-5.jpg",
+        "/media/tour-barca-tropea-capo-vaticano-3.jpg",
+        "/media/appartamento-natus-3.jpg",
+        "/media/tour-gommone-tropea-capo-vaticano-6.jpg",
+        "/media/pesca-turistica-tropea-4.jpg"
+      ],
+      "desc": {
+        "it": "Un grande gommone, comodo e stabile, per un massimo di 28 persone, da Tropea a Capo Vaticano. Si entra nelle calette nascoste e si fanno tre soste bagno, con il tempo per nuotare, fare snorkeling e prendere il sole.\n\nLo skipper racconta curiosità, storia e leggende dei luoghi, e a bordo c'è un aperitivo con vino locale (succo di frutta per i bambini). Divertente per famiglie, coppie e gruppi di amici.",
+        "en": "A large, comfortable and stable dinghy for up to 28 people, from Tropea to Capo Vaticano. You'll slip into hidden coves and make three swimming stops, with time to swim, snorkel and sunbathe.\n\nThe skipper shares stories, history and legends of the places you pass, and there's an aperitif on board with local wine (fruit juice for children). Fun for families, couples and groups of friends.",
+        "de": "Ein großes, bequemes und stabiles Schlauchboot für bis zu 28 Personen, von Tropea nach Capo Vaticano. Es geht in versteckte Buchten, mit drei Badestopps zum Schwimmen, Schnorcheln und Sonnen.\n\nDer Skipper erzählt Wissenswertes, Geschichte und Legenden der Orte, und an Bord gibt es einen Aperitif mit regionalem Wein (Saft für Kinder). Ein Spaß für Familien, Paare und Freundesgruppen.",
+        "pl": "Duży, wygodny i stabilny ponton dla maksymalnie 28 osób, z Tropei do Capo Vaticano. Wpływa się do ukrytych zatoczek, a po drodze są trzy postoje na kąpiel, pływanie z maską i opalanie.\n\nSternik opowiada ciekawostki, historię i legendy mijanych miejsc, a na pokładzie czeka aperitif z lokalnym winem (sok dla dzieci). Świetna zabawa dla rodzin, par i grup przyjaciół.",
+        "es": "Una lancha neumática grande, cómoda y estable, para un máximo de 28 personas, de Tropea a Capo Vaticano. Se entra en calas escondidas y se hacen tres paradas para bañarse, hacer esnórquel y tomar el sol.\n\nEl patrón cuenta curiosidades, historia y leyendas de los lugares, y a bordo hay un aperitivo con vino local (zumo para los niños). Divertido para familias, parejas y grupos de amigos."
+      },
+      "area": "sea",
+      "url": ""
+    },
+    {
+      "title": {
+        "it": "Escursione alla Costa Viola da Tropea · Scilla e Bagnara",
+        "en": "Excursion to Costa Viola from Tropea · Scilla and Bagnara",
+        "de": "Ausflug zur Costa Viola von Tropea · Scilla und Bagnara",
+        "pl": "Wycieczka na Costa Viola z Tropea · Scilla i Bagnara",
+        "es": "Excursión a la Costa Viola desde Tropea · Scilla y Bagnara"
+      },
+      "img": "/media/costa-viola-1.jpg",
+      "photos": [
+        "/media/costa-viola-2.jpg",
+        "/media/costa-viola-3.jpg"
+      ],
+      "desc": {
+        "it": "Da Tropea verso sud, fino alla Costa Viola, dove il paesaggio diventa più selvaggio e il mare resta limpidissimo.\n\nLe tappe sono Scilla e Bagnara, due borghi con i loro porticcioli, una storia lunghissima e tradizioni ancora vive. Si passeggia, si assaggia la cucina locale e si scopre una Calabria più genuina, lontana dai giri turistici più affollati.",
+        "en": "From Tropea south to the Costa Viola, where the landscape turns wilder and the sea stays wonderfully clear.\n\nThe stops are Scilla and Bagnara, two towns with little harbours, a very long history and traditions that are still alive. You'll stroll, taste the local cooking and discover a more genuine Calabria, away from the busiest tourist routes.",
+        "de": "Von Tropea Richtung Süden an die Costa Viola, wo die Landschaft wilder wird und das Meer glasklar bleibt.\n\nStationen sind Scilla und Bagnara, zwei Orte mit kleinen Häfen, langer Geschichte und lebendigen Traditionen. Du bummelst, probierst die regionale Küche und entdeckst ein ursprünglicheres Kalabrien abseits der überlaufenen Touristenrouten.",
+        "pl": "Z Tropei na południe, aż na Costa Viola, gdzie krajobraz staje się dzikszy, a morze pozostaje krystalicznie czyste.\n\nPrzystanki to Scilla i Bagnara – dwa miasteczka z małymi portami, długą historią i wciąż żywymi tradycjami. Spacer, smaki lokalnej kuchni i bardziej prawdziwa Kalabria, z dala od najbardziej zatłoczonych tras.",
+        "es": "De Tropea hacia el sur, hasta la Costa Viola, donde el paisaje se vuelve más salvaje y el mar sigue siendo cristalino.\n\nLas paradas son Scilla y Bagnara, dos pueblos con sus pequeños puertos, una larguísima historia y tradiciones todavía vivas. Pasearás, probarás la cocina local y descubrirás una Calabria más auténtica, lejos de las rutas turísticas más concurridas."
+      },
+      "area": "land",
+      "url": ""
+    },
+    {
+      "title": {
+        "it": "Cucina Contadina e Cena al Tramonto · Capo Vaticano",
+        "en": "Cucina Contadina and Sunset Dinner · Capo Vaticano",
+        "de": "Cucina Contadina und Sonnenuntergangsessen · Capo Vaticano",
+        "pl": "Cucina Contadina i Kolacja o Zachodzie Słońca · Capo Vaticano",
+        "es": "Cucina Contadina y Cena al Atardecer · Capo Vaticano"
+      },
+      "img": "/media/cucina-contadina-cena-al-tramonto-1.jpg",
+      "photos": [
+        "/media/cucina-contadina-cena-al-tramonto-2.jpg",
+        "/media/cucina-contadina-cena-al-tramonto-3.jpg"
+      ],
+      "desc": {
+        "it": "Una cena di cucina contadina calabrese a Capo Vaticano, con il sole che tramonta sul mare. I piatti sono quelli di una volta, fatti con ingredienti semplici e del territorio, nello spirito della Dieta Mediterranea, riconosciuta dall'UNESCO come patrimonio dell'umanità.\n\nUn'esperienza per chi vuole conoscere la Calabria anche a tavola, con calma e in buona compagnia.",
+        "en": "A dinner of traditional Calabrian farmhouse cooking in Capo Vaticano, as the sun sets over the sea. The dishes are the old-style ones, made with simple local ingredients in the spirit of the Mediterranean Diet, recognised by UNESCO as intangible cultural heritage.\n\nAn experience for anyone who wants to get to know Calabria at the table too – slowly and in good company.",
+        "de": "Ein Abendessen mit kalabrischer Bauernküche in Capo Vaticano, während die Sonne über dem Meer untergeht. Serviert werden Gerichte wie früher, aus einfachen regionalen Zutaten, ganz im Sinne der Mittelmeerdiät, die von der UNESCO als Kulturerbe anerkannt ist.\n\nEin Erlebnis für alle, die Kalabrien auch am Tisch kennenlernen möchten – in Ruhe und in guter Gesellschaft.",
+        "pl": "Kolacja z tradycyjną kalabryjską kuchnią wiejską w Capo Vaticano, gdy słońce zachodzi nad morzem. Dania są jak dawniej, z prostych, lokalnych składników, w duchu diety śródziemnomorskiej, wpisanej przez UNESCO na listę niematerialnego dziedzictwa.\n\nDoświadczenie dla tych, którzy chcą poznać Kalabrię także przy stole – spokojnie i w dobrym towarzystwie.",
+        "es": "Una cena de cocina campesina calabresa en Capo Vaticano, mientras el sol se pone sobre el mar. Los platos son los de siempre, con ingredientes sencillos y locales, en el espíritu de la Dieta Mediterránea, reconocida por la UNESCO como patrimonio inmaterial.\n\nUna experiencia para conocer Calabria también en la mesa, con calma y en buena compañía."
+      },
+      "area": "land",
+      "url": ""
+    },
+    {
+      "title": {
+        "it": "Degustazione Vini e Visita ai Vigneti · Vicino a Tropea",
+        "en": "Wine Tasting and Vineyard Visit · Near Tropea",
+        "de": "Weinverkostung und Weingutsbesuch · Nähe Tropea",
+        "pl": "Degustacja Wina i Wizyta w Winnicy · Blisko Tropea",
+        "es": "Cata de Vinos y Visita a los Viñedos · Cerca de Tropea"
+      },
+      "img": "/media/degustazioni-vini-visite-nei-vigneti-1-1.jpg",
+      "photos": [
+        "/media/degustazioni-vini-visite-nei-vigneti-1-2.jpg",
+        "/media/degustazioni-vini-visite-nei-vigneti-1-3.jpg",
+        "/media/degustazioni-vini-visite-nei-vigneti-1-4.jpg",
+        "/media/degustazioni-vini-visite-nei-vigneti-1-5.jpg",
+        "/media/degustazione-vini-e-visita-ai-vigneti-vicino-a-tropea-1.jpg",
+        "/media/degustazione-vini-e-visita-ai-vigneti-vicino-a-tropea-2.jpg",
+        "/media/degustazione-vini-e-visita-ai-vigneti-vicino-a-tropea-3.jpg",
+        "/media/degustazione-vini-e-visita-ai-vigneti-vicino-a-tropea-4.jpg"
+      ],
+      "desc": {
+        "it": "Sulle colline di Brattirò, a pochi minuti da Tropea, si visita un'azienda vinicola che coltiva con metodi biologici e sostenibili. Si cammina tra i filari, si scopre come lavora la vigna e si entra in cantina.\n\nPoi la degustazione: 6 vini dell'azienda, accompagnati da prodotti tipici fatti in casa. Dalle colline, nelle giornate limpide, la vista arriva fino alle Eolie.",
+        "en": "On the hills of Brattirò, a few minutes from Tropea, you'll visit a winery that farms with organic, sustainable methods. Walk between the rows of vines, learn how the vineyard works and step into the cellar.\n\nThen the tasting: 6 of the estate's wines, served with homemade local products. On clear days the view from the hills reaches all the way to the Aeolian Islands.",
+        "de": "Auf den Hügeln von Brattirò, wenige Minuten von Tropea, besuchst du ein Weingut mit biologischem und nachhaltigem Anbau. Du gehst durch die Rebzeilen, erfährst, wie im Weinberg gearbeitet wird, und schaust in den Keller.\n\nDanach die Verkostung: 6 Weine des Guts mit hausgemachten regionalen Spezialitäten. An klaren Tagen reicht der Blick von den Hügeln bis zu den Liparischen Inseln.",
+        "pl": "Na wzgórzach Brattirò, kilka minut od Tropei, odwiedzisz winnicę, która uprawia winorośl metodami ekologicznymi i zrównoważonymi. Spacer między rzędami krzewów, opowieść o pracy w winnicy i wizyta w piwnicy.\n\nPotem degustacja: 6 win z winnicy podawanych z domowymi lokalnymi przysmakami. W pogodne dni ze wzgórz widać aż Wyspy Liparyjskie.",
+        "es": "En las colinas de Brattirò, a pocos minutos de Tropea, visitarás una bodega que cultiva con métodos ecológicos y sostenibles. Pasearás entre las viñas, verás cómo se trabaja el viñedo y entrarás en la bodega.\n\nDespués, la cata: 6 vinos de la casa acompañados de productos típicos caseros. En los días claros, desde las colinas se ven las islas Eolias."
+      },
+      "area": "land",
+      "url": ""
+    },
+    {
+      "title": {
+        "it": "Dormi Sotto le Stelle in Calabria · Vicino a Tropea",
+        "en": "Sleep Under the Stars in Calabria · Near Tropea",
+        "de": "Unter dem Sternenhimmel in Kalabrien schlafen · In der Nähe von Tropea",
+        "pl": "Śpij Pod Gwiazdami w Kalabrii · Blisko Tropea",
+        "es": "Duerme Bajo las Estrellas en Calabria · Cerca de Tropea"
+      },
+      "img": "/media/dormi-sotto-le-stelle-1.jpg",
+      "photos": [
+        "/media/dormi-sotto-le-stelle-2.jpg",
+        "/media/dormi-sotto-le-stelle-3.jpg"
+      ],
+      "desc": {
+        "it": "Una notte nella natura vicino a Tropea, in una casetta sull'albero o in una piccola tenda. Il posto è nella Valle della Ruffa, un'area protetta della Rete Natura 2000, ed è costruito nel rispetto dell'ambiente.\n\nNiente rumori di città: solo il cielo stellato, i suoni della notte e l'aria pulita. Per chi vuole staccare davvero per una sera.",
+        "en": "A night in nature near Tropea, in a treehouse or a small tent. The site is in the Ruffa Valley, a protected Natura 2000 area, and it's built with respect for the environment.\n\nNo city noise – just the starry sky, the sounds of the night and fresh air. For anyone who really wants to switch off for an evening.",
+        "de": "Eine Nacht in der Natur bei Tropea, in einem Baumhaus oder einem kleinen Zelt. Der Ort liegt im Tal der Ruffa, einem Natura-2000-Schutzgebiet, und ist umweltfreundlich gebaut.\n\nKein Stadtlärm – nur Sternenhimmel, die Geräusche der Nacht und frische Luft. Für alle, die einmal richtig abschalten wollen.",
+        "pl": "Noc na łonie natury niedaleko Tropei, w domku na drzewie albo w małym namiocie. Miejsce leży w Dolinie Ruffy, na obszarze chronionym Natura 2000, i zostało zbudowane z szacunkiem dla przyrody.\n\nŻadnego miejskiego hałasu – tylko rozgwieżdżone niebo, odgłosy nocy i czyste powietrze. Dla tych, którzy chcą naprawdę odpocząć choć na jeden wieczór.",
+        "es": "Una noche en plena naturaleza cerca de Tropea, en una casa en el árbol o en una pequeña tienda. El lugar está en el Valle del Ruffa, un área protegida de la Red Natura 2000, y está construido respetando el entorno.\n\nSin ruido de ciudad: solo el cielo estrellado, los sonidos de la noche y aire puro. Para quien quiere desconectar de verdad por una noche."
+      },
+      "area": "land",
+      "url": ""
+    },
+    {
+      "title": {
+        "it": "Giornata in Campagna per Famiglie · Vicino a Tropea",
+        "en": "Family Day in the Countryside · Near Tropea",
+        "de": "Familientag auf dem Land · Nähe Tropea",
+        "pl": "Dzień na Wsi dla Rodzin · Blisko Tropea",
+        "es": "Día en el Campo para Familias · Cerca de Tropea"
+      },
+      "img": "/media/escursioni-10.jpg",
+      "photos": [
+        "/media/giornata-in-campagna-per-famiglie-1.jpg",
+        "/media/giornata-in-campagna-per-famiglie-2.jpg"
+      ],
+      "desc": {
+        "it": "Una giornata in campagna per tutta la famiglia nella valle della Fiumara Ruffa, un angolo di natura intatta vicino a Tropea.\n\nSi vive il ritmo lento della vita contadina, all'aria aperta e lontano dal traffico: un'occasione per rallentare, stare insieme e far conoscere ai bambini la campagna calabrese.",
+        "en": "A day in the countryside for the whole family in the Fiumara Ruffa valley, a corner of unspoilt nature near Tropea.\n\nYou'll enjoy the slow pace of farm life, outdoors and away from the traffic – a chance to slow down, spend time together and show children the Calabrian countryside.",
+        "de": "Ein Tag auf dem Land für die ganze Familie im Tal der Fiumara Ruffa, einem Stück unberührter Natur bei Tropea.\n\nHier erlebst du den ruhigen Rhythmus des Landlebens, draußen und fern vom Verkehr – eine Gelegenheit, langsamer zu werden, Zeit miteinander zu verbringen und Kindern das kalabrische Landleben zu zeigen.",
+        "pl": "Dzień na wsi dla całej rodziny w dolinie Fiumara Ruffa, zakątku dzikiej przyrody niedaleko Tropei.\n\nSpokojny rytm wiejskiego życia, na świeżym powietrzu i z dala od ruchu – okazja, by zwolnić, pobyć razem i pokazać dzieciom kalabryjską wieś.",
+        "es": "Un día en el campo para toda la familia en el valle de la Fiumara Ruffa, un rincón de naturaleza intacta cerca de Tropea.\n\nVivirás el ritmo tranquilo de la vida campesina, al aire libre y lejos del tráfico: una ocasión para ir despacio, estar juntos y enseñar a los niños el campo calabrés."
+      },
+      "area": "land",
+      "url": ""
+    },
+    {
+      "title": {
+        "it": "Corso di Pasta e Pane in Calabria · Vicino a Tropea",
+        "en": "Pasta and Bread Course in Calabria · Near Tropea",
+        "de": "Pasta- und Brot-Kurs in Kalabrien · Nähe Tropea",
+        "pl": "Kurs Makaronu i Chleba w Kalabrii · Blisko Tropea",
+        "es": "Curso de Pasta y Pan en Calabria · Cerca de Tropea"
+      },
+      "img": "/media/escursioni-8.jpg",
+      "photos": [
+        "/media/giornata-pasta-pane-con-asfalantea-1.jpg",
+        "/media/giornata-pasta-pane-con-asfalantea-2.jpg",
+        "/media/giornata-pasta-pane-con-asfalantea-3.jpg"
+      ],
+      "desc": {
+        "it": "A Zungri, vicino a Tropea, una giornata contadina dedicata alla pasta fatta in casa. Si impara a preparare la \"pasta dei poveri\" con ingredienti locali e con le dosi \"ad occhiu\", cioè a occhio, senza bilancia, come si fa da generazioni.\n\nMentre si impasta si ascoltano racconti e canti popolari, e c'è anche un assaggio di tarantella. I gruppi sono piccoli, per seguire tutti con calma.",
+        "en": "In Zungri, near Tropea, a farm day devoted to homemade pasta. You'll learn to make \"poor man's pasta\" with local ingredients, measuring everything \"ad occhiu\" – by eye, without scales – as people here have done for generations.\n\nWhile you knead, you'll hear stories and folk songs, with a taste of the tarantella too. Groups are small, so everyone gets attention.",
+        "de": "In Zungri bei Tropea ein Tag auf dem Land rund um hausgemachte Pasta. Du lernst, die „Pasta der Armen“ aus regionalen Zutaten zuzubereiten – abgemessen „ad occhiu“, also nach Augenmaß, ohne Waage, wie seit Generationen.\n\nBeim Kneten gibt es Geschichten und Volkslieder und auch eine kleine Kostprobe der Tarantella. Die Gruppen sind klein, damit alle gut betreut werden.",
+        "pl": "W Zungri koło Tropei dzień na wsi poświęcony domowemu makaronowi. Nauczysz się robić „makaron biedaków” z lokalnych składników, odmierzając wszystko „ad occhiu”, czyli na oko, bez wagi – tak jak robi się to tu od pokoleń.\n\nPrzy wyrabianiu ciasta są opowieści i ludowe pieśni, a także próbka tarantelli. Grupy są małe, żeby każdy mógł spokojnie się nauczyć.",
+        "es": "En Zungri, cerca de Tropea, un día de campo dedicado a la pasta casera. Aprenderás a hacer la \"pasta de los pobres\" con ingredientes locales y midiendo \"ad occhiu\", a ojo y sin báscula, como se hace desde hace generaciones.\n\nMientras amasas escucharás historias y canciones populares, y también probarás la tarantela. Los grupos son pequeños para que todos aprendan con calma."
+      },
+      "area": "land",
+      "url": ""
+    },
+    {
+      "title": {
+        "it": "Passeggiata Notturna con gli Asini e Cena · Calabria",
+        "en": "Night Walk with Donkeys and Dinner · Calabria",
+        "de": "Nachtspaziergang mit Eseln und Abendessen · Calabria",
+        "pl": "Nocna Spacer z Osłami i Kolacja · Calabria",
+        "es": "Paseo Nocturno con Burros y Cena · Calabria"
+      },
+      "img": "/media/escursioni-11.jpg",
+      "photos": [
+        "/media/passeggiata-notturna-con-gli-asini-cena-emozionale-1.jpg",
+        "/media/passeggiata-notturna-con-gli-asini-cena-emozionale-2.jpg"
+      ],
+      "desc": {
+        "it": "Una passeggiata serale al chiaro di luna nei dintorni di Tropea, insieme agli asinelli, compagni tranquilli e tradizionali di queste campagne. I gruppi sono piccoli e le guide del posto raccontano storie e curiosità lungo il cammino.\n\nSi cammina con calma tra i panorami notturni e si finisce con una cena. Un'esperienza romantica e insolita, lontana dalla folla.",
+        "en": "An evening walk by moonlight around Tropea with donkeys, the calm traditional companions of this countryside. Groups are small, and local guides share stories and curiosities along the way.\n\nYou'll walk at an easy pace through night-time views and finish with dinner. A romantic, unusual experience away from the crowds.",
+        "de": "Ein Abendspaziergang im Mondschein in der Umgebung von Tropea, zusammen mit Eseln – den ruhigen, traditionellen Begleitern dieser Landschaft. Die Gruppen sind klein, und einheimische Guides erzählen unterwegs Geschichten und Wissenswertes.\n\nGemütlich geht es durch nächtliche Ausblicke, zum Abschluss gibt es ein Abendessen. Ein romantisches, ungewöhnliches Erlebnis fernab der Menge.",
+        "pl": "Wieczorny spacer w świetle księżyca w okolicach Tropei, razem z osiołkami – spokojnymi, tradycyjnymi towarzyszami tutejszej wsi. Grupy są małe, a miejscowi przewodnicy opowiadają po drodze historie i ciekawostki.\n\nIdzie się powoli wśród nocnych widoków, a na koniec jest kolacja. Romantyczne i nietypowe przeżycie, z dala od tłumów.",
+        "es": "Un paseo nocturno a la luz de la luna por los alrededores de Tropea, junto a burros, compañeros tranquilos y tradicionales de este campo. Los grupos son pequeños y los guías locales cuentan historias y curiosidades por el camino.\n\nSe camina con calma entre vistas nocturnas y se termina con una cena. Una experiencia romántica y diferente, lejos de la multitud."
+      },
+      "area": "land",
+      "url": ""
+    },
+    {
+      "title": {
+        "it": "Serata di Balli e Musica Popolare Calabrese · Tropea",
+        "en": "Evening of Calabrese Folk Dances and Music · Tropea",
+        "de": "Abend mit kalabrischen Volkstänzen und Musik · Tropea",
+        "pl": "Wieczór Tańców i Muzyki Ludowej Kalabryjskiej · Tropea",
+        "es": "Noche de Bailes y Música Popular Calabresa · Tropea"
+      },
+      "img": "/media/escursioni-12.jpg",
+      "photos": [
+        "/media/serata-di-balli-e-musica-popolare-1.jpg",
+        "/media/serata-di-balli-e-musica-popolare-2.jpg"
+      ],
+      "desc": {
+        "it": "Una serata di musica e balli popolari calabresi a Torre Marrana, una terrazza naturale che guarda il mare della Costa degli Dei.\n\nDa qui si vedono lo Stromboli e le Isole Eolie e, nelle giornate più limpide, perfino l'Etna e la Sicilia. Uno sfondo così rende ancora più bello lasciarsi coinvolgere dai ritmi della tradizione.",
+        "en": "An evening of Calabrian folk music and dancing at Torre Marrana, a natural terrace overlooking the sea of the Coast of the Gods.\n\nFrom here you can see Stromboli and the Aeolian Islands and, on the clearest days, even Etna and Sicily. A backdrop like this makes it even easier to get carried away by the traditional rhythms.",
+        "de": "Ein Abend mit kalabrischer Volksmusik und Tänzen in Torre Marrana, einer natürlichen Terrasse über dem Meer der Costa degli Dei.\n\nVon hier sieht man Stromboli und die Liparischen Inseln, an sehr klaren Tagen sogar den Ätna und Sizilien. Vor dieser Kulisse lässt man sich noch lieber von den traditionellen Rhythmen mitreißen.",
+        "pl": "Wieczór kalabryjskiej muzyki i tańców ludowych w Torre Marrana – naturalnym tarasie z widokiem na morze Wybrzeża Bogów.\n\nStąd widać Stromboli i Wyspy Liparyjskie, a w najbardziej przejrzyste dni nawet Etnę i Sycylię. Przy takim widoku jeszcze łatwiej dać się porwać tradycyjnym rytmom.",
+        "es": "Una noche de música y bailes populares calabreses en Torre Marrana, una terraza natural sobre el mar de la Costa de los Dioses.\n\nDesde aquí se ven el Stromboli y las islas Eolias y, en los días más claros, incluso el Etna y Sicilia. Con este telón de fondo es todavía más fácil dejarse llevar por los ritmos tradicionales."
+      },
+      "area": "land",
+      "url": ""
+    },
+    {
+      "title": {
+        "it": "Trekking con gli Asinelli sul Monte Poro · Calabria",
+        "en": "Trekking with Donkeys on Monte Poro · Calabria",
+        "de": "Trekking mit Eseln auf dem Monte Poro · Kalabrien",
+        "pl": "Trekking z Osłami na Monte Poro · Kalabria",
+        "es": "Trekking con Burros en Monte Poro · Calabria"
+      },
+      "img": "/media/escursioni-9.jpg",
+      "photos": [
+        "/media/trekking-con-gli-asinelli-sul-monte-poro-1.jpg",
+        "/media/trekking-con-gli-asinelli-sul-monte-poro-2.jpg",
+        "/media/trekking-con-gli-asinelli-sul-monte-poro-3.jpg"
+      ],
+      "desc": {
+        "it": "Un trekking sul Monte Poro in compagnia degli asinelli. Si parte da uno spazio dedicato agli animali e si cammina su sentieri tra valli e pendii, con viste su Capo Vaticano e sul mare della Costa degli Dei.\n\nLe guide spiegano piante, natura e storia del territorio lungo il percorso. Una camminata tranquilla e rispettosa dell'ambiente, adatta a chi ama la natura e gli animali.",
+        "en": "A trek on Monte Poro with donkeys for company. You start from an area dedicated to the animals and walk along paths through valleys and slopes, with views over Capo Vaticano and the sea of the Coast of the Gods.\n\nAlong the way the guides explain the plants, nature and history of the area. A gentle, eco-friendly walk for anyone who loves nature and animals.",
+        "de": "Eine Wanderung auf dem Monte Poro in Begleitung von Eseln. Start ist an einem eigenen Gelände für die Tiere, dann geht es auf Pfaden durch Täler und Hänge mit Blick auf Capo Vaticano und das Meer der Costa degli Dei.\n\nUnterwegs erklären die Guides Pflanzen, Natur und Geschichte der Gegend. Eine ruhige, umweltfreundliche Tour für alle, die Natur und Tiere lieben.",
+        "pl": "Trekking na Monte Poro w towarzystwie osiołków. Start w miejscu przeznaczonym dla zwierząt, a potem ścieżki przez doliny i zbocza z widokiem na Capo Vaticano i morze Wybrzeża Bogów.\n\nPo drodze przewodnicy opowiadają o roślinach, przyrodzie i historii okolicy. Spokojna wędrówka z szacunkiem dla środowiska, dla miłośników natury i zwierząt.",
+        "es": "Un trekking por el Monte Poro en compañía de burros. Se sale de un espacio dedicado a los animales y se camina por senderos entre valles y laderas, con vistas a Capo Vaticano y al mar de la Costa de los Dioses.\n\nPor el camino, los guías explican las plantas, la naturaleza y la historia de la zona. Una caminata tranquila y respetuosa con el entorno, para amantes de la naturaleza y los animales."
+      },
+      "area": "land",
+      "url": ""
+    },
+    {
+      "title": {
+        "it": "Tour a Reggio Calabria da Tropea · Bronzi di Riace e Scilla",
+        "en": "Tour to Reggio Calabria from Tropea · Bronzes of Riace and Scilla",
+        "de": "Tour nach Reggio Calabria von Tropea · Bronzen von Riace und Scilla",
+        "pl": "Wycieczka do Reggio Calabria z Tropei · Brązy z Riace i Scilla",
+        "es": "Tour a Reggio Calabria desde Tropea · Bronces de Riace y Scilla"
+      },
+      "img": "/media/escursioni-5.jpg",
+      "photos": [
+        "/media/tropea-reggio-calabria-1.jpg"
+      ],
+      "desc": {
+        "it": "Una giornata guidata da Tropea a Reggio Calabria e Scilla, in pullman. Si comincia dal Museo Archeologico Nazionale, dove si ammirano i Bronzi di Riace, capolavori della Magna Grecia.\n\nPoi una passeggiata in centro e sul Lungomare Falcomatà, con la vista sullo Stretto di Messina. L'ultima tappa è Scilla, con Chianalea, il quartiere dei pescatori dove le case arrivano fino all'acqua.",
+        "en": "A guided day trip by coach from Tropea to Reggio Calabria and Scilla. It begins at the National Archaeological Museum, home of the Riace Bronzes, masterpieces of Magna Graecia.\n\nThen a stroll through the centre and along the Lungomare Falcomatà, looking out over the Strait of Messina. The last stop is Scilla and Chianalea, the fishermen's quarter where the houses reach right down to the water.",
+        "de": "Ein geführter Tagesausflug im Reisebus von Tropea nach Reggio Calabria und Scilla. Los geht es im Archäologischen Nationalmuseum mit den Bronzen von Riace, Meisterwerken der Magna Graecia.\n\nDanach ein Spaziergang durch das Zentrum und über den Lungomare Falcomatà mit Blick auf die Straße von Messina. Letzte Station ist Scilla mit Chianalea, dem Fischerviertel, dessen Häuser bis ans Wasser reichen.",
+        "pl": "Całodniowa wycieczka z przewodnikiem autokarem z Tropei do Reggio Calabria i Scilli. Zaczyna się w Narodowym Muzeum Archeologicznym, gdzie można zobaczyć Brązy z Riace, arcydzieła Wielkiej Grecji.\n\nPotem spacer po centrum i bulwarze Lungomare Falcomatà z widokiem na Cieśninę Mesyńską. Ostatni przystanek to Scilla i Chianalea – rybacka dzielnica, w której domy stoją tuż nad wodą.",
+        "es": "Una excursión guiada de un día en autocar desde Tropea a Reggio Calabria y Scilla. Empieza en el Museo Arqueológico Nacional, donde se pueden ver los Bronces de Riace, obras maestras de la Magna Grecia.\n\nDespués, un paseo por el centro y por el Lungomare Falcomatà, con vistas al Estrecho de Mesina. La última parada es Scilla y Chianalea, el barrio de pescadores donde las casas llegan hasta el agua."
+      },
+      "area": "land",
+      "url": ""
+    },
+    {
+      "title": {
+        "it": "Volo in Parapendio sulla Costa degli Dei · Tropea",
+        "en": "Paragliding Flight over the Costa degli Dei · Tropea",
+        "de": "Gleitschirmflug über der Costa degli Dei · Tropea",
+        "pl": "Lot Paralotniowy nad Costa degli Dei · Tropea",
+        "es": "Vuelo en Parapente sobre la Costa degli Dei · Tropea"
+      },
+      "img": "/media/escursioni-6.jpg",
+      "photos": [
+        "/media/volo-in-parapendio-1.jpg",
+        "/media/volo-in-parapendio-2.jpg"
+      ],
+      "desc": {
+        "it": "Un volo in parapendio sopra la Costa degli Dei: ci si stacca da terra con la brezza del mare e si vedono dall'alto spiagge, scogliere e acqua trasparente.\n\nNon serve esperienza, va bene anche per chi vola per la prima volta. Un'emozione forte e un modo completamente diverso di guardare Tropea.",
+        "en": "A paragliding flight over the Coast of the Gods: you lift off on the sea breeze and see the beaches, cliffs and clear water from above.\n\nNo experience needed – it's fine for first-timers too. A real thrill and a completely different way of seeing Tropea.",
+        "de": "Ein Gleitschirmflug über der Costa degli Dei: Mit der Meeresbrise hebst du ab und siehst Strände, Klippen und klares Wasser von oben.\n\nErfahrung ist nicht nötig, auch für Anfänger geeignet. Ein echter Nervenkitzel und ein ganz neuer Blick auf Tropea.",
+        "pl": "Lot na paralotni nad Wybrzeżem Bogów: unosisz się z morską bryzą i oglądasz z góry plaże, klify i przejrzystą wodę.\n\nDoświadczenie nie jest potrzebne – to też dla osób, które lecą pierwszy raz. Mocne wrażenia i zupełnie nowe spojrzenie na Tropeę.",
+        "es": "Un vuelo en parapente sobre la Costa de los Dioses: despegas con la brisa del mar y ves desde arriba playas, acantilados y agua transparente.\n\nNo hace falta experiencia, también es para quien vuela por primera vez. Una emoción fuerte y una forma totalmente distinta de ver Tropea."
+      },
+      "area": "land",
+      "url": ""
+    },
+    {
+      "title": {
+        "it": "Alla scoperta della Costa degli Dei e dei suoi borghi più suggestivi",
+        "en": "Discovering the Costa degli Dei and its most charming villages",
+        "de": "Entdeckung der Costa degli Dei und ihrer charmantesten Dörfer",
+        "pl": "Odkrycie Costa degli Dei i jej najpiękniejszych wioski",
+        "es": "Descubriendo la Costa degli Dei y sus pueblos más encantadores"
+      },
+      "img": "/media/alla-scoperta-della-costa-degli-dei-e-dei-suoi-borghi-piu-su-1.jpg",
+      "photos": [
+        "/media/alla-scoperta-della-costa-degli-dei-e-dei-suoi-borghi-piu-su-2.jpg",
+        "/media/alla-scoperta-della-costa-degli-dei-e-dei-suoi-borghi-piu-su-3.jpg",
+        "/media/alla-scoperta-della-costa-degli-dei-e-dei-suoi-borghi-piu-su-4.jpg",
+        "/media/alla-scoperta-della-costa-degli-dei-e-dei-suoi-borghi-piu-su-5.jpg",
+        "/media/alla-scoperta-della-costa-degli-dei-e-dei-suoi-borghi-piu-su-6.jpg",
+        "/media/alla-scoperta-della-costa-degli-dei-e-dei-suoi-borghi-piu-su-7.jpg",
+        "/media/alla-scoperta-della-costa-degli-dei-e-dei-suoi-borghi-piu-su-8.jpg",
+        "/media/alla-scoperta-della-costa-degli-dei-e-dei-suoi-borghi-piu-su-9.jpg",
+        "/media/alla-scoperta-della-costa-degli-dei-e-dei-suoi-borghi-piu-su-10.jpg",
+        "/media/alla-scoperta-della-costa-degli-dei-e-dei-suoi-borghi-piu-su-11.jpg",
+        "/media/alla-scoperta-della-costa-degli-dei-e-dei-suoi-borghi-piu-su-12.jpg",
+        "/media/alla-scoperta-della-costa-degli-dei-e-dei-suoi-borghi-piu-su-13.jpg",
+        "/media/alla-scoperta-della-costa-degli-dei-e-dei-suoi-borghi-piu-su-14.jpg",
+        "/media/alla-scoperta-della-costa-degli-dei-e-dei-suoi-borghi-piu-su-15.jpg"
+      ],
+      "desc": {
+        "it": "Tour guidati su misura tra i luoghi più belli della Costa degli Dei: Tropea, con il centro storico e le spiagge turchesi; Pizzo, borgo di mare famoso per il tartufo; Capo Vaticano, con le sue scogliere e calette.\n\nSu richiesta si organizzano anche uscite verso la Costa Viola, a Scilla e Chianalea, o altri itinerari scelti in base ai tuoi interessi e al tempo che hai.\n\nSi parte in piccoli gruppi (minimo 4 persone) e si può essere presi direttamente in hotel o all'alloggio, come concordato alla prenotazione. Raccontaci cosa vorresti vedere e prepariamo insieme il giro.",
+        "en": "Tailor-made guided tours of the loveliest places on the Coast of the Gods: Tropea, with its old town and turquoise beaches; Pizzo, the seaside town famous for its tartufo ice cream; and Capo Vaticano, with its cliffs and coves.\n\nOn request we can also go to the Costa Viola, to Scilla and Chianalea, or plan other routes based on your interests and the time you have.\n\nTours run in small groups (minimum 4 people), with pick-up from your hotel or accommodation as agreed when booking. Tell us what you'd like to see and we'll plan the trip together.",
+        "de": "Individuelle geführte Touren zu den schönsten Orten der Costa degli Dei: Tropea mit Altstadt und türkisfarbenen Stränden, Pizzo, das für sein Tartufo-Eis berühmte Städtchen am Meer, und Capo Vaticano mit Klippen und kleinen Buchten.\n\nAuf Wunsch geht es auch an die Costa Viola nach Scilla und Chianalea oder auf andere Routen, passend zu deinen Interessen und deiner Zeit.\n\nDie Touren finden in kleinen Gruppen statt (mindestens 4 Personen), mit Abholung am Hotel oder an der Unterkunft nach Absprache. Sag uns, was du sehen möchtest, und wir planen den Ausflug gemeinsam.",
+        "pl": "Wycieczki z przewodnikiem szyte na miarę po najpiękniejszych miejscach Wybrzeża Bogów: Tropea ze starówką i turkusowymi plażami, Pizzo – nadmorskie miasteczko słynące z lodów tartufo – oraz Capo Vaticano z klifami i zatoczkami.\n\nNa życzenie organizujemy też wyjazdy na Costa Viola, do Scilli i Chianalei, albo inne trasy dopasowane do Twoich zainteresowań i czasu.\n\nWycieczki są w małych grupach (minimum 4 osoby), z odbiorem z hotelu lub miejsca noclegu zgodnie z ustaleniami przy rezerwacji. Napisz, co chcesz zobaczyć, a razem zaplanujemy trasę.",
+        "es": "Tours guiados a medida por los lugares más bonitos de la Costa de los Dioses: Tropea, con su casco antiguo y sus playas turquesas; Pizzo, pueblo marinero famoso por su helado tartufo; y Capo Vaticano, con sus acantilados y calas.\n\nBajo petición también organizamos salidas a la Costa Viola, a Scilla y Chianalea, u otras rutas según tus intereses y el tiempo que tengas.\n\nLos tours son en grupos pequeños (mínimo 4 personas), con recogida en tu hotel o alojamiento según lo acordado al reservar. Cuéntanos qué te gustaría ver y preparamos juntos la ruta."
+      },
+      "area": "land",
+      "price": "30 €",
+      "price_note": {
+        "it": "a persona · bambini fino a 16 anni: 10 €",
+        "en": "per person · children up to 16: €10",
+        "de": "pro Person · Kinder bis 16 Jahre: 10 €",
+        "pl": "za osobę · dzieci do 16 lat: 10 €",
+        "es": "por persona · niños hasta 16 años: 10 €"
+      },
+      "url": ""
+    }
+  ]
+}

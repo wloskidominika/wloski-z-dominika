@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Gestione – Włoski z Dominiką</title>
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="app.css">
+<style>
+.ctrl{display:grid;grid-template-columns:auto auto 1fr auto;gap:10px;align-items:end;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
+.ctrl label{font-size:.78rem}
+.ctrl textarea{min-height:42px}
+.check{display:flex;align-items:center;gap:6px;font-weight:700;font-size:.85rem;white-space:nowrap}
+.check input{width:auto}
+.contact a{margin-right:10px;font-size:.88rem}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.stat{background:var(--paper);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+.stat b{display:block;font-family:'Lora',serif;font-size:1.7rem;color:var(--red);font-weight:500}
+.stat span{font-size:.8rem;color:var(--muted);font-weight:700}
+@media (max-width:720px){.ctrl{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="index.html"><img src="sun.jpg" alt=""><div><span>Włoski z Dominiką</span><small>Gestione</small></div></a>
+    <div class="top-actions">
+      <a class="btn btn-line btn-sm" href="admin/">✏️ Modifica sito</a>
+      <a class="btn btn-line btn-sm" href="area.html">👤 Area riservata</a>
+      <button class="btn btn-line btn-sm hidden" id="logoutBtn">Esci</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="msg info" id="gate"></div>
+
+  <section id="app" class="hidden">
+    <div class="stats">
+      <div class="stat"><b id="sPending">0</b><span>Richieste in attesa</span></div>
+      <div class="stat"><b id="sUpcoming">0</b><span>Confermate in arrivo</span></div>
+      <div class="stat"><b id="sUsers">0</b><span>Persone registrate</span></div>
+      <div class="stat"><b id="sStudents">0</b><span>Studenti iscritti</span></div>
+    </div>
+
+    <div class="tabs">
+      <button class="on" data-tab="bookings">📅 Prenotazioni <span class="badge hidden" id="pendBadge"></span></button>
+      <button data-tab="users">👥 Clienti e studenti</button>
+      <button data-tab="materials">📚 Materiali corsi</button>
+    </div>
+
+    <!-- PRENOTAZIONI -->
+    <div data-pane="bookings">
+      <div class="toolbar">
+        <div class="filters">
+          <select id="fStatus"><option value="pending">In attesa</option><option value="confirmed">Confermate</option><option value="cancelled">Annullate</option><option value="all">Tutte</option></select>
+          <select id="fKind"><option value="all">Tutti i tipi</option><option value="excursion">Escursioni</option><option value="lesson_it">Lezioni di italiano</option><option value="lesson_pl">Lezioni di polacco</option><option value="house">Case vacanze</option><option value="other">Altro</option></select>
+        </div>
+        <button class="btn btn-line btn-sm" id="reloadB">↻ Aggiorna</button>
+      </div>
+      <div class="msg" id="bMsg" style="margin-bottom:12px"></div>
+      <div class="list" id="bList"></div>
+    </div>
+
+    <!-- UTENTI -->
+    <div data-pane="users" class="hidden">
+      <div class="toolbar">
+        <input id="uSearch" placeholder="🔍 Cerca per nome, e-mail o telefono" style="max-width:360px">
+        <select id="uFilter" style="width:auto"><option value="all">Tutti</option><option value="students">Solo studenti</option><option value="it">Iscritti a italiano</option><option value="pl">Iscritti a polacco</option></select>
+      </div>
+      <p class="muted" style="margin-bottom:14px">Spunta <b>Italiano</b> o <b>Polacco</b> per iscrivere una persona a un corso: vedrà i materiali di quel corso nella sua area riservata.</p>
+      <div class="msg" id="uMsg" style="margin-bottom:12px"></div>
+      <div class="list" id="uList"></div>
+    </div>
+
+    <!-- MATERIALI -->
+    <div data-pane="materials" class="hidden">
+      <div class="card" style="margin-bottom:24px">
+        <h2 style="font-size:1.35rem;margin-bottom:14px">Aggiungi materiale</h2>
+        <form id="mForm">
+          <div class="row">
+            <label>Titolo<input name="title" required></label>
+            <label>Corso<select name="course"><option value="it">🇮🇹 Italiano</option><option value="pl">🇵🇱 Polacco</option></select></label>
+          </div>
+          <div class="row">
+            <label>Livello (facoltativo)<input name="level" placeholder="es. A1, A2, B1…"></label>
+            <label>Tipo<select name="kind" id="mKind"><option value="file">📄 File (PDF, Word, audio…)</option><option value="video">▶️ Video YouTube</option><option value="link">🔗 Link a un sito</option><option value="text">✍️ Testo / esercizio</option></select></label>
+          </div>
+          <label data-mk="file">File<input name="file" type="file"></label>
+          <label data-mk="video link" class="hidden">Link<input name="url" type="url" placeholder="https://…"></label>
+          <label data-mk="text" class="hidden">Testo<textarea name="body" style="min-height:160px"></textarea></label>
+          <label>Descrizione breve (facoltativa)<textarea name="description" style="min-height:60px"></textarea></label>
+          <label class="check"><input type="checkbox" name="published" checked> Visibile agli studenti</label>
+          <button class="btn btn-red" id="mSubmit" style="justify-self:start">Aggiungi</button>
+        </form>
+        <div class="msg" id="mMsg" style="margin-top:12px"></div>
+      </div>
+      <div class="list" id="mList"></div>
+    </div>
+  </section>
+</main>
+<footer class="wrap" style="padding:20px;text-align:center;color:var(--muted);font-size:.8rem">Włoski z Dominiką i Podróże do Kalabrii · P.IVA 03800250791 · <a href="privacy.html">Privacy e Cookie</a></footer>
+
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const show=(el,txt,type)=>{el.textContent=txt;el.className="msg show "+type;};
+const KIND={excursion:"Escursione",lesson_it:"Lezione di italiano",lesson_pl:"Lezione di polacco",house:"Casa vacanze",other:"Altro"};
+const MODE={individual:"Individuale",group:"In gruppo",online:"Online"};
+const ST={pending:"In attesa",confirmed:"Confermata",cancelled:"Annullata"};
+const LANGN={it:"🇮🇹",de:"🇩🇪",en:"🇬🇧",pl:"🇵🇱",es:"🇪🇸"};
+const fmt=d=>d?new Date(d+"T12:00:00").toLocaleDateString("it",{day:"numeric",month:"short",year:"numeric"}):"—";
+const fmtTs=d=>new Date(d).toLocaleString("it",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});
+const digits=p=>String(p||"").replace(/[^\d]/g,"");
+
+const cfg=window.WZD_CONFIG||{};
+let sb, bookings=[], users=[], materials=[], armed=null;
+
+/* ---------- accesso ---------- */
+(async()=>{
+  const gate=$("#gate");
+  if(!cfg.SUPABASE_URL||cfg.SUPABASE_URL.includes("INSERISCI")||!window.supabase){
+    gate.innerHTML="⚠️ La gestione non è ancora collegata al database. Inserisci i dati di Supabase nel file <b>config.js</b> (vedi GUIDA.md)."; gate.classList.add("show"); return;
+  }
+  sb=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY);
+  const {data:{session}}=await sb.auth.getSession();
+  if(!session){ gate.innerHTML='Per entrare nella gestione accedi prima dall\'<a href="area.html">Area riservata</a>.'; gate.classList.add("show"); return; }
+  const {data:me}=await sb.from("profiles").select("role").eq("id",session.user.id).single();
+  if(me?.role!=="admin"){ gate.innerHTML='Questa pagina è riservata a Dominika. <a href="area.html">Vai alla tua area</a>.'; gate.classList.add("show"); return; }
+  $("#logoutBtn").classList.remove("hidden");
+  $("#app").classList.remove("hidden");
+  loadAll();
+})();
+$("#logoutBtn").onclick=async()=>{ await sb.auth.signOut(); location.href="area.html"; };
+
+async function loadAll(){ await Promise.all([loadBookings(),loadUsers(),loadMaterials()]); stats(); }
+function stats(){
+  const today=new Date().toISOString().slice(0,10);
+  const pend=bookings.filter(b=>b.status==="pending").length;
+  $("#sPending").textContent=pend;
+  $("#sUpcoming").textContent=bookings.filter(b=>b.status==="confirmed"&&(b.date_from||"")>=today).length;
+  $("#sUsers").textContent=users.length;
+  $("#sStudents").textContent=users.filter(u=>(u.courses||[]).length).length;
+  const bd=$("#pendBadge"); bd.textContent=pend; bd.classList.toggle("hidden",!pend);
+}
+
+/* ---------- prenotazioni ---------- */
+async function loadBookings(){
+  const {data,error}=await sb.from("bookings").select("*, profiles(full_name,email,phone,lang)").order("date_from",{ascending:true,nullsFirst:false});
+  if(error) return show($("#bMsg"),"Errore: "+error.message,"err");
+  bookings=data; renderBookings();
+}
+function renderBookings(){
+  const fs=$("#fStatus").value, fk=$("#fKind").value;
+  const list=bookings.filter(b=>(fs==="all"||b.status===fs)&&(fk==="all"||b.kind===fk));
+  if(!list.length){ $("#bList").innerHTML='<div class="empty">Nessuna prenotazione qui.</div>'; return; }
+  $("#bList").innerHTML=list.map(b=>{
+    const p=b.profiles||{}, ph=digits(p.phone);
+    return `<div class="item" data-b="${b.id}">
+      <div class="item-head">
+        <div>
+          <h3>${esc(KIND[b.kind])}${b.item?" · "+esc(b.item):""}</h3>
+          <div class="chips"><span class="chip st-${b.status}">${ST[b.status]}</span>${b.paid?'<span class="chip">💶 Pagata</span>':""}${b.mode?`<span class="chip">${MODE[b.mode]}</span>`:""}</div>
+          <div><b>${esc(p.full_name||"—")}</b> ${LANGN[p.lang]||""}</div>
+          <div class="contact">${p.email?`<a href="mailto:${esc(p.email)}">✉️ ${esc(p.email)}</a>`:""}${ph?`<a href="https://wa.me/${ph}" target="_blank" rel="noopener">💬 ${esc(p.phone)}</a>`:""}</div>
+        </div>
+        <div class="muted" style="text-align:right">📅 ${fmt(b.date_from)}${b.date_to?" → "+fmt(b.date_to):""}<br>👥 ${b.people} pers.<br><small>richiesta il ${fmtTs(b.created_at)}</small></div>
+      </div>
+      ${b.notes?`<div class="body-text">📝 ${esc(b.notes)}</div>`:""}
+      <div class="ctrl">
+        <label>Stato<select data-f="status">${Object.entries(ST).map(([k,v])=>`<option value="${k}" ${k===b.status?"selected":""}>${v}</option>`).join("")}</select></label>
+        <label class="check"><input type="checkbox" data-f="paid" ${b.paid?"checked":""}> Pagata</label>
+        <label>Messaggio per il cliente (lo vede nella sua area)<textarea data-f="admin_note">${esc(b.admin_note||"")}</textarea></label>
+        <label style="grid-column:1/-1">💳 Link di pagamento (facoltativo – il cliente vede «Paga ora»)<input data-f="payment_url" type="url" placeholder="https://buy.stripe.com/…" value="${esc(b.payment_url||"")}"></label>
+        <div style="display:flex;gap:6px"><button class="btn btn-red btn-sm" data-save-b>Salva</button><button class="btn btn-line btn-sm" data-del-b>${armed==="b"+b.id?"Sicura?":"🗑"}</button></div>
+      </div>
+    </div>`;}).join("");
+}
+$("#fStatus").onchange=renderBookings; $("#fKind").onchange=renderBookings;
+$("#reloadB").onclick=async()=>{ await loadBookings(); stats(); };
+
+/* ---------- utenti ---------- */
+async function loadUsers(){
+  const {data,error}=await sb.from("profiles").select("*").order("created_at",{ascending:false});
+  if(error) return show($("#uMsg"),"Errore: "+error.message,"err");
+  users=data; renderUsers();
+}
+function renderUsers(){
+  const q=$("#uSearch").value.toLowerCase().trim(), f=$("#uFilter").value;
+  const list=users.filter(u=>{
+    const c=u.courses||[];
+    if(f==="students"&&!c.length) return false;
+    if((f==="it"||f==="pl")&&!c.includes(f)) return false;
+    return !q||[u.full_name,u.email,u.phone].some(x=>String(x||"").toLowerCase().includes(q));
+  });
+  if(!list.length){ $("#uList").innerHTML='<div class="empty">Nessuna persona trovata.</div>'; return; }
+  $("#uList").innerHTML=list.map(u=>{
+    const c=u.courses||[], ph=digits(u.phone), nb=bookings.filter(b=>b.user_id===u.id).length;
+    return `<div class="item" data-u="${u.id}">
+      <div class="item-head">
+        <div><h3>${esc(u.full_name||"(senza nome)")} ${LANGN[u.lang]||""} ${u.role==="admin"?'<span class="chip">Amministratrice</span>':""}</h3>
+          <div class="contact">${u.email?`<a href="mailto:${esc(u.email)}">✉️ ${esc(u.email)}</a>`:""}${ph?`<a href="https://wa.me/${ph}" target="_blank" rel="noopener">💬 ${esc(u.phone)}</a>`:""}</div>
+          <div class="muted">Registrata/o il ${fmtTs(u.created_at)} · ${nb} prenotazion${nb===1?"e":"i"}</div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+          <label class="check"><input type="checkbox" data-course="it" ${c.includes("it")?"checked":""}> 🇮🇹 Italiano</label>
+          <label class="check"><input type="checkbox" data-course="pl" ${c.includes("pl")?"checked":""}> 🇵🇱 Polacco</label>
+          <button class="btn btn-red btn-sm" data-save-u>Salva</button>
+        </div>
+      </div>
+    </div>`;}).join("");
+}
+$("#uSearch").oninput=renderUsers; $("#uFilter").onchange=renderUsers;
+
+/* ---------- materiali ---------- */
+async function loadMaterials(){
+  const {data,error}=await sb.from("materials").select("*").order("course").order("created_at",{ascending:false});
+  if(error) return show($("#mMsg"),"Errore: "+error.message,"err");
+  materials=data; renderMaterials();
+}
+function renderMaterials(){
+  if(!materials.length){ $("#mList").innerHTML='<div class="empty">Nessun materiale ancora.</div>'; return; }
+  $("#mList").innerHTML=["it","pl"].map(c=>{
+    const ms=materials.filter(m=>m.course===c); if(!ms.length) return "";
+    return `<h2 style="font-size:1.3rem">${c==="it"?"🇮🇹 Italiano":"🇵🇱 Polacco"} <span class="muted">(${ms.length})</span></h2>`+ms.map(m=>`
+      <div class="item" data-m="${m.id}">
+        <div class="item-head">
+          <div><h3>${esc(m.title)}</h3>
+            <div class="chips">${m.level?`<span class="chip">${esc(m.level)}</span>`:""}<span class="chip">${{file:"📄 File",video:"▶️ Video",link:"🔗 Link",text:"✍️ Testo"}[m.kind]}</span>${m.published?"":'<span class="chip st-cancelled">Nascosto</span>'}</div>
+            ${m.description?`<div class="muted">${esc(m.description)}</div>`:""}
+            ${m.url?`<a href="${esc(m.url)}" target="_blank" rel="noopener" style="font-size:.88rem">${esc(m.url)}</a>`:""}
+          </div>
+          <div style="display:flex;gap:6px">
+            <button class="btn btn-line btn-sm" data-pub>${m.published?"Nascondi":"Mostra"}</button>
+            <button class="btn btn-line btn-sm" data-del-m>${armed==="m"+m.id?"Sicura?":"🗑 Elimina"}</button>
+          </div>
+        </div>
+      </div>`).join("");
+  }).join("");
+}
+function updateMKind(){
+  const k=$("#mKind").value;
+  $$("[data-mk]").forEach(el=>el.classList.toggle("hidden",!el.dataset.mk.split(" ").includes(k)));
+}
+$("#mKind").onchange=updateMKind;
+$("#mForm").addEventListener("submit",async e=>{
+  e.preventDefault(); const f=e.target, k=f.kind.value, btn=$("#mSubmit"), msg=$("#mMsg");
+  const row={title:f.title.value.trim(),course:f.course.value,level:f.level.value.trim()||null,kind:k,
+    description:f.description.value.trim()||null,published:f.published.checked,url:null,file_path:null,body:null};
+  if(k==="file"){
+    const file=f.file.files[0]; if(!file) return show(msg,"Scegli un file.","err");
+    btn.disabled=true; btn.textContent="Caricamento…";
+    const safe=file.name.normalize("NFD").replace(/[^\w.\-]+/g,"_");
+    const path=`${row.course}/${Date.now()}-${safe}`;
+    const {error}=await sb.storage.from("materials").upload(path,file);
+    if(error){ btn.disabled=false; btn.textContent="Aggiungi"; return show(msg,"Errore nel caricamento: "+error.message,"err"); }
+    row.file_path=path;
+  }
+  if(k==="video"||k==="link"){ row.url=f.url.value.trim(); if(!row.url) return show(msg,"Inserisci il link.","err"); }
+  if(k==="text"){ row.body=f.body.value; if(!row.body.trim()) return show(msg,"Scrivi il testo.","err"); }
+  const {error}=await sb.from("materials").insert(row);
+  btn.disabled=false; btn.textContent="Aggiungi";
+  if(error) return show(msg,"Errore: "+error.message,"err");
+  f.reset(); updateMKind(); show(msg,"Materiale aggiunto!","ok"); loadMaterials();
+});
+
+/* ---------- azioni ---------- */
+document.addEventListener("click",async e=>{
+  const tb=e.target.closest("[data-tab]");
+  if(tb){ $$("[data-tab]").forEach(b=>b.classList.toggle("on",b===tb)); $$("[data-pane]").forEach(p=>p.classList.toggle("hidden",p.dataset.pane!==tb.dataset.tab)); return; }
+
+  const bEl=e.target.closest("[data-b]");
+  if(bEl && e.target.closest("[data-save-b]")){
+    const id=+bEl.dataset.b;
+    const upd={status:bEl.querySelector('[data-f="status"]').value,paid:bEl.querySelector('[data-f="paid"]').checked,admin_note:bEl.querySelector('[data-f="admin_note"]').value.trim()||null,payment_url:bEl.querySelector('[data-f="payment_url"]').value.trim()||null};
+    const {error}=await sb.from("bookings").update(upd).eq("id",id);
+    if(error) return show($("#bMsg"),"Errore: "+error.message,"err");
+    show($("#bMsg"),"Prenotazione aggiornata.","ok"); Object.assign(bookings.find(b=>b.id===id),upd); renderBookings(); stats(); return;
+  }
+  if(bEl && e.target.closest("[data-del-b]")){
+    const id=+bEl.dataset.b;
+    if(armed!=="b"+id){ armed="b"+id; renderBookings(); return; }
+    armed=null; const {error}=await sb.from("bookings").delete().eq("id",id);
+    if(error) return show($("#bMsg"),"Errore: "+error.message,"err");
+    bookings=bookings.filter(b=>b.id!==id); renderBookings(); stats(); return;
+  }
+
+  const uEl=e.target.closest("[data-u]");
+  if(uEl && e.target.closest("[data-save-u]")){
+    const id=uEl.dataset.u, courses=[...uEl.querySelectorAll("[data-course]:checked")].map(x=>x.dataset.course);
+    const {error}=await sb.from("profiles").update({courses}).eq("id",id);
+    if(error) return show($("#uMsg"),"Errore: "+error.message,"err");
+    users.find(u=>u.id===id).courses=courses; show($("#uMsg"),"Iscrizioni salvate.","ok"); renderUsers(); stats(); return;
+  }
+
+  const mEl=e.target.closest("[data-m]");
+  if(mEl){
+    const id=+mEl.dataset.m, m=materials.find(x=>x.id===id);
+    if(e.target.closest("[data-pub]")){
+      const {error}=await sb.from("materials").update({published:!m.published}).eq("id",id);
+      if(!error){ m.published=!m.published; renderMaterials(); } return;
+    }
+    if(e.target.closest("[data-del-m]")){
+      if(armed!=="m"+id){ armed="m"+id; renderMaterials(); return; }
+      armed=null;
+      if(m.file_path) await sb.storage.from("materials").remove([m.file_path]);
+      const {error}=await sb.from("materials").delete().eq("id",id);
+      if(!error){ materials=materials.filter(x=>x.id!==id); renderMaterials(); }
+    }
+  }
+});
+</script>
+</body>
+</html>

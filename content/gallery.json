@@ -1,0 +1,352 @@
+{
+  "items": [
+    {
+      "type": "photo",
+      "img": "/media/escursioni-2.jpg",
+      "ar": "4/3",
+      "cap": {
+        "it": "Tour Isole Eolie da Tropea · Stromboli, Vulcano, Lipari",
+        "en": "Aeolian Islands Tour from Tropea · Stromboli, Vulcano, Lipari",
+        "de": "Äolische Inseln Tour von Tropea · Stromboli, Vulcano, Lipari",
+        "fr": "Tour des Îles Éoliennes depuis Tropea · Stromboli, Vulcano, Lipari",
+        "pl": "Wycieczka na Wyspy Liparyjskie z Tropei · Stromboli, Vulcano, Lipari",
+        "ru": "Тур на Липарские острова из Тропеи · Стромболи, Вулкано, Липари",
+        "es": "Tour Islas Eolias desde Tropea · Stromboli, Vulcano, Lipari",
+        "cs": "Výlet na Eolské ostrovy z Tropei · Stromboli, Vulcano, Lipari"
+      }
+    },
+    {
+      "type": "photo",
+      "img": "/media/escursioni-4.jpg",
+      "ar": "4/3",
+      "cap": {
+        "it": "Pesca Turistica a Tropea con Pescatori Professionali",
+        "en": "Sport Fishing in Tropea with Professional Fishermen",
+        "de": "Sportfischen in Tropea mit professionellen Fischern",
+        "fr": "Pêche Touristique à Tropea avec Pêcheurs Professionnels",
+        "pl": "Wędkarstwo Turystyczne w Tropea z Zawodowymi Rybakami",
+        "ru": "Любительское рыболовство в Тропеа с профессиональными рыбаками",
+        "es": "Pesca Turística en Tropea con Pescadores Profesionales",
+        "cs": "Turistický Rybolov v Tropeě s Profesionálními Rybáky"
+      }
+    },
+    {
+      "type": "video",
+      "video": "/media/villa-mimosa-4.mp4",
+      "img": "/media/villa-mimosa-4-cover.jpg",
+      "ar": "16/9",
+      "cap": {
+        "it": "Villa Mimosa",
+        "en": "Villa Mimosa"
+      }
+    },
+    {
+      "type": "photo",
+      "img": "/media/tour-barca-tropea-capo-vaticano-1.jpg",
+      "ar": "4/3",
+      "cap": {
+        "it": "Tour in Barca da Tropea a Capo Vaticano · Costa degli Dei",
+        "en": "Boat Tour from Tropea to Capo Vaticano · Costa degli Dei",
+        "de": "Bootsfahrt von Tropea nach Capo Vaticano · Costa degli Dei",
+        "fr": "Croisière en bateau de Tropea à Capo Vaticano · Costa degli Dei",
+        "pl": "Wycieczka łodzią z Tropei do Capo Vaticano · Costa degli Dei",
+        "ru": "Морская прогулка из Тропеи в Кабо Ватикано · Costa degli Dei",
+        "es": "Excursión en barco de Tropea a Capo Vaticano · Costa degli Dei",
+        "cs": "Plavba lodí z Tropea do Capo Vaticano · Costa degli Dei"
+      }
+    },
+    {
+      "type": "photo",
+      "img": "/media/escursioni-3.jpg",
+      "ar": "4/3",
+      "cap": {
+        "it": "Tour in Gommone da Tropea a Capo Vaticano · Calabria",
+        "en": "Speedboat Tour from Tropea to Capo Vaticano · Calabria",
+        "de": "Schnellbootfahrt von Tropea zu Capo Vaticano · Kalabrien",
+        "fr": "Tour en Bateau Rapide de Tropea à Capo Vaticano · Calabre",
+        "pl": "Wycieczka Motorówką z Tropea do Capo Vaticano · Calabria",
+        "ru": "Тур на скоростном катере из Тропеи в Кабо Ватикано · Калабрия",
+        "es": "Tour en Lancha Rápida de Tropea a Capo Vaticano · Calabria",
+        "cs": "Výlet Rychlým Člunem z Tropea do Capo Vaticano · Kalabrie"
+      }
+    },
+    {
+      "type": "video",
+      "video": "/media/corso-di-pasta-e-pane-in-calabria-vicino-a-tropea-1.mp4",
+      "img": "/media/corso-di-pasta-e-pane-in-calabria-vicino-a-tropea-1-cover.jpg",
+      "ar": "16/9",
+      "cap": {
+        "it": "Corso di Pasta e Pane in Calabria · Vicino a Tropea",
+        "en": "Pasta and Bread Course in Calabria · Near Tropea",
+        "de": "Pasta- und Brot-Kurs in Kalabrien · Nähe Tropea",
+        "fr": "Cours de Pâtes et Pain en Calabre · Près de Tropea",
+        "pl": "Kurs Makaronu i Chleba w Kalabrii · Blisko Tropea",
+        "ru": "Курс Макаронных Изделий и Хлеба в Калабрии · Рядом с Tropea",
+        "es": "Curso de Pasta y Pan en Calabria · Cerca de Tropea",
+        "cs": "Kurz Těstovin a Chleba v Kalábrii · Blízko Tropea"
+      }
+    },
+    {
+      "type": "photo",
+      "img": "/media/costa-viola-1.jpg",
+      "ar": "4/3",
+      "cap": {
+        "it": "Escursione alla Costa Viola da Tropea · Scilla e Bagnara",
+        "en": "Excursion to Costa Viola from Tropea · Scilla and Bagnara",
+        "de": "Ausflug zur Costa Viola von Tropea · Scilla und Bagnara",
+        "fr": "Excursion à la Costa Viola depuis Tropea · Scilla et Bagnara",
+        "pl": "Wycieczka na Costa Viola z Tropea · Scilla i Bagnara",
+        "ru": "Экскурсия на Costa Viola из Tropea · Scilla и Bagnara",
+        "es": "Excursión a la Costa Viola desde Tropea · Scilla y Bagnara",
+        "cs": "Výlet na Costa Viola z Tropea · Scilla a Bagnara"
+      }
+    },
+    {
+      "type": "photo",
+      "img": "/media/cucina-contadina-cena-al-tramonto-1.jpg",
+      "ar": "4/3",
+      "cap": {
+        "it": "Cucina Contadina e Cena al Tramonto · Capo Vaticano",
+        "en": "Cucina Contadina and Sunset Dinner · Capo Vaticano",
+        "de": "Cucina Contadina und Sonnenuntergangsessen · Capo Vaticano",
+        "fr": "Cucina Contadina et Dîner au Coucher du Soleil · Capo Vaticano",
+        "pl": "Cucina Contadina i Kolacja o Zachodzie Słońca · Capo Vaticano",
+        "ru": "Cucina Contadina и Ужин на Закате · Capo Vaticano",
+        "es": "Cucina Contadina y Cena al Atardecer · Capo Vaticano",
+        "cs": "Cucina Contadina a Večeře při Západu Slunce · Capo Vaticano"
+      }
+    },
+    {
+      "type": "video",
+      "video": "/media/noleggio-barche-e-gommoni-a-tropea-senza-patente-1.mp4",
+      "img": "/media/noleggio-barche-e-gommoni-a-tropea-senza-patente-1-cover.jpg",
+      "ar": "16/9",
+      "cap": {
+        "it": "Noleggio Barche e Gommoni a Tropea · Senza Patente",
+        "en": "Boat and Dinghy Rental in Tropea · License-Free",
+        "de": "Boot- und Schlauchbootverleih in Tropea · Ohne Führerschein",
+        "fr": "Location de Bateaux et Bateaux Pneumatiques à Tropea · Sans Permis",
+        "pl": "Wynajem Łodzi i Pontonów w Tropea · Bez Prawa Jazdy",
+        "ru": "Аренда лодок и надувных лодок в Tropea · Без лицензии",
+        "es": "Alquiler de Barcos y Botes Neumáticos en Tropea · Sin Licencia",
+        "cs": "Pronájem člunů a gumových člunů v Tropea · Bez licence"
+      }
+    },
+    {
+      "type": "photo",
+      "img": "/media/degustazioni-vini-visite-nei-vigneti-1-1.jpg",
+      "ar": "4/3",
+      "cap": {
+        "it": "Degustazione Vini e Visita ai Vigneti · Vicino a Tropea",
+        "en": "Wine Tasting and Vineyard Visit · Near Tropea",
+        "de": "Weinverkostung und Weingutsbesuch · Nähe Tropea",
+        "fr": "Dégustation de Vins et Visite du Vignoble · Près de Tropea",
+        "pl": "Degustacja Wina i Wizyta w Winnicy · Blisko Tropea",
+        "ru": "Дегустация вин и посещение виноградников · Рядом с Tropea",
+        "es": "Cata de Vinos y Visita a los Viñedos · Cerca de Tropea",
+        "cs": "Degustace vín a návštěva vinic · Poblíž Tropea"
+      }
+    },
+    {
+      "type": "photo",
+      "img": "/media/dormi-sotto-le-stelle-1.jpg",
+      "ar": "4/3",
+      "cap": {
+        "it": "Dormi Sotto le Stelle in Calabria · Vicino a Tropea",
+        "en": "Sleep Under the Stars in Calabria · Near Tropea",
+        "de": "Unter dem Sternenhimmel in Kalabrien schlafen · In der Nähe von Tropea",
+        "fr": "Dormir sous les Étoiles en Calabre · Près de Tropea",
+        "pl": "Śpij Pod Gwiazdami w Kalabrii · Blisko Tropea",
+        "ru": "Спите под звёздами в Калабрии · Рядом с Тропеей",
+        "es": "Duerme Bajo las Estrellas en Calabria · Cerca de Tropea",
+        "cs": "Spěte pod hvězdami v Kalábrii · Blízko Tropea"
+      }
+    },
+    {
+      "type": "video",
+      "video": "/media/pesca-turistica-a-tropea-con-pescatori-professionali-1.mp4",
+      "img": "/media/pesca-turistica-a-tropea-con-pescatori-professionali-1-cover.jpg",
+      "ar": "16/9",
+      "cap": {
+        "it": "Pesca Turistica a Tropea con Pescatori Professionali",
+        "en": "Sport Fishing in Tropea with Professional Fishermen",
+        "de": "Sportfischen in Tropea mit professionellen Fischern",
+        "fr": "Pêche Touristique à Tropea avec Pêcheurs Professionnels",
+        "pl": "Wędkarstwo Turystyczne w Tropea z Zawodowymi Rybakami",
+        "ru": "Любительское рыболовство в Тропеа с профессиональными рыбаками",
+        "es": "Pesca Turística en Tropea con Pescadores Profesionales",
+        "cs": "Turistický Rybolov v Tropeě s Profesionálními Rybáky"
+      }
+    },
+    {
+      "type": "photo",
+      "img": "/media/escursioni-10.jpg",
+      "ar": "4/3",
+      "cap": {
+        "it": "Giornata in Campagna per Famiglie · Vicino a Tropea",
+        "en": "Family Day in the Countryside · Near Tropea",
+        "de": "Familientag auf dem Land · Nähe Tropea",
+        "fr": "Journée à la Campagne en Famille · Près de Tropea",
+        "pl": "Dzień na Wsi dla Rodzin · Blisko Tropea",
+        "ru": "День в деревне для семей · Рядом с Tropea",
+        "es": "Día en el Campo para Familias · Cerca de Tropea",
+        "cs": "Rodinný Den na Venkově · Blízko Tropea"
+      }
+    },
+    {
+      "type": "photo",
+      "img": "/media/escursioni-8.jpg",
+      "ar": "4/3",
+      "cap": {
+        "it": "Corso di Pasta e Pane in Calabria · Vicino a Tropea",
+        "en": "Pasta and Bread Course in Calabria · Near Tropea",
+        "de": "Pasta- und Brot-Kurs in Kalabrien · Nähe Tropea",
+        "fr": "Cours de Pâtes et Pain en Calabre · Près de Tropea",
+        "pl": "Kurs Makaronu i Chleba w Kalabrii · Blisko Tropea",
+        "ru": "Курс Макаронных Изделий и Хлеба в Калабрии · Рядом с Tropea",
+        "es": "Curso de Pasta y Pan en Calabria · Cerca de Tropea",
+        "cs": "Kurz Těstovin a Chleba v Kalábrii · Blízko Tropea"
+      }
+    },
+    {
+      "type": "video",
+      "video": "/media/pesca-turistica-a-tropea-con-pescatori-professionali-2.mp4",
+      "img": "/media/pesca-turistica-a-tropea-con-pescatori-professionali-2-cover.jpg",
+      "ar": "16/9",
+      "cap": {
+        "it": "Pesca Turistica a Tropea con Pescatori Professionali",
+        "en": "Sport Fishing in Tropea with Professional Fishermen",
+        "de": "Sportfischen in Tropea mit professionellen Fischern",
+        "fr": "Pêche Touristique à Tropea avec Pêcheurs Professionnels",
+        "pl": "Wędkarstwo Turystyczne w Tropea z Zawodowymi Rybakami",
+        "ru": "Любительское рыболовство в Тропеа с профессиональными рыбаками",
+        "es": "Pesca Turística en Tropea con Pescadores Profesionales",
+        "cs": "Turistický Rybolov v Tropeě s Profesionálními Rybáky"
+      }
+    },
+    {
+      "type": "photo",
+      "img": "/media/escursioni-11.jpg",
+      "ar": "4/3",
+      "cap": {
+        "it": "Passeggiata Notturna con gli Asini e Cena · Calabria",
+        "en": "Night Walk with Donkeys and Dinner · Calabria",
+        "de": "Nachtspaziergang mit Eseln und Abendessen · Calabria",
+        "fr": "Promenade Nocturne avec les Ânes et Dîner · Calabria",
+        "pl": "Nocna Spacer z Osłami i Kolacja · Calabria",
+        "ru": "Ночная прогулка с ослами и ужин · Calabria",
+        "es": "Paseo Nocturno con Burros y Cena · Calabria",
+        "cs": "Noční Procházka s Osly a Večeře · Calabria"
+      }
+    },
+    {
+      "type": "photo",
+      "img": "/media/escursioni-12.jpg",
+      "ar": "4/3",
+      "cap": {
+        "it": "Serata di Balli e Musica Popolare Calabrese · Tropea",
+        "en": "Evening of Calabrese Folk Dances and Music · Tropea",
+        "de": "Abend mit kalabrischen Volkstänzen und Musik · Tropea",
+        "fr": "Soirée de Danses et Musique Populaire Calabraise · Tropea",
+        "pl": "Wieczór Tańców i Muzyki Ludowej Kalabryjskiej · Tropea",
+        "ru": "Вечер калабрийских народных танцев и музыки · Tropea",
+        "es": "Noche de Bailes y Música Popular Calabresa · Tropea",
+        "cs": "Večer kalábrijských lidových tanců a hudby · Tropea"
+      }
+    },
+    {
+      "type": "video",
+      "video": "/media/pesca-turistica-a-tropea-con-pescatori-professionali-3.mp4",
+      "img": "/media/pesca-turistica-a-tropea-con-pescatori-professionali-3-cover.jpg",
+      "ar": "16/9",
+      "cap": {
+        "it": "Pesca Turistica a Tropea con Pescatori Professionali",
+        "en": "Sport Fishing in Tropea with Professional Fishermen",
+        "de": "Sportfischen in Tropea mit professionellen Fischern",
+        "fr": "Pêche Touristique à Tropea avec Pêcheurs Professionnels",
+        "pl": "Wędkarstwo Turystyczne w Tropea z Zawodowymi Rybakami",
+        "ru": "Любительское рыболовство в Тропеа с профессиональными рыбаками",
+        "es": "Pesca Turística en Tropea con Pescadores Profesionales",
+        "cs": "Turistický Rybolov v Tropeě s Profesionálními Rybáky"
+      }
+    },
+    {
+      "type": "photo",
+      "img": "/media/escursioni-9.jpg",
+      "ar": "4/3",
+      "cap": {
+        "it": "Trekking con gli Asinelli sul Monte Poro · Calabria",
+        "en": "Trekking with Donkeys on Monte Poro · Calabria",
+        "de": "Trekking mit Eseln auf dem Monte Poro · Kalabrien",
+        "fr": "Trekking avec les Ânes sur le Monte Poro · Calabre",
+        "pl": "Trekking z Osłami na Monte Poro · Kalabria",
+        "ru": "Треккинг с ослами на Монте Поро · Калабрия",
+        "es": "Trekking con Burros en Monte Poro · Calabria",
+        "cs": "Trekking s osly na Monte Poro · Kalábrie"
+      }
+    },
+    {
+      "type": "photo",
+      "img": "/media/escursioni-5.jpg",
+      "ar": "4/3",
+      "cap": {
+        "it": "Tour a Reggio Calabria da Tropea · Bronzi di Riace e Scilla",
+        "en": "Tour to Reggio Calabria from Tropea · Bronzes of Riace and Scilla",
+        "de": "Tour nach Reggio Calabria von Tropea · Bronzen von Riace und Scilla",
+        "fr": "Tour à Reggio Calabria depuis Tropea · Bronzes de Riace et Scilla",
+        "pl": "Wycieczka do Reggio Calabria z Tropei · Brązy z Riace i Scilla",
+        "ru": "Тур в Реджо-ди-Калабрия из Тропеи · Бронзы Риаче и Сцилла",
+        "es": "Tour a Reggio Calabria desde Tropea · Bronces de Riace y Scilla",
+        "cs": "Prohlídka Reggio Calabria z Tropey · Bronzy z Riace a Scilla"
+      }
+    },
+    {
+      "type": "video",
+      "video": "/media/tour-in-barca-da-tropea-a-capo-vaticano-costa-degli-dei-1.mp4",
+      "img": "/media/tour-in-barca-da-tropea-a-capo-vaticano-costa-degli-dei-1-cover.jpg",
+      "ar": "16/9",
+      "cap": {
+        "it": "Tour in Barca da Tropea a Capo Vaticano · Costa degli Dei",
+        "en": "Boat Tour from Tropea to Capo Vaticano · Costa degli Dei",
+        "de": "Bootsfahrt von Tropea nach Capo Vaticano · Costa degli Dei",
+        "fr": "Croisière en bateau de Tropea à Capo Vaticano · Costa degli Dei",
+        "pl": "Wycieczka łodzią z Tropei do Capo Vaticano · Costa degli Dei",
+        "ru": "Морская прогулка из Тропеи в Кабо Ватикано · Costa degli Dei",
+        "es": "Excursión en barco de Tropea a Capo Vaticano · Costa degli Dei",
+        "cs": "Plavba lodí z Tropea do Capo Vaticano · Costa degli Dei"
+      }
+    },
+    {
+      "type": "video",
+      "video": "/media/tour-in-gommone-da-tropea-a-capo-vaticano-calabria-1.mp4",
+      "img": "/media/tour-in-gommone-da-tropea-a-capo-vaticano-calabria-1-cover.jpg",
+      "ar": "16/9",
+      "cap": {
+        "it": "Tour in Gommone da Tropea a Capo Vaticano · Calabria",
+        "en": "Speedboat Tour from Tropea to Capo Vaticano · Calabria",
+        "de": "Schnellbootfahrt von Tropea zu Capo Vaticano · Kalabrien",
+        "fr": "Tour en Bateau Rapide de Tropea à Capo Vaticano · Calabre",
+        "pl": "Wycieczka Motorówką z Tropea do Capo Vaticano · Calabria",
+        "ru": "Тур на скоростном катере из Тропеи в Кабо Ватикано · Калабрия",
+        "es": "Tour en Lancha Rápida de Tropea a Capo Vaticano · Calabria",
+        "cs": "Výlet Rychlým Člunem z Tropea do Capo Vaticano · Kalabrie"
+      }
+    },
+    {
+      "type": "video",
+      "video": "/media/trekking-con-gli-asinelli-sul-monte-poro-calabria-1.mp4",
+      "img": "/media/trekking-con-gli-asinelli-sul-monte-poro-calabria-1-cover.jpg",
+      "ar": "16/9",
+      "cap": {
+        "it": "Trekking con gli Asinelli sul Monte Poro · Calabria",
+        "en": "Trekking with Donkeys on Monte Poro · Calabria",
+        "de": "Trekking mit Eseln auf dem Monte Poro · Kalabrien",
+        "fr": "Trekking avec les Ânes sur le Monte Poro · Calabre",
+        "pl": "Trekking z Osłami na Monte Poro · Kalabria",
+        "ru": "Треккинг с ослами на Монте Поро · Калабрия",
+        "es": "Trekking con Burros en Monte Poro · Calabria",
+        "cs": "Trekking s osly na Monte Poro · Kalábrie"
+      }
+    }
+  ]
+}

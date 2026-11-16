@@ -1,0 +1,70 @@
+{
+ "items": [
+  {
+   "slug": "cosa-vedere-a-tropea",
+   "title": "Cosa vedere a Tropea: 7 tappe da non perdere",
+   "description": "Cosa vedere a Tropea in pochi giorni: centro storico, Santa Maria dell'Isola, spiagge sotto la rupe, tramonti e cucina. La guida di chi vive qui.",
+   "lang": "it",
+   "date": "2026-11-16",
+   "date_txt": "16 nov 2026",
+   "cover": "media/index-cs-1.jpg",
+   "cover_alt": "Tropea vista dall'alto con la spiaggia e il mare turchese",
+   "category": "Guide"
+  },
+  {
+   "slug": "come-arrivare-a-tropea-dall-aeroporto-di-lamezia",
+   "title": "Come arrivare a Tropea dall'aeroporto di Lamezia Terme",
+   "description": "Come arrivare a Tropea dall'aeroporto di Lamezia Terme: transfer privato, taxi, auto a noleggio o treno. Tempi, vantaggi e consigli pratici.",
+   "lang": "it",
+   "date": "2026-11-15",
+   "date_txt": "15 nov 2026",
+   "cover": "media/transfert-aeroportuali-1.jpg",
+   "cover_alt": "Auto con autista per il transfer da Lamezia Terme a Tropea",
+   "category": "Informazioni pratiche"
+  },
+  {
+   "slug": "spiagge-vicino-a-tropea-e-capo-vaticano",
+   "title": "Spiagge vicino a Tropea e Capo Vaticano: dove andare",
+   "description": "Le spiagge vicino a Tropea e Capo Vaticano: sotto la rupe del centro, le calette di Capo Vaticano e Torre Ruffa. Consigli per goderle al meglio.",
+   "lang": "it",
+   "date": "2026-11-14",
+   "date_txt": "14 nov 2026",
+   "cover": "media/tour-barca-tropea-capo-vaticano-1.jpg",
+   "cover_alt": "Mare turchese e barche davanti a Tropea",
+   "category": "Guide"
+  },
+  {
+   "slug": "isole-eolie-da-tropea",
+   "title": "Isole Eolie da Tropea: come organizzare la gita",
+   "description": "Isole Eolie da Tropea in un giorno: Stromboli, Lipari, Vulcano e Panarea. Orari, prezzi, cosa portare e come scegliere il programma giusto.",
+   "lang": "it",
+   "date": "2026-11-13",
+   "date_txt": "13 nov 2026",
+   "cover": "media/mini-crociere-isole-eolie-1.jpg",
+   "cover_alt": "Battello per le Isole Eolie in partenza da Tropea",
+   "category": "Escursioni"
+  },
+  {
+   "slug": "capo-vaticano-spiagge-e-calette",
+   "title": "Capo Vaticano: spiagge, calette e panorami",
+   "description": "Capo Vaticano, vicino a Tropea: le spiagge più belle come Grotticelle, il belvedere con vista sulle Eolie e il giro in barca tra le calette.",
+   "lang": "it",
+   "date": "2026-11-12",
+   "date_txt": "12 nov 2026",
+   "cover": "media/appartamento-capo-mary-primo-piano-1.jpg",
+   "cover_alt": "Tramonto sul mare di Capo Vaticano",
+   "category": "Guide"
+  },
+  {
+   "slug": "cipolla-rossa-di-tropea",
+   "title": "Cipolla rossa di Tropea: come gustarla e ricette",
+   "description": "La cipolla rossa di Tropea: perché è così dolce, come preparare l'insalata tropeana e la pasta con la cipolla, e dove assaggiarla in vacanza.",
+   "lang": "it",
+   "date": "2026-11-11",
+   "date_txt": "11 nov 2026",
+   "cover": "media/giornata-in-campagna-per-famiglie-1.jpg",
+   "cover_alt": "Tavola con prodotti tipici calabresi in campagna vicino a Tropea",
+   "category": "Sapori"
+  }
+ ]
+}

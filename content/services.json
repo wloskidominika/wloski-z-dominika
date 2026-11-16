@@ -1,0 +1,99 @@
+{
+  "items": [
+    {
+      "title": {
+        "it": "Transfer aeroporto Lamezia Terme",
+        "en": "Lamezia Terme airport transfer",
+        "de": "Flughafentransfer Lamezia Terme",
+        "pl": "Transfer z lotniska Lamezia Terme",
+        "es": "Traslado aeropuerto Lamezia Terme"
+      },
+      "img": "/media/transfert-aeroportuali-1.jpg",
+      "photos": [
+        "/media/transfert-aeroportuali-2.jpg"
+      ],
+      "desc": {
+        "it": "Ti aspettiamo all'aeroporto di Lamezia Terme e ti portiamo a Tropea o sulla Costa degli Dei con un'auto privata, senza attese e senza pensieri. Gli autisti sono puntuali e i veicoli sono curati e controllati regolarmente.\n\nLa prenotazione è semplice e il servizio si adatta ai tuoi orari: anche di notte. Così la vacanza comincia nel modo più rilassato.",
+        "en": "We meet you at Lamezia Terme airport and drive you to Tropea or along the Coast of the Gods in a private car – no waiting, no worries. Drivers are punctual and vehicles are well kept and regularly serviced.\n\nBooking is simple and the service fits your timetable, night flights included. So your holiday starts in the most relaxed way.",
+        "de": "Wir holen dich am Flughafen Lamezia Terme ab und bringen dich im Privatwagen nach Tropea oder an die Costa degli Dei – ohne Warten, ohne Sorgen. Die Fahrer sind pünktlich, die Fahrzeuge gepflegt und regelmäßig gewartet.\n\nDie Buchung ist einfach und der Service richtet sich nach deinen Zeiten, auch nachts. So beginnt der Urlaub ganz entspannt.",
+        "pl": "Czekamy na Ciebie na lotnisku Lamezia Terme i zawozimy prywatnym samochodem do Tropei lub w dowolne miejsce na Wybrzeżu Bogów – bez czekania i bez zmartwień. Kierowcy są punktualni, a samochody zadbane i regularnie serwisowane.\n\nRezerwacja jest prosta, a usługa dopasowuje się do Twoich godzin, także w nocy. Dzięki temu wakacje zaczynają się w najbardziej relaksujący sposób.",
+        "es": "Te esperamos en el aeropuerto de Lamezia Terme y te llevamos a Tropea o a la Costa de los Dioses en coche privado, sin esperas ni preocupaciones. Los conductores son puntuales y los vehículos están cuidados y revisados con regularidad.\n\nReservar es sencillo y el servicio se adapta a tus horarios, también de noche. Así las vacaciones empiezan de la forma más relajada."
+      },
+      "cat": {
+        "it": "Trasporti",
+        "de": "Transport",
+        "en": "Transport",
+        "pl": "Transport",
+        "es": "Transporte"
+      },
+      "price": "100 €",
+      "price_note": {
+        "it": "Lamezia–Tropea, auto privata fino a 4 persone · notturno dalle 22:00: 120 €",
+        "en": "Lamezia–Tropea, private car up to 4 people · night (from 10 pm): €120",
+        "de": "Lamezia–Tropea, Privatwagen bis 4 Personen · nachts (ab 22 Uhr): 120 €",
+        "pl": "Lamezia–Tropea, prywatny samochód do 4 osób · nocą (od 22:00): 120 €",
+        "es": "Lamezia–Tropea, coche privado hasta 4 personas · nocturno (desde las 22:00): 120 €"
+      },
+      "url": "",
+      "kind": "transfer"
+    },
+    {
+      "title": {
+        "it": "Noleggio Barche e Gommoni a Tropea · Senza Patente",
+        "en": "Boat and Dinghy Rental in Tropea · License-Free",
+        "de": "Boot- und Schlauchbootverleih in Tropea · Ohne Führerschein",
+        "pl": "Wynajem Łodzi i Pontonów w Tropea · Bez Prawa Jazdy",
+        "es": "Alquiler de Barcos y Botes Neumáticos en Tropea · Sin Licencia"
+      },
+      "img": "/media/chi-siamo-2.jpg",
+      "photos": [
+        "/media/escursioni-7.jpg",
+        "/media/noleggio-nautico-2.jpg",
+        "/media/noleggio-nautico-3.jpg"
+      ],
+      "desc": {
+        "it": "Barche e gommoni a noleggio a Tropea, anche senza patente nautica. Si parte quando si vuole e si va dove si vuole lungo la Costa degli Dei: calette nascoste, soste per il bagno e il tramonto dal mare.\n\nLa flotta è ampia, con mezzi adatti a principianti e a chi ha già esperienza, sempre in sicurezza. Perfetto per una giornata in famiglia, con gli amici o in coppia.",
+        "en": "Boats and dinghies for hire in Tropea, even without a boating licence. Leave when you like and go where you like along the Coast of the Gods: hidden coves, swimming stops and the sunset from the water.\n\nThe fleet is large, with boats for beginners and experienced sailors alike, always with safety in mind. Perfect for a day with family, friends or as a couple.",
+        "de": "Boote und Schlauchboote zum Mieten in Tropea, auch ohne Bootsführerschein. Du fährst los, wann du willst, und dorthin, wo du willst, entlang der Costa degli Dei: versteckte Buchten, Badestopps und Sonnenuntergang vom Wasser aus.\n\nDie Flotte ist groß, mit Booten für Anfänger und Erfahrene – immer sicher. Perfekt für einen Tag mit Familie, Freunden oder zu zweit.",
+        "pl": "Wynajem łodzi i pontonów w Tropei, także bez patentu. Wypływasz, kiedy chcesz, i płyniesz, gdzie chcesz, wzdłuż Wybrzeża Bogów: ukryte zatoczki, postoje na kąpiel i zachód słońca z morza.\n\nFlota jest duża, z łodziami dla początkujących i doświadczonych – zawsze bezpiecznie. Idealne na dzień z rodziną, przyjaciółmi lub we dwoje.",
+        "es": "Alquiler de barcos y lanchas en Tropea, también sin licencia de navegación. Sales cuando quieres y vas donde quieres por la Costa de los Dioses: calas escondidas, paradas para bañarse y la puesta de sol desde el mar.\n\nLa flota es amplia, con embarcaciones para principiantes y expertos, siempre con seguridad. Perfecto para un día en familia, con amigos o en pareja."
+      },
+      "cat": {
+        "it": "Noleggi",
+        "de": "Verleih",
+        "en": "Rentals",
+        "pl": "Wypożyczalnia",
+        "es": "Alquiler"
+      },
+      "url": "https://www.holidayscalabria.com/noleggio-nautico.html",
+      "kind": "rental"
+    },
+    {
+      "title": {
+        "it": "Noleggio auto, scooter e bici",
+        "en": "Car, scooter and bike rental",
+        "de": "Auto-, Roller- und Fahrradverleih",
+        "pl": "Wynajem samochodów, skuterów i rowerów",
+        "es": "Alquiler de coches, scooters y bicis"
+      },
+      "cat": {
+        "it": "Noleggi",
+        "de": "Verleih",
+        "en": "Rentals",
+        "pl": "Wypożyczalnia",
+        "es": "Alquiler"
+      },
+      "img": "/media/index-cs-1.jpg",
+      "photos": [],
+      "desc": {
+        "it": "Auto comode e affidabili, scooter agili per muoverti tra spiagge e centro storico, bici ed e-bike per esplorare la costa. Consegna in aeroporto o in hotel.",
+        "en": "Comfortable, reliable cars, nimble scooters for getting between beaches and the old town, bikes and e-bikes to explore the coast. Delivery to the airport or your hotel.",
+        "de": "Bequeme, zuverlässige Autos, wendige Roller zwischen Stränden und Altstadt, Fahrräder und E-Bikes für die Küste. Lieferung zum Flughafen oder Hotel.",
+        "pl": "Wygodne i niezawodne samochody, zwinne skutery do poruszania się między plażami a starówką, rowery i e-rowery do zwiedzania wybrzeża. Dostawa na lotnisko lub do hotelu.",
+        "es": "Coches cómodos y fiables, scooters ágiles para moverte entre playas y casco antiguo, bicis y e-bikes para recorrer la costa. Entrega en el aeropuerto o en el hotel."
+      },
+      "url": "https://www.holidayscalabria.com/noleggio.html",
+      "kind": "rental"
+    }
+  ]
+}

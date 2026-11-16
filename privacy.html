@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy e Cookie – Włoski z Dominiką</title>
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="app.css">
+<style>
+.legal{max-width:820px;margin:0 auto}
+.legal h1{font-size:2.2rem;margin-bottom:6px}
+.legal h2{font-size:1.35rem;margin:30px 0 8px}
+.legal p,.legal li{margin-bottom:8px}
+.legal ul{padding-left:22px}
+.legal table{margin:10px 0;font-size:.92rem;background:#fff;border-radius:10px;overflow:hidden}
+.legal th,.legal td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+.legal th{background:var(--cream-2)}
+.toc{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 8px}
+mark{background:#FFE58A;padding:0 4px;border-radius:4px}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="index.html"><img src="sun.jpg" alt=""><div><span>Włoski z Dominiką</span><small>Privacy</small></div></a>
+    <div class="top-actions"><div class="lang" id="langBtns"></div><a class="btn btn-line btn-sm" href="index.html" id="backBtn">←</a></div>
+  </div>
+</header>
+<main class="wrap"><article class="legal card" id="doc"></article></main>
+<footer class="wrap" style="padding:20px;text-align:center;color:var(--muted);font-size:.8rem">Włoski z Dominiką i Podróże do Kalabrii · P.IVA <span class="f-vat">03800250791</span></footer>
+
+<script>
+/* Testi dell'informativa. I dati del titolare (nome, indirizzo, e-mail, P.IVA)
+   si prendono da content/settings.json e si modificano dal pannello /admin. */
+const UPDATED = { it:"14 novembre 2026", en:"14 November 2026", pl:"14 listopada 2026" };
+const LANGS=["it","en","pl"];
+const DOC = {
+it: `
+<h1>Privacy e Cookie</h1>
+<p class="muted">Informativa ai sensi degli artt. 13–14 del Regolamento (UE) 2016/679 (GDPR) · Ultimo aggiornamento: {updated}</p>
+<div class="toc"><a href="#privacy">Informativa privacy</a> · <a href="#cookie">Cookie policy</a></div>
+
+<h2 id="privacy">1. Titolare del trattamento</h2>
+<p>{owner}, titolare dell'attività <b>Włoski z Dominiką i Podróże do Kalabrii</b>, P.IVA {vat}, con sede in {address}.<br>Contatto per la privacy: {email}</p>
+
+<h2>2. Quali dati trattiamo</h2>
+<ul>
+<li><b>Registrazione all'area riservata:</b> nome e cognome, e-mail, telefono (facoltativo), lingua preferita, password (salvata solo in forma cifrata).</li>
+<li><b>Prenotazioni:</b> tipo di servizio, date, numero di persone, note che scrivi tu, stato della prenotazione e del pagamento, messaggi del titolare.</li>
+<li><b>Corsi di lingua:</b> corsi a cui sei iscritto e accesso ai materiali didattici.</li>
+<li><b>Modulo contatti:</b> il modulo apre il tuo programma di posta; i dati arrivano per e-mail e non vengono salvati sul sito.</li>
+<li><b>Dati tecnici:</b> indirizzo IP e dati del browser registrati automaticamente dai server che ospitano il sito, per sicurezza e funzionamento.</li>
+</ul>
+<p>Non chiediamo dati particolari (ad es. salute). Se nelle note scrivi informazioni come allergie o esigenze alimentari, le useremo solo per organizzare il servizio.</p>
+
+<h2>3. Perché li trattiamo e su quale base giuridica</h2>
+<table>
+<tr><th>Finalità</th><th>Base giuridica</th></tr>
+<tr><td>Creare e gestire il tuo account, ricevere e gestire le prenotazioni, erogare lezioni ed escursioni, darti accesso ai materiali</td><td>Esecuzione di un contratto o di misure precontrattuali (art. 6.1.b GDPR)</td></tr>
+<tr><td>Rispondere alle tue richieste di informazioni</td><td>Misure precontrattuali su tua richiesta (art. 6.1.b)</td></tr>
+<tr><td>Gestire i pagamenti online e gli eventuali rimborsi</td><td>Esecuzione di un contratto (art. 6.1.b)</td></tr>
+<tr><td>Adempimenti fiscali e contabili (fatture, ricevute)</td><td>Obbligo di legge (art. 6.1.c)</td></tr>
+<tr><td>Sicurezza del sito e prevenzione di abusi</td><td>Legittimo interesse del titolare (art. 6.1.f)</td></tr>
+</table>
+<p>Non usiamo i tuoi dati per pubblicità, profilazione o newsletter, e non li vendiamo a nessuno.</p>
+
+<h2>4. Per quanto tempo li conserviamo</h2>
+<ul>
+<li>Dati dell'account e prenotazioni: finché l'account è attivo. Puoi chiederne la cancellazione in qualsiasi momento.</li>
+<li>Dati necessari per fatture e contabilità: 10 anni, come previsto dalla legge.</li>
+<li>Dati tecnici dei server: per il tempo stabilito dai fornitori, di norma pochi giorni o settimane.</li>
+</ul>
+
+<h2>5. Chi può vedere i dati</h2>
+<p>I dati sono trattati dal titolare. Per far funzionare il sito ci affidiamo a fornitori che agiscono come responsabili del trattamento:</p>
+<ul>
+<li><b>Supabase Inc.</b> – database e accesso all'area riservata (server nell'Unione Europea).</li>
+<li><b>Netlify Inc.</b> – hosting del sito (USA).</li>
+<li><b>GitHub Inc.</b> – archivio dei file e dei contenuti pubblici del sito (USA); non contiene i dati degli utenti.</li>
+</ul>
+<p>Per i fornitori con sede negli USA il trasferimento avviene sulla base del EU-US Data Privacy Framework e/o delle Clausole Contrattuali Standard della Commissione europea.</p>
+<p>Se paghi online, il pagamento avviene sulla pagina sicura di <b>Stripe</b> o <b>PayPal</b>, che trattano i dati di pagamento come titolari autonomi secondo le proprie informative. Noi non vediamo né conserviamo i dati della tua carta: riceviamo solo la conferma del pagamento, con nome, e-mail e importo.</p>
+<p>Se scegli di scriverci su <b>WhatsApp</b> o di guardare un <b>video di YouTube</b>, quei servizi trattano i dati secondo le proprie informative.</p>
+<p>I dati possono essere comunicati al commercialista per gli obblighi fiscali e alle autorità quando lo richiede la legge.</p>
+
+<h2>6. I tuoi diritti</h2>
+<p>Puoi chiedere in qualsiasi momento di accedere ai tuoi dati, correggerli, cancellarli, limitarne l'uso, riceverli in un formato leggibile (portabilità) o opporti al trattamento basato sul legittimo interesse (artt. 15–22 GDPR). Scrivi a {email}.</p>
+<p>Puoi anche presentare reclamo al <b>Garante per la protezione dei dati personali</b> (www.garanteprivacy.it).</p>
+<p>Nome, telefono e lingua li puoi modificare da solo nella sezione <i>Profilo</i> dell'area riservata.</p>
+
+<h2>7. Minori</h2>
+<p>Per registrarsi all'area riservata occorre avere almeno 14 anni. Per i minori di 14 anni la registrazione e le prenotazioni devono essere fatte da un genitore o da chi ne ha la responsabilità.</p>
+
+<h2>8. Dati obbligatori</h2>
+<p>Nome ed e-mail sono necessari per creare l'account e gestire le prenotazioni: senza questi dati non possiamo fornire il servizio. Il telefono è facoltativo.</p>
+
+<h2 id="cookie">9. Cookie policy</h2>
+<p>Questo sito <b>non usa cookie di profilazione, pubblicitari o di statistica</b> e non usa servizi di analisi.</p>
+<p>Usa solo strumenti tecnici, necessari al funzionamento, che salvano dati nel tuo browser (cookie o "local storage"). Per questi la legge non richiede il consenso:</p>
+<table>
+<tr><th>Nome</th><th>A cosa serve</th><th>Durata</th></tr>
+<tr><td>wzd-lang</td><td>Ricorda la lingua che hai scelto</td><td>Finché non la cancelli dal browser</td></tr>
+<tr><td>sb-…-auth-token</td><td>Ti mantiene collegato all'area riservata (Supabase)</td><td>Fino all'uscita (logout) o alla scadenza della sessione</td></tr>
+</table>
+<p><b>Video di YouTube:</b> i video sono incorporati in modalità "privacy avanzata" (youtube-nocookie.com) e si caricano solo quando premi play. Da quel momento YouTube (Google) può salvare i propri dati: vedi l'informativa di Google.</p>
+<p><b>Caratteri tipografici:</b> sono ospitati direttamente sul nostro sito, quindi nessun dato viene inviato a Google Fonts.</p>
+<p>Puoi cancellare questi dati in qualsiasi momento dalle impostazioni del tuo browser.</p>
+`,
+en: `
+<h1>Privacy & Cookies</h1>
+<p class="muted">Information notice under Articles 13–14 of Regulation (EU) 2016/679 (GDPR) · Last updated: {updated}</p>
+<p class="muted">The Italian version of this notice is the legally binding one.</p>
+<div class="toc"><a href="#privacy">Privacy notice</a> · <a href="#cookie">Cookie policy</a></div>
+
+<h2 id="privacy">1. Data controller</h2>
+<p>{owner}, owner of <b>Włoski z Dominiką i Podróże do Kalabrii</b>, VAT no. {vat}, based at {address}.<br>Privacy contact: {email}</p>
+
+<h2>2. What data we process</h2>
+<ul>
+<li><b>Members' area sign-up:</b> full name, email, phone (optional), preferred language, password (stored only in encrypted form).</li>
+<li><b>Bookings:</b> type of service, dates, number of people, notes you write, booking and payment status, messages from us.</li>
+<li><b>Language courses:</b> the courses you're enrolled in and access to teaching materials.</li>
+<li><b>Contact form:</b> the form opens your email app; the data reaches us by email and is not stored on the website.</li>
+<li><b>Technical data:</b> IP address and browser data logged automatically by the servers hosting the site, for security and operation.</li>
+</ul>
+<p>We don't ask for special categories of data (e.g. health). If you write things like allergies or dietary needs in your notes, we use them only to organise the service.</p>
+
+<h2>3. Why we process it and legal basis</h2>
+<table>
+<tr><th>Purpose</th><th>Legal basis</th></tr>
+<tr><td>Creating and managing your account, handling bookings, providing lessons and excursions, giving access to materials</td><td>Performance of a contract or pre-contractual steps (Art. 6(1)(b) GDPR)</td></tr>
+<tr><td>Answering your enquiries</td><td>Pre-contractual steps at your request (Art. 6(1)(b))</td></tr>
+<tr><td>Handling online payments and any refunds</td><td>Performance of a contract (Art. 6(1)(b))</td></tr>
+<tr><td>Tax and accounting obligations (invoices, receipts)</td><td>Legal obligation (Art. 6(1)(c))</td></tr>
+<tr><td>Website security and abuse prevention</td><td>Legitimate interest (Art. 6(1)(f))</td></tr>
+</table>
+<p>We don't use your data for advertising, profiling or newsletters, and we never sell it.</p>
+
+<h2>4. How long we keep it</h2>
+<ul>
+<li>Account and booking data: while your account is active. You can ask for deletion at any time.</li>
+<li>Data needed for invoices and accounting: 10 years, as required by Italian law.</li>
+<li>Server technical data: for the period set by the providers, usually a few days or weeks.</li>
+</ul>
+
+<h2>5. Who can see the data</h2>
+<p>Data is processed by the controller. To run the website we use providers acting as data processors:</p>
+<ul>
+<li><b>Supabase Inc.</b> – database and members' area login (servers in the European Union).</li>
+<li><b>Netlify Inc.</b> – website hosting (USA).</li>
+<li><b>GitHub Inc.</b> – storage of the website's public files and content (USA); contains no user data.</li>
+</ul>
+<p>For US-based providers, transfers rely on the EU-US Data Privacy Framework and/or the European Commission's Standard Contractual Clauses.</p>
+<p>If you pay online, payment takes place on the secure page of <b>Stripe</b> or <b>PayPal</b>, which process payment data as independent controllers under their own policies. We never see or store your card details: we only receive the payment confirmation with name, email and amount.</p>
+<p>If you choose to contact us on <b>WhatsApp</b> or watch a <b>YouTube video</b>, those services process data under their own privacy policies.</p>
+<p>Data may be shared with our accountant for tax purposes and with authorities when required by law.</p>
+
+<h2>6. Your rights</h2>
+<p>You can ask at any time to access, correct or delete your data, restrict its use, receive it in a portable format, or object to processing based on legitimate interest (Arts. 15–22 GDPR). Write to {email}.</p>
+<p>You can also lodge a complaint with the Italian Data Protection Authority (<b>Garante per la protezione dei dati personali</b>, www.garanteprivacy.it) or the authority in your country.</p>
+<p>You can change your name, phone and language yourself in the <i>Profile</i> section of the members' area.</p>
+
+<h2>7. Minors</h2>
+<p>You must be at least 14 to sign up. For children under 14, sign-up and bookings must be made by a parent or guardian.</p>
+
+<h2>8. Required data</h2>
+<p>Name and email are needed to create an account and handle bookings: without them we can't provide the service. Phone is optional.</p>
+
+<h2 id="cookie">9. Cookie policy</h2>
+<p>This website <b>does not use profiling, advertising or analytics cookies</b> and does not use any analytics service.</p>
+<p>It only uses technical tools needed for it to work, which store data in your browser (cookies or "local storage"). No consent is required for these:</p>
+<table>
+<tr><th>Name</th><th>Purpose</th><th>Duration</th></tr>
+<tr><td>wzd-lang</td><td>Remembers the language you chose</td><td>Until you clear it in your browser</td></tr>
+<tr><td>sb-…-auth-token</td><td>Keeps you logged in to the members' area (Supabase)</td><td>Until you log out or the session expires</td></tr>
+</table>
+<p><b>YouTube videos:</b> videos are embedded in "privacy-enhanced mode" (youtube-nocookie.com) and only load when you press play. From then on YouTube (Google) may store its own data: see Google's privacy policy.</p>
+<p><b>Fonts:</b> fonts are hosted on our own website, so no data is sent to Google Fonts.</p>
+<p>You can delete this data at any time from your browser settings.</p>
+`,
+pl: `
+<h1>Prywatność i cookies</h1>
+<p class="muted">Informacja na podstawie art. 13–14 Rozporządzenia (UE) 2016/679 (RODO) · Ostatnia aktualizacja: {updated}</p>
+<p class="muted">Wiążąca prawnie jest włoska wersja tej informacji.</p>
+<div class="toc"><a href="#privacy">Polityka prywatności</a> · <a href="#cookie">Polityka cookies</a></div>
+
+<h2 id="privacy">1. Administrator danych</h2>
+<p>{owner}, właścicielka działalności <b>Włoski z Dominiką i Podróże do Kalabrii</b>, NIP (P.IVA) {vat}, z siedzibą: {address}.<br>Kontakt w sprawach prywatności: {email}</p>
+
+<h2>2. Jakie dane przetwarzamy</h2>
+<ul>
+<li><b>Rejestracja w strefie klienta:</b> imię i nazwisko, e-mail, telefon (opcjonalnie), preferowany język, hasło (przechowywane wyłącznie w formie zaszyfrowanej).</li>
+<li><b>Rezerwacje:</b> rodzaj usługi, daty, liczba osób, Twoje uwagi, status rezerwacji i płatności, wiadomości od nas.</li>
+<li><b>Kursy językowe:</b> kursy, na które jesteś zapisany/a, i dostęp do materiałów.</li>
+<li><b>Formularz kontaktowy:</b> formularz otwiera Twój program pocztowy; dane docierają do nas e-mailem i nie są zapisywane na stronie.</li>
+<li><b>Dane techniczne:</b> adres IP i dane przeglądarki zapisywane automatycznie przez serwery hostujące stronę, w celach bezpieczeństwa i działania.</li>
+</ul>
+<p>Nie prosimy o dane szczególnych kategorii (np. o zdrowiu). Jeśli w uwagach wpiszesz np. alergie lub wymagania dietetyczne, wykorzystamy je wyłącznie do organizacji usługi.</p>
+
+<h2>3. Cele i podstawy prawne</h2>
+<table>
+<tr><th>Cel</th><th>Podstawa prawna</th></tr>
+<tr><td>Założenie i obsługa konta, obsługa rezerwacji, realizacja lekcji i wycieczek, dostęp do materiałów</td><td>Wykonanie umowy lub działania przed jej zawarciem (art. 6 ust. 1 lit. b RODO)</td></tr>
+<tr><td>Odpowiedzi na zapytania</td><td>Działania na Twoje żądanie przed zawarciem umowy (art. 6 ust. 1 lit. b)</td></tr>
+<tr><td>Obsługa płatności online i ewentualnych zwrotów</td><td>Wykonanie umowy (art. 6 ust. 1 lit. b)</td></tr>
+<tr><td>Obowiązki podatkowe i księgowe (faktury, paragony)</td><td>Obowiązek prawny (art. 6 ust. 1 lit. c)</td></tr>
+<tr><td>Bezpieczeństwo strony i zapobieganie nadużyciom</td><td>Prawnie uzasadniony interes (art. 6 ust. 1 lit. f)</td></tr>
+</table>
+<p>Nie wykorzystujemy Twoich danych do reklamy, profilowania ani newslettera i nikomu ich nie sprzedajemy.</p>
+
+<h2>4. Jak długo przechowujemy dane</h2>
+<ul>
+<li>Dane konta i rezerwacji: dopóki konto jest aktywne. W każdej chwili możesz poprosić o ich usunięcie.</li>
+<li>Dane potrzebne do faktur i księgowości: 10 lat, zgodnie z prawem włoskim.</li>
+<li>Dane techniczne serwerów: przez okres ustalony przez dostawców, zwykle kilka dni lub tygodni.</li>
+</ul>
+
+<h2>5. Kto ma dostęp do danych</h2>
+<p>Dane przetwarza administrator. Do działania strony korzystamy z dostawców, którzy działają jako podmioty przetwarzające:</p>
+<ul>
+<li><b>Supabase Inc.</b> – baza danych i logowanie do strefy klienta (serwery w Unii Europejskiej).</li>
+<li><b>Netlify Inc.</b> – hosting strony (USA).</li>
+<li><b>GitHub Inc.</b> – przechowywanie publicznych plików i treści strony (USA); nie zawiera danych użytkowników.</li>
+</ul>
+<p>W przypadku dostawców z USA przekazanie danych odbywa się na podstawie EU-US Data Privacy Framework i/lub standardowych klauzul umownych Komisji Europejskiej.</p>
+<p>Jeśli płacisz online, płatność odbywa się na bezpiecznej stronie <b>Stripe</b> lub <b>PayPal</b>, które przetwarzają dane płatnicze jako niezależni administratorzy według własnych zasad. Nie widzimy ani nie przechowujemy danych Twojej karty: otrzymujemy tylko potwierdzenie płatności z imieniem, e-mailem i kwotą.</p>
+<p>Jeśli zdecydujesz się napisać do nas na <b>WhatsAppie</b> lub obejrzeć <b>film z YouTube</b>, te serwisy przetwarzają dane według własnych zasad.</p>
+<p>Dane mogą zostać przekazane księgowej/księgowemu w celach podatkowych oraz organom, gdy wymaga tego prawo.</p>
+
+<h2>6. Twoje prawa</h2>
+<p>W każdej chwili możesz zażądać dostępu do swoich danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, otrzymania ich w formacie przenośnym lub wnieść sprzeciw wobec przetwarzania opartego na uzasadnionym interesie (art. 15–22 RODO). Napisz na {email}.</p>
+<p>Możesz też złożyć skargę do włoskiego organu nadzorczego (<b>Garante per la protezione dei dati personali</b>, www.garanteprivacy.it) lub do Prezesa UODO w Polsce.</p>
+<p>Imię, telefon i język możesz zmienić samodzielnie w zakładce <i>Profil</i> strefy klienta.</p>
+
+<h2>7. Osoby niepełnoletnie</h2>
+<p>Aby się zarejestrować, trzeba mieć co najmniej 14 lat. W przypadku dzieci poniżej 14 lat rejestracji i rezerwacji dokonuje rodzic lub opiekun.</p>
+
+<h2>8. Dane obowiązkowe</h2>
+<p>Imię i e-mail są potrzebne do założenia konta i obsługi rezerwacji: bez nich nie możemy świadczyć usługi. Telefon jest opcjonalny.</p>
+
+<h2 id="cookie">9. Polityka cookies</h2>
+<p>Ta strona <b>nie używa plików cookie profilujących, reklamowych ani analitycznych</b> i nie korzysta z żadnych narzędzi statystycznych.</p>
+<p>Używa wyłącznie narzędzi technicznych, niezbędnych do działania, które zapisują dane w Twojej przeglądarce (cookies lub „local storage”). Nie wymagają one zgody:</p>
+<table>
+<tr><th>Nazwa</th><th>Do czego służy</th><th>Czas przechowywania</th></tr>
+<tr><td>wzd-lang</td><td>Zapamiętuje wybrany język</td><td>Do czasu usunięcia w przeglądarce</td></tr>
+<tr><td>sb-…-auth-token</td><td>Utrzymuje zalogowanie w strefie klienta (Supabase)</td><td>Do wylogowania lub wygaśnięcia sesji</td></tr>
+</table>
+<p><b>Filmy z YouTube:</b> filmy są osadzone w „trybie rozszerzonej prywatności” (youtube-nocookie.com) i ładują się dopiero po naciśnięciu „play”. Od tego momentu YouTube (Google) może zapisywać własne dane: zobacz politykę prywatności Google.</p>
+<p><b>Czcionki:</b> są przechowywane na naszej stronie, więc żadne dane nie są wysyłane do Google Fonts.</p>
+<p>Możesz w każdej chwili usunąć te dane w ustawieniach przeglądarki.</p>
+`
+};
+const BACK={it:"← Torna al sito",en:"← Back to site",pl:"← Wróć na stronę"};
+
+let lang="it";
+try{ const s=localStorage.getItem("wzd-lang")||(navigator.language||"it").slice(0,2); lang = s==="it"||s==="pl" ? s : (s==="en"||s==="de"||s==="es" ? "en" : "it"); }catch(e){}
+let S={};
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const todo=t=>`<mark>${t}</mark>`;
+function render(){
+  document.documentElement.lang=lang;
+  document.getElementById("langBtns").innerHTML=LANGS.map(l=>`<button data-lang="${l}" class="${l===lang?"on":""}">${l.toUpperCase()}</button>`).join("");
+  document.getElementById("backBtn").textContent=BACK[lang];
+  const c=S.contact||{};
+  const html=DOC[lang]
+    .replaceAll("{updated}",UPDATED[lang])
+    .replaceAll("{owner}",S.owner_name?esc(S.owner_name):todo(lang==="it"?"NOME E COGNOME DEL TITOLARE":lang==="pl"?"IMIĘ I NAZWISKO":"FULL NAME"))
+    .replaceAll("{address}",S.address?esc(S.address):todo(lang==="it"?"INDIRIZZO":lang==="pl"?"ADRES":"ADDRESS"))
+    .replaceAll("{vat}",esc(S.vat||"03800250791"))
+    .replaceAll("{email}",c.email?`<b>${esc(c.email)}</b>`:todo("E-MAIL"));
+  document.getElementById("doc").innerHTML=html;
+  if(location.hash){ const el=document.querySelector(location.hash); if(el) el.scrollIntoView(); }
+}
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-lang]"); if(b){ lang=b.dataset.lang; render(); } });
+fetch("content/settings.json").then(r=>r.json()).then(s=>{ S=s; if(s.vat) document.querySelector(".f-vat").textContent=s.vat; }).catch(()=>{}).finally(render);
+</script>
+</body>
+</html>

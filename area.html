@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Area riservata – Włoski z Dominiką</title>
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="index.html"><img src="sun.jpg" alt=""><div><span>Włoski z Dominiką</span><small data-i="area"></small></div></a>
+    <div class="top-actions">
+      <div class="lang" id="langBtns"></div>
+      <a class="btn btn-line btn-sm hidden" id="adminLink" href="gestione.html">⚙️ Gestione</a>
+      <button class="btn btn-line btn-sm hidden" id="logoutBtn" data-i="logout"></button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="msg info" id="notConfigured">⚠️ L'area riservata non è ancora collegata al database. Inserisci i dati di Supabase nel file <b>config.js</b> (vedi GUIDA.md).</div>
+
+  <!-- ===== ACCESSO ===== -->
+  <section id="authView" class="hidden">
+    <div class="card narrow">
+      <h1 style="font-size:1.8rem;margin-bottom:6px" data-i="welcome"></h1>
+      <p class="muted" style="margin-bottom:18px" data-i="welcome_sub"></p>
+      <div class="tabs"><button class="on" data-auth="login" data-i="login"></button><button data-auth="signup" data-i="signup"></button></div>
+
+      <form id="loginForm">
+        <label><span data-i="email"></span><input name="email" type="email" required autocomplete="email"></label>
+        <label><span data-i="password"></span><input name="password" type="password" required autocomplete="current-password"></label>
+        <button class="btn btn-red" data-i="login"></button>
+        <button type="button" class="linkbtn" id="forgotBtn" data-i="forgot"></button>
+      </form>
+
+      <form id="signupForm" class="hidden">
+        <label><span data-i="full_name"></span><input name="full_name" required autocomplete="name"></label>
+        <label><span data-i="email"></span><input name="email" type="email" required autocomplete="email"></label>
+        <label><span data-i="phone"></span><input name="phone" type="tel" autocomplete="tel"></label>
+        <label><span data-i="password_new"></span><input name="password" type="password" required minlength="8" autocomplete="new-password"></label>
+        <label class="consent" style="display:flex;gap:8px;align-items:flex-start;font-weight:400"><input type="checkbox" name="privacy" required style="width:auto;margin-top:4px"><span id="consentTxt"></span></label>
+        <button class="btn btn-red" data-i="signup"></button>
+      </form>
+
+      <form id="resetForm" class="hidden">
+        <p class="muted" data-i="reset_sub"></p>
+        <label><span data-i="password_new"></span><input name="password" type="password" required minlength="8" autocomplete="new-password"></label>
+        <button class="btn btn-red" data-i="save"></button>
+      </form>
+      <div class="msg" id="authMsg" style="margin-top:14px"></div>
+    </div>
+  </section>
+
+  <!-- ===== AREA PERSONALE ===== -->
+  <section id="appView" class="hidden">
+    <h1 style="font-size:2rem" id="hello"></h1>
+    <p class="muted" style="margin:4px 0 24px" data-i="hello_sub"></p>
+    <div class="tabs">
+      <button class="on" data-tab="bookings" data-i="tab_bookings"></button>
+      <button data-tab="materials" data-i="tab_materials"></button>
+      <button data-tab="profile" data-i="tab_profile"></button>
+    </div>
+
+    <!-- Prenotazioni -->
+    <div data-pane="bookings">
+      <div class="toolbar"><h2 style="font-size:1.4rem" data-i="my_bookings"></h2><button class="btn btn-red" id="newBookingBtn" data-i="new_booking"></button></div>
+
+      <div class="card hidden" id="bookingCard" style="margin-bottom:22px">
+        <form id="bookingForm">
+          <div class="row">
+            <label><span data-i="b_kind"></span>
+              <select name="kind" id="bKind">
+                <option value="excursion" data-i="k_excursion"></option>
+                <option value="lesson_it" data-i="k_lesson_it"></option>
+                <option value="lesson_pl" data-i="k_lesson_pl"></option>
+                <option value="house" data-i="k_house"></option>
+                <option value="other" data-i="k_other"></option>
+              </select>
+            </label>
+            <label id="bItemWrap"><span data-i="b_item"></span><select name="item" id="bItem"></select></label>
+            <label id="bModeWrap" class="hidden"><span data-i="b_mode"></span>
+              <select name="mode"><option value="individual" data-i="m_individual"></option><option value="group" data-i="m_group"></option><option value="online" data-i="m_online"></option></select>
+            </label>
+          </div>
+          <div class="row">
+            <label><span id="bDateLabel" data-i="b_date"></span><input name="date_from" type="date" required></label>
+            <label id="bDateToWrap" class="hidden"><span data-i="b_date_to"></span><input name="date_to" type="date"></label>
+            <label><span data-i="b_people"></span><input name="people" type="number" min="1" max="99" value="1" required></label>
+          </div>
+          <label><span data-i="b_notes"></span><textarea name="notes"></textarea></label>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-red" data-i="send_request"></button>
+            <button type="button" class="btn btn-line" id="cancelNewBtn" data-i="close"></button>
+          </div>
+        </form>
+      </div>
+      <div class="msg" id="bookingMsg" style="margin-bottom:16px"></div>
+      <div class="list" id="bookingList"></div>
+    </div>
+
+    <!-- Materiali -->
+    <div data-pane="materials" class="hidden">
+      <div class="list" id="materialList"></div>
+    </div>
+
+    <!-- Profilo -->
+    <div data-pane="profile" class="hidden">
+      <div class="card" style="max-width:560px">
+        <form id="profileForm">
+          <label><span data-i="full_name"></span><input name="full_name" required></label>
+          <label><span data-i="email"></span><input name="email" disabled></label>
+          <label><span data-i="phone"></span><input name="phone" type="tel"></label>
+          <button class="btn btn-red" data-i="save"></button>
+        </form>
+        <hr style="border:0;border-top:1.5px solid var(--line);margin:24px 0">
+        <form id="pwForm">
+          <label><span data-i="password_new"></span><input name="password" type="password" minlength="8" required autocomplete="new-password"></label>
+          <button class="btn btn-line" data-i="change_pw"></button>
+        </form>
+        <div class="msg" id="profileMsg" style="margin-top:14px"></div>
+        <p class="muted" style="margin-top:20px"><a id="deleteLink" href="#" data-i="delete_account"></a></p>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="wrap" style="padding:20px;text-align:center;color:var(--muted);font-size:.8rem">Włoski z Dominiką i Podróże do Kalabrii · P.IVA 03800250791 · <a href="privacy.html">Privacy e Cookie</a></footer>
+
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const LANGS=["it","de","en","pl","es"];
+const I={
+ it:{pay_now:"Paga ora",consent:"Ho letto l'{link} e confermo di avere almeno 14 anni.",privacy_link:"informativa privacy",delete_account:"Chiedi la cancellazione del tuo account e dei tuoi dati",area:"Area riservata",logout:"Esci",welcome:"Area riservata",welcome_sub:"Accedi per prenotare escursioni e lezioni e, se sei mio studente, trovare i materiali dei corsi.",login:"Accedi",signup:"Registrati",email:"E-mail",password:"Password",password_new:"Nuova password (min. 8 caratteri)",forgot:"Password dimenticata?",full_name:"Nome e cognome",phone:"Telefono / WhatsApp",reset_sub:"Scegli una nuova password.",save:"Salva",
+  hello:"Ciao",hello_sub:"Qui trovi le tue prenotazioni e i materiali dei tuoi corsi.",tab_bookings:"Prenotazioni",tab_materials:"Materiali",tab_profile:"Profilo",my_bookings:"Le mie prenotazioni",new_booking:"+ Nuova prenotazione",
+  b_kind:"Cosa vuoi prenotare?",b_item:"Quale?",b_mode:"Tipo di lezione",b_date:"Data",b_date_arrive:"Arrivo",b_date_to:"Partenza",b_people:"Persone",b_notes:"Note o domande",send_request:"Invia richiesta",close:"Chiudi",
+  k_excursion:"Escursione",k_lesson_it:"Lezione di italiano",k_lesson_pl:"Lezione di polacco",k_house:"Casa vacanze",k_other:"Altro",m_individual:"Individuale",m_group:"In gruppo",m_online:"Online",
+  st_pending:"In attesa di conferma",st_confirmed:"Confermata",st_cancelled:"Annullata",paid:"Pagata",cancel:"Annulla prenotazione",cancel_q:"Clicca di nuovo per confermare l'annullamento",note_from:"Messaggio di Dominika:",
+  no_bookings:"Non hai ancora prenotazioni.",sent:"Richiesta inviata! Dominika ti confermerà al più presto.",notify_wa:"Avvisa Dominika su WhatsApp",
+  no_materials:"Qui compariranno i materiali dei tuoi corsi quando Dominika ti avrà iscritto.",c_it:"Italiano",c_pl:"Polacco",open_file:"Apri il file",open_link:"Apri il link",
+  saved:"Salvato!",pw_changed:"Password cambiata.",check_email:"Ti abbiamo mandato un'e-mail: clicca sul link per confermare l'indirizzo, poi accedi.",reset_sent:"Se l'indirizzo è registrato, riceverai un'e-mail per reimpostare la password.",enter_email:"Scrivi prima la tua e-mail qui sopra.",err:"Errore: ",wrong_login:"E-mail o password non corrette.",people_n:"pers."},
+ de:{pay_now:"Jetzt bezahlen",consent:"Ich habe die {link} gelesen und bin mindestens 14 Jahre alt.",privacy_link:"Datenschutzerklärung",delete_account:"Löschung meines Kontos und meiner Daten beantragen",area:"Mitgliederbereich",logout:"Abmelden",welcome:"Mitgliederbereich",welcome_sub:"Melde dich an, um Ausflüge und Unterricht zu buchen und – als Schüler – deine Kursmaterialien zu finden.",login:"Anmelden",signup:"Registrieren",email:"E-Mail",password:"Passwort",password_new:"Neues Passwort (mind. 8 Zeichen)",forgot:"Passwort vergessen?",full_name:"Vor- und Nachname",phone:"Telefon / WhatsApp",reset_sub:"Wähle ein neues Passwort.",save:"Speichern",
+  hello:"Hallo",hello_sub:"Hier findest du deine Buchungen und deine Kursmaterialien.",tab_bookings:"Buchungen",tab_materials:"Materialien",tab_profile:"Profil",my_bookings:"Meine Buchungen",new_booking:"+ Neue Buchung",
+  b_kind:"Was möchtest du buchen?",b_item:"Welche(s)?",b_mode:"Unterrichtsart",b_date:"Datum",b_date_arrive:"Anreise",b_date_to:"Abreise",b_people:"Personen",b_notes:"Notizen oder Fragen",send_request:"Anfrage senden",close:"Schließen",
+  k_excursion:"Ausflug",k_lesson_it:"Italienischunterricht",k_lesson_pl:"Polnischunterricht",k_house:"Ferienhaus",k_other:"Sonstiges",m_individual:"Einzeln",m_group:"In der Gruppe",m_online:"Online",
+  st_pending:"Wartet auf Bestätigung",st_confirmed:"Bestätigt",st_cancelled:"Storniert",paid:"Bezahlt",cancel:"Buchung stornieren",cancel_q:"Zum Bestätigen erneut klicken",note_from:"Nachricht von Dominika:",
+  no_bookings:"Du hast noch keine Buchungen.",sent:"Anfrage gesendet! Dominika bestätigt so bald wie möglich.",notify_wa:"Dominika per WhatsApp benachrichtigen",
+  no_materials:"Hier erscheinen deine Kursmaterialien, sobald Dominika dich eingeschrieben hat.",c_it:"Italienisch",c_pl:"Polnisch",open_file:"Datei öffnen",open_link:"Link öffnen",
+  saved:"Gespeichert!",pw_changed:"Passwort geändert.",check_email:"Wir haben dir eine E-Mail geschickt: Bestätige deine Adresse über den Link und melde dich dann an.",reset_sent:"Falls die Adresse registriert ist, erhältst du eine E-Mail zum Zurücksetzen.",enter_email:"Gib zuerst oben deine E-Mail ein.",err:"Fehler: ",wrong_login:"E-Mail oder Passwort falsch.",people_n:"Pers."},
+ en:{pay_now:"Pay now",consent:"I have read the {link} and confirm I am at least 14 years old.",privacy_link:"privacy notice",delete_account:"Request deletion of your account and data",area:"Members' area",logout:"Log out",welcome:"Members' area",welcome_sub:"Log in to book excursions and lessons and, if you're my student, find your course materials.",login:"Log in",signup:"Sign up",email:"Email",password:"Password",password_new:"New password (min. 8 characters)",forgot:"Forgot your password?",full_name:"Full name",phone:"Phone / WhatsApp",reset_sub:"Choose a new password.",save:"Save",
+  hello:"Hi",hello_sub:"Here you'll find your bookings and your course materials.",tab_bookings:"Bookings",tab_materials:"Materials",tab_profile:"Profile",my_bookings:"My bookings",new_booking:"+ New booking",
+  b_kind:"What would you like to book?",b_item:"Which one?",b_mode:"Lesson type",b_date:"Date",b_date_arrive:"Arrival",b_date_to:"Departure",b_people:"People",b_notes:"Notes or questions",send_request:"Send request",close:"Close",
+  k_excursion:"Excursion",k_lesson_it:"Italian lesson",k_lesson_pl:"Polish lesson",k_house:"Holiday home",k_other:"Other",m_individual:"One-to-one",m_group:"Group",m_online:"Online",
+  st_pending:"Awaiting confirmation",st_confirmed:"Confirmed",st_cancelled:"Cancelled",paid:"Paid",cancel:"Cancel booking",cancel_q:"Click again to confirm cancellation",note_from:"Message from Dominika:",
+  no_bookings:"You have no bookings yet.",sent:"Request sent! Dominika will confirm as soon as possible.",notify_wa:"Let Dominika know on WhatsApp",
+  no_materials:"Your course materials will appear here once Dominika has enrolled you.",c_it:"Italian",c_pl:"Polish",open_file:"Open file",open_link:"Open link",
+  saved:"Saved!",pw_changed:"Password changed.",check_email:"We've sent you an email: click the link to confirm your address, then log in.",reset_sent:"If the address is registered, you'll receive an email to reset your password.",enter_email:"Type your email above first.",err:"Error: ",wrong_login:"Wrong email or password.",people_n:"ppl"},
+ pl:{pay_now:"Zapłać teraz",consent:"Zapoznałem/am się z {link} i mam co najmniej 14 lat.",privacy_link:"informacją o prywatności",delete_account:"Poproś o usunięcie konta i danych",area:"Strefa klienta",logout:"Wyloguj",welcome:"Strefa klienta",welcome_sub:"Zaloguj się, aby rezerwować wycieczki i lekcje, a jeśli jesteś moim uczniem – znaleźć materiały z kursu.",login:"Zaloguj się",signup:"Zarejestruj się",email:"E-mail",password:"Hasło",password_new:"Nowe hasło (min. 8 znaków)",forgot:"Nie pamiętasz hasła?",full_name:"Imię i nazwisko",phone:"Telefon / WhatsApp",reset_sub:"Wybierz nowe hasło.",save:"Zapisz",
+  hello:"Cześć",hello_sub:"Tutaj znajdziesz swoje rezerwacje i materiały z kursów.",tab_bookings:"Rezerwacje",tab_materials:"Materiały",tab_profile:"Profil",my_bookings:"Moje rezerwacje",new_booking:"+ Nowa rezerwacja",
+  b_kind:"Co chcesz zarezerwować?",b_item:"Które?",b_mode:"Rodzaj lekcji",b_date:"Data",b_date_arrive:"Przyjazd",b_date_to:"Wyjazd",b_people:"Liczba osób",b_notes:"Uwagi lub pytania",send_request:"Wyślij zapytanie",close:"Zamknij",
+  k_excursion:"Wycieczka",k_lesson_it:"Lekcja włoskiego",k_lesson_pl:"Lekcja polskiego",k_house:"Dom wakacyjny",k_other:"Inne",m_individual:"Indywidualna",m_group:"W grupie",m_online:"Online",
+  st_pending:"Czeka na potwierdzenie",st_confirmed:"Potwierdzona",st_cancelled:"Anulowana",paid:"Opłacona",cancel:"Anuluj rezerwację",cancel_q:"Kliknij ponownie, aby potwierdzić",note_from:"Wiadomość od Dominiki:",
+  no_bookings:"Nie masz jeszcze rezerwacji.",sent:"Zapytanie wysłane! Dominika potwierdzi najszybciej, jak to możliwe.",notify_wa:"Powiadom Dominikę na WhatsAppie",
+  no_materials:"Tutaj pojawią się materiały z kursów, gdy Dominika Cię zapisze.",c_it:"Włoski",c_pl:"Polski",open_file:"Otwórz plik",open_link:"Otwórz link",
+  saved:"Zapisano!",pw_changed:"Hasło zmienione.",check_email:"Wysłaliśmy Ci e-mail: kliknij link, aby potwierdzić adres, a potem się zaloguj.",reset_sent:"Jeśli adres jest zarejestrowany, otrzymasz e-mail do zmiany hasła.",enter_email:"Najpierw wpisz swój e-mail powyżej.",err:"Błąd: ",wrong_login:"Nieprawidłowy e-mail lub hasło.",people_n:"os."},
+ es:{pay_now:"Pagar ahora",consent:"He leído la {link} y confirmo que tengo al menos 14 años.",privacy_link:"política de privacidad",delete_account:"Solicitar la eliminación de tu cuenta y tus datos",area:"Área privada",logout:"Salir",welcome:"Área privada",welcome_sub:"Inicia sesión para reservar excursiones y clases y, si eres mi alumno, encontrar los materiales del curso.",login:"Entrar",signup:"Registrarse",email:"Correo",password:"Contraseña",password_new:"Nueva contraseña (mín. 8 caracteres)",forgot:"¿Has olvidado la contraseña?",full_name:"Nombre y apellidos",phone:"Teléfono / WhatsApp",reset_sub:"Elige una nueva contraseña.",save:"Guardar",
+  hello:"Hola",hello_sub:"Aquí encontrarás tus reservas y los materiales de tus cursos.",tab_bookings:"Reservas",tab_materials:"Materiales",tab_profile:"Perfil",my_bookings:"Mis reservas",new_booking:"+ Nueva reserva",
+  b_kind:"¿Qué quieres reservar?",b_item:"¿Cuál?",b_mode:"Tipo de clase",b_date:"Fecha",b_date_arrive:"Llegada",b_date_to:"Salida",b_people:"Personas",b_notes:"Notas o preguntas",send_request:"Enviar solicitud",close:"Cerrar",
+  k_excursion:"Excursión",k_lesson_it:"Clase de italiano",k_lesson_pl:"Clase de polaco",k_house:"Casa vacacional",k_other:"Otro",m_individual:"Individual",m_group:"En grupo",m_online:"Online",
+  st_pending:"Pendiente de confirmación",st_confirmed:"Confirmada",st_cancelled:"Cancelada",paid:"Pagada",cancel:"Cancelar reserva",cancel_q:"Haz clic otra vez para confirmar",note_from:"Mensaje de Dominika:",
+  no_bookings:"Todavía no tienes reservas.",sent:"¡Solicitud enviada! Dominika te confirmará lo antes posible.",notify_wa:"Avisar a Dominika por WhatsApp",
+  no_materials:"Aquí aparecerán los materiales de tus cursos cuando Dominika te haya inscrito.",c_it:"Italiano",c_pl:"Polaco",open_file:"Abrir archivo",open_link:"Abrir enlace",
+  saved:"¡Guardado!",pw_changed:"Contraseña cambiada.",check_email:"Te hemos enviado un correo: haz clic en el enlace para confirmar tu dirección y luego entra.",reset_sent:"Si la dirección está registrada, recibirás un correo para restablecer la contraseña.",enter_email:"Escribe primero tu correo arriba.",err:"Error: ",wrong_login:"Correo o contraseña incorrectos.",people_n:"pers."}
+};
+
+let lang="it";
+try{ const b=(navigator.language||"it").slice(0,2); lang=localStorage.getItem("wzd-lang")||(LANGS.includes(b)?b:"it"); }catch(e){}
+if(!LANGS.includes(lang)) lang="it";
+const t=k=>(I[lang]||I.it)[k]||I.it[k]||k;
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const L=o=>(o&&typeof o==="object")?(o[lang]||o.it||""):(o||"");
+function show(el,text,type){ el.textContent=text; el.className="msg show "+type; }
+function hide(el){ el.className="msg"; }
+
+let recovery=false, sb=null, user=null, profile=null, content={exc:[],houses:[],settings:{}};
+const cfg=window.WZD_CONFIG||{};
+const configured=cfg.SUPABASE_URL && !cfg.SUPABASE_URL.includes("INSERISCI") && window.supabase;
+
+function applyLang(){
+  document.documentElement.lang=lang;
+  $("#langBtns").innerHTML=LANGS.map(l=>`<button data-lang="${l}" class="${l===lang?"on":""}">${l.toUpperCase()}</button>`).join("");
+  $$("[data-i]").forEach(el=>el.textContent=t(el.dataset.i));
+  $("#consentTxt").innerHTML=t("consent").replace("{link}",`<a href="privacy.html" target="_blank">${t("privacy_link")}</a>`);
+  const em=(content.settings.contact||{}).email||"";
+  $("#deleteLink").href=`mailto:${em}?subject=${encodeURIComponent(t("delete_account"))}`;
+  if(profile) $("#hello").textContent=`${t("hello")} ${(profile.full_name||"").split(" ")[0]}!`;
+  fillItems(); updateBookingFields();
+  if(user){ renderBookings(); renderMaterials(); }
+}
+
+/* ---------- contenuti del sito (per la scelta di escursioni e case) ---------- */
+async function loadContent(){
+  try{
+    const g=n=>fetch("content/"+n).then(r=>r.json());
+    const [e,h,s]=await Promise.all([g("excursions.json"),g("houses.json"),g("settings.json")]);
+    content={exc:e.items||[],houses:h.items||[],settings:s||{}};
+  }catch(e){}
+}
+function fillItems(){
+  const k=$("#bKind").value, sel=$("#bItem");
+  let opts=[];
+  if(k==="excursion") opts=content.exc.map(x=>L(x.title));
+  if(k==="house") opts=content.houses.map(x=>`${L(x.title)} – ${x.place||""}`);
+  sel.innerHTML=opts.map(o=>`<option>${esc(o)}</option>`).join("");
+  $("#bItemWrap").classList.toggle("hidden",!opts.length);
+}
+function updateBookingFields(){
+  const k=$("#bKind").value;
+  $("#bModeWrap").classList.toggle("hidden",!(k==="lesson_it"||k==="lesson_pl"));
+  $("#bDateToWrap").classList.toggle("hidden",k!=="house");
+  $("#bDateLabel").textContent=k==="house"?t("b_date_arrive"):t("b_date");
+}
+
+/* ---------- accesso ---------- */
+async function enter(session){
+  user=session?.user||null;
+  $("#authView").classList.toggle("hidden",!!user);
+  $("#appView").classList.toggle("hidden",!user);
+  $("#logoutBtn").classList.toggle("hidden",!user);
+  if(!user){ $("#adminLink").classList.add("hidden"); return; }
+  const {data}=await sb.from("profiles").select("*").eq("id",user.id).single();
+  profile=data||{full_name:"",courses:[]};
+  $("#adminLink").classList.toggle("hidden",profile.role!=="admin");
+  const f=$("#profileForm"); f.full_name.value=profile.full_name||""; f.email.value=user.email; f.phone.value=profile.phone||"";
+  applyLang();
+}
+
+function authTab(which){
+  $$("[data-auth]").forEach(b=>b.classList.toggle("on",b.dataset.auth===which));
+  $("#loginForm").classList.toggle("hidden",which!=="login");
+  $("#signupForm").classList.toggle("hidden",which!=="signup");
+  $("#resetForm").classList.toggle("hidden",which!=="reset");
+  hide($("#authMsg"));
+}
+
+/* ---------- prenotazioni ---------- */
+let bookings=[], cancelArmed=null;
+const kindLabel=k=>t("k_"+k);
+const fmtDate=d=>d?new Date(d+"T12:00:00").toLocaleDateString(lang,{day:"numeric",month:"short",year:"numeric"}):"";
+async function loadBookings(){
+  const {data,error}=await sb.from("bookings").select("*").eq("user_id",user.id).order("created_at",{ascending:false});
+  bookings=error?[]:data; renderBookings();
+}
+function renderBookings(){
+  const el=$("#bookingList");
+  if(!bookings.length){ el.innerHTML=`<div class="empty">${t("no_bookings")}</div>`; return; }
+  el.innerHTML=bookings.map(b=>`
+    <div class="item">
+      <div class="item-head">
+        <div><h3>${esc(kindLabel(b.kind))}${b.item?" · "+esc(b.item):""}</h3>
+          <div class="chips">
+            <span class="chip st-${b.status}">${t("st_"+b.status)}</span>
+            ${b.paid?`<span class="chip">💶 ${t("paid")}</span>`:""}
+            ${b.mode?`<span class="chip">${t("m_"+b.mode)}</span>`:""}
+          </div>
+        </div>
+        <div class="muted" style="text-align:right">📅 ${fmtDate(b.date_from)}${b.date_to?" → "+fmtDate(b.date_to):""}<br>👥 ${b.people} ${t("people_n")}</div>
+      </div>
+      ${b.notes?`<p class="muted">${esc(b.notes)}</p>`:""}
+      ${b.admin_note?`<div class="body-text"><b>${t("note_from")}</b> ${esc(b.admin_note)}</div>`:""}
+      ${b.payment_url&&!b.paid&&b.status!=="cancelled"?`<a class="btn btn-red" style="margin-top:12px" href="${esc(b.payment_url)}" target="_blank" rel="noopener">💳 ${t("pay_now")}</a>`:""}
+      ${b.status==="pending"?`<button class="linkbtn" style="margin-top:10px" data-cancel="${b.id}">${cancelArmed===b.id?t("cancel_q"):t("cancel")}</button>`:""}
+    </div>`).join("");
+}
+function waLink(text){
+  const n=(content.settings.contact||{}).whatsapp;
+  return n?`https://wa.me/${n}?text=${encodeURIComponent(text)}`:null;
+}
+
+/* ---------- materiali ---------- */
+let materials=[];
+const ytId=u=>{const m=String(u||"").match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/);return m?m[1]:null;};
+async function loadMaterials(){
+  if(!(profile.courses||[]).length && profile.role!=="admin"){ materials=[]; renderMaterials(); return; }
+  const {data}=await sb.from("materials").select("*").eq("published",true).order("course").order("created_at",{ascending:false});
+  materials=data||[]; renderMaterials();
+}
+function renderMaterials(){
+  const el=$("#materialList");
+  if(!materials.length){ el.innerHTML=`<div class="empty">${t("no_materials")}</div>`; return; }
+  el.innerHTML=["it","pl"].map(c=>{
+    const ms=materials.filter(m=>m.course===c); if(!ms.length) return "";
+    return `<h2 style="font-size:1.4rem;margin-top:8px">${c==="it"?"🇮🇹":"🇵🇱"} ${t("c_"+c)}</h2>`+ms.map(m=>{
+      let act="";
+      if(m.kind==="file") act=`<button class="btn btn-green btn-sm" data-file="${esc(m.file_path)}">📄 ${t("open_file")}</button>`;
+      if(m.kind==="link") act=`<a class="btn btn-green btn-sm" href="${esc(m.url)}" target="_blank" rel="noopener">🔗 ${t("open_link")}</a>`;
+      if(m.kind==="video"){ const id=ytId(m.url); act=id?`<div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/${id}" allowfullscreen></iframe></div>`:`<a class="btn btn-green btn-sm" href="${esc(m.url)}" target="_blank" rel="noopener">▶️ Video</a>`; }
+      if(m.kind==="text") act=`<div class="body-text">${esc(m.body)}</div>`;
+      return `<div class="item"><div class="item-head"><h3>${esc(m.title)}</h3>${m.level?`<span class="chip">${esc(m.level)}</span>`:""}</div>
+        ${m.description?`<p class="muted" style="margin:6px 0 10px">${esc(m.description)}</p>`:""}${act}</div>`;
+    }).join("");
+  }).join("");
+}
+
+/* ---------- eventi ---------- */
+document.addEventListener("click",async e=>{
+  const lb=e.target.closest("[data-lang]"); if(lb){ lang=lb.dataset.lang; try{localStorage.setItem("wzd-lang",lang)}catch(_){}; applyLang(); return; }
+  const at=e.target.closest("[data-auth]"); if(at){ authTab(at.dataset.auth); return; }
+  const tb=e.target.closest("[data-tab]");
+  if(tb){ $$("[data-tab]").forEach(b=>b.classList.toggle("on",b===tb)); $$("[data-pane]").forEach(p=>p.classList.toggle("hidden",p.dataset.pane!==tb.dataset.tab)); return; }
+  const cb=e.target.closest("[data-cancel]");
+  if(cb){
+    const id=+cb.dataset.cancel;
+    if(cancelArmed!==id){ cancelArmed=id; renderBookings(); return; }
+    cancelArmed=null;
+    const {error}=await sb.from("bookings").update({status:"cancelled"}).eq("id",id);
+    if(error) show($("#bookingMsg"),t("err")+error.message,"err"); else loadBookings();
+    return;
+  }
+  const fb=e.target.closest("[data-file]");
+  if(fb){
+    const {data,error}=await sb.storage.from("materials").createSignedUrl(fb.dataset.file,600);
+    if(data?.signedUrl) location.href=data.signedUrl; else alertMsg(error);
+  }
+});
+function alertMsg(err){ show($("#bookingMsg"),t("err")+(err?.message||""),"err"); }
+
+$("#bKind").addEventListener("change",()=>{ fillItems(); updateBookingFields(); });
+$("#newBookingBtn").onclick=()=>{ $("#bookingCard").classList.remove("hidden"); hide($("#bookingMsg")); };
+$("#cancelNewBtn").onclick=()=>$("#bookingCard").classList.add("hidden");
+
+$("#loginForm").addEventListener("submit",async e=>{
+  e.preventDefault(); const f=e.target;
+  const {error}=await sb.auth.signInWithPassword({email:f.email.value.trim(),password:f.password.value});
+  if(error) show($("#authMsg"),error.message.includes("Invalid")?t("wrong_login"):t("err")+error.message,"err");
+});
+$("#signupForm").addEventListener("submit",async e=>{
+  e.preventDefault(); const f=e.target;
+  const {data,error}=await sb.auth.signUp({email:f.email.value.trim(),password:f.password.value,
+    options:{data:{full_name:f.full_name.value.trim(),phone:f.phone.value.trim(),lang},emailRedirectTo:location.origin+location.pathname}});
+  if(error) return show($("#authMsg"),t("err")+error.message,"err");
+  if(!data.session){ show($("#authMsg"),t("check_email"),"ok"); f.reset(); }
+});
+$("#forgotBtn").onclick=async()=>{
+  const email=$("#loginForm").email.value.trim();
+  if(!email) return show($("#authMsg"),t("enter_email"),"err");
+  await sb.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});
+  show($("#authMsg"),t("reset_sent"),"ok");
+};
+$("#resetForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const {error}=await sb.auth.updateUser({password:e.target.password.value});
+  if(error) show($("#authMsg"),t("err")+error.message,"err"); else { recovery=false; show($("#authMsg"),t("pw_changed"),"ok"); const {data}=await sb.auth.getSession(); await enter(data.session); loadBookings(); loadMaterials(); }
+});
+$("#bookingForm").addEventListener("submit",async e=>{
+  e.preventDefault(); const f=e.target, k=f.kind.value;
+  const row={kind:k,item:$("#bItemWrap").classList.contains("hidden")?null:f.item.value,
+    mode:(k==="lesson_it"||k==="lesson_pl")?f.mode.value:null,date_from:f.date_from.value||null,
+    date_to:(k==="house"&&f.date_to.value)?f.date_to.value:null,people:+f.people.value||1,notes:f.notes.value.trim()||null};
+  const {error}=await sb.from("bookings").insert(row);
+  if(error) return show($("#bookingMsg"),t("err")+error.message,"err");
+  f.reset(); fillItems(); updateBookingFields(); $("#bookingCard").classList.add("hidden");
+  const wa=waLink(`Ciao Dominika! ${profile.full_name||""} – ${kindLabel(k)}${row.item?": "+row.item:""}, ${row.date_from||""}, ${row.people} pers.`);
+  const m=$("#bookingMsg"); m.className="msg show ok";
+  m.innerHTML=esc(t("sent"))+(wa?` <a class="btn btn-green btn-sm" style="margin-left:8px" href="${wa}" target="_blank" rel="noopener">💬 ${esc(t("notify_wa"))}</a>`:"");
+  loadBookings();
+});
+$("#profileForm").addEventListener("submit",async e=>{
+  e.preventDefault(); const f=e.target;
+  const {error}=await sb.from("profiles").update({full_name:f.full_name.value.trim(),phone:f.phone.value.trim(),lang}).eq("id",user.id);
+  if(error) show($("#profileMsg"),t("err")+error.message,"err"); else { profile.full_name=f.full_name.value.trim(); applyLang(); show($("#profileMsg"),t("saved"),"ok"); }
+});
+$("#pwForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const {error}=await sb.auth.updateUser({password:e.target.password.value});
+  if(error) show($("#profileMsg"),t("err")+error.message,"err"); else { e.target.reset(); show($("#profileMsg"),t("pw_changed"),"ok"); }
+});
+$("#logoutBtn").onclick=async()=>{ await sb.auth.signOut(); };
+
+/* ---------- avvio ---------- */
+(async()=>{
+  applyLang();
+  await loadContent(); fillItems();
+  if(!configured){ $("#notConfigured").classList.add("show"); $("#authView").classList.remove("hidden"); $$("#authView button, #authView input").forEach(x=>x.disabled=true); return; }
+  sb=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY);
+  sb.auth.onAuthStateChange((ev,session)=>{
+    if(ev==="PASSWORD_RECOVERY"){ recovery=true; $("#authView").classList.remove("hidden"); $("#appView").classList.add("hidden"); authTab("reset"); return; }
+    if(recovery) return;
+    if(ev==="SIGNED_IN"||ev==="SIGNED_OUT"||ev==="INITIAL_SESSION"){
+      setTimeout(async()=>{ await enter(session); if(user){ loadBookings(); loadMaterials(); } },0);
+    }
+  });
+})();
+</script>
+</body>
+</html>

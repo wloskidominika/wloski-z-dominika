@@ -1,0 +1,37 @@
+{
+  "colors": {
+    "primary": "#9B2318",
+    "secondary": "#4A7A62",
+    "background": "#FBEBD5",
+    "accent": "#EF9530",
+    "text": "#3A2A22"
+  },
+  "hero_img": "/media/hero.jpg",
+  "about_img": "",
+  "icon": "/sun.jpg",
+  "badge": "/logo.jpg",
+  "home_sections": {
+    "about": true,
+    "excursions": true,
+    "lessons": true,
+    "houses": true,
+    "services": true,
+    "gallery": true,
+    "blog": true
+  },
+  "menu": {
+    "nav_exc": true,
+    "nav_house": true,
+    "nav_tr": true,
+    "nav_rent": true,
+    "nav_serv": true,
+    "nav_les": true,
+    "nav_con": true,
+    "nav_blog": true
+  },
+  "home_counts": {
+    "exc": 6,
+    "house": 6,
+    "serv": 3
+  }
+}
