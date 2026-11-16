@@ -1047,15 +1047,29 @@ collections:
           widget: string
           required: false
     - name: socials
-      label: Social
+      label: Social (compaiono come icone sul sito)
       widget: list
       fields:
       - name: label
-        label: Sigla (IG, FB, YT, TT…)
-        widget: string
+        label: Quale social?
+        widget: select
+        options:
+        - Facebook
+        - Instagram
+        - TikTok
+        - YouTube
+        - WhatsApp
+        - LinkedIn
+        - Telegram
+        - Pinterest
+        - X (Twitter)
+        - Tripadvisor
       - name: url
-        label: Link
+        label: Link del tuo profilo
         widget: string
+        hint: Copia l'indirizzo del tuo profilo dal browser, es. https://www.instagram.com/tuonome
+      label_singular: social
+      summary: '{{fields.label}}'
   - name: texts
     label: ✍️ Testi delle pagine (5 lingue)
     file: content/texts.json

@@ -188,13 +188,36 @@ function renderGallery(){
     </figure>` : "").join("");
 }
 
+
+/* Icone dei social (disegnate in modo semplice, colore del testo) */
+const _svg = b => `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${b}</svg>`;
+const SOCIAL_ICONS = {
+  facebook: _svg('<path d="M14.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.6-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H9v3h2.6V21"/>'),
+  instagram: _svg('<rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/>'),
+  tiktok: _svg('<path d="M14 3.5v11.2a3.6 3.6 0 1 1-3.6-3.6"/><path d="M14 3.5c.4 2.6 2.2 4.3 4.8 4.5"/>'),
+  youtube: _svg('<rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10.2 9.2v5.6l4.8-2.8z" fill="currentColor"/>'),
+  whatsapp: _svg('<path d="M4 20l1.2-3.6A8.2 8.2 0 1 1 8 19z"/><path d="M9.2 8.6c.3 2.9 3.2 5.8 6.2 6.2l1-1.4-1.9-1-.9.8c-1-.5-2-1.5-2.5-2.5l.8-.9-1-1.9z" fill="currentColor" stroke="none"/>'),
+  linkedin: _svg('<rect x="3.5" y="3.5" width="17" height="17" rx="2.5"/><path d="M8 10.5V16M8 7.8v.1M11.5 16v-5.5M11.5 13c0-1.6 1-2.6 2.3-2.6s2.2.9 2.2 2.6V16"/>'),
+  telegram: _svg('<path d="M20.5 4.5L3.5 11l5.5 2 2 6 3-4 4.5 3.5z"/><path d="M9 13l8-6"/>'),
+  pinterest: _svg('<circle cx="12" cy="12" r="8.5"/><path d="M10.5 20l1.8-7.2M11 15c3.8.9 5.7-1.5 5.7-4.1a4.6 4.6 0 0 0-9.2.1c0 1 .3 1.8.9 2.3"/>'),
+  x: _svg('<path d="M4.5 4.5l15 15M19.5 4.5l-15 15"/>'),
+  tripadvisor: _svg('<circle cx="7.5" cy="13" r="3.5"/><circle cx="16.5" cy="13" r="3.5"/><path d="M4 9.5c4.5-3 11.5-3 16 0"/><circle cx="7.5" cy="13" r=".8" fill="currentColor"/><circle cx="16.5" cy="13" r=".8" fill="currentColor"/>')
+};
+function socialKey(l){ const s=String(l||"").toLowerCase();
+  if(s==="fb"||s.includes("facebook")) return "facebook"; if(s==="ig"||s.includes("insta")) return "instagram";
+  if(s==="tt"||s.includes("tiktok")) return "tiktok"; if(s==="yt"||s.includes("youtube")) return "youtube";
+  if(s==="wa"||s.includes("whatsapp")) return "whatsapp"; if(s.includes("linkedin")) return "linkedin";
+  if(s.includes("telegram")) return "telegram"; if(s.includes("pinterest")) return "pinterest";
+  if(s.startsWith("x")||s.includes("twitter")) return "x"; if(s.includes("tripadvisor")) return "tripadvisor"; return ""; }
+
 function renderContact(){
   const c=SITE.contact;
   document.getElementById("contactList").innerHTML = `
     ${c.email?`<li><b>✉️</b><div><small>${t("c_mail")}</small><a href="mailto:${esc(c.email)}">${esc(c.email)}</a></div></li>`:""}
     ${c.phone||c.whatsapp?`<li><b>📱</b><div><small>${t("c_phone")}</small><a href="https://wa.me/${esc(String(c.whatsapp||c.phone).replace(/\D/g,""))}" target="_blank" rel="noopener">${esc(c.phone||"+"+c.whatsapp)}</a></div></li>`:""}
     <li><b>📍</b><div><small>${t("c_place")}</small>${esc(L(c.place))}</div></li>`;
-  document.getElementById("socials").innerHTML = SITE.socials.map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="${esc(s.label)}">${esc(s.label)}</a>`).join("");
+  const html = SITE.socials.filter(s=>s.url).map(s=>{ const k=socialKey(s.label); return `<a href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="${esc(s.label)}" title="${esc(s.label)}">${SOCIAL_ICONS[k]||esc(String(s.label||"").slice(0,2))}</a>`; }).join("");
+  ["socials","socialsC"].forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML=html; });
 }
 
 

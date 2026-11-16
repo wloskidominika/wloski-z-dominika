@@ -309,3 +309,9 @@ header .wrap.nav{max-width:1380px}
 .empty-box p{font-size:1.1rem;margin-bottom:18px}
 .detail-top>*,.detail-cols>*{min-width:0}
 .detail-top .mg-thumbs{overflow-x:auto;flex-wrap:nowrap}
+
+.socials a{color:inherit}
+.socials a svg{display:block}
+.socials-c{margin-top:22px}
+.socials-c a{border-color:var(--green);color:var(--green)}
+.socials-c a:hover{background:var(--green);color:#fff}
