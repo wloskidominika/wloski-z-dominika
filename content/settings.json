@@ -1,11 +1,11 @@
 {
-  "owner_name": "",
+  "owner_name": "Dominika Sloma",
   "address": "",
   "guide_langs": "🗣 IT · PL · EN",
   "contact": {
-    "email": "kontakt@wloskizdominika.pl",
-    "phone": "+39 000 000 0000",
-    "whatsapp": "390000000000",
+    "email": "",
+    "phone": "+39 3293928776",
+    "whatsapp": "393293928776",
     "place": {
       "it": "Calabria, Italia · lezioni anche online",
       "de": "Kalabrien, Italien · Unterricht auch online",
@@ -16,16 +16,8 @@
   },
   "socials": [
     {
-      "label": "IG",
-      "url": "https://instagram.com/"
-    },
-    {
       "label": "FB",
       "url": "https://www.facebook.com/profile.php?id=61556969993687"
-    },
-    {
-      "label": "YT",
-      "url": "https://youtube.com/"
     }
   ],
   "vat": "03800250791"
