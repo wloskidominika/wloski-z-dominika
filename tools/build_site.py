@@ -239,13 +239,9 @@ def main():
     json.dump(slugs, open(os.path.join(ROOT, "content", "slugs.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
     S = {n: sec(n) for n in ("about", "excursions", "lessons", "houses", "services", "gallery")}
-    gallery_home = see_all(S["gallery"], "foto-e-video.html", "see_media")
     page("index.html", "home", f"{FULL} – lezioni di italiano e polacco e vacanze in Calabria",
          "Lezioni di italiano e polacco e vacanze in Calabria: case vacanze, hotel e B&B, escursioni, esperienze locali, transfer e noleggi a Tropea e Capo Vaticano.",
-         "\n".join([HERO, S["lessons"], vacanze(), S["about"],
-                    see_all(S["houses"], "case-vacanze.html", "see_house"),
-                    see_all(S["excursions"], "escursioni.html", "see_exc"),
-                    BLOG_HOME, gallery_home]),
+         "\n".join([HERO, S["lessons"], vacanze(), S["about"], BLOG_HOME]),
          extra=f'<script type="application/ld+json">{LD_HOME}</script>\n')
 
     page("case-vacanze.html", "houses", f"Case vacanze a Tropea e Capo Vaticano · {NAME}",

@@ -212,23 +212,8 @@ collections:
         widget: boolean
         default: true
         required: false
-      - name: houses
-        label: Case vacanze
-        widget: boolean
-        default: true
-        required: false
-      - name: excursions
-        label: Escursioni
-        widget: boolean
-        default: true
-        required: false
       - name: blog
         label: Dal blog
-        widget: boolean
-        default: true
-        required: false
-      - name: gallery
-        label: Foto e video
         widget: boolean
         default: true
         required: false
@@ -290,31 +275,6 @@ collections:
         label: Contatti
         widget: boolean
         default: true
-        required: false
-    - name: home_counts
-      label: Quanti elementi mostrare nella Home
-      widget: object
-      fields:
-      - name: exc
-        label: Escursioni
-        widget: number
-        value_type: int
-        min: 1
-        max: 30
-        required: false
-      - name: house
-        label: Case vacanze
-        widget: number
-        value_type: int
-        min: 1
-        max: 30
-        required: false
-      - name: serv
-        label: Servizi
-        widget: number
-        value_type: int
-        min: 1
-        max: 30
         required: false
   - name: excursions
     label: 🚐 Escursioni
