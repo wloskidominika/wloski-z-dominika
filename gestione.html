@@ -50,6 +50,7 @@
       <button data-tab="bookings">📅 Prenotazioni <span class="badge hidden" id="pendBadge"></span></button>
       <button data-tab="users">👥 Clienti e studenti</button>
       <button data-tab="materials">📚 Materiali corsi</button>
+      <button data-tab="documents">📄 Documenti clienti</button>
     </div>
 
     <!-- RICHIESTE DAL SITO -->
@@ -82,6 +83,7 @@
     <div data-pane="users" class="hidden">
       <div class="card" style="margin-bottom:24px">
         <h2 style="font-size:1.35rem;margin-bottom:6px">➕ Crea l'accesso per uno studente o cliente</h2>
+        <div style="display:flex;gap:18px;margin:6px 0 10px"><label class="check"><input type="radio" name="nuType" value="student" checked> 🎓 Studente (lezioni)</label><label class="check"><input type="radio" name="nuType" value="client"> 🏠 Cliente (case, escursioni…)</label></div>
         <p class="muted" style="margin-bottom:14px">Scrivi la sua e-mail e una password: la persona entra subito dal sito (Area riservata), senza registrarsi. Poi le mandi i dati con un clic.</p>
         <form id="nuForm">
           <div class="row">
@@ -94,7 +96,7 @@
           </div>
           <div class="row">
             <label>Password (almeno 8 caratteri)<span style="display:flex;gap:8px"><input name="password" required minlength="8" autocomplete="new-password"><button type="button" class="btn btn-line btn-sm" id="genPw">🎲 Genera</button></span></label>
-            <div style="display:flex;gap:18px;align-items:flex-end;padding-bottom:10px">
+            <div style="display:flex;gap:18px;align-items:flex-end;padding-bottom:10px" id="nuCourses">
               <label class="check"><input type="checkbox" name="c_it" checked> 🇮🇹 Corso di italiano</label>
               <label class="check"><input type="checkbox" name="c_pl"> 🇵🇱 Corso di polacco</label>
             </div>
@@ -139,6 +141,29 @@
       <div class="toolbar"><label style="max-width:360px">Mostra i materiali di<select id="mFilter"><option value="all">Tutti</option><option value="shared">Solo quelli per tutto il corso</option></select></label></div>
       <div class="list" id="mList"></div>
     </div>
+    <!-- DOCUMENTI CLIENTI -->
+    <div data-pane="documents" class="hidden">
+      <div class="card" style="margin-bottom:24px">
+        <h2 style="font-size:1.35rem;margin-bottom:6px">Carica un documento per un cliente</h2>
+        <p class="muted" style="margin-bottom:14px">Contratto, ricevuta, istruzioni per l'arrivo… Lo vede <b>solo</b> la persona che scegli, nella sua Area riservata → «Documenti».</p>
+        <form id="dForm">
+          <div class="row">
+            <label>👤 Per chi?<select name="user_id" id="dUser" required></select></label>
+            <label>Titolo<input name="title" required placeholder="es. Contratto Villa Mimosa 12–19 luglio"></label>
+          </div>
+          <div class="row">
+            <label>File (PDF, Word, foto…)<input name="file" type="file"></label>
+            <label>…oppure un link<input name="url" type="url" placeholder="https://…"></label>
+          </div>
+          <label>Nota per il cliente (facoltativa)<textarea name="description" style="min-height:60px" placeholder="es. Firmalo e rimandamelo via WhatsApp"></textarea></label>
+          <label class="check"><input type="checkbox" name="visible" checked> Visibile al cliente</label>
+          <button class="btn btn-red" id="dSubmit" style="justify-self:start">Carica</button>
+        </form>
+        <div class="msg" id="dMsg" style="margin-top:12px"></div>
+      </div>
+      <div class="toolbar"><label style="max-width:360px">Mostra i documenti di<select id="dFilter"><option value="all">Tutti</option></select></label></div>
+      <div class="list" id="dList"></div>
+    </div>
   </section>
 </main>
 <footer class="wrap" style="padding:20px;text-align:center;color:var(--muted);font-size:.8rem">Włoski z Dominiką i Podróże do Kalabrii · P.IVA 03800250791 · <a href="privacy.html">Privacy e Cookie</a></footer>
@@ -158,7 +183,7 @@ const fmtTs=d=>new Date(d).toLocaleString("it",{day:"numeric",month:"short",hour
 const digits=p=>String(p||"").replace(/[^\d]/g,"");
 
 const cfg=window.WZD_CONFIG||{};
-let sb, bookings=[], users=[], materials=[], armed=null;
+let sb, bookings=[], users=[], materials=[], documents=[], armed=null;
 
 /* ---------- accesso ---------- */
 (async()=>{
@@ -177,7 +202,7 @@ let sb, bookings=[], users=[], materials=[], armed=null;
 })();
 $("#logoutBtn").onclick=async()=>{ await sb.auth.signOut(); location.href="area.html"; };
 
-async function loadAll(){ await Promise.all([loadRequests(),loadBookings(),loadUsers(),loadMaterials()]); stats(); }
+async function loadAll(){ await Promise.all([loadRequests(),loadBookings(),loadUsers(),loadMaterials(),loadDocuments()]); stats(); }
 
 /* ---------- richieste dal sito ---------- */
 const RST={new:"Nuova",answered:"Risposta",closed:"Archiviata"};
@@ -267,6 +292,8 @@ async function loadUsers(){
 function fillStudentSelects(){
   const opts=users.filter(u=>u.role!=="admin").map(u=>`<option value="${u.id}">${esc(u.full_name||u.email)}${u.email?" – "+esc(u.email):""}</option>`).join("");
   const ms=$("#mStudent"), cur=ms.value; ms.innerHTML='<option value="">Tutti gli iscritti al corso</option>'+opts; ms.value=cur;
+  const du=$("#dUser"), cu=du.value; du.innerHTML='<option value="">— scegli la persona —</option>'+opts; du.value=cu;
+  const df=$("#dFilter"), cdf=df.value; df.innerHTML='<option value="all">Tutti</option>'+opts; df.value=cdf||"all";
   const mf=$("#mFilter"), cf=mf.value; mf.innerHTML='<option value="all">Tutti</option><option value="shared">Solo quelli per tutto il corso</option>'+opts; mf.value=cf||"all";
 }
 function renderUsers(){
@@ -292,6 +319,7 @@ function renderUsers(){
           <label class="check"><input type="checkbox" data-course="pl" ${c.includes("pl")?"checked":""}> 🇵🇱 Polacco</label>
           <button class="btn btn-red btn-sm" data-save-u>Salva</button>
           <button class="btn btn-line btn-sm" data-mat-u>📚 I suoi materiali</button>
+          <button class="btn btn-line btn-sm" data-doc-u>📄 I suoi documenti</button>
           <button class="btn btn-line btn-sm" data-pw-u>🔑 Nuova password</button>
         </div>
       </div>
@@ -357,20 +385,69 @@ $("#mForm").addEventListener("submit",async e=>{
   show(msg,"Materiale aggiunto! "+(row.student_id?"Lo vede solo "+(users.find(u=>u.id===row.student_id)||{}).full_name+".":"Lo vedono tutti gli iscritti al corso."),"ok"); loadMaterials();
 });
 
+/* ---------- documenti clienti ---------- */
+async function loadDocuments(){
+  const {data,error}=await sb.from("documents").select("*").order("created_at",{ascending:false});
+  if(error) return show($("#dMsg"),"Errore: "+error.message+" — hai eseguito l'ultima versione di supabase/setup.sql?","err");
+  documents=data; renderDocuments();
+}
+function renderDocuments(){
+  const f=$("#dFilter").value, list=documents.filter(d=>f==="all"||d.user_id===f);
+  if(!list.length){ $("#dList").innerHTML='<div class="empty">Nessun documento qui.</div>'; return; }
+  const who=id=>{ const u=users.find(x=>x.id===id); return u?(u.full_name||u.email):"?"; };
+  $("#dList").innerHTML=list.map(d=>`<div class="item" data-d="${d.id}">
+    <div class="item-head">
+      <div><h3>${esc(d.title)}</h3>
+        <div class="chips"><span class="chip">👤 ${esc(who(d.user_id))}</span><span class="chip">${d.file_path?"📄 File":"🔗 Link"}</span>${d.visible?"":'<span class="chip st-cancelled">Nascosto</span>'}</div>
+        ${d.description?`<div class="muted">${esc(d.description)}</div>`:""}<div class="muted"><small>caricato il ${fmtTs(d.created_at)}</small></div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="btn btn-line btn-sm" data-open-d>👁 Apri</button>
+        <button class="btn btn-line btn-sm" data-vis-d>${d.visible?"Nascondi":"Mostra"}</button>
+        <button class="btn btn-line btn-sm" data-del-d>${armed==="d"+d.id?"Sicura?":"🗑 Elimina"}</button>
+      </div>
+    </div></div>`).join("");
+}
+$("#dFilter").onchange=renderDocuments;
+$("#dForm").addEventListener("submit",async e=>{
+  e.preventDefault(); const f=e.target, msg=$("#dMsg"), btn=$("#dSubmit");
+  const row={user_id:f.user_id.value,title:f.title.value.trim(),description:f.description.value.trim()||null,visible:f.visible.checked,file_path:null,url:f.url.value.trim()||null};
+  if(!row.user_id) return show(msg,"Scegli la persona.","err");
+  const file=f.file.files[0];
+  if(!file && !row.url) return show(msg,"Scegli un file oppure scrivi un link.","err");
+  btn.disabled=true; btn.textContent="Caricamento…";
+  if(file){
+    const safe=file.name.normalize("NFD").replace(/[^\w.\-]+/g,"_"), path=`${row.user_id}/${Date.now()}-${safe}`;
+    const {error}=await sb.storage.from("documents").upload(path,file);
+    if(error){ btn.disabled=false; btn.textContent="Carica"; return show(msg,"Errore nel caricamento: "+error.message,"err"); }
+    row.file_path=path; row.url=null;
+  }
+  const {error}=await sb.from("documents").insert(row);
+  btn.disabled=false; btn.textContent="Carica";
+  if(error) return show(msg,"Errore: "+error.message,"err");
+  const u=users.find(x=>x.id===row.user_id)||{};
+  const keep=row.user_id; f.reset(); f.user_id.value=keep;
+  show(msg,`Documento caricato! Lo vede solo ${u.full_name||u.email}.`,"ok");
+  const text=`Ciao ${(u.full_name||"").split(" ")[0]}! Ti ho caricato «${row.title}» nella tua Area riservata: ${location.origin}/area.html → Documenti.`;
+  $("#dMsg").insertAdjacentHTML("beforeend",sendButtons(text,u.email,u.phone));
+  loadDocuments();
+});
+
 /* ---------- nuovo accesso ---------- */
 function genPassword(){ const a="abcdefghjkmnpqrstuvwxyz", d="23456789"; let p="";
   for(let i=0;i<6;i++) p+=a[Math.floor(Math.random()*a.length)]; p=p[0].toUpperCase()+p.slice(1);
   for(let i=0;i<3;i++) p+=d[Math.floor(Math.random()*d.length)]; return p; }
 $("#genPw").onclick=()=>{ $("#nuForm").password.value=genPassword(); };
+$$('[name="nuType"]').forEach(r=>r.onchange=()=>{ $("#nuCourses").style.visibility=$("#nuForm").nuType.value==="student"?"visible":"hidden"; });
 const SITE_URL=location.origin;
 function credMsg(name,email,pw,lang){
   const area=SITE_URL+"/area.html";
   const T={
-    it:`Ciao ${name}! Ecco i tuoi dati per l'Area riservata di Włoski z Dominiką, dove trovi i materiali delle lezioni:\n${area}\nE-mail: ${email}\nPassword: ${pw}`,
-    pl:`Cześć ${name}! Oto Twoje dane do Strefy klienta Włoski z Dominiką, gdzie znajdziesz materiały z lekcji:\n${area}\nE-mail: ${email}\nHasło: ${pw}`,
-    en:`Hi ${name}! Here are your details for the Włoski z Dominiką members' area, where you'll find your lesson materials:\n${area}\nEmail: ${email}\nPassword: ${pw}`,
-    de:`Hallo ${name}! Hier sind deine Zugangsdaten für den Mitgliederbereich von Włoski z Dominiką mit deinen Unterrichtsmaterialien:\n${area}\nE-Mail: ${email}\nPasswort: ${pw}`,
-    es:`¡Hola ${name}! Aquí tienes tus datos para el área privada de Włoski z Dominiką, donde encontrarás los materiales de tus clases:\n${area}\nCorreo: ${email}\nContraseña: ${pw}`};
+    it:`Ciao ${name}! Ecco i tuoi dati per l'Area riservata di Włoski z Dominiką, dove trovi i tuoi materiali e documenti:\n${area}\nE-mail: ${email}\nPassword: ${pw}`,
+    pl:`Cześć ${name}! Oto Twoje dane do Strefy klienta Włoski z Dominiką, gdzie znajdziesz swoje materiały i dokumenty:\n${area}\nE-mail: ${email}\nHasło: ${pw}`,
+    en:`Hi ${name}! Here are your details for the Włoski z Dominiką members' area, where you'll find your materials and documents:\n${area}\nEmail: ${email}\nPassword: ${pw}`,
+    de:`Hallo ${name}! Hier sind deine Zugangsdaten für den Mitgliederbereich von Włoski z Dominiką mit deinen Materialien und Dokumenten:\n${area}\nE-Mail: ${email}\nPasswort: ${pw}`,
+    es:`¡Hola ${name}! Aquí tienes tus datos para el área privada de Włoski z Dominiką, donde encontrarás tus materiales y documentos:\n${area}\nCorreo: ${email}\nContraseña: ${pw}`};
   return T[lang]||T.it;
 }
 function sendButtons(text,email,phone){
@@ -384,7 +461,8 @@ function sendButtons(text,email,phone){
 }
 $("#nuForm").addEventListener("submit",async e=>{
   e.preventDefault(); const f=e.target, msg=$("#nuMsg"), btn=$("#nuSubmit");
-  const courses=[f.c_it.checked&&"it",f.c_pl.checked&&"pl"].filter(Boolean);
+  const isStudent=f.nuType.value==="student";
+  const courses=isStudent?[f.c_it.checked&&"it",f.c_pl.checked&&"pl"].filter(Boolean):[];
   const data={p_email:f.email.value.trim(),p_password:f.password.value,p_full_name:f.full_name.value.trim(),p_phone:f.phone.value.trim()||null,p_lang:f.lang.value,p_courses:courses};
   if(data.p_password.length<8) return show(msg,"La password deve avere almeno 8 caratteri.","err");
   btn.disabled=true;
@@ -394,7 +472,7 @@ $("#nuForm").addEventListener("submit",async e=>{
   show(msg,"Accesso creato! Ora manda i dati alla persona:","ok");
   const box=$("#nuSend"); box.classList.remove("hidden");
   box.innerHTML=sendButtons(credMsg(data.p_full_name.split(" ")[0],data.p_email.toLowerCase(),data.p_password,data.p_lang),data.p_email,data.p_phone);
-  f.reset(); f.c_it.checked=true; await loadUsers(); stats();
+  f.reset(); f.c_it.checked=true; $("#nuCourses").style.visibility="visible"; await loadUsers(); stats();
 });
 
 /* ---------- azioni ---------- */
@@ -442,6 +520,28 @@ document.addEventListener("click",async e=>{
     $$("[data-tab]").forEach(b=>b.classList.toggle("on",b.dataset.tab==="materials")); $$("[data-pane]").forEach(p=>p.classList.toggle("hidden",p.dataset.pane!=="materials"));
     $("#mStudent").value=id; $("#mFilter").value=id; if((u.courses||[]).length) $("#mForm").course.value=u.courses[0];
     renderMaterials(); window.scrollTo({top:0,behavior:"smooth"}); return;
+  }
+  if(uEl && e.target.closest("[data-doc-u]")){
+    const id=uEl.dataset.u;
+    $$("[data-tab]").forEach(b=>b.classList.toggle("on",b.dataset.tab==="documents")); $$("[data-pane]").forEach(p=>p.classList.toggle("hidden",p.dataset.pane!=="documents"));
+    $("#dUser").value=id; $("#dFilter").value=id; renderDocuments(); window.scrollTo({top:0,behavior:"smooth"}); return;
+  }
+  const dEl=e.target.closest("[data-d]");
+  if(dEl){
+    const id=+dEl.dataset.d, d=documents.find(x=>x.id===id);
+    if(e.target.closest("[data-open-d]")){
+      if(d.url) return window.open(d.url,"_blank","noopener");
+      const {data}=await sb.storage.from("documents").createSignedUrl(d.file_path,600); if(data?.signedUrl) window.open(data.signedUrl,"_blank","noopener"); return;
+    }
+    if(e.target.closest("[data-vis-d]")){
+      const {error}=await sb.from("documents").update({visible:!d.visible}).eq("id",id); if(!error){ d.visible=!d.visible; renderDocuments(); } return;
+    }
+    if(e.target.closest("[data-del-d]")){
+      if(armed!=="d"+id){ armed="d"+id; renderDocuments(); return; }
+      armed=null; if(d.file_path) await sb.storage.from("documents").remove([d.file_path]);
+      const {error}=await sb.from("documents").delete().eq("id",id);
+      if(!error){ documents=documents.filter(x=>x.id!==id); renderDocuments(); } return;
+    }
   }
   if(uEl && e.target.closest("[data-pw-u]")){
     const id=uEl.dataset.u, u=users.find(x=>x.id===id), pw=genPassword();

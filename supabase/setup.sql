@@ -163,6 +163,39 @@ create policy "file materiali: studenti" on storage.objects for select using (
 
 
 -- ---------------------------------------------------------------------
+--  DOCUMENTI DEI CLIENTI (contratti, ricevute, informazioni d'arrivo…)
+--  Dominika li carica per UNA persona: la vede solo quella persona.
+-- ---------------------------------------------------------------------
+create table if not exists public.documents (
+  id          bigint generated always as identity primary key,
+  user_id     uuid not null references public.profiles(id) on delete cascade,
+  title       text not null,
+  description text,
+  file_path   text,
+  url         text,
+  visible     boolean not null default true,
+  created_at  timestamptz not null default now()
+);
+alter table public.documents enable row level security;
+drop policy if exists "documenti: leggi"    on public.documents;
+drop policy if exists "documenti: gestisci" on public.documents;
+create policy "documenti: leggi" on public.documents for select using (public.is_admin() or (visible and user_id = auth.uid()));
+create policy "documenti: gestisci" on public.documents for all using (public.is_admin()) with check (public.is_admin());
+
+insert into storage.buckets (id, name, public) values ('documents', 'documents', false)
+on conflict (id) do nothing;
+drop policy if exists "file documenti: admin"   on storage.objects;
+drop policy if exists "file documenti: cliente" on storage.objects;
+create policy "file documenti: admin" on storage.objects for all
+  using (bucket_id = 'documents' and public.is_admin())
+  with check (bucket_id = 'documents' and public.is_admin());
+create policy "file documenti: cliente" on storage.objects for select using (
+  bucket_id = 'documents' and exists (
+    select 1 from public.documents d where d.file_path = storage.objects.name and d.visible and d.user_id = auth.uid()
+  )
+);
+
+-- ---------------------------------------------------------------------
 --  RICHIESTE DAL SITO (modulo «Scrivimi»): chiunque può inviarne una,
 --  solo l'amministratrice le legge (pagina gestione.html → 📩 Richieste)
 -- ---------------------------------------------------------------------
