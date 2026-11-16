@@ -80,6 +80,30 @@
 
     <!-- UTENTI -->
     <div data-pane="users" class="hidden">
+      <div class="card" style="margin-bottom:24px">
+        <h2 style="font-size:1.35rem;margin-bottom:6px">➕ Crea l'accesso per uno studente o cliente</h2>
+        <p class="muted" style="margin-bottom:14px">Scrivi la sua e-mail e una password: la persona entra subito dal sito (Area riservata), senza registrarsi. Poi le mandi i dati con un clic.</p>
+        <form id="nuForm">
+          <div class="row">
+            <label>Nome e cognome<input name="full_name" required></label>
+            <label>E-mail<input name="email" type="email" required></label>
+          </div>
+          <div class="row">
+            <label>Telefono / WhatsApp (facoltativo)<input name="phone" type="tel" placeholder="+39 333 1234567"></label>
+            <label>Lingua<select name="lang"><option value="it">🇮🇹 Italiano</option><option value="pl">🇵🇱 Polski</option><option value="en">🇬🇧 English</option><option value="de">🇩🇪 Deutsch</option><option value="es">🇪🇸 Español</option></select></label>
+          </div>
+          <div class="row">
+            <label>Password (almeno 8 caratteri)<span style="display:flex;gap:8px"><input name="password" required minlength="8" autocomplete="new-password"><button type="button" class="btn btn-line btn-sm" id="genPw">🎲 Genera</button></span></label>
+            <div style="display:flex;gap:18px;align-items:flex-end;padding-bottom:10px">
+              <label class="check"><input type="checkbox" name="c_it" checked> 🇮🇹 Corso di italiano</label>
+              <label class="check"><input type="checkbox" name="c_pl"> 🇵🇱 Corso di polacco</label>
+            </div>
+          </div>
+          <button class="btn btn-red" id="nuSubmit" style="justify-self:start">Crea accesso</button>
+        </form>
+        <div class="msg" id="nuMsg" style="margin-top:12px"></div>
+        <div id="nuSend" class="hidden" style="margin-top:12px"></div>
+      </div>
       <div class="toolbar">
         <input id="uSearch" placeholder="🔍 Cerca per nome, e-mail o telefono" style="max-width:360px">
         <select id="uFilter" style="width:auto"><option value="all">Tutti</option><option value="students">Solo studenti</option><option value="it">Iscritti a italiano</option><option value="pl">Iscritti a polacco</option></select>
@@ -98,6 +122,7 @@
             <label>Titolo<input name="title" required></label>
             <label>Corso<select name="course"><option value="it">🇮🇹 Italiano</option><option value="pl">🇵🇱 Polacco</option></select></label>
           </div>
+          <label>👤 Per chi?<select name="student_id" id="mStudent"><option value="">Tutti gli iscritti al corso</option></select></label>
           <div class="row">
             <label>Livello (facoltativo)<input name="level" placeholder="es. A1, A2, B1…"></label>
             <label>Tipo<select name="kind" id="mKind"><option value="file">📄 File (PDF, Word, audio…)</option><option value="video">▶️ Video YouTube</option><option value="link">🔗 Link a un sito</option><option value="text">✍️ Testo / esercizio</option></select></label>
@@ -111,6 +136,7 @@
         </form>
         <div class="msg" id="mMsg" style="margin-top:12px"></div>
       </div>
+      <div class="toolbar"><label style="max-width:360px">Mostra i materiali di<select id="mFilter"><option value="all">Tutti</option><option value="shared">Solo quelli per tutto il corso</option></select></label></div>
       <div class="list" id="mList"></div>
     </div>
   </section>
@@ -238,7 +264,13 @@ async function loadUsers(){
   if(error) return show($("#uMsg"),"Errore: "+error.message,"err");
   users=data; renderUsers();
 }
+function fillStudentSelects(){
+  const opts=users.filter(u=>u.role!=="admin").map(u=>`<option value="${u.id}">${esc(u.full_name||u.email)}${u.email?" – "+esc(u.email):""}</option>`).join("");
+  const ms=$("#mStudent"), cur=ms.value; ms.innerHTML='<option value="">Tutti gli iscritti al corso</option>'+opts; ms.value=cur;
+  const mf=$("#mFilter"), cf=mf.value; mf.innerHTML='<option value="all">Tutti</option><option value="shared">Solo quelli per tutto il corso</option>'+opts; mf.value=cf||"all";
+}
 function renderUsers(){
+  fillStudentSelects();
   const q=$("#uSearch").value.toLowerCase().trim(), f=$("#uFilter").value;
   const list=users.filter(u=>{
     const c=u.courses||[];
@@ -259,6 +291,8 @@ function renderUsers(){
           <label class="check"><input type="checkbox" data-course="it" ${c.includes("it")?"checked":""}> 🇮🇹 Italiano</label>
           <label class="check"><input type="checkbox" data-course="pl" ${c.includes("pl")?"checked":""}> 🇵🇱 Polacco</label>
           <button class="btn btn-red btn-sm" data-save-u>Salva</button>
+          <button class="btn btn-line btn-sm" data-mat-u>📚 I suoi materiali</button>
+          <button class="btn btn-line btn-sm" data-pw-u>🔑 Nuova password</button>
         </div>
       </div>
     </div>`;}).join("");
@@ -272,14 +306,17 @@ async function loadMaterials(){
   materials=data; renderMaterials();
 }
 function renderMaterials(){
-  if(!materials.length){ $("#mList").innerHTML='<div class="empty">Nessun materiale ancora.</div>'; return; }
+  const mf=$("#mFilter").value;
+  const vis=materials.filter(m=>mf==="all"||(mf==="shared"?!m.student_id:m.student_id===mf));
+  if(!vis.length){ $("#mList").innerHTML='<div class="empty">Nessun materiale qui.</div>'; return; }
+  const who=id=>{ const u=users.find(x=>x.id===id); return u?(u.full_name||u.email):"?"; };
   $("#mList").innerHTML=["it","pl"].map(c=>{
-    const ms=materials.filter(m=>m.course===c); if(!ms.length) return "";
+    const ms=vis.filter(m=>m.course===c); if(!ms.length) return "";
     return `<h2 style="font-size:1.3rem">${c==="it"?"🇮🇹 Italiano":"🇵🇱 Polacco"} <span class="muted">(${ms.length})</span></h2>`+ms.map(m=>`
       <div class="item" data-m="${m.id}">
         <div class="item-head">
           <div><h3>${esc(m.title)}</h3>
-            <div class="chips">${m.level?`<span class="chip">${esc(m.level)}</span>`:""}<span class="chip">${{file:"📄 File",video:"▶️ Video",link:"🔗 Link",text:"✍️ Testo"}[m.kind]}</span>${m.published?"":'<span class="chip st-cancelled">Nascosto</span>'}</div>
+            <div class="chips">${m.level?`<span class="chip">${esc(m.level)}</span>`:""}<span class="chip">${m.student_id?"👤 "+esc(who(m.student_id)):"👥 Tutto il corso"}</span><span class="chip">${{file:"📄 File",video:"▶️ Video",link:"🔗 Link",text:"✍️ Testo"}[m.kind]}</span>${m.published?"":'<span class="chip st-cancelled">Nascosto</span>'}</div>
             ${m.description?`<div class="muted">${esc(m.description)}</div>`:""}
             ${m.url?`<a href="${esc(m.url)}" target="_blank" rel="noopener" style="font-size:.88rem">${esc(m.url)}</a>`:""}
           </div>
@@ -296,15 +333,17 @@ function updateMKind(){
   $$("[data-mk]").forEach(el=>el.classList.toggle("hidden",!el.dataset.mk.split(" ").includes(k)));
 }
 $("#mKind").onchange=updateMKind;
+$("#mFilter").onchange=renderMaterials;
 $("#mForm").addEventListener("submit",async e=>{
   e.preventDefault(); const f=e.target, k=f.kind.value, btn=$("#mSubmit"), msg=$("#mMsg");
   const row={title:f.title.value.trim(),course:f.course.value,level:f.level.value.trim()||null,kind:k,
-    description:f.description.value.trim()||null,published:f.published.checked,url:null,file_path:null,body:null};
+    description:f.description.value.trim()||null,published:f.published.checked,url:null,file_path:null,body:null,
+    student_id:f.student_id.value||null};
   if(k==="file"){
     const file=f.file.files[0]; if(!file) return show(msg,"Scegli un file.","err");
     btn.disabled=true; btn.textContent="Caricamento…";
     const safe=file.name.normalize("NFD").replace(/[^\w.\-]+/g,"_");
-    const path=`${row.course}/${Date.now()}-${safe}`;
+    const path=`${row.student_id?"persona/"+row.student_id:row.course}/${Date.now()}-${safe}`;
     const {error}=await sb.storage.from("materials").upload(path,file);
     if(error){ btn.disabled=false; btn.textContent="Aggiungi"; return show(msg,"Errore nel caricamento: "+error.message,"err"); }
     row.file_path=path;
@@ -314,7 +353,48 @@ $("#mForm").addEventListener("submit",async e=>{
   const {error}=await sb.from("materials").insert(row);
   btn.disabled=false; btn.textContent="Aggiungi";
   if(error) return show(msg,"Errore: "+error.message,"err");
-  f.reset(); updateMKind(); show(msg,"Materiale aggiunto!","ok"); loadMaterials();
+  const keep=f.student_id.value, keepC=f.course.value; f.reset(); f.student_id.value=keep; f.course.value=keepC; updateMKind();
+  show(msg,"Materiale aggiunto! "+(row.student_id?"Lo vede solo "+(users.find(u=>u.id===row.student_id)||{}).full_name+".":"Lo vedono tutti gli iscritti al corso."),"ok"); loadMaterials();
+});
+
+/* ---------- nuovo accesso ---------- */
+function genPassword(){ const a="abcdefghjkmnpqrstuvwxyz", d="23456789"; let p="";
+  for(let i=0;i<6;i++) p+=a[Math.floor(Math.random()*a.length)]; p=p[0].toUpperCase()+p.slice(1);
+  for(let i=0;i<3;i++) p+=d[Math.floor(Math.random()*d.length)]; return p; }
+$("#genPw").onclick=()=>{ $("#nuForm").password.value=genPassword(); };
+const SITE_URL=location.origin;
+function credMsg(name,email,pw,lang){
+  const area=SITE_URL+"/area.html";
+  const T={
+    it:`Ciao ${name}! Ecco i tuoi dati per l'Area riservata di Włoski z Dominiką, dove trovi i materiali delle lezioni:\n${area}\nE-mail: ${email}\nPassword: ${pw}`,
+    pl:`Cześć ${name}! Oto Twoje dane do Strefy klienta Włoski z Dominiką, gdzie znajdziesz materiały z lekcji:\n${area}\nE-mail: ${email}\nHasło: ${pw}`,
+    en:`Hi ${name}! Here are your details for the Włoski z Dominiką members' area, where you'll find your lesson materials:\n${area}\nEmail: ${email}\nPassword: ${pw}`,
+    de:`Hallo ${name}! Hier sind deine Zugangsdaten für den Mitgliederbereich von Włoski z Dominiką mit deinen Unterrichtsmaterialien:\n${area}\nE-Mail: ${email}\nPasswort: ${pw}`,
+    es:`¡Hola ${name}! Aquí tienes tus datos para el área privada de Włoski z Dominiką, donde encontrarás los materiales de tus clases:\n${area}\nCorreo: ${email}\nContraseña: ${pw}`};
+  return T[lang]||T.it;
+}
+function sendButtons(text,email,phone){
+  const ph=digits(phone);
+  return `<div class="body-text" style="white-space:pre-wrap">${esc(text)}</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+      ${ph?`<a class="btn btn-red btn-sm" href="https://wa.me/${ph}?text=${encodeURIComponent(text)}" target="_blank" rel="noopener">💬 Manda su WhatsApp</a>`:""}
+      <a class="btn btn-line btn-sm" href="mailto:${esc(email)}?subject=${encodeURIComponent("Włoski z Dominiką – Area riservata")}&body=${encodeURIComponent(text)}">✉️ Manda per e-mail</a>
+      <button class="btn btn-line btn-sm" type="button" data-copy="${esc(text)}">📋 Copia</button>
+    </div>`;
+}
+$("#nuForm").addEventListener("submit",async e=>{
+  e.preventDefault(); const f=e.target, msg=$("#nuMsg"), btn=$("#nuSubmit");
+  const courses=[f.c_it.checked&&"it",f.c_pl.checked&&"pl"].filter(Boolean);
+  const data={p_email:f.email.value.trim(),p_password:f.password.value,p_full_name:f.full_name.value.trim(),p_phone:f.phone.value.trim()||null,p_lang:f.lang.value,p_courses:courses};
+  if(data.p_password.length<8) return show(msg,"La password deve avere almeno 8 caratteri.","err");
+  btn.disabled=true;
+  const {data:newId,error}=await sb.rpc("admin_create_user",data);
+  btn.disabled=false;
+  if(error) return show(msg,"Errore: "+error.message,"err");
+  show(msg,"Accesso creato! Ora manda i dati alla persona:","ok");
+  const box=$("#nuSend"); box.classList.remove("hidden");
+  box.innerHTML=sendButtons(credMsg(data.p_full_name.split(" ")[0],data.p_email.toLowerCase(),data.p_password,data.p_lang),data.p_email,data.p_phone);
+  f.reset(); f.c_it.checked=true; await loadUsers(); stats();
 });
 
 /* ---------- azioni ---------- */
@@ -353,7 +433,25 @@ document.addEventListener("click",async e=>{
     bookings=bookings.filter(b=>b.id!==id); renderBookings(); stats(); return;
   }
 
+  const cp=e.target.closest("[data-copy]");
+  if(cp){ try{ await navigator.clipboard.writeText(cp.dataset.copy); cp.textContent="✓ Copiato"; }catch(_){ } return; }
+
   const uEl=e.target.closest("[data-u]");
+  if(uEl && e.target.closest("[data-mat-u]")){
+    const id=uEl.dataset.u, u=users.find(x=>x.id===id);
+    $$("[data-tab]").forEach(b=>b.classList.toggle("on",b.dataset.tab==="materials")); $$("[data-pane]").forEach(p=>p.classList.toggle("hidden",p.dataset.pane!=="materials"));
+    $("#mStudent").value=id; $("#mFilter").value=id; if((u.courses||[]).length) $("#mForm").course.value=u.courses[0];
+    renderMaterials(); window.scrollTo({top:0,behavior:"smooth"}); return;
+  }
+  if(uEl && e.target.closest("[data-pw-u]")){
+    const id=uEl.dataset.u, u=users.find(x=>x.id===id), pw=genPassword();
+    if(!confirm(`Creare una nuova password per ${u.full_name||u.email}?\nLa password vecchia non funzionerà più.`)) return;
+    const {error}=await sb.rpc("admin_set_password",{p_user:id,p_password:pw});
+    if(error) return show($("#uMsg"),"Errore: "+error.message,"err");
+    show($("#uMsg"),"Nuova password creata. Mandala alla persona:","ok");
+    $("#uMsg").insertAdjacentHTML("beforeend",sendButtons(credMsg((u.full_name||"").split(" ")[0],u.email,pw,u.lang),u.email,u.phone));
+    return;
+  }
   if(uEl && e.target.closest("[data-save-u]")){
     const id=uEl.dataset.u, courses=[...uEl.querySelectorAll("[data-course]:checked")].map(x=>x.dataset.course);
     const {error}=await sb.from("profiles").update({courses}).eq("id",id);

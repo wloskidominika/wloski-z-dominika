@@ -128,13 +128,18 @@ create table if not exists public.materials (
   published   boolean not null default true,
   created_at  timestamptz not null default now()
 );
+-- materiale per UNA persona (vuoto = per tutti gli iscritti al corso)
+alter table public.materials add column if not exists student_id uuid references public.profiles(id) on delete cascade;
 
 alter table public.materials enable row level security;
 drop policy if exists "materiali: leggi"   on public.materials;
 drop policy if exists "materiali: gestisci" on public.materials;
 create policy "materiali: leggi" on public.materials for select using (
   public.is_admin() or (
-    published and exists (select 1 from public.profiles p where p.id = auth.uid() and materials.course = any (p.courses))
+    published and (
+      materials.student_id = auth.uid()
+      or (materials.student_id is null and exists (select 1 from public.profiles p where p.id = auth.uid() and materials.course = any (p.courses)))
+    )
   )
 );
 create policy "materiali: gestisci" on public.materials for all using (public.is_admin()) with check (public.is_admin());
@@ -151,7 +156,8 @@ create policy "file materiali: admin" on storage.objects for all
 create policy "file materiali: studenti" on storage.objects for select using (
   bucket_id = 'materials' and exists (
     select 1 from public.materials m join public.profiles p on p.id = auth.uid()
-    where m.file_path = storage.objects.name and m.published and m.course = any (p.courses)
+    where m.file_path = storage.objects.name and m.published
+      and (m.student_id = p.id or (m.student_id is null and m.course = any (p.courses)))
   )
 );
 
@@ -182,6 +188,63 @@ create policy "richieste: invia" on public.requests for insert to anon, authenti
   with check (status = 'new' and note is null);
 create policy "richieste: gestisci" on public.requests for all to authenticated
   using (public.is_admin()) with check (public.is_admin());
+
+
+-- ---------------------------------------------------------------------
+--  ACCOUNT CREATI DALL'AMMINISTRATRICE (pagina gestione.html)
+--  Dominika crea l'accesso per uno studente/cliente con e-mail e password:
+--  la persona entra subito dal sito, senza registrarsi.
+-- ---------------------------------------------------------------------
+create extension if not exists pgcrypto with schema extensions;
+
+create or replace function public.admin_create_user(
+  p_email text, p_password text, p_full_name text default null,
+  p_phone text default null, p_lang text default 'it', p_courses text[] default '{}')
+returns uuid language plpgsql security definer set search_path = public, extensions, auth as $$
+declare
+  uid uuid := gen_random_uuid();
+  em  text := lower(trim(p_email));
+begin
+  if not public.is_admin() then raise exception 'Solo l''amministratrice può creare account'; end if;
+  if em !~ '^[^@\s]+@[^@\s]+\.[^@\s]+$' then raise exception 'E-mail non valida'; end if;
+  if char_length(coalesce(p_password,'')) < 8 then raise exception 'La password deve avere almeno 8 caratteri'; end if;
+  if exists (select 1 from auth.users where lower(email) = em) then raise exception 'Esiste già un account con questa e-mail'; end if;
+
+  insert into auth.users (instance_id, id, aud, role, email, encrypted_password, email_confirmed_at,
+                          raw_app_meta_data, raw_user_meta_data, created_at, updated_at,
+                          confirmation_token, recovery_token, email_change_token_new, email_change)
+  values ('00000000-0000-0000-0000-000000000000', uid, 'authenticated', 'authenticated', em,
+          extensions.crypt(p_password, extensions.gen_salt('bf')), now(),
+          '{"provider":"email","providers":["email"]}'::jsonb,
+          jsonb_build_object('full_name', p_full_name, 'phone', p_phone, 'lang', coalesce(p_lang,'it')),
+          now(), now(), '', '', '', '');
+
+  insert into auth.identities (id, user_id, provider_id, identity_data, provider, last_sign_in_at, created_at, updated_at)
+  values (gen_random_uuid(), uid, uid::text,
+          jsonb_build_object('sub', uid::text, 'email', em, 'email_verified', true),
+          'email', now(), now(), now());
+
+  -- il profilo nasce dal trigger; qui aggiungo i corsi
+  insert into public.profiles (id, email, full_name, phone, lang, courses)
+  values (uid, em, p_full_name, p_phone, coalesce(p_lang,'it'), coalesce(p_courses,'{}'))
+  on conflict (id) do update set full_name = excluded.full_name, phone = excluded.phone,
+                                 lang = excluded.lang, courses = excluded.courses;
+  return uid;
+end $$;
+
+create or replace function public.admin_set_password(p_user uuid, p_password text)
+returns void language plpgsql security definer set search_path = public, extensions, auth as $$
+begin
+  if not public.is_admin() then raise exception 'Solo l''amministratrice può cambiare le password'; end if;
+  if char_length(coalesce(p_password,'')) < 8 then raise exception 'La password deve avere almeno 8 caratteri'; end if;
+  update auth.users set encrypted_password = extensions.crypt(p_password, extensions.gen_salt('bf')), updated_at = now()
+  where id = p_user;
+end $$;
+
+revoke all on function public.admin_create_user(text,text,text,text,text,text[]) from public, anon;
+revoke all on function public.admin_set_password(uuid,text) from public, anon;
+grant execute on function public.admin_create_user(text,text,text,text,text,text[]) to authenticated;
+grant execute on function public.admin_set_password(uuid,text) to authenticated;
 
 -- =====================================================================
 --  DOPO esserti registrata dall'area riservata del sito, esegui SOLO
