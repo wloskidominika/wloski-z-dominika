@@ -6,6 +6,7 @@
 <title>{{TITLE}} · Włoski z Dominiką</title>
 <meta name="description" content="{{DESC}}">
 <link rel="canonical" href="{{URL}}">
+{{HREFLANG}}
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Włoski z Dominiką i Podróże do Kalabrii">
 <meta property="og:title" content="{{TITLE}} · Włoski z Dominiką">
@@ -17,7 +18,8 @@
 <link rel="stylesheet" href="../assets/site.css">
 <script type="application/ld+json">{{JSONLD}}</script>
 </head>
-<body data-page="post">
+<body data-page="post" data-post-lang="{{LANG}}">
+<script>window.POST_ALTS={{ALTS}};</script>
 
 <header>
   <div class="wrap nav">
@@ -42,6 +44,7 @@
 <div class="wrap crumbs"><a href="../index.html" data-i="crumb_home"></a> › <a href="../blog.html" data-i="nav_blog"></a></div>
 <article class="post">
   <div class="meta"><span class="chip">{{FLAG}} {{CATEGORY}}</span><span class="chip"><time datetime="{{DATE_ISO}}">{{DATE}}</time></span><span class="chip">⏱ {{READ}} min</span></div>
+  <div id="postOther" class="post-other" style="display:none"></div>
   <h1>{{H1}}</h1>
   {{COVER}}
   <div class="post-body">

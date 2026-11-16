@@ -121,8 +121,11 @@ def main():
     # ---- articoli ----
     os.makedirs(os.path.join(ROOT, "blog"), exist_ok=True)
     for old in glob.glob(os.path.join(ROOT, "blog", "*.html")): os.remove(old)
+    groups = {}
+    for p in posts: groups.setdefault(p.get("group") or p["slug"], {})[p["lang"]] = p["slug"]
     for p in posts:
         pre = "../"
+        alts = groups.get(p.get("group") or p["slug"], {})
         others = [q for q in posts if q["slug"] != p["slug"] and q["lang"] == p["lang"]][:3]
         related = "\n".join(card(q, pre) for q in others)
         title = p.get("seo_title") or p["title"]
@@ -141,6 +144,9 @@ def main():
             "{{COVER}}": (f'<img class="post-cover" src="{esc(pre + p["cover"])}" alt="{esc(p.get("cover_alt") or p["title"])}">' if p["cover"] else ""),
             "{{BODY}}": markdown(p.get("body"), pre), "{{RELATED}}": related,
             "{{RELATED_STYLE}}": "" if related else "display:none",
+            "{{HREFLANG}}": "\n".join(f'<link rel="alternate" hreflang="{l}" href="{DOMAIN}/blog/{sl}.html">' for l, sl in alts.items())
+                            + (f'\n<link rel="alternate" hreflang="x-default" href="{DOMAIN}/blog/{alts["it"]}.html">' if "it" in alts else ""),
+            "{{ALTS}}": json.dumps(alts, ensure_ascii=False),
             "{{JSONLD}}": json.dumps(ld, ensure_ascii=False).replace("</", "<\\/"),
         }
         page = post_tpl

@@ -53,6 +53,11 @@ collections:
       value: en
     - label: Español
       value: es
+  - name: group
+    label: Traduzione di… (collega le versioni in lingue diverse)
+    widget: string
+    required: false
+    hint: 'Scrivi lo stesso codice in tutte le traduzioni dello stesso articolo (es. «cosa-vedere-a-tropea»). Così chi cambia lingua passa alla versione giusta. Per un articolo nuovo puoi lasciarlo vuoto.'
   - name: description
     label: Descrizione per Google
     widget: text

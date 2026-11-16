@@ -234,3 +234,7 @@ header .wrap.nav{max-width:1380px}
 #blogFilters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px}
 #blogFilters button{border:1.5px solid var(--green);background:transparent;color:var(--green);padding:8px 18px;border-radius:999px;font:700 .9rem 'Lato',sans-serif;cursor:pointer}
 #blogFilters button.on{background:var(--green);color:#fff}
+
+.post-other{margin:0 0 18px}
+.post-other a{display:inline-block;background:var(--cream-2);border:1px solid rgba(0,0,0,.08);border-radius:999px;padding:8px 16px;font-weight:700;color:var(--red,#a02a22);text-decoration:none}
+.post-other a:hover{text-decoration:underline}

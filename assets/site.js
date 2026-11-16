@@ -176,8 +176,22 @@ function renderContact(){
   document.getElementById("socials").innerHTML = SITE.socials.map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="${esc(s.label)}">${esc(s.label)}</a>`).join("");
 }
 
+/* Articoli del blog tradotti: ogni lingua ha la sua pagina */
+const POST_LANG = document.body.dataset.postLang || "";
+const POST_OTHER = {it:"🇮🇹 Questo articolo è disponibile anche in italiano →", de:"🇩🇪 Diesen Artikel gibt es auch auf Deutsch →",
+  en:"🇬🇧 This article is also available in English →", pl:"🇵🇱 Ten artykuł jest dostępny także po polsku →", es:"🇪🇸 Este artículo también está en español →"};
+function postAlt(l){ const a = window.POST_ALTS || {}; return (PAGE==="post" && l!==POST_LANG && a[l]) ? a[l] + ".html" : ""; }
+function blogLangFilter(){
+  if(PAGE!=="blog") return;
+  const has = document.querySelector('[data-bl="'+lang+'"]');
+  const b = document.querySelector('[data-blf="'+(has?lang:"all")+'"]'); if(b) b.click();
+}
+
 function applyLang(){
-  document.documentElement.lang = lang;
+  document.documentElement.lang = POST_LANG || lang;
+  const po = document.getElementById("postOther");
+  if(po){ const a = postAlt(lang); po.style.display = a ? "" : "none"; po.innerHTML = a ? `<a href="${esc(a)}">${POST_OTHER[lang]}</a>` : ""; }
+  blogLangFilter();
   if(PAGE!=="home" && t("pt_"+PAGE)) document.title = t("pt_"+PAGE) + " · Włoski z Dominiką";
   document.querySelectorAll("[data-i]").forEach(el=>{ el.textContent = t(el.dataset.i); });
   document.getElementById("langBtns").innerHTML = LANGS.map(l=>`<button data-lang="${l}">${l.toUpperCase()}</button>`).join("");
@@ -192,7 +206,7 @@ async function renderBlog(){
   if (!BLOG) { try { BLOG = (await fetch(ROOT + "content/blog-index.json?v=" + Date.now()).then(r => r.json())).items || []; } catch(e) { BLOG = []; } }
   const sec = document.getElementById("blog"); if (sec) sec.style.display = BLOG.length ? "" : "none";
   const mine = BLOG.filter(p => p.lang === lang), rest = BLOG.filter(p => p.lang !== lang);
-  box.innerHTML = mine.concat(rest).slice(0, 3).map(p => `<article class="card"><a href="${ROOT}blog/${esc(p.slug)}.html" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;height:100%">
+  box.innerHTML = (mine.length ? mine : rest).slice(0, 3).map(p => `<article class="card"><a href="${ROOT}blog/${esc(p.slug)}.html" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;height:100%">
     ${slot(p.cover ? ROOT + p.cover : "", p.cover_alt || p.title)}
     <div class="card-body"><div class="meta"><span class="chip">${esc(p.category || "Blog")}</span><span class="chip">${esc(p.date_txt || p.date)}</span></div>
     <h3>${esc(p.title)}</h3><p class="clamp">${esc(p.description)}</p><div class="card-foot"><span class="link">${t("read_more")}</span></div></div></a></article>`).join("");
@@ -213,7 +227,9 @@ document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeLB(); });
 function ytId(url){ const m=String(url||"").match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/); return m?m[1]:null; }
 
 document.addEventListener("click", e=>{
-  const lb_ = e.target.closest("[data-lang]"); if(lb_){ lang=lb_.dataset.lang; try{localStorage.setItem("wzd-lang",lang)}catch(_){}; applyLang(); return; }
+  const lb_ = e.target.closest("[data-lang]"); if(lb_){ lang=lb_.dataset.lang; try{localStorage.setItem("wzd-lang",lang)}catch(_){};
+    const alt = postAlt(lang); if(alt){ location.href = alt; return; }
+    applyLang(); return; }
   const hf = e.target.closest("[data-hf]"); if(hf){ hFilter=hf.dataset.hf; renderHouses(); return; }
   const ef = e.target.closest("[data-ef]"); if(ef){ eFilter=ef.dataset.ef; renderExcursions(); return; }
   const th = e.target.closest("[data-mg]");

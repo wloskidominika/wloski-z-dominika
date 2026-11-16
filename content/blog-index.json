@@ -1,6 +1,39 @@
 {
  "items": [
   {
+   "slug": "tropea-sehenswuerdigkeiten",
+   "title": "Tropea Sehenswürdigkeiten: 7 Orte, die Sie sehen müssen",
+   "description": "Tropea Sehenswürdigkeiten für ein paar Tage: Altstadt, Santa Maria dell'Isola, Strände unter dem Felsen, Sonnenuntergänge und Küche. Tipps von Einheimischen.",
+   "lang": "de",
+   "date": "2026-11-16",
+   "date_txt": "16 Nov 2026",
+   "cover": "media/index-cs-1.jpg",
+   "cover_alt": "Tropea von oben mit Strand und türkisfarbenem Meer",
+   "category": "Reiseführer"
+  },
+  {
+   "slug": "co-zobaczyc-w-tropei",
+   "title": "Co zobaczyć w Tropei: 7 miejsc, których nie można pominąć",
+   "description": "Co zobaczyć w Tropei w kilka dni: stare miasto, Santa Maria dell'Isola, plaże pod skałą, zachody słońca i kuchnia. Przewodnik od osób, które tu mieszkają.",
+   "lang": "pl",
+   "date": "2026-11-16",
+   "date_txt": "16 lis 2026",
+   "cover": "media/index-cs-1.jpg",
+   "cover_alt": "Tropea z lotu ptaka z plażą i turkusowym morzem",
+   "category": "Przewodniki"
+  },
+  {
+   "slug": "que-ver-en-tropea",
+   "title": "Qué ver en Tropea: 7 lugares imprescindibles",
+   "description": "Qué ver en Tropea en pocos días: casco antiguo, Santa Maria dell'Isola, playas bajo el acantilado, atardeceres y cocina. La guía de quien vive aquí.",
+   "lang": "es",
+   "date": "2026-11-16",
+   "date_txt": "16 nov 2026",
+   "cover": "media/index-cs-1.jpg",
+   "cover_alt": "Tropea vista desde arriba con la playa y el mar turquesa",
+   "category": "Guías"
+  },
+  {
    "slug": "cosa-vedere-a-tropea",
    "title": "Cosa vedere a Tropea: 7 tappe da non perdere",
    "description": "Cosa vedere a Tropea in pochi giorni: centro storico, Santa Maria dell'Isola, spiagge sotto la rupe, tramonti e cucina. La guida di chi vive qui.",
@@ -10,6 +43,17 @@
    "cover": "media/index-cs-1.jpg",
    "cover_alt": "Tropea vista dall'alto con la spiaggia e il mare turchese",
    "category": "Guide"
+  },
+  {
+   "slug": "what-to-see-in-tropea",
+   "title": "What to see in Tropea: 7 places not to miss",
+   "description": "What to see in Tropea in a few days: the old town, Santa Maria dell'Isola, the beaches below the cliff, sunsets and food. A guide from people who live here.",
+   "lang": "en",
+   "date": "2026-11-16",
+   "date_txt": "16 Nov 2026",
+   "cover": "media/index-cs-1.jpg",
+   "cover_alt": "Aerial view of Tropea with the beach and turquoise sea",
+   "category": "Guides"
   },
   {
    "slug": "come-arrivare-a-tropea-dall-aeroporto-di-lamezia",
@@ -23,6 +67,50 @@
    "category": "Informazioni pratiche"
   },
   {
+   "slug": "jak-dojechac-do-tropei-z-lotniska-lamezia",
+   "title": "Jak dojechać do Tropei z lotniska Lamezia Terme",
+   "description": "Jak dojechać do Tropei z lotniska Lamezia Terme: prywatny transfer, taksówka, wynajem auta lub pociąg. Czas dojazdu, zalety i praktyczne porady.",
+   "lang": "pl",
+   "date": "2026-11-15",
+   "date_txt": "15 lis 2026",
+   "cover": "media/transfert-aeroportuali-1.jpg",
+   "cover_alt": "Samochód z kierowcą na transfer z Lamezia Terme do Tropei",
+   "category": "Praktyczne informacje"
+  },
+  {
+   "slug": "como-llegar-a-tropea-desde-el-aeropuerto-de-lamezia",
+   "title": "Cómo llegar a Tropea desde el aeropuerto de Lamezia",
+   "description": "Cómo llegar a Tropea desde el aeropuerto de Lamezia Terme: traslado privado, taxi, coche de alquiler o tren. Tiempos, ventajas y consejos prácticos.",
+   "lang": "es",
+   "date": "2026-11-15",
+   "date_txt": "15 nov 2026",
+   "cover": "media/transfert-aeroportuali-1.jpg",
+   "cover_alt": "Coche con conductor para el traslado de Lamezia Terme a Tropea",
+   "category": "Información práctica"
+  },
+  {
+   "slug": "von-lamezia-nach-tropea",
+   "title": "Vom Flughafen Lamezia Terme nach Tropea: alle Optionen",
+   "description": "Vom Flughafen Lamezia nach Tropea: privater Transfer, Taxi, Mietwagen oder Zug. Fahrzeiten, Vor- und Nachteile und praktische Tipps für Ihre Anreise.",
+   "lang": "de",
+   "date": "2026-11-15",
+   "date_txt": "15 Nov 2026",
+   "cover": "media/transfert-aeroportuali-1.jpg",
+   "cover_alt": "Auto mit Fahrer für den Transfer von Lamezia Terme nach Tropea",
+   "category": "Praktische Infos"
+  },
+  {
+   "slug": "how-to-get-to-tropea-from-lamezia-airport",
+   "title": "How to get to Tropea from Lamezia Terme airport",
+   "description": "How to get to Tropea from Lamezia Terme airport: private transfer, taxi, rental car or train. Travel times, pros and cons and practical tips.",
+   "lang": "en",
+   "date": "2026-11-15",
+   "date_txt": "15 Nov 2026",
+   "cover": "media/transfert-aeroportuali-1.jpg",
+   "cover_alt": "Car with driver for the transfer from Lamezia Terme to Tropea",
+   "category": "Practical info"
+  },
+  {
    "slug": "spiagge-vicino-a-tropea-e-capo-vaticano",
    "title": "Spiagge vicino a Tropea e Capo Vaticano: dove andare",
    "description": "Le spiagge vicino a Tropea e Capo Vaticano: sotto la rupe del centro, le calette di Capo Vaticano e Torre Ruffa. Consigli per goderle al meglio.",
@@ -32,6 +120,72 @@
    "cover": "media/tour-barca-tropea-capo-vaticano-1.jpg",
    "cover_alt": "Mare turchese e barche davanti a Tropea",
    "category": "Guide"
+  },
+  {
+   "slug": "straende-bei-tropea-und-capo-vaticano",
+   "title": "Strände bei Tropea und Capo Vaticano: wohin?",
+   "description": "Die schönsten Strände bei Tropea und Capo Vaticano: unter dem Felsen der Altstadt, die Buchten von Capo Vaticano und Torre Ruffa. Tipps für Ihren Strandtag.",
+   "lang": "de",
+   "date": "2026-11-14",
+   "date_txt": "14 Nov 2026",
+   "cover": "media/tour-barca-tropea-capo-vaticano-1.jpg",
+   "cover_alt": "Türkisfarbenes Meer und Boote vor Tropea",
+   "category": "Reiseführer"
+  },
+  {
+   "slug": "beaches-near-tropea-and-capo-vaticano",
+   "title": "Beaches near Tropea and Capo Vaticano: where to go",
+   "description": "The best beaches near Tropea and Capo Vaticano: below the old town cliff, the coves of Capo Vaticano and Torre Ruffa. Tips to enjoy them at their best.",
+   "lang": "en",
+   "date": "2026-11-14",
+   "date_txt": "14 Nov 2026",
+   "cover": "media/tour-barca-tropea-capo-vaticano-1.jpg",
+   "cover_alt": "Turquoise sea and boats off Tropea",
+   "category": "Guides"
+  },
+  {
+   "slug": "playas-cerca-de-tropea-y-capo-vaticano",
+   "title": "Playas cerca de Tropea y Capo Vaticano: dónde ir",
+   "description": "Las playas cerca de Tropea y Capo Vaticano: bajo el acantilado del centro, las calas de Capo Vaticano y Torre Ruffa. Consejos para disfrutarlas al máximo.",
+   "lang": "es",
+   "date": "2026-11-14",
+   "date_txt": "14 nov 2026",
+   "cover": "media/tour-barca-tropea-capo-vaticano-1.jpg",
+   "cover_alt": "Mar turquesa y barcos frente a Tropea",
+   "category": "Guías"
+  },
+  {
+   "slug": "plaze-w-poblizu-tropei-i-capo-vaticano",
+   "title": "Plaże w pobliżu Tropei i Capo Vaticano: gdzie jechać",
+   "description": "Najpiękniejsze plaże w pobliżu Tropei i Capo Vaticano: pod skałą starego miasta, zatoczki Capo Vaticano i Torre Ruffa. Porady, jak najlepiej z nich korzystać.",
+   "lang": "pl",
+   "date": "2026-11-14",
+   "date_txt": "14 lis 2026",
+   "cover": "media/tour-barca-tropea-capo-vaticano-1.jpg",
+   "cover_alt": "Turkusowe morze i łodzie przed Tropeą",
+   "category": "Przewodniki"
+  },
+  {
+   "slug": "liparische-inseln-ab-tropea",
+   "title": "Liparische Inseln ab Tropea: so planen Sie den Ausflug",
+   "description": "Tagesausflug zu den Liparischen Inseln ab Tropea: Stromboli, Lipari, Vulcano und Panarea. Zeiten, Preise, was mitnehmen und welches Programm passt.",
+   "lang": "de",
+   "date": "2026-11-13",
+   "date_txt": "13 Nov 2026",
+   "cover": "media/mini-crociere-isole-eolie-1.jpg",
+   "cover_alt": "Ausflugsschiff zu den Liparischen Inseln ab Tropea",
+   "category": "Ausflüge"
+  },
+  {
+   "slug": "islas-eolias-desde-tropea",
+   "title": "Islas Eolias desde Tropea: cómo organizar la excursión",
+   "description": "Excursión de un día a las Islas Eolias desde Tropea: Stromboli, Lipari, Vulcano y Panarea. Horarios, precios, qué llevar y cómo elegir el programa ideal.",
+   "lang": "es",
+   "date": "2026-11-13",
+   "date_txt": "13 nov 2026",
+   "cover": "media/mini-crociere-isole-eolie-1.jpg",
+   "cover_alt": "Barco hacia las Islas Eolias saliendo de Tropea",
+   "category": "Excursiones"
   },
   {
    "slug": "isole-eolie-da-tropea",
@@ -45,6 +199,28 @@
    "category": "Escursioni"
   },
   {
+   "slug": "wyspy-liparyjskie-z-tropei",
+   "title": "Wyspy Liparyjskie z Tropei: jak zorganizować wycieczkę",
+   "description": "Jednodniowa wycieczka na Wyspy Liparyjskie z Tropei: Stromboli, Lipari, Vulcano i Panarea. Godziny, ceny, co zabrać i jak wybrać odpowiedni program.",
+   "lang": "pl",
+   "date": "2026-11-13",
+   "date_txt": "13 lis 2026",
+   "cover": "media/mini-crociere-isole-eolie-1.jpg",
+   "cover_alt": "Statek na Wyspy Liparyjskie wypływający z Tropei",
+   "category": "Wycieczki"
+  },
+  {
+   "slug": "aeolian-islands-from-tropea",
+   "title": "Aeolian Islands from Tropea: how to plan the trip",
+   "description": "A day trip to the Aeolian Islands from Tropea: Stromboli, Lipari, Vulcano and Panarea. Times, prices, what to bring and how to choose the right tour.",
+   "lang": "en",
+   "date": "2026-11-13",
+   "date_txt": "13 Nov 2026",
+   "cover": "media/mini-crociere-isole-eolie-1.jpg",
+   "cover_alt": "Boat to the Aeolian Islands leaving from Tropea",
+   "category": "Excursions"
+  },
+  {
    "slug": "capo-vaticano-spiagge-e-calette",
    "title": "Capo Vaticano: spiagge, calette e panorami",
    "description": "Capo Vaticano, vicino a Tropea: le spiagge più belle come Grotticelle, il belvedere con vista sulle Eolie e il giro in barca tra le calette.",
@@ -54,6 +230,94 @@
    "cover": "media/appartamento-capo-mary-primo-piano-1.jpg",
    "cover_alt": "Tramonto sul mare di Capo Vaticano",
    "category": "Guide"
+  },
+  {
+   "slug": "capo-vaticano-straende-und-buchten",
+   "title": "Capo Vaticano: Strände, Buchten und Ausblicke",
+   "description": "Capo Vaticano bei Tropea: die schönsten Strände wie Grotticelle, der Aussichtspunkt mit Blick auf die Liparischen Inseln und die Bootstour durch die Buchten.",
+   "lang": "de",
+   "date": "2026-11-12",
+   "date_txt": "12 Nov 2026",
+   "cover": "media/appartamento-capo-mary-primo-piano-1.jpg",
+   "cover_alt": "Sonnenuntergang über dem Meer bei Capo Vaticano",
+   "category": "Reiseführer"
+  },
+  {
+   "slug": "capo-vaticano-playas-y-calas",
+   "title": "Capo Vaticano: playas, calas y vistas",
+   "description": "Capo Vaticano, cerca de Tropea: las playas más bonitas como Grotticelle, el mirador con vistas a las Islas Eolias y el paseo en barco entre calas.",
+   "lang": "es",
+   "date": "2026-11-12",
+   "date_txt": "12 nov 2026",
+   "cover": "media/appartamento-capo-mary-primo-piano-1.jpg",
+   "cover_alt": "Atardecer sobre el mar en Capo Vaticano",
+   "category": "Guías"
+  },
+  {
+   "slug": "capo-vaticano-beaches-and-coves",
+   "title": "Capo Vaticano: beaches, coves and views",
+   "description": "Capo Vaticano, near Tropea: the most beautiful beaches such as Grotticelle, the viewpoint facing the Aeolian Islands and a boat trip among the coves.",
+   "lang": "en",
+   "date": "2026-11-12",
+   "date_txt": "12 Nov 2026",
+   "cover": "media/appartamento-capo-mary-primo-piano-1.jpg",
+   "cover_alt": "Sunset over the sea at Capo Vaticano",
+   "category": "Guides"
+  },
+  {
+   "slug": "capo-vaticano-plaze-i-zatoczki",
+   "title": "Capo Vaticano: plaże, zatoczki i widoki",
+   "description": "Capo Vaticano koło Tropei: najpiękniejsze plaże, jak Grotticelle, punkt widokowy z widokiem na Wyspy Liparyjskie i rejs łodzią między zatoczkami.",
+   "lang": "pl",
+   "date": "2026-11-12",
+   "date_txt": "12 lis 2026",
+   "cover": "media/appartamento-capo-mary-primo-piano-1.jpg",
+   "cover_alt": "Zachód słońca nad morzem w Capo Vaticano",
+   "category": "Przewodniki"
+  },
+  {
+   "slug": "czerwona-cebula-z-tropei",
+   "title": "Czerwona cebula z Tropei: jak ją jeść i przepisy",
+   "description": "Czerwona cebula z Tropei: dlaczego jest taka słodka, jak przygotować sałatkę tropeańską i makaron z cebulą oraz gdzie jej spróbować na wakacjach.",
+   "lang": "pl",
+   "date": "2026-11-11",
+   "date_txt": "11 lis 2026",
+   "cover": "media/giornata-in-campagna-per-famiglie-1.jpg",
+   "cover_alt": "Stół z typowymi kalabryjskimi produktami na wsi koło Tropei",
+   "category": "Smaki"
+  },
+  {
+   "slug": "rote-zwiebel-aus-tropea",
+   "title": "Rote Zwiebel aus Tropea: Genuss und Rezepte",
+   "description": "Die rote Zwiebel aus Tropea: warum sie so süß ist, wie man den Tropea-Salat und Pasta mit Zwiebeln zubereitet und wo man sie im Urlaub probieren kann.",
+   "lang": "de",
+   "date": "2026-11-11",
+   "date_txt": "11 Nov 2026",
+   "cover": "media/giornata-in-campagna-per-famiglie-1.jpg",
+   "cover_alt": "Tisch mit typisch kalabrischen Produkten auf dem Land bei Tropea",
+   "category": "Genuss"
+  },
+  {
+   "slug": "cebolla-roja-de-tropea",
+   "title": "Cebolla roja de Tropea: cómo disfrutarla y recetas",
+   "description": "La cebolla roja de Tropea: por qué es tan dulce, cómo preparar la ensalada tropeana y la pasta con cebolla, y dónde probarla en tus vacaciones.",
+   "lang": "es",
+   "date": "2026-11-11",
+   "date_txt": "11 nov 2026",
+   "cover": "media/giornata-in-campagna-per-famiglie-1.jpg",
+   "cover_alt": "Mesa con productos típicos calabreses en el campo cerca de Tropea",
+   "category": "Sabores"
+  },
+  {
+   "slug": "tropea-red-onion",
+   "title": "Tropea red onion: how to enjoy it, with recipes",
+   "description": "The Tropea red onion: why it is so sweet, how to make Tropea salad and pasta with onions, and where to taste it on holiday in Calabria.",
+   "lang": "en",
+   "date": "2026-11-11",
+   "date_txt": "11 Nov 2026",
+   "cover": "media/giornata-in-campagna-per-famiglie-1.jpg",
+   "cover_alt": "Table with typical Calabrian produce in the countryside near Tropea",
+   "category": "Food"
   },
   {
    "slug": "cipolla-rossa-di-tropea",
