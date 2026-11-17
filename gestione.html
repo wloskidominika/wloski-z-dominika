@@ -125,7 +125,9 @@
             <label>Titolo<input name="title" required></label>
             <label>Corso<select name="course"><option value="it">🇮🇹 Italiano</option><option value="pl">🇵🇱 Polacco</option></select></label>
           </div>
-          <label>👤 Per chi?<select name="student_id" id="mStudent"><option value="">Tutti gli iscritti al corso</option></select></label>
+          <label>👤 Per chi? — scrivi e-mail oppure nome e cognome dello studente <small class="muted">(vuoto = tutti gli iscritti al corso)</small><input name="for_email" id="mStudent" type="text" list="peopleList" autocomplete="off" placeholder="es. marco@gmail.com"></label>
+          <p class="muted" style="margin:-6px 0 4px;font-size:.88rem">Se la persona non ha ancora l'accesso, lo creo io in automatico e ti preparo il messaggio con e-mail e password da mandarle.</p>
+          <datalist id="peopleList"></datalist>
           <div class="row">
             <label>Livello (facoltativo)<input name="level" placeholder="es. A1, A2, B1…"></label>
             <label>Tipo<select name="kind" id="mKind"><option value="file">📄 File (PDF, Word, audio…)</option><option value="video">▶️ Video YouTube</option><option value="link">🔗 Link a un sito</option><option value="text">✍️ Testo / esercizio</option></select></label>
@@ -166,7 +168,7 @@
         <p class="muted" style="margin-bottom:14px">Contratto, ricevuta, istruzioni per l'arrivo… Lo vede <b>solo</b> la persona che scegli, nella sua Area riservata → «Documenti».</p>
         <form id="dForm">
           <div class="row">
-            <label>👤 Per chi?<select name="user_id" id="dUser" required></select></label>
+            <label>👤 Per chi? — scrivi e-mail oppure nome e cognome del cliente<input name="for_email" id="dUser" type="text" list="peopleList" autocomplete="off" required placeholder="es. hans@gmail.com"></label>
             <label>Titolo<input name="title" required placeholder="es. Contratto Villa Mimosa 12–19 luglio"></label>
           </div>
           <div class="row">
@@ -374,8 +376,7 @@ async function loadUsers(){
 }
 function fillStudentSelects(){
   const opts=users.filter(u=>u.role!=="admin").map(u=>`<option value="${u.id}">${esc(u.full_name||u.email)}${u.email?" – "+esc(u.email):""}</option>`).join("");
-  const ms=$("#mStudent"), cur=ms.value; ms.innerHTML='<option value="">Tutti gli iscritti al corso</option>'+opts; ms.value=cur;
-  const du=$("#dUser"), cu=du.value; du.innerHTML='<option value="">— scegli la persona —</option>'+opts; du.value=cu;
+  $("#peopleList").innerHTML=users.filter(u=>u.role!=="admin"&&u.email).map(u=>`<option value="${esc(u.email)}">${esc(u.full_name||"")}</option>`+(u.full_name?`<option value="${esc(u.full_name)}">${esc(u.email)}</option>`:"")).join("");
   const df=$("#dFilter"), cdf=df.value; df.innerHTML='<option value="all">Tutti</option>'+opts; df.value=cdf||"all";
   const mf=$("#mFilter"), cf=mf.value; mf.innerHTML='<option value="all">Tutti</option><option value="shared">Solo quelli per tutto il corso</option>'+opts; mf.value=cf||"all";
 }
@@ -444,12 +445,40 @@ function updateMKind(){
   $$("[data-mk]").forEach(el=>el.classList.toggle("hidden",!el.dataset.mk.split(" ").includes(k)));
 }
 $("#mKind").onchange=updateMKind;
+
+/* «Per chi?»: trova la persona dall'e-mail; se non esiste crea l'accesso in automatico */
+async function personByEmail(email, courses){
+  const txt=String(email||"").trim(), m=txt.match(/\S+@\S+\.\S+/), em=m?m[0].toLowerCase():"";
+  const norm=s=>String(s||"").toLowerCase().replace(/\s+/g," ").trim();
+  let u=em?users.find(x=>(x.email||"").toLowerCase()===em):null;
+  if(!u && !em){
+    const found=users.filter(x=>x.role!=="admin" && norm(x.full_name)===norm(txt));
+    if(found.length===1) u=found[0];
+    else if(found.length>1) throw new Error("Ci sono più persone con questo nome: scrivi la loro e-mail.");
+    else throw new Error("Non trovo «"+txt+"». Se è una persona nuova scrivi la sua e-mail: creo io l'accesso.");
+  }
+  if(u){
+    const add=(courses||[]).filter(c=>!(u.courses||[]).includes(c));
+    if(add.length){ const nc=(u.courses||[]).concat(add); await sb.from("profiles").update({courses:nc}).eq("id",u.id); u.courses=nc; }
+    return {u, pw:null};
+  }
+  const pw=genPassword(), name=em.split("@")[0].replace(/[._\d]+/g," ").trim().replace(/\b\w/g,c=>c.toUpperCase());
+  const {data:id,error}=await sb.rpc("admin_create_user",{p_email:em,p_password:pw,p_full_name:name,p_phone:null,p_lang:"it",p_courses:courses||[]});
+  if(error) throw new Error(error.message);
+  await loadUsers(); stats();
+  return {u:users.find(x=>x.id===id)||{id,email:em,full_name:name}, pw};
+}
 $("#mFilter").onchange=renderMaterials;
 $("#mForm").addEventListener("submit",async e=>{
   e.preventDefault(); const f=e.target, k=f.kind.value, btn=$("#mSubmit"), msg=$("#mMsg");
   const row={title:f.title.value.trim(),course:f.course.value,level:f.level.value.trim()||null,kind:k,
     description:f.description.value.trim()||null,published:f.published.checked,url:null,file_path:null,body:null,
-    student_id:f.student_id.value||null};
+    student_id:null};
+  let who=null;
+  if(f.for_email.value.trim()){
+    try{ who=await personByEmail(f.for_email.value,[f.course.value]); }catch(err){ return show(msg,err.message,"err"); }
+    row.student_id=who.u.id;
+  }
   if(k==="file"){
     const file=f.file.files[0]; if(!file) return show(msg,"Scegli un file.","err");
     btn.disabled=true; btn.textContent="Caricamento…";
@@ -464,8 +493,13 @@ $("#mForm").addEventListener("submit",async e=>{
   const {error}=await sb.from("materials").insert(row);
   btn.disabled=false; btn.textContent="Aggiungi";
   if(error) return show(msg,"Errore: "+error.message,"err");
-  const keep=f.student_id.value, keepC=f.course.value; f.reset(); f.student_id.value=keep; f.course.value=keepC; updateMKind();
-  show(msg,"Materiale aggiunto! "+(row.student_id?"Lo vede solo "+(users.find(u=>u.id===row.student_id)||{}).full_name+".":"Lo vedono tutti gli iscritti al corso."),"ok"); loadMaterials();
+  const keep=f.for_email.value, keepC=f.course.value; f.reset(); f.for_email.value=keep; f.course.value=keepC; updateMKind();
+  show(msg,"Materiale aggiunto! "+(who?"Lo vede solo "+(who.u.email)+".":"Lo vedono tutti gli iscritti al corso."),"ok");
+  if(who){ const u=who.u, first=(u.full_name||"").split(" ")[0];
+    const text=who.pw?credMsg(first,u.email,who.pw,"it")+`\n\nHo caricato «${row.title}»: lo trovi in «Materiali».`
+                     :`Ciao ${first}! Ti ho caricato «${row.title}» nella tua Area riservata: ${location.origin}/area.html → Materiali.`;
+    $("#mMsg").insertAdjacentHTML("beforeend",(who.pw?"<p><b>Ho creato l'accesso per questa persona.</b> Mandale i dati:</p>":"")+sendButtons(text,u.email,u.phone)); }
+  loadMaterials();
 });
 
 /* ---------- documenti clienti ---------- */
@@ -494,8 +528,9 @@ function renderDocuments(){
 $("#dFilter").onchange=renderDocuments;
 $("#dForm").addEventListener("submit",async e=>{
   e.preventDefault(); const f=e.target, msg=$("#dMsg"), btn=$("#dSubmit");
-  const row={user_id:f.user_id.value,title:f.title.value.trim(),description:f.description.value.trim()||null,visible:f.visible.checked,file_path:null,url:f.url.value.trim()||null};
-  if(!row.user_id) return show(msg,"Scegli la persona.","err");
+  let who;
+  try{ who=await personByEmail(f.for_email.value,[]); }catch(err){ return show(msg,err.message,"err"); }
+  const row={user_id:who.u.id,title:f.title.value.trim(),description:f.description.value.trim()||null,visible:f.visible.checked,file_path:null,url:f.url.value.trim()||null};
   const file=f.file.files[0];
   if(!file && !row.url) return show(msg,"Scegli un file oppure scrivi un link.","err");
   btn.disabled=true; btn.textContent="Caricamento…";
@@ -508,11 +543,12 @@ $("#dForm").addEventListener("submit",async e=>{
   const {error}=await sb.from("documents").insert(row);
   btn.disabled=false; btn.textContent="Carica";
   if(error) return show(msg,"Errore: "+error.message,"err");
-  const u=users.find(x=>x.id===row.user_id)||{};
-  const keep=row.user_id; f.reset(); f.user_id.value=keep;
-  show(msg,`Documento caricato! Lo vede solo ${u.full_name||u.email}.`,"ok");
-  const text=`Ciao ${(u.full_name||"").split(" ")[0]}! Ti ho caricato «${row.title}» nella tua Area riservata: ${location.origin}/area.html → Documenti.`;
-  $("#dMsg").insertAdjacentHTML("beforeend",sendButtons(text,u.email,u.phone));
+  const u=who.u, first=(u.full_name||"").split(" ")[0];
+  const keep=f.for_email.value; f.reset(); f.for_email.value=keep;
+  show(msg,`Documento caricato! Lo vede solo ${u.email}.`,"ok");
+  const text=who.pw?credMsg(first,u.email,who.pw,"it")+`\n\nTi ho caricato «${row.title}»: lo trovi in «Documenti».`
+                   :`Ciao ${first}! Ti ho caricato «${row.title}» nella tua Area riservata: ${location.origin}/area.html → Documenti.`;
+  $("#dMsg").insertAdjacentHTML("beforeend",(who.pw?"<p><b>Ho creato l'accesso per questa persona.</b> Mandale i dati:</p>":"")+sendButtons(text,u.email,u.phone));
   loadDocuments();
 });
 
@@ -601,13 +637,13 @@ document.addEventListener("click",async e=>{
   if(uEl && e.target.closest("[data-mat-u]")){
     const id=uEl.dataset.u, u=users.find(x=>x.id===id);
     $$("[data-tab]").forEach(b=>b.classList.toggle("on",b.dataset.tab==="materials")); $$("[data-pane]").forEach(p=>p.classList.toggle("hidden",p.dataset.pane!=="materials"));
-    $("#mStudent").value=id; $("#mFilter").value=id; if((u.courses||[]).length) $("#mForm").course.value=u.courses[0];
+    $("#mStudent").value=u.email||""; $("#mFilter").value=id; if((u.courses||[]).length) $("#mForm").course.value=u.courses[0];
     renderMaterials(); window.scrollTo({top:0,behavior:"smooth"}); return;
   }
   if(uEl && e.target.closest("[data-doc-u]")){
     const id=uEl.dataset.u;
     $$("[data-tab]").forEach(b=>b.classList.toggle("on",b.dataset.tab==="documents")); $$("[data-pane]").forEach(p=>p.classList.toggle("hidden",p.dataset.pane!=="documents"));
-    $("#dUser").value=id; $("#dFilter").value=id; renderDocuments(); window.scrollTo({top:0,behavior:"smooth"}); return;
+    $("#dUser").value=(users.find(x=>x.id===id)||{}).email||""; $("#dFilter").value=id; renderDocuments(); window.scrollTo({top:0,behavior:"smooth"}); return;
   }
   const dEl=e.target.closest("[data-d]");
   if(dEl){
