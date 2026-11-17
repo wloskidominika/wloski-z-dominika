@@ -428,4 +428,42 @@ document.getElementById("form").addEventListener("submit", async e=>{
 
 document.getElementById("yr").textContent=new Date().getFullYear();
 loadLook().finally(hydrateStaticSlots);
-loadContent().then(applyLang).catch(e=>console.error("Contenuti non caricati",e));
+
+/* Statistiche anonime delle visite (📊 Visite nella gestione).
+   Niente cookie, niente indirizzo IP, niente dati personali: solo pagina, lingua,
+   Paese stimato dal fuso orario del dispositivo, tipo di dispositivo e provenienza. */
+const TZ_COUNTRY = {"Europe/Rome":"IT","Europe/Vatican":"IT","Europe/San_Marino":"IT","Europe/Warsaw":"PL","Europe/Berlin":"DE","Europe/Busingen":"DE",
+ "Europe/Vienna":"AT","Europe/Zurich":"CH","Europe/London":"GB","Europe/Dublin":"IE","Europe/Paris":"FR","Europe/Madrid":"ES","Atlantic/Canary":"ES",
+ "Europe/Lisbon":"PT","Europe/Amsterdam":"NL","Europe/Brussels":"BE","Europe/Luxembourg":"LU","Europe/Prague":"CZ","Europe/Bratislava":"SK",
+ "Europe/Budapest":"HU","Europe/Ljubljana":"SI","Europe/Zagreb":"HR","Europe/Belgrade":"RS","Europe/Bucharest":"RO","Europe/Sofia":"BG","Europe/Athens":"GR",
+ "Europe/Stockholm":"SE","Europe/Oslo":"NO","Europe/Copenhagen":"DK","Europe/Helsinki":"FI","Europe/Tallinn":"EE","Europe/Riga":"LV","Europe/Vilnius":"LT",
+ "Europe/Kyiv":"UA","Europe/Kiev":"UA","Europe/Minsk":"BY","Europe/Moscow":"RU","Europe/Istanbul":"TR","Europe/Malta":"MT","Asia/Nicosia":"CY",
+ "America/New_York":"US","America/Chicago":"US","America/Denver":"US","America/Los_Angeles":"US","America/Phoenix":"US","America/Anchorage":"US",
+ "America/Detroit":"US","America/Indiana/Indianapolis":"US","Pacific/Honolulu":"US","America/Toronto":"CA","America/Vancouver":"CA","America/Edmonton":"CA",
+ "America/Winnipeg":"CA","America/Halifax":"CA","America/Mexico_City":"MX","America/Sao_Paulo":"BR","America/Argentina/Buenos_Aires":"AR",
+ "Australia/Sydney":"AU","Australia/Melbourne":"AU","Australia/Brisbane":"AU","Australia/Perth":"AU","Pacific/Auckland":"NZ","Asia/Tokyo":"JP",
+ "Asia/Shanghai":"CN","Asia/Kolkata":"IN","Asia/Dubai":"AE","Asia/Jerusalem":"IL","Africa/Johannesburg":"ZA"};
+function trackVisit(){
+  try{
+    const cfg=window.WZD_CONFIG||{};
+    if(!cfg.SUPABASE_URL || /INSERISCI/.test(cfg.SUPABASE_URL)) return;
+    if(navigator.webdriver || /^(localhost|127\.)/.test(location.hostname)) return;
+    try{ if(localStorage.getItem("wzd-notrack")) return; }catch(_){}
+    const ua=navigator.userAgent||"", tz=(Intl.DateTimeFormat().resolvedOptions().timeZone||"").slice(0,60);
+    const bl=(navigator.language||"").slice(0,20), region=(bl.split("-")[1]||"").toUpperCase();
+    const tablet=/iPad|Tablet|PlayBook|Silk/i.test(ua)||(/Android/i.test(ua)&&!/Mobile/i.test(ua))||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1);
+    const device=tablet?"tablet":/Mobi|iPhone|iPod|Android/i.test(ua)?"mobile":"desktop";
+    const os=/Windows/.test(ua)?"Windows":/iPhone|iPad|iPod/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1)?"iOS":/Mac OS X/.test(ua)?"macOS":/Android/.test(ua)?"Android":/Linux/.test(ua)?"Linux":"altro";
+    const browser=/Edg\//.test(ua)?"Edge":/OPR\/|Opera/.test(ua)?"Opera":/SamsungBrowser/.test(ua)?"Samsung":/Firefox|FxiOS/.test(ua)?"Firefox":/Chrome|CriOS/.test(ua)?"Chrome":/Safari/.test(ua)?"Safari":"altro";
+    let source="", entry=true;
+    try{ const r=document.referrer?new URL(document.referrer):null;
+      if(r && r.hostname===location.hostname) entry=false; else if(r) source=r.hostname.replace(/^www\./,"").slice(0,100); }catch(_){}
+    const q=new URLSearchParams(location.search); if(q.get("utm_source")) source=q.get("utm_source").slice(0,100);
+    const row={page:location.pathname.slice(0,200),site_lang:lang,browser_lang:bl,country:TZ_COUNTRY[tz]||(/^[A-Z]{2}$/.test(region)?region:null),
+      tz,device,os,browser,source:source||null,entry};
+    fetch(cfg.SUPABASE_URL.replace(/\/$/,"")+"/rest/v1/visits",{method:"POST",keepalive:true,
+      headers:{"apikey":cfg.SUPABASE_ANON_KEY,"Authorization":"Bearer "+cfg.SUPABASE_ANON_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},
+      body:JSON.stringify(row)}).catch(()=>{});
+  }catch(_){}
+}
+loadContent().then(applyLang).catch(e=>console.error("Contenuti non caricati",e)).finally(()=>setTimeout(trackVisit,300));

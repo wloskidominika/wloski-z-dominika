@@ -65,3 +65,13 @@ textarea{min-height:90px;resize:vertical}
 .badge{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--red);color:#fff;font-size:.72rem;margin-left:6px}
 table{width:100%;border-collapse:collapse}
 @media (max-width:640px){.row{grid-template-columns:1fr}.brand span{font-size:1rem}}
+
+/* 📊 visite */
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;margin-top:18px}
+.vcard{padding:20px 22px}.vcard h3{font-size:1.1rem;margin:0 0 12px}
+.vwide{grid-column:1/-1}
+.vrow{margin-bottom:9px}.vlab{display:flex;justify-content:space-between;gap:10px;font-size:.92rem}.vlab small{color:var(--muted,#7a6e66);font-weight:400}
+.vbar{height:7px;background:rgba(74,122,98,.15);border-radius:9px;overflow:hidden;margin-top:3px}.vbar i{display:block;height:100%;background:var(--green);border-radius:9px}
+.vchart{display:flex;align-items:flex-end;gap:2px;height:150px}.vchart div{flex:1;height:100%;display:flex;align-items:flex-end}
+.vchart i{display:block;width:100%;background:var(--red);border-radius:3px 3px 0 0;min-height:2px}
+.vaxis{display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted,#7a6e66);margin-top:4px}

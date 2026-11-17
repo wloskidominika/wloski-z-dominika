@@ -51,6 +51,7 @@
       <button data-tab="users">👥 Clienti e studenti</button>
       <button data-tab="materials">📚 Materiali corsi</button>
       <button data-tab="documents">📄 Documenti clienti</button>
+      <button data-tab="visits">📊 Visite al sito</button>
     </div>
 
     <!-- RICHIESTE DAL SITO -->
@@ -141,6 +142,23 @@
       <div class="toolbar"><label style="max-width:360px">Mostra i materiali di<select id="mFilter"><option value="all">Tutti</option><option value="shared">Solo quelli per tutto il corso</option></select></label></div>
       <div class="list" id="mList"></div>
     </div>
+    <!-- VISITE -->
+    <div data-pane="visits" class="hidden">
+      <div class="toolbar">
+        <div class="filters">
+          <select id="vRange"><option value="1">Oggi</option><option value="7">Ultimi 7 giorni</option><option value="30" selected>Ultimi 30 giorni</option><option value="90">Ultimi 3 mesi</option><option value="365">Ultimo anno</option></select>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-line btn-sm" id="vReload">↻ Aggiorna</button>
+          <button class="btn btn-line btn-sm" id="vMe"></button>
+        </div>
+      </div>
+      <p class="muted" style="margin-bottom:14px">Statistiche <b>anonime</b>: nessun cookie, nessun indirizzo IP, nessun nome. Il Paese è stimato dal fuso orario del dispositivo (es. un turista polacco già in Italia risulta 🇮🇹 ma con lingua del browser polacca).</p>
+      <div class="msg" id="vMsg" style="margin-bottom:12px"></div>
+      <div class="stats" id="vStats"></div>
+      <div class="vgrid" id="vGrid"></div>
+    </div>
+
     <!-- DOCUMENTI CLIENTI -->
     <div data-pane="documents" class="hidden">
       <div class="card" style="margin-bottom:24px">
@@ -202,7 +220,72 @@ let sb, bookings=[], users=[], materials=[], documents=[], armed=null;
 })();
 $("#logoutBtn").onclick=async()=>{ await sb.auth.signOut(); location.href="area.html"; };
 
-async function loadAll(){ await Promise.all([loadRequests(),loadBookings(),loadUsers(),loadMaterials(),loadDocuments()]); stats(); }
+async function loadAll(){ await Promise.all([loadRequests(),loadBookings(),loadUsers(),loadMaterials(),loadDocuments()]); stats(); loadVisits(); }
+
+/* ---------- 📊 visite ---------- */
+const CN={IT:"Italia",PL:"Polonia",DE:"Germania",AT:"Austria",CH:"Svizzera",GB:"Regno Unito",IE:"Irlanda",FR:"Francia",ES:"Spagna",PT:"Portogallo",NL:"Paesi Bassi",
+  BE:"Belgio",LU:"Lussemburgo",CZ:"Rep. Ceca",SK:"Slovacchia",HU:"Ungheria",SI:"Slovenia",HR:"Croazia",RS:"Serbia",RO:"Romania",BG:"Bulgaria",GR:"Grecia",
+  SE:"Svezia",NO:"Norvegia",DK:"Danimarca",FI:"Finlandia",EE:"Estonia",LV:"Lettonia",LT:"Lituania",UA:"Ucraina",BY:"Bielorussia",RU:"Russia",TR:"Turchia",
+  MT:"Malta",CY:"Cipro",US:"Stati Uniti",CA:"Canada",MX:"Messico",BR:"Brasile",AR:"Argentina",AU:"Australia",NZ:"Nuova Zelanda",JP:"Giappone",CN:"Cina",
+  IN:"India",AE:"Emirati Arabi",IL:"Israele",ZA:"Sudafrica"};
+const flag=c=>c&&/^[A-Z]{2}$/.test(c)?String.fromCodePoint(...[...c].map(x=>127397+x.charCodeAt(0))):"🌍";
+const LN={it:"🇮🇹 Italiano",pl:"🇵🇱 Polski",de:"🇩🇪 Deutsch",en:"🇬🇧 English",es:"🇪🇸 Español"};
+const DEV={mobile:"📱 Cellulare",tablet:"📲 Tablet",desktop:"💻 Computer"};
+function pageName(p){ p=(p||"/").replace(/\.html$/,"").replace(/^\/+/,"");
+  const M={"":"🏠 Home",index:"🏠 Home","case-vacanze":"Case vacanze","hotel-bb":"Hotel e B&B",escursioni:"Escursioni",esperienze:"Guida ed esperienze",transfer:"Transfer",
+    noleggio:"Noleggio auto/scooter/bici","noleggio-nautico":"Noleggio nautico","foto-e-video":"Foto e video",blog:"Blog",area:"Area riservata",privacy:"Privacy",servizi:"Servizi"};
+  if(M[p]!==undefined) return M[p];
+  if(p.startsWith("casa/")) return "🏡 "+p.slice(5).replace(/-/g," ");
+  if(p.startsWith("escursione/")) return "⛵ "+p.slice(11).replace(/-/g," ");
+  if(p.startsWith("blog/")) return "📝 "+p.slice(5).replace(/-/g," ");
+  return p; }
+function srcName(s){ if(!s) return "Diretto (link, WhatsApp, preferiti)"; s=s.toLowerCase();
+  if(s.includes("google")) return "Google"; if(s.includes("bing")) return "Bing"; if(s.includes("facebook")||s==="fb"||s.startsWith("m.facebook")||s.startsWith("l.facebook")) return "Facebook";
+  if(s.includes("instagram")) return "Instagram"; if(s.includes("tiktok")) return "TikTok"; if(s.includes("youtube")) return "YouTube";
+  if(s.includes("holidayscalabria")) return "holidayscalabria.com"; if(s.includes("whatsapp")) return "WhatsApp"; return s; }
+let visits=[];
+async function loadVisits(){
+  const days=+$("#vRange").value, since=new Date(); since.setHours(0,0,0,0); since.setDate(since.getDate()-(days-1));
+  const {data,error}=await sb.from("visits").select("created_at,page,site_lang,browser_lang,country,device,os,browser,source,entry")
+    .gte("created_at",since.toISOString()).order("created_at",{ascending:true}).limit(50000);
+  if(error) return show($("#vMsg"),"Errore: "+error.message+" — hai eseguito l'ultima versione di supabase/setup.sql?","err");
+  visits=data; renderVisits(days);
+}
+function count(arr,fn){ const m={}; arr.forEach(x=>{ const k=fn(x); if(k!==null&&k!==undefined) m[k]=(m[k]||0)+1; }); return Object.entries(m).sort((a,b)=>b[1]-a[1]); }
+function barList(title,rows,total,label){
+  if(!rows.length) return `<div class="card vcard"><h3>${title}</h3><p class="muted">Ancora nessun dato.</p></div>`;
+  return `<div class="card vcard"><h3>${title}</h3>${rows.slice(0,12).map(([k,n])=>{ const pc=Math.round(n/total*100);
+    return `<div class="vrow"><div class="vlab"><span>${label(k)}</span><b>${n} <small>(${pc}%)</small></b></div><div class="vbar"><i style="width:${Math.max(2,pc)}%"></i></div></div>`; }).join("")}</div>`;
+}
+function renderVisits(days){
+  const all=visits, ent=all.filter(v=>v.entry), base=ent.length?ent:all;
+  const mob=base.filter(v=>v.device!=="desktop").length;
+  const foreign=base.filter(v=>v.country&&v.country!=="IT").length;
+  $("#vStats").innerHTML=`<div class="stat"><b>${ent.length}</b><span>Visite</span></div>
+    <div class="stat"><b>${all.length}</b><span>Pagine viste</span></div>
+    <div class="stat"><b>${base.length?Math.round(mob/base.length*100):0}%</b><span>Da cellulare o tablet</span></div>
+    <div class="stat"><b>${base.length?Math.round(foreign/base.length*100):0}%</b><span>Dall'estero</span></div>`;
+  // grafico per giorno
+  const byDay={}; for(let i=0;i<days;i++){ const d=new Date(); d.setDate(d.getDate()-(days-1-i)); byDay[d.toISOString().slice(0,10)]=0; }
+  base.forEach(v=>{ const d=new Date(v.created_at); const k=new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10); if(k in byDay) byDay[k]++; });
+  const dk=Object.keys(byDay), mx=Math.max(1,...Object.values(byDay));
+  const chart=days>1?`<div class="card vcard vwide"><h3>📈 Visite giorno per giorno</h3><div class="vchart">${dk.map(k=>`<div title="${k.split("-").reverse().join("/")}: ${byDay[k]}"><i style="height:${byDay[k]/mx*100}%"></i></div>`).join("")}</div>
+    <div class="vaxis"><span>${dk[0].split("-").reverse().slice(0,2).join("/")}</span><span>oggi</span></div></div>`:"";
+  $("#vGrid").innerHTML=chart+
+    barList("🌍 Paese",count(base,v=>v.country||"?"),base.length,c=>c==="?"?"🌍 Non so":`${flag(c)} ${CN[c]||c}`)+
+    barList("📱 Dispositivo",count(base,v=>v.device),base.length,d=>DEV[d]||d)+
+    barList("🗣 Lingua scelta sul sito",count(all,v=>v.site_lang),all.length,l=>LN[l]||l)+
+    barList("🌐 Lingua del browser",count(base,v=>(v.browser_lang||"?").slice(0,2).toLowerCase()),base.length,l=>LN[l]||l.toUpperCase())+
+    barList("🔗 Da dove arrivano",count(ent,v=>srcName(v.source)),ent.length||1,s=>esc(s))+
+    barList("📄 Pagine più viste",count(all,v=>pageName(v.page)),all.length,p=>esc(p))+
+    barList("💻 Sistema",count(base,v=>v.os),base.length,o=>esc(o))+
+    barList("🧭 Browser",count(base,v=>v.browser),base.length,b=>esc(b));
+}
+function meBtn(){ let off=false; try{ off=!!localStorage.getItem("wzd-notrack"); }catch(_){}
+  $("#vMe").textContent=off?"✅ Le mie visite non vengono contate":"🙈 Non contare le mie visite (su questo dispositivo)"; }
+$("#vRange").onchange=loadVisits; $("#vReload").onclick=loadVisits;
+$("#vMe").onclick=()=>{ try{ localStorage.getItem("wzd-notrack")?localStorage.removeItem("wzd-notrack"):localStorage.setItem("wzd-notrack","1"); }catch(_){} meBtn(); };
+meBtn();
 
 /* ---------- richieste dal sito ---------- */
 const RST={new:"Nuova",answered:"Risposta",closed:"Archiviata"};

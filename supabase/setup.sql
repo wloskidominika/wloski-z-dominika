@@ -196,6 +196,35 @@ create policy "file documenti: cliente" on storage.objects for select using (
 );
 
 -- ---------------------------------------------------------------------
+--  STATISTICHE DELLE VISITE (anonime: niente cookie, niente IP, niente nomi)
+--  Ogni pagina vista = una riga. Le vede solo l'amministratrice (📊 Visite).
+-- ---------------------------------------------------------------------
+create table if not exists public.visits (
+  id         bigint generated always as identity primary key,
+  created_at timestamptz not null default now(),
+  page       text check (char_length(page) <= 200),
+  site_lang  text check (char_length(site_lang) <= 5),
+  browser_lang text check (char_length(browser_lang) <= 20),
+  country    text check (char_length(country) <= 2),
+  tz         text check (char_length(tz) <= 60),
+  device     text check (device in ('mobile','tablet','desktop')),
+  os         text check (char_length(os) <= 20),
+  browser    text check (char_length(browser) <= 20),
+  source     text check (char_length(source) <= 100),
+  entry      boolean not null default false
+);
+create index if not exists visits_created_idx on public.visits (created_at desc);
+alter table public.visits enable row level security;
+grant insert on public.visits to anon, authenticated;
+grant select, delete on public.visits to authenticated;
+drop policy if exists "visite: registra" on public.visits;
+drop policy if exists "visite: leggi"    on public.visits;
+drop policy if exists "visite: cancella" on public.visits;
+create policy "visite: registra" on public.visits for insert to anon, authenticated with check (true);
+create policy "visite: leggi"    on public.visits for select to authenticated using (public.is_admin());
+create policy "visite: cancella" on public.visits for delete to authenticated using (public.is_admin());
+
+-- ---------------------------------------------------------------------
 --  RICHIESTE DAL SITO (modulo «Scrivimi»): chiunque può inviarne una,
 --  solo l'amministratrice le legge (pagina gestione.html → 📩 Richieste)
 -- ---------------------------------------------------------------------
