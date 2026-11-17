@@ -407,7 +407,7 @@ document.getElementById("form").addEventListener("submit", async e=>{
   if(cfg.SUPABASE_URL && !/INSERISCI/.test(cfg.SUPABASE_URL)){
     try{
       const r=await fetch(cfg.SUPABASE_URL.replace(/\/$/,"")+"/rest/v1/requests",{method:"POST",
-        headers:{"apikey":cfg.SUPABASE_ANON_KEY,"Authorization":"Bearer "+cfg.SUPABASE_ANON_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},
+        headers:{"apikey":cfg.SUPABASE_ANON_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},
         body:JSON.stringify({name,email:mail||null,phone:phone||null,topic:topicTxt,message:msg||null,lang,page:location.pathname})});
       saved = saved || r.ok;
     }catch(_){}
@@ -462,7 +462,7 @@ function trackVisit(){
     const row={page:location.pathname.slice(0,200),site_lang:lang,browser_lang:bl,country:TZ_COUNTRY[tz]||(/^[A-Z]{2}$/.test(region)?region:null),
       tz,device,os,browser,source:source||null,entry};
     fetch(cfg.SUPABASE_URL.replace(/\/$/,"")+"/rest/v1/visits",{method:"POST",keepalive:true,
-      headers:{"apikey":cfg.SUPABASE_ANON_KEY,"Authorization":"Bearer "+cfg.SUPABASE_ANON_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},
+      headers:{"apikey":cfg.SUPABASE_ANON_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},
       body:JSON.stringify(row)}).catch(()=>{});
   }catch(_){}
 }
