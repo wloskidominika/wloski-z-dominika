@@ -65,6 +65,14 @@ window.seedSite = async function () {
         ["cin", "cir"].forEach(f => { if (!it[f] && b[f]) { it[f] = b[f]; changed = true; } }); });
       if (changed) await sb.from("site_content").update({ data: row.data, updated_at: new Date().toISOString() }).eq("key", k);
     }
+    /* correzione: le scritte del Transfer erano state sostituite per errore da quelle delle Traduzioni */
+    { const { data: row } = await sb.from("site_content").select("data").eq("key", "texts").maybeSingle();
+      const base = await fetch("/content/texts.json?v=" + Date.now()).then(r => r.json()).catch(() => null);
+      if (row && row.data && base) { let ch = false;
+        for (const l in base) { const d = row.data[l]; if (!d) continue;
+          if (d.tr_eyebrow && base[l].tl_eyebrow && d.tr_eyebrow === base[l].tl_eyebrow) {
+            ["tr_eyebrow", "tr_title", "tr_sub"].forEach(k => { d[k] = base[l][k]; }); ch = true; } }
+        if (ch) await sb.from("site_content").update({ data: row.data, updated_at: new Date().toISOString() }).eq("key", "texts"); } }
     const { count } = await sb.from("site_posts").select("slug", { count: "exact", head: true });
     if (count === 0) {
       const all = await fetch("/content/blog-all.json?v=" + Date.now()).then(r => r.json()).catch(() => null);

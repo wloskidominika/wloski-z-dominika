@@ -270,7 +270,7 @@ collections:
         widget: boolean
         default: true
         required: false
-      hint: Interruttore ACCESO = la pagina è visibile (menu, riquadro in Home, piè di pagina). SPENTO = nascosta dal sito. Poi clicca Pubblica.
+      hint: Interruttore ACCESO = la pagina è visibile (menu, riquadro in Home, piè di pagina). SPENTO = nascosta dal sito. Poi premi Salva, vale subito.
   - name: excursions
     label: 🚐 Escursioni
     file: content/excursions.json
@@ -727,7 +727,7 @@ collections:
       widget: boolean
       default: false
       required: false
-      hint: Spento = la pagina è nascosta. Accendilo quando hai inserito le strutture, poi Salva e Pubblica.
+      hint: Spento = la pagina è nascosta. Accendilo quando hai inserito le strutture, poi premi Salva, vale subito.
     - name: items
       label: Strutture
       label_singular: Struttura
@@ -1992,28 +1992,40 @@ collections:
         label: also_like  —  «Potrebbe interessarti anche»
         widget: string
         required: false
-      - name: tr_p1
-        label: tr_p1  —  «Polacco → Italiano»
-        widget: string
-        required: false
-      - name: tr_p2
-        label: tr_p2  —  «Inglese → Italiano»
-        widget: string
-        required: false
-      - name: tr_p3
-        label: tr_p3  —  «Inglese → Polacco»
-        widget: string
-        required: false
-      - name: tr_cta
-        label: tr_cta  —  «Chiedi un preventivo»
-        widget: string
-        required: false
       - name: fm_o6
         label: fm_o6  —  «Traduzioni»
         widget: string
         required: false
-      - name: tr_msg
-        label: tr_msg  —  «Traduzione»
+      - name: tl_eyebrow
+        label: tl_eyebrow  —  «Traduzioni»
+        widget: string
+        required: false
+      - name: tl_title
+        label: tl_title  —  «Traduzioni professionali»
+        widget: string
+        required: false
+      - name: tl_sub
+        label: 'tl_sub  —  «Documenti, contratti, lettere, siti web e testi turistici: traduzioni curate da madrelingua, precise e consegnate nei tempi concordati.»'
+        widget: string
+        required: false
+      - name: tl_p1
+        label: tl_p1  —  «Polacco → Italiano»
+        widget: string
+        required: false
+      - name: tl_p2
+        label: tl_p2  —  «Inglese → Italiano»
+        widget: string
+        required: false
+      - name: tl_p3
+        label: tl_p3  —  «Inglese → Polacco»
+        widget: string
+        required: false
+      - name: tl_cta
+        label: tl_cta  —  «Chiedi un preventivo»
+        widget: string
+        required: false
+      - name: tl_msg
+        label: tl_msg  —  «Traduzione»
         widget: string
         required: false
     - name: de
@@ -2701,28 +2713,40 @@ collections:
         label: also_like  —  «Potrebbe interessarti anche»
         widget: string
         required: false
-      - name: tr_p1
-        label: tr_p1  —  «Polacco → Italiano»
-        widget: string
-        required: false
-      - name: tr_p2
-        label: tr_p2  —  «Inglese → Italiano»
-        widget: string
-        required: false
-      - name: tr_p3
-        label: tr_p3  —  «Inglese → Polacco»
-        widget: string
-        required: false
-      - name: tr_cta
-        label: tr_cta  —  «Chiedi un preventivo»
-        widget: string
-        required: false
       - name: fm_o6
         label: fm_o6  —  «Traduzioni»
         widget: string
         required: false
-      - name: tr_msg
-        label: tr_msg  —  «Traduzione»
+      - name: tl_eyebrow
+        label: tl_eyebrow  —  «Traduzioni»
+        widget: string
+        required: false
+      - name: tl_title
+        label: tl_title  —  «Traduzioni professionali»
+        widget: string
+        required: false
+      - name: tl_sub
+        label: 'tl_sub  —  «Documenti, contratti, lettere, siti web e testi turistici: traduzioni curate da madrelingua, precise e consegnate nei tempi concordati.»'
+        widget: string
+        required: false
+      - name: tl_p1
+        label: tl_p1  —  «Polacco → Italiano»
+        widget: string
+        required: false
+      - name: tl_p2
+        label: tl_p2  —  «Inglese → Italiano»
+        widget: string
+        required: false
+      - name: tl_p3
+        label: tl_p3  —  «Inglese → Polacco»
+        widget: string
+        required: false
+      - name: tl_cta
+        label: tl_cta  —  «Chiedi un preventivo»
+        widget: string
+        required: false
+      - name: tl_msg
+        label: tl_msg  —  «Traduzione»
         widget: string
         required: false
     - name: en
@@ -3410,28 +3434,40 @@ collections:
         label: also_like  —  «Potrebbe interessarti anche»
         widget: string
         required: false
-      - name: tr_p1
-        label: tr_p1  —  «Polacco → Italiano»
-        widget: string
-        required: false
-      - name: tr_p2
-        label: tr_p2  —  «Inglese → Italiano»
-        widget: string
-        required: false
-      - name: tr_p3
-        label: tr_p3  —  «Inglese → Polacco»
-        widget: string
-        required: false
-      - name: tr_cta
-        label: tr_cta  —  «Chiedi un preventivo»
-        widget: string
-        required: false
       - name: fm_o6
         label: fm_o6  —  «Traduzioni»
         widget: string
         required: false
-      - name: tr_msg
-        label: tr_msg  —  «Traduzione»
+      - name: tl_eyebrow
+        label: tl_eyebrow  —  «Traduzioni»
+        widget: string
+        required: false
+      - name: tl_title
+        label: tl_title  —  «Traduzioni professionali»
+        widget: string
+        required: false
+      - name: tl_sub
+        label: 'tl_sub  —  «Documenti, contratti, lettere, siti web e testi turistici: traduzioni curate da madrelingua, precise e consegnate nei tempi concordati.»'
+        widget: string
+        required: false
+      - name: tl_p1
+        label: tl_p1  —  «Polacco → Italiano»
+        widget: string
+        required: false
+      - name: tl_p2
+        label: tl_p2  —  «Inglese → Italiano»
+        widget: string
+        required: false
+      - name: tl_p3
+        label: tl_p3  —  «Inglese → Polacco»
+        widget: string
+        required: false
+      - name: tl_cta
+        label: tl_cta  —  «Chiedi un preventivo»
+        widget: string
+        required: false
+      - name: tl_msg
+        label: tl_msg  —  «Traduzione»
         widget: string
         required: false
     - name: pl
@@ -4119,28 +4155,40 @@ collections:
         label: also_like  —  «Potrebbe interessarti anche»
         widget: string
         required: false
-      - name: tr_p1
-        label: tr_p1  —  «Polacco → Italiano»
-        widget: string
-        required: false
-      - name: tr_p2
-        label: tr_p2  —  «Inglese → Italiano»
-        widget: string
-        required: false
-      - name: tr_p3
-        label: tr_p3  —  «Inglese → Polacco»
-        widget: string
-        required: false
-      - name: tr_cta
-        label: tr_cta  —  «Chiedi un preventivo»
-        widget: string
-        required: false
       - name: fm_o6
         label: fm_o6  —  «Traduzioni»
         widget: string
         required: false
-      - name: tr_msg
-        label: tr_msg  —  «Traduzione»
+      - name: tl_eyebrow
+        label: tl_eyebrow  —  «Traduzioni»
+        widget: string
+        required: false
+      - name: tl_title
+        label: tl_title  —  «Traduzioni professionali»
+        widget: string
+        required: false
+      - name: tl_sub
+        label: 'tl_sub  —  «Documenti, contratti, lettere, siti web e testi turistici: traduzioni curate da madrelingua, precise e consegnate nei tempi concordati.»'
+        widget: string
+        required: false
+      - name: tl_p1
+        label: tl_p1  —  «Polacco → Italiano»
+        widget: string
+        required: false
+      - name: tl_p2
+        label: tl_p2  —  «Inglese → Italiano»
+        widget: string
+        required: false
+      - name: tl_p3
+        label: tl_p3  —  «Inglese → Polacco»
+        widget: string
+        required: false
+      - name: tl_cta
+        label: tl_cta  —  «Chiedi un preventivo»
+        widget: string
+        required: false
+      - name: tl_msg
+        label: tl_msg  —  «Traduzione»
         widget: string
         required: false
     - name: es
@@ -4828,28 +4876,40 @@ collections:
         label: also_like  —  «Potrebbe interessarti anche»
         widget: string
         required: false
-      - name: tr_p1
-        label: tr_p1  —  «Polacco → Italiano»
-        widget: string
-        required: false
-      - name: tr_p2
-        label: tr_p2  —  «Inglese → Italiano»
-        widget: string
-        required: false
-      - name: tr_p3
-        label: tr_p3  —  «Inglese → Polacco»
-        widget: string
-        required: false
-      - name: tr_cta
-        label: tr_cta  —  «Chiedi un preventivo»
-        widget: string
-        required: false
       - name: fm_o6
         label: fm_o6  —  «Traduzioni»
         widget: string
         required: false
-      - name: tr_msg
-        label: tr_msg  —  «Traduzione»
+      - name: tl_eyebrow
+        label: tl_eyebrow  —  «Traduzioni»
+        widget: string
+        required: false
+      - name: tl_title
+        label: tl_title  —  «Traduzioni professionali»
+        widget: string
+        required: false
+      - name: tl_sub
+        label: 'tl_sub  —  «Documenti, contratti, lettere, siti web e testi turistici: traduzioni curate da madrelingua, precise e consegnate nei tempi concordati.»'
+        widget: string
+        required: false
+      - name: tl_p1
+        label: tl_p1  —  «Polacco → Italiano»
+        widget: string
+        required: false
+      - name: tl_p2
+        label: tl_p2  —  «Inglese → Italiano»
+        widget: string
+        required: false
+      - name: tl_p3
+        label: tl_p3  —  «Inglese → Polacco»
+        widget: string
+        required: false
+      - name: tl_cta
+        label: tl_cta  —  «Chiedi un preventivo»
+        widget: string
+        required: false
+      - name: tl_msg
+        label: tl_msg  —  «Traduzione»
         widget: string
         required: false
 publish_mode: editorial_workflow

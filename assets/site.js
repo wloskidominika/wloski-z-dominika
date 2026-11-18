@@ -485,7 +485,7 @@ document.addEventListener("click", e=>{
   if(pick){
     document.getElementById("topic").value = pick.dataset.pick || pick.dataset.course;
     if(pick.dataset.title){ document.querySelector("textarea[name=msg]").value = pick.dataset.title + " – "; }
-    else if(pick.dataset.pick==="tr"){ document.querySelector("textarea[name=msg]").value = t("tr_msg") + ": "; }
+    else if(pick.dataset.pick==="tr"){ document.querySelector("textarea[name=msg]").value = t("tl_msg") + ": "; }
     closeLB();
   }
   if(e.target.closest(".menu a")) document.getElementById("menu").classList.remove("open");
@@ -620,3 +620,19 @@ function countWhenSeen(){
   const tick=()=>{ if(done) return; if(document.visibilityState==="visible") seen+=500; if(seen>=3000){ done=true; clearInterval(t); trackVisit(); } };
   t=setInterval(tick,500);
 }
+
+/* ✏️ Solo per Dominika (ha aperto l'app su questo telefono/computer): pulsante per modificare la pagina */
+(function(){
+  let me=false; try{ me=!!localStorage.getItem("wzd-notrack"); }catch(_){}
+  if(!me) return;
+  const MAP={home:"edit/look",houses:"edit/houses",house:"edit/houses",hotels:"edit/hotels",hotel:"edit/hotels",exc:"edit/excursions",excd:"edit/excursions",exp:"edit/excursions",expd:"edit/excursions",
+    transfer:"edit/services",rental:"edit/services",boat:"edit/services",services:"edit/services",media:"edit/gallery",blog:"blog",post:"blog"};
+  const slug=(location.pathname.match(/\/blog\/([^/]+)\.html$/)||[])[1];
+  const to=PAGE==="post"&&slug&&slug!=="leggi"?"blog/"+slug:(MAP[PAGE]||"home");
+  const a=document.createElement("a");
+  a.href="/app/#"+to; a.textContent="✏️ Modifica"; a.title="Modifica questa pagina nella tua app";
+  a.style.cssText="position:fixed;left:16px;bottom:16px;z-index:999;background:#9B2318;color:#fff;padding:12px 18px;border-radius:999px;font:700 15px Lato,sans-serif;text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,.25)";
+  const b=document.createElement("a"); b.href="/app/#edit/texts"; b.textContent="✍️ Testi";
+  b.style.cssText=a.style.cssText; b.style.left="150px"; b.style.background="#4A7A62";
+  document.body.append(a,b);
+})();
