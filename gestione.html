@@ -382,6 +382,7 @@ async function enter(session){
   const gate=$("#gate");
   const {data:me}=await sb.from("profiles").select("role").eq("id",session.user.id).single();
   if(me?.role!=="admin"){ gate.innerHTML='Questa app è riservata a Dominika. <a href="/area.html">Vai alla tua area</a>.'; gate.classList.add("show"); $("#logoutBtn").classList.remove("hidden"); return; }
+  try{ localStorage.setItem("wzd-notrack","1"); }catch(_){}   // le visite di Dominika non si contano
   $("#loginBox").classList.add("hidden");
   $("#logoutBtn").classList.remove("hidden"); $("#menuBtn").classList.remove("hidden");
   $("#app").classList.remove("hidden");

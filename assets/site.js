@@ -544,6 +544,8 @@ function trackVisit(){
     const cfg=window.WZD_CONFIG||{};
     if(!cfg.SUPABASE_URL || /INSERISCI/.test(cfg.SUPABASE_URL)) return;
     if(navigator.webdriver || /^(localhost|127\.)/.test(location.hostname)) return;
+    /* robot e anteprime automatiche (Facebook, Google, WhatsApp…) non sono persone */
+    if(/bot|crawl|spider|slurp|facebookexternalhit|meta-external|facebookcatalog|Headless|Lighthouse|Prerender|PageSpeed|preview|WhatsApp\/|TelegramBot|Twitterbot|Discordbot|Applebot/i.test(navigator.userAgent||"")) return;
     try{ if(localStorage.getItem("wzd-notrack")) return; }catch(_){}
     const ua=navigator.userAgent||"", tz=(Intl.DateTimeFormat().resolvedOptions().timeZone||"").slice(0,60);
     const bl=(navigator.language||"").slice(0,20), region=(bl.split("-")[1]||"").toUpperCase();
@@ -607,4 +609,10 @@ document.addEventListener("submit",async e=>{
   n.textContent=ok?t("rev_thanks"):t("rev_err"); n.classList.add("show");
   if(ok){ f.reset(); rvStar=5; document.querySelectorAll("#rvStars button").forEach(b=>b.classList.add("on")); }
 });
-loadContent().then(applyLang).catch(e=>console.error("Contenuti non caricati",e)).finally(()=>setTimeout(trackVisit,300));
+loadContent().then(applyLang).catch(e=>console.error("Contenuti non caricati",e)).finally(countWhenSeen);
+/* conto la visita solo se la pagina resta aperta e visibile almeno 3 secondi (i controlli automatici dei link si chiudono subito) */
+function countWhenSeen(){
+  let seen=0, done=false, t=null;
+  const tick=()=>{ if(done) return; if(document.visibilityState==="visible") seen+=500; if(seen>=3000){ done=true; clearInterval(t); trackVisit(); } };
+  t=setInterval(tick,500);
+}
