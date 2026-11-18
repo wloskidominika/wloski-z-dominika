@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /gestione.html
-Disallow: /app
+Disallow: /app/
 Disallow: /area.html
 
 Sitemap: https://wloskizdominika.com/sitemap.xml
