@@ -26,6 +26,13 @@ def main():
     n = 0
     for r in rows:
         if r.get("data") and re.fullmatch(r"[a-z]+", r.get("key", "")):
+            if r["key"] in ("houses", "hotels"):   # CIN e CIR obbligatori: non perderli mai
+                try:
+                    old = {x.get("id"): x for x in json.load(open(os.path.join(ROOT, "content", r["key"] + ".json"), encoding="utf-8")).get("items", [])}
+                    for it in r["data"].get("items", []):
+                        for f in ("cin", "cir"):
+                            if not it.get(f) and old.get(it.get("id"), {}).get(f): it[f] = old[it["id"]][f]
+                except Exception: pass
             json.dump(r["data"], open(os.path.join(ROOT, "content", r["key"] + ".json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1); n += 1
     if posts:
         for f in glob.glob(os.path.join(ROOT, "content", "blog", "*.json")): os.remove(f)

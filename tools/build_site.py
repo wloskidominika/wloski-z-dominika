@@ -257,7 +257,7 @@ def detail_body(kind, i, item, P, list_href, list_key, back_key):
     desc = L(item.get("desc"))
     paras = "".join(f"<p>{esc(p)}</p>" for p in desc.split("\n") if p.strip())
     fallback = f'''<div class="detail-top"><div>{f'<img class="detail-cover" src="{esc(P + img)}" alt="{esc(title)}">' if img else ""}</div>
-      <div class="detail-info"><h1>{esc(title)}</h1>{f"<p>📍 {esc(item.get('place'))}</p>" if item.get("place") else ""}</div></div>
+      <div class="detail-info"><h1>{esc(title)}</h1>{f"<p>📍 {esc(item.get('place'))}</p>" if item.get("place") else ""}{f'<div class="codes">CIN {esc(item.get("cin"))} · CIR {esc(item.get("cir"))}</div>' if item.get("cin") or item.get("cir") else ""}</div></div>
       <div class="detail-text">{paras}</div>'''
     return crumbs(P, (list_href, list_key, ""), ("", "", title)) + f'''<section class="detail">
   <div class="wrap" id="detail" data-kind="{kind}" data-id="{esc(item.get('id') or '')}">

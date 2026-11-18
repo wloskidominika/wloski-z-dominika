@@ -53,6 +53,16 @@ window.seedSite = async function () {
       const d = await fetch("/content/" + k + ".json?v=" + Date.now()).then(r => r.json()).catch(() => null);
       if (d && Object.keys(d).length) await sb.from("site_content").upsert({ key: k, data: d }, { onConflict: "key", ignoreDuplicates: true });
     }
+    /* CIN e CIR obbligatori: se nel database mancano, li prendo dai file del sito */
+    for (const k of ["houses", "hotels"]) {
+      const { data: row } = await sb.from("site_content").select("data").eq("key", k).maybeSingle();
+      const base = await fetch("/content/" + k + ".json?v=" + Date.now()).then(r => r.json()).catch(() => null);
+      if (!row || !row.data || !base) continue;
+      let changed = false;
+      (row.data.items || []).forEach(it => { const b = (base.items || []).find(x => x.id && x.id === it.id); if (!b) return;
+        ["cin", "cir"].forEach(f => { if (!it[f] && b[f]) { it[f] = b[f]; changed = true; } }); });
+      if (changed) await sb.from("site_content").update({ data: row.data, updated_at: new Date().toISOString() }).eq("key", k);
+    }
     const { count } = await sb.from("site_posts").select("slug", { count: "exact", head: true });
     if (count === 0) {
       const all = await fetch("/content/blog-all.json?v=" + Date.now()).then(r => r.json()).catch(() => null);
