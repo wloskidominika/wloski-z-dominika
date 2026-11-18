@@ -12,6 +12,8 @@ const edCache = {};
 async function schema() {
   if (!SCHEMA) {
     SCHEMA = await fetch("/assets/schema.json?v=" + Date.now()).then(r => r.json());
+    ["houses", "hotels"].forEach(k => { const it = (SCHEMA.files[k].fields || []).find(f => f.name === "items"); if (!it) return;
+      it.fields.forEach(f => { if (f.name === "cin" || f.name === "cir") { f.must = true; f.hint = "Obbligatorio per legge: senza " + f.name.toUpperCase() + " la struttura non va online."; } }); });
     (SCHEMA.blog.fields || []).forEach(f => { if (f.widget === "markdown") f.hint = "Sottotitolo: inizia la riga con ## · Grassetto: **parola** · Elenco: righe che iniziano con - · Link: [testo](/escursioni.html) · Riga vuota = nuovo paragrafo."; });
   }
   return SCHEMA;
@@ -220,6 +222,12 @@ function field(f, get, set, opts = {}) {
   }
   if (w === "list" && f.field && (f.field.widget === "image")) { A(wrap, label(), hintEl(f), manyPics(f, get(), set)); return wrap; }
   if (w === "list" && (f.fields || f.field)) { A(wrap, label(), hintEl(f), itemList(f, get, set, opts)); return wrap; }
+  if (f.must) {
+    const warn = h("div", { class: "need" }, "⚠️ Manca il " + f.name.toUpperCase() + ": senza questo codice la struttura non va online.");
+    const upd = v => { warn.style.display = String(v || "").trim() ? "none" : ""; wrap.classList.toggle("bad", !String(v || "").trim()); };
+    A(wrap, label(), hintEl(f), input(f, get(), v => { set(v); upd(v); }), warn); upd(get());
+    return wrap;
+  }
   A(wrap, label(), hintEl(f), input(f, get(), set));
   return wrap;
 }
@@ -235,6 +243,9 @@ function itemList(f, get, set, opts) {
   const box = h("div");
   const draw = (openIdx = -1) => {
     box.innerHTML = "";
+    if (!single && list.length > 3) { const top = h("button", { type: "button", class: "btn btn-red btn-sm", style: "margin-bottom:10px" }, "＋ Aggiungi " + (f.label_singular || "elemento").toLowerCase());
+      top.onclick = () => { const nu = {}; f.fields.forEach(x => { if (x.default !== undefined) nu[x.name] = x.default; }); list.unshift(nu); markDirty(); draw(0); box.querySelector("details.item").scrollIntoView({ behavior: "smooth", block: "start" }); };
+      box.append(top); }
     list.forEach((it, i) => {
       const del = h("button", { type: "button", class: "ibtn danger", title: "Elimina" }, "🗑");
       del.onclick = e => { e.preventDefault(); if (!del.classList.contains("armed")) { del.classList.add("armed"); del.textContent = "Sicura?"; del.style.width = "auto"; setTimeout(() => { del.classList.remove("armed"); del.textContent = "🗑"; del.style.width = ""; }, 3000); return; }
@@ -256,7 +267,7 @@ function itemList(f, get, set, opts) {
       if (i === openIdx) d.open = true;
       box.append(d);
     });
-    const add = h("button", { type: "button", class: "btn btn-line btn-sm", style: "margin-top:4px" }, "＋ Aggiungi " + (f.label_singular || "elemento"));
+    const add = h("button", { type: "button", class: "btn btn-line btn-sm", style: "margin-top:4px" }, "＋ Aggiungi " + (f.label_singular || "elemento").toLowerCase());
     add.onclick = () => {
       let nu = single ? "" : {};
       if (!single) f.fields.forEach(x => { if (x.default !== undefined) nu[x.name] = x.default; });
@@ -305,6 +316,17 @@ window.openEditor = async function (key) {
   else def.fields.forEach(f => form.append(field(f, () => d[f.name], v => { if (v === undefined) delete d[f.name]; else d[f.name] = v; })));
   $("#edSave").disabled = false;
 };
+/* case, hotel e B&B visibili devono avere CIN e CIR */
+function checkCodes(key, d) {
+  if (!["houses", "hotels"].includes(key)) return [];
+  const out = [];
+  (d.items || []).forEach((it, i) => {
+    if (it.visible === false) return;
+    const what = ["cin", "cir"].filter(f => !String(it[f] || "").trim()).map(f => f.toUpperCase());
+    if (what.length) out.push({ i, name: itemTitle(it), what: what.join(" e ") });
+  });
+  return out;
+}
 function ensureIds(key, d) {
   if (!["houses", "hotels", "excursions"].includes(key) || !Array.isArray(d.items)) return;
   const used = new Set();
@@ -320,6 +342,16 @@ function ensureIds(key, d) {
 $("#edSave").onclick = async () => {
   if (!ED.key) return;
   const btn = $("#edSave"); btn.disabled = true; btn.textContent = "⏳ Salvo…";
+  const missing = checkCodes(ED.key, ED.data);
+  if (missing.length) {
+    btn.disabled = false; btn.textContent = "💾 Salva";
+    $("#edMsg").innerHTML = "⛔ <b>Non salvato.</b> " + missing.map(m => "Manca <b>" + m.what + "</b> in «" + esc(m.name) + "»").join("; ") + ". Inseriscili, oppure spegni «Visibile sul sito» finché non li hai.";
+    $("#edMsg").className = "msg show err";
+    const items = [...$("#edForm").querySelectorAll("details.item")];
+    missing.forEach(m => { const d = items[m.i]; if (d) { d.open = true; d.classList.add("bad"); } });
+    const first = items[missing[0].i]; if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
+    return;
+  }
   try {
     ensureIds(ED.key, ED.data);
     await saveKey(ED.key, ED.data);

@@ -78,7 +78,8 @@ const HOTEL_TYPES = ["hotel","bnb"];
 /* quali elementi mostra ogni pagina */
 const isHotel = h => HOTEL_TYPES.includes(h.type);
 const isVis = x => x && x.visible !== false;
-function housesForPage(){ const all=(SITE.houses||[]).filter(isVis); return (PAGE==="hotels"||PAGE==="hotel") ? all.filter(isHotel) : all.filter(h=>!isHotel(h)); }
+const hasCodes = h => String(h.cin||"").trim() && String(h.cir||"").trim();   // CIN e CIR obbligatori per legge
+function housesForPage(){ const all=(SITE.houses||[]).filter(h=>isVis(h)&&hasCodes(h)); return (PAGE==="hotels"||PAGE==="hotel") ? all.filter(isHotel) : all.filter(h=>!isHotel(h)); }
 function excForPage(){ const all=(SITE.excursions||[]).filter(isVis); return (PAGE==="exp"||PAGE==="expd") ? all.filter(x=>x.kind==="exp") : all.filter(x=>x.kind!=="exp"); }
 /* indirizzo della pagina di una casa / escursione: pagina fissa se esiste, altrimenti la pagina «vedi» */
 const itemUrl = (dir, list, x) => !x || !x.id ? "" : (list || []).includes(x.id) ? ROOT + dir + "/" + x.id + ".html" : ROOT + dir + "/vedi.html?id=" + encodeURIComponent(x.id);
@@ -255,7 +256,7 @@ function renderDetail(){
   const i=findI(box.dataset.kind==="house"?SITE.houses:SITE.excursions), more=document.getElementById("moreList");
   if(i<0){ box.innerHTML=`<p style="padding:40px 0">${esc(t("not_found")||"Pagina non trovata.")}</p>`; return; }
   if(box.dataset.kind==="house"){
-    const h=(SITE.houses||[])[i]; if(!h) return;
+    const h=(SITE.houses||[])[i]; if(!h || !hasCodes(h) || !isVis(h)){ box.innerHTML=`<p style="padding:40px 0">${esc(t("not_found")||"Pagina non trovata.")}</p>`; return; }
     const am=L(h.amenities)||[], di=L(h.distances)||[];
     const mapUrl=h.map?(/^https?:/.test(h.map)?h.map:"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(h.map)):"";
     document.title = L(h.title) + " · Włoski z Dominiką";
