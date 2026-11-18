@@ -244,7 +244,7 @@ def reviews_sec(topic=""):
 
 LD_HOME = json.dumps({"@context": "https://schema.org", "@type": "TravelAgency", "name": FULL,
   "url": DOMAIN + "/", "logo": DOMAIN + "/logo.jpg", "image": DOMAIN + "/media/hero.jpg",
-  "description": "Lezioni di italiano e polacco e vacanze in Calabria: case vacanze, hotel e B&B, escursioni, esperienze locali, transfer e noleggi a Tropea e Capo Vaticano.",
+  "description": "Lezioni di italiano e polacco, traduzioni (polacco, inglese, italiano) e vacanze in Calabria: case vacanze, hotel e B&B, escursioni, esperienze locali, transfer e noleggi a Tropea e Capo Vaticano.",
   "areaServed": ["Tropea", "Capo Vaticano", "Calabria"], "availableLanguage": ["it", "pl", "en", "de", "es"], "vatID": "IT03800250791",
   "sameAs": ["https://www.facebook.com/profile.php?id=61556969993687"]}, ensure_ascii=False)
 
@@ -291,7 +291,7 @@ def main():
 
     S = {n: sec(n) for n in ("about", "excursions", "lessons", "houses", "services", "gallery")}
     page("index.html", "home", f"{FULL} – lezioni di italiano e polacco e vacanze in Calabria",
-         "Lezioni di italiano e polacco e vacanze in Calabria: case vacanze, hotel e B&B, escursioni, esperienze locali, transfer e noleggi a Tropea e Capo Vaticano.",
+         "Lezioni di italiano e polacco, traduzioni (polacco, inglese, italiano) e vacanze in Calabria: case vacanze, hotel e B&B, escursioni, esperienze locali, transfer e noleggi a Tropea e Capo Vaticano.",
          "\n".join([HERO, S["lessons"], vacanze(), S["about"], reviews_sec(), BLOG_HOME]),
          extra=f'<script type="application/ld+json">{LD_HOME}</script>\n')
 

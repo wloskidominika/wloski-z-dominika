@@ -36,6 +36,8 @@ async function loadContent(){
   SLUGS = sl || {};
   SITE = { contact: st.contact, socials: st.socials || [], excursions: ex.items || [], lessonsIT: le.italian, lessonsPL: le.polish, houses: (ho.items || []).concat((hb.items || []).map(h => Object.assign({ type: "hotel" }, h))), gallery: ga.items || [], services: sv.items || [], hotelsPage: !!hb.page_visible };
   GUIDE_LANGS = st.guide_langs || ""; T = tx;
+  if (rc.texts) { try { const base = await fetch(ROOT + "content/texts.json?v=" + Date.now()).then(r => r.json());
+    for (const l in base) { T[l] = Object.assign({}, base[l]); for (const k in (rc.texts[l] || {})) if (rc.texts[l][k]) T[l][k] = rc.texts[l][k]; } } catch(e) {} }
   SITE = fixPaths(SITE);
   if (st.vat) document.getElementById("vat").textContent = "P.IVA " + st.vat;
 }
@@ -482,6 +484,7 @@ document.addEventListener("click", e=>{
   if(pick){
     document.getElementById("topic").value = pick.dataset.pick || pick.dataset.course;
     if(pick.dataset.title){ document.querySelector("textarea[name=msg]").value = pick.dataset.title + " – "; }
+    else if(pick.dataset.pick==="tr"){ document.querySelector("textarea[name=msg]").value = t("tr_msg") + ": "; }
     closeLB();
   }
   if(e.target.closest(".menu a")) document.getElementById("menu").classList.remove("open");

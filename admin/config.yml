@@ -1,4 +1,3 @@
-# Pannello di amministrazione – Decap CMS
 backend:
   name: github
   repo: wloskidominika/wloski-z-dominika
@@ -1993,6 +1992,30 @@ collections:
         label: also_like  —  «Potrebbe interessarti anche»
         widget: string
         required: false
+      - name: tr_p1
+        label: tr_p1  —  «Polacco → Italiano»
+        widget: string
+        required: false
+      - name: tr_p2
+        label: tr_p2  —  «Inglese → Italiano»
+        widget: string
+        required: false
+      - name: tr_p3
+        label: tr_p3  —  «Inglese → Polacco»
+        widget: string
+        required: false
+      - name: tr_cta
+        label: tr_cta  —  «Chiedi un preventivo»
+        widget: string
+        required: false
+      - name: fm_o6
+        label: fm_o6  —  «Traduzioni»
+        widget: string
+        required: false
+      - name: tr_msg
+        label: tr_msg  —  «Traduzione»
+        widget: string
+        required: false
     - name: de
       label: Testi in Deutsch
       widget: object
@@ -2676,6 +2699,30 @@ collections:
         required: false
       - name: also_like
         label: also_like  —  «Potrebbe interessarti anche»
+        widget: string
+        required: false
+      - name: tr_p1
+        label: tr_p1  —  «Polacco → Italiano»
+        widget: string
+        required: false
+      - name: tr_p2
+        label: tr_p2  —  «Inglese → Italiano»
+        widget: string
+        required: false
+      - name: tr_p3
+        label: tr_p3  —  «Inglese → Polacco»
+        widget: string
+        required: false
+      - name: tr_cta
+        label: tr_cta  —  «Chiedi un preventivo»
+        widget: string
+        required: false
+      - name: fm_o6
+        label: fm_o6  —  «Traduzioni»
+        widget: string
+        required: false
+      - name: tr_msg
+        label: tr_msg  —  «Traduzione»
         widget: string
         required: false
     - name: en
@@ -3363,6 +3410,30 @@ collections:
         label: also_like  —  «Potrebbe interessarti anche»
         widget: string
         required: false
+      - name: tr_p1
+        label: tr_p1  —  «Polacco → Italiano»
+        widget: string
+        required: false
+      - name: tr_p2
+        label: tr_p2  —  «Inglese → Italiano»
+        widget: string
+        required: false
+      - name: tr_p3
+        label: tr_p3  —  «Inglese → Polacco»
+        widget: string
+        required: false
+      - name: tr_cta
+        label: tr_cta  —  «Chiedi un preventivo»
+        widget: string
+        required: false
+      - name: fm_o6
+        label: fm_o6  —  «Traduzioni»
+        widget: string
+        required: false
+      - name: tr_msg
+        label: tr_msg  —  «Traduzione»
+        widget: string
+        required: false
     - name: pl
       label: Testi in Polski
       widget: object
@@ -4048,6 +4119,30 @@ collections:
         label: also_like  —  «Potrebbe interessarti anche»
         widget: string
         required: false
+      - name: tr_p1
+        label: tr_p1  —  «Polacco → Italiano»
+        widget: string
+        required: false
+      - name: tr_p2
+        label: tr_p2  —  «Inglese → Italiano»
+        widget: string
+        required: false
+      - name: tr_p3
+        label: tr_p3  —  «Inglese → Polacco»
+        widget: string
+        required: false
+      - name: tr_cta
+        label: tr_cta  —  «Chiedi un preventivo»
+        widget: string
+        required: false
+      - name: fm_o6
+        label: fm_o6  —  «Traduzioni»
+        widget: string
+        required: false
+      - name: tr_msg
+        label: tr_msg  —  «Traduzione»
+        widget: string
+        required: false
     - name: es
       label: Testi in Español
       widget: object
@@ -4731,6 +4826,30 @@ collections:
         required: false
       - name: also_like
         label: also_like  —  «Potrebbe interessarti anche»
+        widget: string
+        required: false
+      - name: tr_p1
+        label: tr_p1  —  «Polacco → Italiano»
+        widget: string
+        required: false
+      - name: tr_p2
+        label: tr_p2  —  «Inglese → Italiano»
+        widget: string
+        required: false
+      - name: tr_p3
+        label: tr_p3  —  «Inglese → Polacco»
+        widget: string
+        required: false
+      - name: tr_cta
+        label: tr_cta  —  «Chiedi un preventivo»
+        widget: string
+        required: false
+      - name: fm_o6
+        label: fm_o6  —  «Traduzioni»
+        widget: string
+        required: false
+      - name: tr_msg
+        label: tr_msg  —  «Traduzione»
         widget: string
         required: false
 publish_mode: editorial_workflow
