@@ -36,7 +36,46 @@
 .hcard strong{display:block;font-size:1.02rem}
 .hcard span{display:block;color:var(--muted);font-size:.86rem;line-height:1.35}
 .hcard i{margin-left:auto;color:var(--muted);font-style:normal;font-size:1.4rem}
-@media (max-width:720px){ .tabs{display:none} .stats{display:none} header.top .bar{height:60px} .top-actions .btn{padding:6px 10px} }
+@media (max-width:720px){ .tabs{display:none} .stats{display:none} header.top .bar{height:60px} .top-actions{flex-wrap:nowrap;gap:6px} .top-actions .btn{padding:6px 10px} #menuBtn{display:none} .brand span{font-size:1rem} .brand img{width:38px;height:38px} .ibtn{width:30px;height:30px;font-size:.85rem} .item>summary{gap:6px;padding:8px} .item>summary img{width:44px;height:34px} }
+.panebar{display:flex;align-items:center;gap:12px;margin:-14px 0 18px;position:sticky;top:68px;z-index:15;background:var(--cream);padding:8px 0}
+.panebar h1{font-size:1.45rem;margin:0}
+.backbtn{width:44px;height:44px;flex:none;border-radius:50%;background:#fff;border:1.5px solid var(--line);display:grid;place-items:center;text-decoration:none;color:var(--red);font-size:2rem;line-height:1;padding-bottom:4px}
+.backbtn:hover{border-color:var(--green)}
+.savebar{position:sticky;bottom:0;z-index:15;display:flex;align-items:center;justify-content:flex-end;gap:12px;background:rgba(251,235,213,.97);padding:12px 0;margin-top:18px;border-top:1px solid var(--line)}
+.savebar .msg{margin:0;flex:1}
+.fx{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px}
+.fx>label,.fl{display:block;font-weight:700;font-size:.9rem;margin-bottom:6px}
+.fx .hint{display:block;color:var(--muted);font-size:.8rem;font-weight:400;margin:-2px 0 8px}
+.fx input:not([type=checkbox]):not([type=color]),.fx select,.fx textarea{width:100%}
+.fx textarea{min-height:110px}
+.fx textarea.md{min-height:340px;font-family:ui-monospace,monospace;font-size:.88rem}
+.lrow{display:grid;grid-template-columns:38px 1fr;gap:8px;align-items:start;margin-bottom:8px}
+.lrow b{font-size:.75rem;color:var(--green);padding-top:12px;font-weight:800}
+details.more>summary{cursor:pointer;color:var(--green);font-weight:700;font-size:.85rem;margin:2px 0 8px}
+.tog{display:flex;align-items:center;gap:10px;font-weight:700;cursor:pointer}
+.tog input{width:46px;height:26px;appearance:none;background:#d9cbb8;border-radius:99px;position:relative;cursor:pointer;transition:.2s;flex:none}
+.tog input:before{content:"";position:absolute;width:20px;height:20px;border-radius:50%;background:#fff;top:3px;left:3px;transition:.2s}
+.tog input:checked{background:var(--green)}.tog input:checked:before{left:23px}
+.item{border:1.5px solid var(--line);border-radius:14px;background:var(--paper);margin-bottom:10px}
+.item>summary{display:flex;align-items:center;gap:10px;padding:10px 12px;cursor:pointer;list-style:none}
+.item>summary::-webkit-details-marker{display:none}
+.item>summary img{width:52px;height:40px;object-fit:cover;border-radius:8px;background:var(--cream)}
+.item>summary .t{flex:1;font-weight:700;min-width:0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.25;font-size:.95rem}
+.item>summary .off{font-size:.72rem;background:#eee;border-radius:99px;padding:2px 8px;color:var(--muted)}
+.item .ib{padding:4px 12px 12px}
+.ibtn{border:1.5px solid var(--line);background:#fff;border-radius:10px;width:34px;height:34px;cursor:pointer;font-size:1rem;flex:none}
+.ibtn:hover{border-color:var(--green)}
+.ibtn.danger{color:var(--red)}.ibtn.armed{background:var(--red);color:#fff}
+.pics{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px}
+.pic{position:relative;border-radius:10px;overflow:hidden;background:var(--cream);aspect-ratio:4/3;border:1.5px solid var(--line)}
+.pic img,.pic video{width:100%;height:100%;object-fit:cover;display:block}
+.pic .pb{position:absolute;inset:auto 4px 4px 4px;display:flex;gap:4px;justify-content:flex-end}
+.pic .pb button{width:28px;height:28px;border-radius:8px;border:0;background:rgba(255,255,255,.92);cursor:pointer}
+.addpic{display:grid;place-items:center;border:2px dashed var(--line);border-radius:10px;aspect-ratio:4/3;cursor:pointer;color:var(--green);font-weight:700;background:#fff;text-align:center;font-size:.85rem}
+.one-pic{max-width:320px}
+.sub{border-left:3px solid var(--line);padding-left:12px;margin-top:6px}
+.cnt{font-size:.75rem;color:var(--muted);float:right}.cnt.ok{color:var(--green)}.cnt.bad{color:var(--red)}
+@media (max-width:720px){.panebar{top:60px}.fx{padding:12px}}
 </style>
 </head>
 <body>
@@ -86,6 +125,8 @@
       <button data-tab="visits">📊 Visite al sito</button>
     </div>
 
+    <div class="panebar hidden" id="paneBar"><a href="#home" class="backbtn" id="backBtn" aria-label="Indietro">‹</a><h1 id="paneTitle"></h1></div>
+
     <!-- MENU -->
     <div data-pane="home">
       <h2 class="hsec">📩 Richieste e prenotazioni</h2>
@@ -105,18 +146,18 @@
         <a class="hcard" href="#reviews"><b>⭐</b><div><strong>Recensioni</strong><span>Approva quelle dei clienti o aggiungine tu</span></div><i>›</i></a>
       </div>
       <h2 class="hsec">🌐 Il sito (pagine, testi, foto)</h2>
-      <p class="muted" style="margin:-6px 0 12px">Si apre il pannello del sito: entri con GitHub. Ricorda: salva come bozza e pubblica tutto insieme.</p>
+      <p class="muted" style="margin:-6px 0 12px">Modifichi e premi <b>💾 Salva</b>: è subito online sul sito.</p>
       <div class="hgrid">
-        <a class="hcard" href="/admin/#/collections/sito/entries/look" target="_blank" rel="noopener"><b>🎨</b><div><strong>Foto e grafica</strong><span>Foto grande in alto, colori, riquadri della home, pagine visibili</span></div><i>›</i></a>
-        <a class="hcard" href="/admin/#/collections/sito/entries/houses" target="_blank" rel="noopener"><b>🏡</b><div><strong>Case vacanze</strong><span>Foto, descrizioni, CIN/CIR, prezzi, link</span></div><i>›</i></a>
-        <a class="hcard" href="/admin/#/collections/sito/entries/hotels" target="_blank" rel="noopener"><b>🏨</b><div><strong>Hotel e B&B</strong><span>Strutture e interruttore della pagina</span></div><i>›</i></a>
-        <a class="hcard" href="/admin/#/collections/sito/entries/excursions" target="_blank" rel="noopener"><b>⛵</b><div><strong>Escursioni ed esperienze</strong><span>Mare, terra, tour, cucina, prezzi, foto</span></div><i>›</i></a>
-        <a class="hcard" href="/admin/#/collections/sito/entries/services" target="_blank" rel="noopener"><b>🚐</b><div><strong>Transfer e noleggi</strong><span>Transfer, auto/scooter/bici, barche e gommoni</span></div><i>›</i></a>
-        <a class="hcard" href="/admin/#/collections/sito/entries/lessons" target="_blank" rel="noopener"><b>🗣️</b><div><strong>Lezioni (pagina del sito)</strong><span>I corsi di italiano e polacco</span></div><i>›</i></a>
-        <a class="hcard" href="/admin/#/collections/sito/entries/gallery" target="_blank" rel="noopener"><b>📸</b><div><strong>Foto e video</strong><span>La galleria del sito</span></div><i>›</i></a>
-        <a class="hcard" href="/admin/#/collections/blog" target="_blank" rel="noopener"><b>📝</b><div><strong>Guide di viaggio (blog)</strong><span>Articoli per Google, in 5 lingue</span></div><i>›</i></a>
-        <a class="hcard" href="/admin/#/collections/sito/entries/settings" target="_blank" rel="noopener"><b>☎️</b><div><strong>Contatti e social</strong><span>Telefono, WhatsApp, Instagram, Facebook, TikTok</span></div><i>›</i></a>
-        <a class="hcard" href="/admin/#/collections/sito/entries/texts" target="_blank" rel="noopener"><b>✏️</b><div><strong>Testi del sito</strong><span>Tutte le frasi del sito, in 5 lingue</span></div><i>›</i></a>
+        <a class="hcard" href="#edit/look"><b>🎨</b><div><strong>Foto e grafica</strong><span>Foto grande in alto, colori, riquadri della home, pagine visibili</span></div><i>›</i></a>
+        <a class="hcard" href="#edit/houses"><b>🏡</b><div><strong>Case vacanze</strong><span>Foto, descrizioni, CIN/CIR, prezzi, link</span></div><i>›</i></a>
+        <a class="hcard" href="#edit/hotels"><b>🏨</b><div><strong>Hotel e B&B</strong><span>Strutture e interruttore della pagina</span></div><i>›</i></a>
+        <a class="hcard" href="#edit/excursions"><b>⛵</b><div><strong>Escursioni ed esperienze</strong><span>Mare, terra, tour, cucina, prezzi, foto</span></div><i>›</i></a>
+        <a class="hcard" href="#edit/services"><b>🚐</b><div><strong>Transfer e noleggi</strong><span>Transfer, auto/scooter/bici, barche e gommoni</span></div><i>›</i></a>
+        <a class="hcard" href="#edit/lessons"><b>🗣️</b><div><strong>Lezioni (pagina del sito)</strong><span>I corsi di italiano e polacco</span></div><i>›</i></a>
+        <a class="hcard" href="#edit/gallery"><b>📸</b><div><strong>Foto e video</strong><span>La galleria del sito</span></div><i>›</i></a>
+        <a class="hcard" href="#blog"><b>📝</b><div><strong>Guide di viaggio (blog)</strong><span>Articoli per Google, in 5 lingue</span></div><i>›</i></a>
+        <a class="hcard" href="#edit/settings"><b>☎️</b><div><strong>Contatti e social</strong><span>Telefono, WhatsApp, Instagram, Facebook, TikTok</span></div><i>›</i></a>
+        <a class="hcard" href="#edit/texts"><b>✏️</b><div><strong>Testi del sito</strong><span>Tutte le frasi del sito, in 5 lingue</span></div><i>›</i></a>
       </div>
       <div class="card" style="margin-top:22px" id="installTip">
         <b>📲 Mettila sulla schermata Home</b>
@@ -285,6 +326,25 @@
       <div class="toolbar"><label style="max-width:360px">Mostra i documenti di<select id="dFilter"><option value="all">Tutti</option></select></label></div>
       <div class="list" id="dList"></div>
     </div>
+    <!-- ✏️ MODIFICA IL SITO -->
+    <div data-pane="edit" class="hidden">
+      <p class="muted" id="edDesc" style="margin-bottom:14px"></p>
+      <div id="edForm"></div>
+      <div class="savebar"><span class="msg" id="edMsg"></span><button class="btn btn-red" id="edSave">💾 Salva</button></div>
+    </div>
+
+    <!-- 📝 BLOG -->
+    <div data-pane="blog" class="hidden">
+      <div id="blList">
+        <div class="toolbar"><div class="filters"><select id="blLang"><option value="">Tutte le lingue</option><option value="it">🇮🇹 Italiano</option><option value="de">🇩🇪 Deutsch</option><option value="en">🇬🇧 English</option><option value="pl">🇵🇱 Polski</option><option value="es">🇪🇸 Español</option></select><input id="blSearch" placeholder="Cerca…" style="max-width:220px"></div>
+        <button class="btn btn-red btn-sm" id="blNew">＋ Nuovo articolo</button></div>
+        <div class="list" id="blItems"></div>
+      </div>
+      <div id="blEdit" class="hidden">
+        <div id="blForm"></div>
+        <div class="savebar"><button class="btn btn-line btn-sm" id="blDel" style="margin-right:auto">🗑 Elimina</button><span class="msg" id="blMsg"></span><button class="btn btn-red" id="blSave">💾 Salva</button></div>
+      </div>
+    </div>
   </section>
 </main>
 <footer class="wrap" style="padding:20px;text-align:center;color:var(--muted);font-size:.8rem">Włoski z Dominiką i Podróże do Kalabrii · P.IVA 03800250791 · <a href="privacy.html">Privacy e Cookie</a></footer>
@@ -327,6 +387,7 @@ async function enter(session){
   $("#app").classList.remove("hidden");
   openTab((location.hash||"#home").slice(1));
   loadAll();
+  if(window.seedSite) window.seedSite();
 }
 $("#loginForm").addEventListener("submit",async e=>{
   e.preventDefault(); const f=e.target, msg=$("#loginMsg");
@@ -340,11 +401,21 @@ $("#forgotBtn").onclick=async()=>{
   show($("#loginMsg"),"Ti ho mandato un'e-mail per scegliere una nuova password.","ok");
 };
 $("#logoutBtn").onclick=async()=>{ await sb.auth.signOut(); location.href="/app"; };
+const PANE_TITLES={requests:"📩 Richieste dal sito",bookings:"📅 Prenotazioni",users:"👥 Clienti e studenti",materials:"📚 Lezioni per gli studenti",documents:"📄 Contratti e documenti",reviews:"⭐ Recensioni",visits:"📊 Statistiche del sito",blog:"📝 Guide di viaggio (blog)",edit:"✏️ Il sito"};
+let curRoute="home";
 function openTab(k){
-  if(!document.querySelector('[data-pane="'+k+'"]')) k="home";
-  $$("[data-tab]").forEach(b=>b.classList.toggle("on",b.dataset.tab===k));
-  $$("[data-pane]").forEach(p=>p.classList.toggle("hidden",p.dataset.pane!==k));
+  k=decodeURIComponent(k||"home");
+  const [base,arg]=k.split("/");
+  if(window.edLeave && !window.edLeave(k)){ history.replaceState(null,"","#"+curRoute); return; }
+  if(!document.querySelector('[data-pane="'+base+'"]')) k="home";
+  const b=k.split("/")[0]; curRoute=k;
+  $$("[data-tab]").forEach(x=>x.classList.toggle("on",x.dataset.tab===b));
+  $$("[data-pane]").forEach(p=>p.classList.toggle("hidden",p.dataset.pane!==b));
+  $("#paneBar").classList.toggle("hidden",b==="home");
+  $("#paneTitle").textContent=PANE_TITLES[b]||""; $("#backBtn").setAttribute("href","#home");
   if(location.hash.slice(1)!==k) history.replaceState(null,"","#"+k);
+  if(b==="edit" && window.openEditor) window.openEditor(arg);
+  if(b==="blog" && window.openBlog) window.openBlog(arg);
   window.scrollTo({top:0});
 }
 window.addEventListener("hashchange",()=>openTab(location.hash.slice(1)));
@@ -868,5 +939,6 @@ document.addEventListener("click",async e=>{
   }
 });
 </script>
+<script src="/assets/editor.js"></script>
 </body>
 </html>

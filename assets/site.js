@@ -17,11 +17,24 @@ function fixPaths(o){
   if (o && typeof o === "object") { const r = {}; for (const k in o) r[k] = fixPaths(o[k]); return r; }
   return o;
 }
+/* I contenuti si modificano dall'app (wloskizdominika.com/app) e sono salvati su Supabase:
+   il sito li legge subito da lì. Se Supabase non risponde usa i file in /content. */
+let REMOTE = null;
+function remoteContent(){
+  if (REMOTE) return REMOTE;
+  const c = window.WZD_CONFIG || {};
+  if (!c.SUPABASE_URL || /INSERISCI/.test(c.SUPABASE_URL)) return (REMOTE = Promise.resolve({}));
+  REMOTE = fetch(c.SUPABASE_URL.replace(/\/$/, "") + "/rest/v1/site_content?select=key,data", { headers: { apikey: c.SUPABASE_ANON_KEY } })
+    .then(r => r.ok ? r.json() : []).then(rows => { const o = {}; (rows || []).forEach(x => { if (x && x.data && Object.keys(x.data).length) o[x.key] = x.data; }); return o; })
+    .catch(() => ({}));
+  return REMOTE;
+}
 async function loadContent(){
-  const get = n => fetch(ROOT + "content/" + n + "?v=" + Date.now()).then(r => r.json());
+  const rc = await remoteContent();
+  const get = n => rc[n.replace(".json", "")] ? Promise.resolve(rc[n.replace(".json", "")]) : fetch(ROOT + "content/" + n + "?v=" + Date.now()).then(r => r.json());
   const [st, ex, le, ho, ga, tx, sv, sl, hb] = await Promise.all(["settings.json","excursions.json","lessons.json","houses.json","gallery.json","texts.json","services.json","slugs.json","hotels.json"].map(n => get(n).catch(() => ({}))));
   SLUGS = sl || {};
-  SITE = { contact: st.contact, socials: st.socials || [], excursions: ex.items || [], lessonsIT: le.italian, lessonsPL: le.polish, houses: (ho.items || []).concat((hb.items || []).map(h => Object.assign({ type: "hotel" }, h))), gallery: ga.items || [], services: sv.items || [] };
+  SITE = { contact: st.contact, socials: st.socials || [], excursions: ex.items || [], lessonsIT: le.italian, lessonsPL: le.polish, houses: (ho.items || []).concat((hb.items || []).map(h => Object.assign({ type: "hotel" }, h))), gallery: ga.items || [], services: sv.items || [], hotelsPage: !!hb.page_visible };
   GUIDE_LANGS = st.guide_langs || ""; T = tx;
   SITE = fixPaths(SITE);
   if (st.vat) document.getElementById("vat").textContent = "P.IVA " + st.vat;
@@ -30,7 +43,7 @@ async function loadContent(){
 /* Aspetto: colori, foto principali, sezioni e menu (pannello → 🎨 Aspetto del sito) */
 let LOOK = {};
 async function loadLook(){
-  try { LOOK = fixPaths(await fetch(ROOT + "content/look.json?v=" + Date.now()).then(r => r.json())); } catch(e) { LOOK = {}; return; }
+  try { const rc = await remoteContent(); LOOK = fixPaths(rc.look || await fetch(ROOT + "content/look.json?v=" + Date.now()).then(r => r.json())); } catch(e) { LOOK = {}; return; }
   const c = LOOK.colors || {}, root = document.documentElement.style;
   const map = { primary:"--red", secondary:"--green", background:"--cream", accent:"--orange", text:"--ink" };
   for (const k in map) if (c[k]) root.setProperty(map[k], c[k]);
@@ -46,9 +59,12 @@ async function loadLook(){
   const hs = LOOK.home_sections || {};
   if (PAGE === "home") for (const id in hs) if (hs[id] === false) { const el = document.getElementById(id); if (el) el.style.display = "none"; }
   const mn = LOOK.menu || {};
-  document.querySelectorAll(".menu a[data-i], .f-links a[data-i], .nav-right a[data-i]").forEach(a => { if (mn[a.dataset.i] === false) (a.closest("li") || a).style.display = "none"; });
+  let hb = (await remoteContent()).hotels;
+  if (!hb) { try { hb = await fetch(ROOT + "content/hotels.json?v=" + Date.now()).then(r => r.json()); } catch(e) { hb = {}; } }
+  const off = k => mn[k] === false || (k === "nav_hotel" && !hb.page_visible);
+  document.querySelectorAll(".menu a[data-i], .f-links a[data-i], .nav-right a[data-i]").forEach(a => { (a.closest("li") || a).style.display = off(a.dataset.i) ? "none" : ""; });
   const TILE_NAV = { houses:"nav_house", hotels:"nav_hotel", exc:"nav_exc", exp:"nav_exp", transfer:"nav_tr", rental:"nav_rent", boat:"nav_boat", media:"nav_media" };
-  for (const k in TILE_NAV) if (mn[TILE_NAV[k]] === false) document.querySelectorAll('[data-tile="' + k + '"]').forEach(el => el.style.display = "none");
+  for (const k in TILE_NAV) document.querySelectorAll('[data-tile="' + k + '"]').forEach(el => el.style.display = off(TILE_NAV[k]) ? "none" : "");
   const hc = LOOK.home_counts || {};
   if (hc.exc) HOME_MAX.exc = +hc.exc; if (hc.house) HOME_MAX.house = +hc.house; if (hc.serv) HOME_MAX.serv = +hc.serv;
 }
@@ -62,8 +78,10 @@ const isHotel = h => HOTEL_TYPES.includes(h.type);
 const isVis = x => x && x.visible !== false;
 function housesForPage(){ const all=(SITE.houses||[]).filter(isVis); return (PAGE==="hotels"||PAGE==="hotel") ? all.filter(isHotel) : all.filter(h=>!isHotel(h)); }
 function excForPage(){ const all=(SITE.excursions||[]).filter(isVis); return (PAGE==="exp"||PAGE==="expd") ? all.filter(x=>x.kind==="exp") : all.filter(x=>x.kind!=="exp"); }
-const houseUrl = i => (SLUGS.houses||[])[i] ? ROOT + "casa/" + SLUGS.houses[i] + ".html" : "";
-const excUrl = i => (SLUGS.excursions||[])[i] ? ROOT + "escursione/" + SLUGS.excursions[i] + ".html" : "";
+/* indirizzo della pagina di una casa / escursione: pagina fissa se esiste, altrimenti la pagina «vedi» */
+const itemUrl = (dir, list, x) => !x || !x.id ? "" : (list || []).includes(x.id) ? ROOT + dir + "/" + x.id + ".html" : ROOT + dir + "/vedi.html?id=" + encodeURIComponent(x.id);
+const houseUrl = i => itemUrl("casa", SLUGS.houses, (SITE.houses || [])[i]);
+const excUrl = i => itemUrl("escursione", SLUGS.excursions, (SITE.excursions || [])[i]);
 let lang = "it";
 try { const b=(navigator.language||"it").slice(0,2); lang = localStorage.getItem("wzd-lang") || (LANGS.includes(b)?b:"it"); } catch(e){}
 if (!LANGS.includes(lang)) lang = "it";
@@ -230,7 +248,10 @@ function miniCard(href, img, title, chips){
 }
 function renderDetail(){
   const box=document.getElementById("detail"); if(!box) return;
-  const i=+box.dataset.idx, more=document.getElementById("moreList");
+  const qid=new URLSearchParams(location.search).get("id")||box.dataset.id||"";
+  const findI=list=>{ const j=(list||[]).findIndex(x=>x&&x.id===qid); return qid ? j : +box.dataset.idx; };
+  const i=findI(box.dataset.kind==="house"?SITE.houses:SITE.excursions), more=document.getElementById("moreList");
+  if(i<0){ box.innerHTML=`<p style="padding:40px 0">${esc(t("not_found")||"Pagina non trovata.")}</p>`; return; }
   if(box.dataset.kind==="house"){
     const h=(SITE.houses||[])[i]; if(!h) return;
     const am=L(h.amenities)||[], di=L(h.distances)||[];
@@ -294,16 +315,91 @@ function applyLang(){
 }
 
 /* Blog: ultimi articoli in Home + filtri nella pagina Blog */
-let BLOG = null;
+let BLOG = null, BLOG_STATIC = null;
+const BL_MONTHS = {it:"gen feb mar apr mag giu lug ago set ott nov dic",de:"Jan Feb Mär Apr Mai Jun Jul Aug Sep Okt Nov Dez",en:"Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec",pl:"sty lut mar kwi maj cze lip sie wrz paź lis gru",es:"ene feb mar abr may jun jul ago sep oct nov dic"};
+const BL_FLAGS = {it:"🇮🇹",de:"🇩🇪",en:"🇬🇧",pl:"🇵🇱",es:"🇪🇸"};
+const niceDate = (d, l) => { const m = String(d||"").slice(0,10).split("-").map(Number); return m.length===3&&m[1] ? m[2]+" "+(BL_MONTHS[l]||BL_MONTHS.it).split(" ")[m[1]-1]+" "+m[0] : String(d||""); };
+const isDraft = d => d === true || d === "true" || d === "True";
+const coverSrc = c => !c ? "" : /^https?:/.test(c) ? c : ROOT + String(c).replace(/^\//, "");
+/* articoli scritti nell'app (Supabase); se non ci sono uso l'elenco fisso del sito */
+async function loadBlog(){
+  if (BLOG) return BLOG;
+  try { BLOG_STATIC = (await fetch(ROOT + "content/blog-index.json?v=" + Date.now()).then(r => r.json())).items || []; } catch(e) { BLOG_STATIC = []; }
+  let live = [];
+  const c = window.WZD_CONFIG || {};
+  if (c.SUPABASE_URL && !/INSERISCI/.test(c.SUPABASE_URL)) {
+    try { const r = await fetch(c.SUPABASE_URL.replace(/\/$/, "") + "/rest/v1/site_posts?select=slug,data", { headers: { apikey: c.SUPABASE_ANON_KEY } }); if (r.ok) live = await r.json(); } catch(e) {}
+  }
+  live = (live || []).filter(r => r && r.data && !isDraft(r.data.draft)).map(r => { const d = r.data, l = d.lang || "it", dt = String(d.date || "").slice(0,10);
+    return { slug: r.slug, title: d.title || "", description: d.description || "", lang: l, date: dt, date_txt: niceDate(dt, l), cover: d.cover || "", cover_alt: d.cover_alt || "", category: d.category || "", body: d.body || "", group: d.group || "", seo_title: d.seo_title || "" }; })
+    .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+  BLOG = live.length ? live : BLOG_STATIC;
+  return BLOG;
+}
+const postUrl = p => (BLOG_STATIC || []).some(x => x.slug === p.slug) ? ROOT + "blog/" + p.slug + ".html" : ROOT + "blog/leggi.html?p=" + encodeURIComponent(p.slug);
+const blogCard = p => `<article class="card" data-bl="${esc(p.lang)}"><a href="${postUrl(p)}" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;height:100%">
+    ${slot(coverSrc(p.cover), p.cover_alt || p.title)}
+    <div class="card-body"><div class="meta"><span class="chip">${BL_FLAGS[p.lang]||""} ${esc(p.category || "Blog")}</span><span class="chip">${esc(p.date_txt || p.date)}</span></div>
+    <h3>${esc(p.title)}</h3><p class="clamp">${esc(p.description)}</p><div class="card-foot"><span class="link">${t("read_more")}</span></div></div></a></article>`;
 async function renderBlog(){
+  if (PAGE === "blog") return renderBlogPage();
+  if (PAGE === "post") return renderPostLive();
   const box = document.getElementById("blogList"); if (!box) return;
-  if (!BLOG) { try { BLOG = (await fetch(ROOT + "content/blog-index.json?v=" + Date.now()).then(r => r.json())).items || []; } catch(e) { BLOG = []; } }
+  await loadBlog();
   const sec = document.getElementById("blog"); if (sec) sec.style.display = BLOG.length ? "" : "none";
   const mine = BLOG.filter(p => p.lang === lang), rest = BLOG.filter(p => p.lang !== lang);
-  box.innerHTML = (mine.length ? mine : rest).slice(0, 3).map(p => `<article class="card"><a href="${ROOT}blog/${esc(p.slug)}.html" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;height:100%">
-    ${slot(p.cover ? ROOT + p.cover : "", p.cover_alt || p.title)}
-    <div class="card-body"><div class="meta"><span class="chip">${esc(p.category || "Blog")}</span><span class="chip">${esc(p.date_txt || p.date)}</span></div>
-    <h3>${esc(p.title)}</h3><p class="clamp">${esc(p.description)}</p><div class="card-foot"><span class="link">${t("read_more")}</span></div></div></a></article>`).join("");
+  box.innerHTML = (mine.length ? mine : rest).slice(0, 3).map(blogCard).join("");
+}
+let BLOG_PAGE_DONE = false;
+async function renderBlogPage(){
+  const grid = document.querySelector("#bloglist .grid-3"); if (!grid || BLOG_PAGE_DONE) return;
+  await loadBlog(); if (BLOG === BLOG_STATIC) return;   // nessun articolo dall'app: resta la pagina fissa
+  BLOG_PAGE_DONE = true;
+  grid.innerHTML = BLOG.map(blogCard).join("") || `<p class="muted">${esc(t("blog_empty"))}</p>`;
+  const langs = [...new Set(BLOG.map(p => p.lang))], names = {it:"Italiano",de:"Deutsch",en:"English",pl:"Polski",es:"Español"};
+  const f = document.getElementById("blogFilters");
+  if (f) f.innerHTML = langs.length > 1 ? `<button class="on" data-blf="all">${esc(t("blog_all"))}</button>` + langs.map(l => `<button data-blf="${l}">${BL_FLAGS[l]||""} ${names[l]||l}</button>`).join("") : "";
+  blogLangFilter();
+}
+/* testo dell'articolo (Markdown semplice, come nel sito) */
+function mdInline(s){
+  s = esc(s);
+  s = s.replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, (m, a, u) => `<img src="${esc(coverSrc(u.replace(/&amp;/g,"&")))}" alt="${a}" loading="lazy">`);
+  s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m, a, u) => { u = u.replace(/&amp;/g,"&"); const href = /^(https?:|mailto:|tel:|#)/.test(u) ? u : u.startsWith("/") ? ROOT + u.slice(1) : u;
+    const ext = /^https?:/.test(href) && !/wloskizdominika\.com/.test(href); return `<a href="${esc(href)}"${ext ? ' target="_blank" rel="noopener"' : ""}>${a}</a>`; });
+  return s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/(^|[^\w*])\*(?!\s)(.+?)(?<!\s)\*(?![\w*])/g, "$1<em>$2</em>");
+}
+function mdToHtml(md){
+  const out = []; let para = [], lst = null;
+  const flush = () => { if (para.length) { out.push("<p>" + mdInline(para.join(" ")) + "</p>"); para = []; } if (lst) { out.push(`<${lst[0]}>` + lst[1].map(i => `<li>${mdInline(i)}</li>`).join("") + `</${lst[0]}>`); lst = null; } };
+  String(md || "").replace(/\r/g, "").split("\n").forEach(raw => {
+    const line = raw.replace(/\s+$/, ""), h = line.match(/^(#{1,4})\s+(.*)$/), ul = line.match(/^\s*[-*+]\s+(.*)$/), ol = line.match(/^\s*\d+[.)]\s+(.*)$/);
+    if (!line.trim()) return flush();
+    if (h) { flush(); const n = Math.max(2, h[1].length); out.push(`<h${n}>${mdInline(h[2])}</h${n}>`); return; }
+    if (ul || ol) { const k = ul ? "ul" : "ol"; if (para.length) { out.push("<p>" + mdInline(para.join(" ")) + "</p>"); para = []; } if (lst && lst[0] !== k) flush(); if (!lst) lst = [k, []]; lst[1].push((ul || ol)[1]); return; }
+    if (line.startsWith(">")) { flush(); out.push("<blockquote>" + mdInline(line.replace(/^>\s*/, "")) + "</blockquote>"); return; }
+    if (lst) flush();
+    para.push(line.trim());
+  });
+  flush(); return out.join("\n");
+}
+/* pagina di un articolo: mostra sempre l'ultima versione salvata nell'app */
+let POST_DONE = false;
+async function renderPostLive(){
+  if (POST_DONE) return;
+  const slug = new URLSearchParams(location.search).get("p") || (location.pathname.match(/\/blog\/([^/]+)\.html$/) || [])[1] || "";
+  const h1 = document.getElementById("postH1"), body = document.getElementById("postBody"); if (!slug || !h1 || !body) return;
+  await loadBlog(); POST_DONE = true;
+  const p = BLOG.find(x => x.slug === slug);
+  if (!p) { if (document.body.dataset.dyn) h1.textContent = t("not_found") || "Articolo non trovato."; return; }
+  if (BLOG === BLOG_STATIC) return;   // la pagina fissa è già giusta
+  document.title = (p.seo_title || p.title) + " · Włoski z Dominiką";
+  h1.textContent = p.title;
+  body.innerHTML = mdToHtml(p.body);
+  const cv = document.getElementById("postCover"); if (cv) cv.innerHTML = p.cover ? `<img class="post-cover" src="${esc(coverSrc(p.cover))}" alt="${esc(p.cover_alt || p.title)}">` : "";
+  const mt = document.getElementById("postMeta"), words = (String(p.body).match(/[\wÀ-ž'’]+/g) || []).length;
+  if (mt) mt.innerHTML = `<span class="chip">${BL_FLAGS[p.lang]||""} ${esc(p.category || "Blog")}</span><span class="chip"><time datetime="${esc(p.date)}">${esc(p.date_txt)}</time></span><span class="chip">⏱ ${Math.max(1, Math.round(words / 200))} min</span>`;
+  if (document.body.dataset.dyn) document.documentElement.lang = p.lang;
 }
 document.addEventListener("click", e => {
   const b = e.target.closest("[data-blf]"); if (!b) return;

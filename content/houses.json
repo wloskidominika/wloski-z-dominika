@@ -1,442 +1,450 @@
 {
-  "items": [
-    {
-      "type": "apartment",
-      "title": {
-        "it": "Appartamento Capo Mary – Primo piano",
-        "en": "Capo Mary Apartment – First floor",
-        "de": "Apartment Capo Mary – Erster Stock",
-        "pl": "Apartament Capo Mary – Pierwsze piętro",
-        "es": "Apartamento Capo Mary – Primera planta"
-      },
-      "place": "Capo Vaticano",
-      "img": "/media/appartamento-capo-mary-primo-piano-1.jpg",
-      "photos": [
-        "/media/appartamento-capo-mary-primo-piano-2.jpg",
-        "/media/appartamento-capo-mary-primo-piano-3.jpg",
-        "/media/appartamento-capo-mary-primo-piano-4.jpg",
-        "/media/appartamento-capo-mary-primo-piano-5.jpg",
-        "/media/appartamento-capo-mary-primo-piano-6.jpg",
-        "/media/appartamento-capo-mary-primo-piano-7.jpg",
-        "/media/appartamento-capo-mary-primo-piano-8.jpg",
-        "/media/appartamento-capo-mary-primo-piano-9.jpg",
-        "/media/appartamento-capo-mary-primo-piano-10.jpg",
-        "/media/appartamento-capo-mary-primo-piano-11.jpg"
-      ],
-      "desc": {
-        "it": "Al primo piano di una casa a Capo Vaticano, questo appartamento ha un balcone affacciato sul mare: il posto giusto per la colazione e per i tramonti sulla Costa degli Dei.\n\nAll'interno: 2 camere da letto, un bagno, soggiorno con TV e cucina attrezzata per cucinare in autonomia. C'è l'aria condizionata, e lenzuola e asciugamani sono inclusi. Fuori ci sono un giardino curato e una terrazza; Wi-Fi e parcheggio privato sono gratuiti.\n\nLe spiagge sono vicine: Torre Ruffa a 1 km, Torre Marino a 1,9 km, il Faro di Capo Vaticano a 3,8 km. Tropea, con il centro storico e Santa Maria dell'Isola, è a 7 km.",
-        "en": "On the first floor of a house in Capo Vaticano, this apartment has a sea-view balcony – just the place for breakfast and for sunsets over the Coast of the Gods.\n\nInside: 2 bedrooms, a bathroom, a living room with TV and a fully equipped kitchen. It's air-conditioned, and bed linen and towels are included. Outside there's a well-kept garden and a terrace; Wi-Fi and private parking are free.\n\nThe beaches are close by: Torre Ruffa 1 km, Torre Marino 1.9 km, the Capo Vaticano lighthouse 3.8 km. Tropea, with its old town and Santa Maria dell'Isola, is 7 km away.",
-        "de": "Im ersten Stock eines Hauses in Capo Vaticano liegt diese Wohnung mit Balkon und Meerblick – ideal fürs Frühstück und für Sonnenuntergänge an der Costa degli Dei.\n\nInnen: 2 Schlafzimmer, ein Bad, Wohnzimmer mit TV und eine voll ausgestattete Küche. Die Wohnung ist klimatisiert, Bettwäsche und Handtücher sind inklusive. Draußen gibt es einen gepflegten Garten und eine Terrasse; WLAN und Privatparkplatz sind kostenlos.\n\nDie Strände sind nah: Torre Ruffa 1 km, Torre Marino 1,9 km, der Leuchtturm von Capo Vaticano 3,8 km. Tropea mit Altstadt und Santa Maria dell'Isola ist 7 km entfernt.",
-        "pl": "Mieszkanie na pierwszym piętrze domu w Capo Vaticano ma balkon z widokiem na morze – idealny na śniadanie i zachody słońca nad Wybrzeżem Bogów.\n\nW środku: 2 sypialnie, łazienka, salon z telewizorem i w pełni wyposażona kuchnia. Jest klimatyzacja, a pościel i ręczniki są wliczone. Na zewnątrz zadbany ogród i taras; Wi-Fi i prywatny parking są bezpłatne.\n\nPlaże są blisko: Torre Ruffa 1 km, Torre Marino 1,9 km, latarnia w Capo Vaticano 3,8 km. Do Tropei ze starówką i sanktuarium Santa Maria dell'Isola jest 7 km.",
-        "es": "En la primera planta de una casa en Capo Vaticano, este apartamento tiene un balcón con vistas al mar: perfecto para desayunar y ver la puesta de sol sobre la Costa de los Dioses.\n\nDentro: 2 dormitorios, un baño, salón con TV y cocina totalmente equipada. Tiene aire acondicionado y la ropa de cama y las toallas están incluidas. Fuera hay un jardín cuidado y una terraza; el wifi y el aparcamiento privado son gratuitos.\n\nLas playas están cerca: Torre Ruffa a 1 km, Torre Marino a 1,9 km y el faro de Capo Vaticano a 3,8 km. Tropea, con su casco antiguo y Santa Maria dell'Isola, está a 7 km."
-      },
-      "cin": "IT102030C21C76D",
-      "cir": "102030-AAT-00370",
-      "guests": "1–4",
-      "amenities": {
-        "it": [
-          "Vista mare",
-          "Aria condizionata",
-          "TV",
-          "Biancheria da letto e da bagno",
-          "Barbecue"
-        ],
-        "en": [
-          "Sea view",
-          "Air conditioning",
-          "TV",
-          "Bed and bath linen",
-          "Barbecue"
-        ],
-        "de": [
-          "Meerblick",
-          "Klimaanlage",
-          "TV",
-          "Bett- und Badwäsche",
-          "Grill"
-        ],
-        "pl": [
-          "Widok na morze",
-          "Klimatyzacja",
-          "Telewizor",
-          "Pościel i ręczniki",
-          "Grill"
-        ],
-        "es": [
-          "Vistas al mar",
-          "Aire acondicionado",
-          "TV",
-          "Ropa de cama y baño",
-          "Barbacoa"
-        ]
-      },
-      "map": "89866 Gurdurello VV, Calabria"
-    },
-    {
-      "type": "apartment",
-      "title": {
-        "it": "Appartamento Sole",
-        "en": "Sole Apartment",
-        "de": "Apartment Sole",
-        "pl": "Apartament Sole",
-        "es": "Apartamento Sole"
-      },
-      "place": "Santa Domenica di Ricadi",
-      "img": "/media/appartamento-sole-1.jpg",
-      "photos": [
-        "/media/appartamento-sole-2.jpg",
-        "/media/appartamento-sole-3.jpg",
-        "/media/appartamento-sole-4.jpg",
-        "/media/appartamento-sole-5.jpg",
-        "/media/appartamento-sole-6.jpg",
-        "/media/appartamento-sole-7.jpg",
-        "/media/appartamento-sole-8.jpg",
-        "/media/appartamento-sole-9.jpg",
-        "/media/appartamento-sole-10.jpg",
-        "/media/appartamento-sole-11.jpg"
-      ],
-      "desc": {
-        "it": "Una casa tranquilla a Santa Domenica di Ricadi, a 3 km da Tropea: comoda per il mare e per girare la Costa degli Dei senza stress.\n\nHa una camera matrimoniale e una seconda camera con due letti singoli, che si possono unire. Poi cucina attrezzata, bagno e una veranda dove mangiare all'aperto o rilassarsi la sera. Le due camere hanno l'aria condizionata; Wi-Fi e posto auto privato sono gratuiti.\n\nVa bene per famiglie, coppie e piccoli gruppi di amici.",
-        "en": "A quiet house in Santa Domenica di Ricadi, 3 km from Tropea – handy for the beach and for exploring the Coast of the Gods without stress.\n\nIt has a double bedroom and a second bedroom with two single beds that can be pushed together, plus an equipped kitchen, a bathroom and a veranda for eating outdoors or relaxing in the evening. Both bedrooms are air-conditioned; Wi-Fi and a private parking space are free.\n\nGreat for families, couples and small groups of friends.",
-        "de": "Ein ruhiges Haus in Santa Domenica di Ricadi, 3 km von Tropea entfernt – praktisch für den Strand und für Ausflüge an der Costa degli Dei.\n\nEs gibt ein Doppelzimmer und ein zweites Zimmer mit zwei Einzelbetten, die sich zusammenstellen lassen, dazu eine ausgestattete Küche, ein Bad und eine Veranda zum Essen im Freien oder für entspannte Abende. Beide Schlafzimmer sind klimatisiert; WLAN und Privatparkplatz sind kostenlos.\n\nIdeal für Familien, Paare und kleine Freundesgruppen.",
-        "pl": "Spokojny dom w Santa Domenica di Ricadi, 3 km od Tropei – wygodny na plażę i na zwiedzanie Wybrzeża Bogów bez stresu.\n\nMa sypialnię z łóżkiem małżeńskim i drugą sypialnię z dwoma pojedynczymi łóżkami, które można złączyć, a do tego wyposażoną kuchnię, łazienkę i werandę na posiłki na świeżym powietrzu i wieczorny relaks. Obie sypialnie są klimatyzowane; Wi-Fi i prywatne miejsce parkingowe są bezpłatne.\n\nDobry wybór dla rodzin, par i małych grup przyjaciół.",
-        "es": "Una casa tranquila en Santa Domenica di Ricadi, a 3 km de Tropea: cómoda para ir a la playa y recorrer la Costa de los Dioses sin estrés.\n\nTiene un dormitorio doble y un segundo dormitorio con dos camas individuales que se pueden juntar, además de cocina equipada, baño y una veranda para comer al aire libre o relajarse por la noche. Los dos dormitorios tienen aire acondicionado; el wifi y la plaza de aparcamiento privada son gratuitos.\n\nIdeal para familias, parejas y pequeños grupos de amigos."
-      },
-      "cin": "IT102030C25KRUZ7WZ",
-      "cir": "102030-AAT-00390",
-      "amenities": {
-        "it": [
-          "Aria condizionata si nelle camere da letto"
-        ],
-        "en": [
-          "Air conditioning in the bedrooms"
-        ],
-        "de": [
-          "Klimaanlage in den Schlafzimmern"
-        ],
-        "fr": [
-          "Climatisation dans les chambres à coucher"
-        ],
-        "pl": [
-          "Klimatyzacja w sypialniach"
-        ],
-        "ru": [
-          "Кондиционирование воздуха в спальнях"
-        ],
-        "es": [
-          "Aire acondicionado en los dormitorios"
-        ],
-        "cs": [
-          "Klimatizace v ložnicích"
-        ]
-      },
-      "map": "Via tocco santa domenica di ricadi, Calabria"
-    },
-    {
-      "type": "apartment",
-      "title": {
-        "it": "Ortensia"
-      },
-      "place": "Tropea",
-      "img": "/media/ortensia-1.jpg",
-      "photos": [
-        "/media/ortensia-2.jpg",
-        "/media/ortensia-3.jpg",
-        "/media/ortensia-4.jpg",
-        "/media/ortensia-5.jpg",
-        "/media/ortensia-6.jpg",
-        "/media/ortensia-7.jpg",
-        "/media/ortensia-8.jpg",
-        "/media/ortensia-9.jpg",
-        "/media/ortensia-10.jpg",
-        "/media/ortensia-11.jpg",
-        "/media/ortensia-12.jpg",
-        "/media/ortensia-13.jpg",
-        "/media/ortensia-14.jpg",
-        "/media/ortensia-15.jpg"
-      ],
-      "desc": {
-        "it": "Un appartamento a Tropea, comodo per vivere il centro storico e le spiagge senza usare l'auto.\n\nHa una camera matrimoniale, cucina, bagno e un balcone, con due climatizzatori per l'estate. Lenzuola e asciugamani sono inclusi.\n\nÈ pensato soprattutto per le coppie e per chi vuole qualche giorno di mare con Tropea a portata di passeggiata.",
-        "en": "An apartment in Tropea, handy for enjoying the old town and the beaches without a car.\n\nIt has a double bedroom, kitchen, bathroom and a balcony, with two air-conditioning units for the summer. Bed linen and towels are included.\n\nBest suited to couples and anyone who wants a few days by the sea with Tropea within walking distance.",
-        "de": "Eine Wohnung in Tropea – praktisch, um Altstadt und Strände ohne Auto zu genießen.\n\nSie hat ein Doppelzimmer, Küche, Bad und einen Balkon, dazu zwei Klimageräte für den Sommer. Bettwäsche und Handtücher sind inklusive.\n\nVor allem für Paare gedacht und für alle, die ein paar Tage am Meer verbringen und Tropea zu Fuß erkunden möchten.",
-        "pl": "Mieszkanie w Tropei – wygodne, by korzystać ze starówki i plaż bez samochodu.\n\nMa sypialnię z łóżkiem małżeńskim, kuchnię, łazienkę i balkon oraz dwa klimatyzatory na lato. Pościel i ręczniki są wliczone.\n\nNajlepsze dla par i dla tych, którzy chcą spędzić kilka dni nad morzem, mając Tropeę w zasięgu spaceru.",
-        "es": "Un apartamento en Tropea, cómodo para disfrutar del casco antiguo y de las playas sin coche.\n\nTiene un dormitorio doble, cocina, baño y balcón, con dos equipos de aire acondicionado para el verano. La ropa de cama y las toallas están incluidas.\n\nPensado sobre todo para parejas y para quien quiere pasar unos días de mar con Tropea a un paseo."
-      },
-      "cin": "IT102044C2FPQKZPLP",
-      "cir": "102044-AAT-00540",
-      "amenities": {
-        "it": [
-          "Aria condizionata",
-          "Lenzuola e asciugamani",
-          "Bagno privato"
-        ],
-        "en": [
-          "Air conditioning",
-          "Bed linens and towels",
-          "Private bathroom"
-        ],
-        "de": [
-          "Klimaanlage",
-          "Bettwäsche und Handtücher",
-          "Eigenes Badezimmer"
-        ],
-        "fr": [
-          "Climatisation",
-          "Draps et serviettes",
-          "Salle de bain privée"
-        ],
-        "pl": [
-          "Klimatyzacja",
-          "Pościel i ręczniki",
-          "Prywatna łazienka"
-        ],
-        "ru": [
-          "Кондиционирование воздуха",
-          "Постельное белье и полотенца",
-          "Частная ванная комната"
-        ],
-        "es": [
-          "Aire acondicionado",
-          "Ropa de cama y toallas",
-          "Baño privado"
-        ],
-        "cs": [
-          "Klimatizace",
-          "Ložní prádlo a ručníky",
-          "Soukromá koupelna"
-        ]
-      },
-      "map": "Via campo inferiore, Calabria"
-    },
-    {
-      "type": "villa",
-      "title": {
-        "it": "Villa Mimosa"
-      },
-      "place": "Capo Vaticano",
-      "img": "/media/villa-mimosa-capo-vaticano-1.jpg",
-      "photos": [
-        "/media/villa-mimosa-capo-vaticano-2.jpg",
-        "/media/villa-mimosa-capo-vaticano-3.jpg",
-        "/media/villa-mimosa-capo-vaticano-4.jpg",
-        "/media/villa-mimosa-capo-vaticano-5.jpg",
-        "/media/villa-mimosa-capo-vaticano-6.jpg",
-        "/media/villa-mimosa-capo-vaticano-7.jpg",
-        "/media/villa-mimosa-capo-vaticano-8.jpg",
-        "/media/villa-mimosa-capo-vaticano-9.jpg",
-        "/media/villa-mimosa-capo-vaticano-10.jpg",
-        "/media/villa-mimosa-capo-vaticano-11.jpg",
-        "/media/villa-mimosa-capo-vaticano-12.jpg",
-        "/media/villa-mimosa-capo-vaticano-13.jpg",
-        "/media/case-vacanze-2.jpg",
-        "/media/villa-mimosa-1.jpg",
-        "/media/villa-mimosa-3.jpg",
-        "/media/appartamenti-noemi-con-piscina-18.jpg"
-      ],
-      "desc": {
-        "it": "Due villette indipendenti tra gli ulivi di Capo Vaticano, in una zona silenziosa a pochi minuti da Tropea.\n\nLe villette condividono una grande piscina panoramica con lettini, sdraio e un gazebo, da cui si vedono il mare, lo Stretto di Messina e la Sicilia. Per i bambini ci sono un parco giochi (scivoli, altalene, casetta, campetti da calcio, pallavolo e basket) e una mini-fattoria con coniglietti nani e galline.\n\nLa villetta è adatta a 4–5 persone: giardino privato di circa 1.500 m² con barbecue e doccia esterna, veranda coperta con tavolo grande, soggiorno luminoso con TV e cucina open space. Ci sono una camera matrimoniale (con letto aggiuntivo o culla su richiesta), una camera con due letti singoli unibili e un bagno con vasca/doccia. I materassi sono nuovi, in memory foam. Parcheggio, piscina e area giochi sono in comune con l'altra villetta.",
-        "en": "Two separate villas among the olive trees of Capo Vaticano, in a quiet spot a few minutes from Tropea.\n\nThey share a large panoramic pool with sunbeds, loungers and a gazebo, overlooking the sea, the Strait of Messina and Sicily. For children there's a playground (slides, swings, a playhouse, small football, volleyball and basketball pitches) and a mini-farm with dwarf rabbits and hens.\n\nThe villa sleeps 4–5: a private garden of about 1,500 m² with barbecue and outdoor shower, a covered veranda with a large table, a bright living room with TV and an open-plan kitchen. There's a double bedroom (extra bed or cot on request), a bedroom with two single beds that can be joined and a bathroom with bath/shower. The mattresses are new memory foam. Parking, pool and play area are shared with the other villa.",
-        "de": "Zwei unabhängige Ferienhäuser zwischen den Olivenbäumen von Capo Vaticano, ruhig gelegen und nur wenige Minuten von Tropea entfernt.\n\nSie teilen sich einen großen Panoramapool mit Liegen, Sonnenstühlen und Pavillon – mit Blick aufs Meer, die Straße von Messina und Sizilien. Für Kinder gibt es einen Spielplatz (Rutschen, Schaukeln, Spielhaus, kleine Fußball-, Volleyball- und Basketballplätze) und einen Mini-Bauernhof mit Zwergkaninchen und Hühnern.\n\nDas Haus ist für 4–5 Personen geeignet: privater Garten von ca. 1.500 m² mit Grill und Außendusche, überdachte Veranda mit großem Tisch, helles Wohnzimmer mit TV und offene Küche. Es gibt ein Doppelzimmer (Zustellbett oder Babybett auf Anfrage), ein Zimmer mit zwei zusammenstellbaren Einzelbetten und ein Bad mit Wanne/Dusche. Die Matratzen sind neu, aus Memory-Schaum. Parkplatz, Pool und Spielbereich werden mit dem anderen Haus geteilt.",
-        "pl": "Dwa niezależne domki wśród drzew oliwnych w Capo Vaticano, w spokojnej okolicy kilka minut od Tropei.\n\nDomki dzielą duży basen z widokiem na morze, Cieśninę Mesyńską i Sycylię, z leżakami i altaną. Dla dzieci jest plac zabaw (zjeżdżalnie, huśtawki, domek, małe boiska do piłki nożnej, siatkówki i koszykówki) oraz mini-zagroda z królikami miniaturkami i kurami.\n\nDomek pomieści 4–5 osób: prywatny ogród o powierzchni ok. 1500 m² z grillem i prysznicem zewnętrznym, zadaszona weranda z dużym stołem, jasny salon z telewizorem i otwarta kuchnia. Jest sypialnia z łóżkiem małżeńskim (dodatkowe łóżko lub łóżeczko na życzenie), sypialnia z dwoma pojedynczymi łóżkami, które można złączyć, i łazienka z wanną/prysznicem. Materace są nowe, z pianki memory. Parking, basen i plac zabaw są wspólne z drugim domkiem.",
-        "es": "Dos villas independientes entre los olivos de Capo Vaticano, en una zona tranquila a pocos minutos de Tropea.\n\nComparten una gran piscina panorámica con tumbonas y cenador, con vistas al mar, al Estrecho de Mesina y a Sicilia. Para los niños hay un parque infantil (toboganes, columpios, casita, pequeñas pistas de fútbol, voleibol y baloncesto) y una minigranja con conejos enanos y gallinas.\n\nLa villa es para 4–5 personas: jardín privado de unos 1.500 m² con barbacoa y ducha exterior, veranda cubierta con mesa grande, salón luminoso con TV y cocina abierta. Hay un dormitorio doble (cama supletoria o cuna bajo petición), un dormitorio con dos camas individuales que se pueden juntar y un baño con bañera/ducha. Los colchones son nuevos, de viscoelástica. El aparcamiento, la piscina y la zona de juegos se comparten con la otra villa."
-      },
-      "cin": "IT102030C2VR99SC8D",
-      "cir": "102030-AAT-00035",
-      "guests": "6",
-      "amenities": {
-        "it": [
-          "Piscina",
-          "Aria condizionata",
-          "Parcheggio",
-          "Giardino",
-          "lavatrice"
-        ],
-        "en": [
-          "Swimming pool",
-          "Air conditioning",
-          "Parking",
-          "Garden",
-          "Washing machine"
-        ],
-        "de": [
-          "Swimmingpool",
-          "Klimaanlage",
-          "Parkplatz",
-          "Garten",
-          "Waschmaschine"
-        ],
-        "fr": [
-          "Piscine",
-          "Climatisation",
-          "Parking",
-          "Jardin",
-          "Machine à laver"
-        ],
-        "pl": [
-          "Basen",
-          "Klimatyzacja",
-          "Parking",
-          "Ogród",
-          "Pralka"
-        ],
-        "ru": [
-          "Бассейн",
-          "Кондиционирование воздуха",
-          "Парковка",
-          "Сад",
-          "Стиральная машина"
-        ],
-        "es": [
-          "Piscina",
-          "Aire acondicionado",
-          "Aparcamiento",
-          "Jardín",
-          "Lavadora"
-        ],
-        "cs": [
-          "Bazén",
-          "Klimatizace",
-          "Parkoviště",
-          "Zahrada",
-          "Pračka"
-        ]
-      },
-      "map": "Contrada punzolo ricadi, Calabria",
-      "url": "https://www.holidayscalabria.com/villa-mimosa.html"
-    },
-    {
-      "type": "apartment",
-      "title": {
-        "it": "Appartamenti Noemi – Con Piscina",
-        "en": "Noemi Apartments – With Pool",
-        "de": "Noemi Wohnungen – Mit Pool",
-        "pl": "Apartamenty Noemi – Z Basenem",
-        "es": "Apartamentos Noemi – Con Piscina"
-      },
-      "place": "Santa Domenica di Ricadi",
-      "img": "/media/appartamenti-noemi-con-piscina-1.jpg",
-      "photos": [
-        "/media/appartamenti-noemi-con-piscina-2.jpg",
-        "/media/appartamenti-noemi-con-piscina-3.jpg",
-        "/media/appartamenti-noemi-con-piscina-4.jpg",
-        "/media/appartamenti-noemi-con-piscina-5.jpg",
-        "/media/appartamenti-noemi-con-piscina-6.jpg",
-        "/media/appartamenti-noemi-con-piscina-8.jpg",
-        "/media/appartamenti-noemi-con-piscina-9.jpg",
-        "/media/appartamenti-noemi-con-piscina-10.jpg",
-        "/media/appartamenti-noemi-con-piscina-11.jpg",
-        "/media/appartamenti-noemi-con-piscina-13.jpg",
-        "/media/appartamenti-noemi-con-piscina-14.jpg",
-        "/media/appartamenti-noemi-con-piscina-15.jpg",
-        "/media/appartamenti-noemi-con-piscina-16.jpg",
-        "/media/appartamenti-noemi-con-piscina-17.jpg",
-        "/media/appartamenti-noemi-con-piscina-18.jpg"
-      ],
-      "desc": {
-        "it": "Appartamenti con piscina a Santa Domenica di Ricadi, a metà strada tra Tropea e Capo Vaticano. Una buona scelta per famiglie e gruppi che vogliono il mare vicino e un tuffo in piscina a fine giornata.",
-        "en": "Apartments with a pool in Santa Domenica di Ricadi, halfway between Tropea and Capo Vaticano. A good choice for families and groups who want the sea nearby and a swim in the pool at the end of the day.",
-        "de": "Ferienwohnungen mit Pool in Santa Domenica di Ricadi, auf halbem Weg zwischen Tropea und Capo Vaticano. Eine gute Wahl für Familien und Gruppen, die das Meer in der Nähe und abends einen Sprung in den Pool möchten.",
-        "pl": "Apartamenty z basenem w Santa Domenica di Ricadi, w połowie drogi między Tropeą a Capo Vaticano. Dobry wybór dla rodzin i grup, które chcą mieć morze blisko, a pod koniec dnia popływać w basenie.",
-        "es": "Apartamentos con piscina en Santa Domenica di Ricadi, a medio camino entre Tropea y Capo Vaticano. Una buena opción para familias y grupos que quieren el mar cerca y un baño en la piscina al final del día."
-      },
-      "map": "Santa Domenica di Ricadi, Calabria",
-      "url": "https://www.holidayscalabria.com/appartamenti-noemi-con-piscina.html"
-    },
-    {
-      "type": "apartment",
-      "title": {
-        "it": "Appartamento Natus",
-        "en": "Natus Apartment",
-        "de": "Natus Apartment",
-        "pl": "Apartament Natus",
-        "es": "Apartamento Natus"
-      },
-      "place": "Tropea",
-      "img": "/media/appartamento-natus-1.jpg",
-      "photos": [
-        "/media/appartamento-natus-2.jpg",
-        "/media/appartamento-natus-3.jpg",
-        "/media/appartamento-natus-4.jpg",
-        "/media/appartamento-natus-5.jpg",
-        "/media/appartamento-natus-6.jpg",
-        "/media/appartamento-natus-7.jpg",
-        "/media/appartamento-natus-8.jpg",
-        "/media/appartamento-natus-9.jpg",
-        "/media/appartamento-natus-10.jpg",
-        "/media/appartamento-natus-11.jpg",
-        "/media/appartamenti-noemi-con-piscina-18.jpg"
-      ],
-      "desc": {
-        "it": "Nel centro storico di Tropea, a 250 metri dalla spiaggia: si esce di casa e si è subito tra i vicoli, i ristoranti e il mare. Ideale per chi vuole lasciare l'auto e girare tutto a piedi.",
-        "en": "In the old town of Tropea, 250 metres from the beach: step outside and you're among the lanes, the restaurants and the sea. Ideal if you want to leave the car and do everything on foot.",
-        "de": "In der Altstadt von Tropea, 250 Meter vom Strand: Vor der Tür beginnen die Gassen, die Restaurants und das Meer. Ideal, wenn du das Auto stehen lassen und alles zu Fuß erleben möchtest.",
-        "pl": "W samym centrum starego miasta w Tropei, 250 metrów od plaży: wychodzisz z domu i od razu jesteś wśród uliczek, restauracji i morza. Idealne, jeśli chcesz zostawić samochód i wszędzie chodzić pieszo.",
-        "es": "En el casco antiguo de Tropea, a 250 metros de la playa: sales de casa y ya estás entre callejuelas, restaurantes y mar. Ideal si quieres dejar el coche y moverte a pie."
-      },
-      "map": "Tropea, Calabria",
-      "url": "https://www.holidayscalabria.com/appartamento-natus.html"
-    },
-    {
-      "type": "house",
-      "title": {
-        "it": "Casa Sonia – 2 Camere",
-        "en": "Casa Sonia – 2 Bedrooms",
-        "de": "Casa Sonia – 2 Zimmer",
-        "pl": "Casa Sonia – 2 Pokoje",
-        "es": "Casa Sonia – 2 Habitaciones"
-      },
-      "place": "Santa Domenica di Ricadi",
-      "img": "/media/casa-sonia-2-camere-1.jpg",
-      "photos": [
-        "/media/casa-sonia-2-camere-2.jpg",
-        "/media/casa-sonia-2-camere-3.jpg",
-        "/media/casa-sonia-2-camere-4.jpg",
-        "/media/casa-sonia-2-camere-5.jpg",
-        "/media/casa-sonia-2-camere-6.jpg",
-        "/media/casa-sonia-2-camere-7.jpg",
-        "/media/casa-sonia-2-camere-8.jpg",
-        "/media/casa-sonia-2-camere-9.jpg",
-        "/media/casa-sonia-2-camere-10.jpg",
-        "/media/casa-sonia-2-camere-11.jpg",
-        "/media/appartamenti-noemi-con-piscina-18.jpg"
-      ],
-      "desc": {
-        "it": "Casa con due camere a Santa Domenica di Ricadi, a 3 km da Tropea e vicina a Capo Vaticano. Spaziosa e pratica, è pensata per le famiglie.",
-        "en": "A two-bedroom house in Santa Domenica di Ricadi, 3 km from Tropea and close to Capo Vaticano. Roomy and practical, it's designed with families in mind.",
-        "de": "Haus mit zwei Schlafzimmern in Santa Domenica di Ricadi, 3 km von Tropea und nahe Capo Vaticano. Geräumig und praktisch – ideal für Familien.",
-        "pl": "Dom z dwiema sypialniami w Santa Domenica di Ricadi, 3 km od Tropei i niedaleko Capo Vaticano. Przestronny i praktyczny, pomyślany z myślą o rodzinach.",
-        "es": "Casa de dos dormitorios en Santa Domenica di Ricadi, a 3 km de Tropea y cerca de Capo Vaticano. Amplia y práctica, pensada para familias."
-      },
-      "map": "Santa Domenica di Ricadi, Calabria",
-      "url": "https://www.holidayscalabria.com/casa-sonia-2-camere.html"
-    },
-    {
-      "type": "house",
-      "title": {
-        "it": "Casa Mare"
-      },
-      "place": "Santa Domenica di Ricadi",
-      "img": "/media/casa-sonia-mansarda-1-camera-1-1.jpg",
-      "photos": [
-        "/media/casa-sonia-mansarda-1-camera-1-2.jpg",
-        "/media/casa-sonia-mansarda-1-camera-1-3.jpg",
-        "/media/casa-sonia-mansarda-1-camera-1-4.jpg",
-        "/media/casa-sonia-mansarda-1-camera-1-5.jpg",
-        "/media/casa-sonia-mansarda-1-camera-1-6.jpg",
-        "/media/casa-sonia-mansarda-1-camera-1-7.jpg",
-        "/media/casa-sonia-mansarda-1-camera-1-8.jpg",
-        "/media/casa-sonia-mansarda-1-camera-1-9.jpg",
-        "/media/appartamenti-noemi-con-piscina-18.jpg"
-      ],
-      "desc": {
-        "it": "Una mansarda con una camera a Santa Domenica di Ricadi, vicina a Tropea e a Capo Vaticano. Raccolta e accogliente, è perfetta per una coppia.",
-        "en": "An attic flat with one bedroom in Santa Domenica di Ricadi, close to Tropea and Capo Vaticano. Cosy and welcoming – perfect for a couple.",
-        "de": "Eine Dachwohnung mit einem Schlafzimmer in Santa Domenica di Ricadi, nahe Tropea und Capo Vaticano. Gemütlich und einladend – perfekt für Paare.",
-        "pl": "Mieszkanie na poddaszu z jedną sypialnią w Santa Domenica di Ricadi, blisko Tropei i Capo Vaticano. Przytulne – idealne dla pary.",
-        "es": "Un ático con un dormitorio en Santa Domenica di Ricadi, cerca de Tropea y Capo Vaticano. Acogedor, perfecto para una pareja."
-      },
-      "map": "Santa Domenica di Ricadi, Calabria",
-      "url": "https://www.holidayscalabria.com/casa-sonia-mansarda-1-camera.html"
-    }
-  ]
+ "items": [
+  {
+   "id": "appartamento-capo-mary-primo-piano",
+   "type": "apartment",
+   "title": {
+    "it": "Appartamento Capo Mary – Primo piano",
+    "en": "Capo Mary Apartment – First floor",
+    "de": "Apartment Capo Mary – Erster Stock",
+    "pl": "Apartament Capo Mary – Pierwsze piętro",
+    "es": "Apartamento Capo Mary – Primera planta"
+   },
+   "place": "Capo Vaticano",
+   "img": "/media/appartamento-capo-mary-primo-piano-1.jpg",
+   "photos": [
+    "/media/appartamento-capo-mary-primo-piano-2.jpg",
+    "/media/appartamento-capo-mary-primo-piano-3.jpg",
+    "/media/appartamento-capo-mary-primo-piano-4.jpg",
+    "/media/appartamento-capo-mary-primo-piano-5.jpg",
+    "/media/appartamento-capo-mary-primo-piano-6.jpg",
+    "/media/appartamento-capo-mary-primo-piano-7.jpg",
+    "/media/appartamento-capo-mary-primo-piano-8.jpg",
+    "/media/appartamento-capo-mary-primo-piano-9.jpg",
+    "/media/appartamento-capo-mary-primo-piano-10.jpg",
+    "/media/appartamento-capo-mary-primo-piano-11.jpg"
+   ],
+   "desc": {
+    "it": "Al primo piano di una casa a Capo Vaticano, questo appartamento ha un balcone affacciato sul mare: il posto giusto per la colazione e per i tramonti sulla Costa degli Dei.\n\nAll'interno: 2 camere da letto, un bagno, soggiorno con TV e cucina attrezzata per cucinare in autonomia. C'è l'aria condizionata, e lenzuola e asciugamani sono inclusi. Fuori ci sono un giardino curato e una terrazza; Wi-Fi e parcheggio privato sono gratuiti.\n\nLe spiagge sono vicine: Torre Ruffa a 1 km, Torre Marino a 1,9 km, il Faro di Capo Vaticano a 3,8 km. Tropea, con il centro storico e Santa Maria dell'Isola, è a 7 km.",
+    "en": "On the first floor of a house in Capo Vaticano, this apartment has a sea-view balcony – just the place for breakfast and for sunsets over the Coast of the Gods.\n\nInside: 2 bedrooms, a bathroom, a living room with TV and a fully equipped kitchen. It's air-conditioned, and bed linen and towels are included. Outside there's a well-kept garden and a terrace; Wi-Fi and private parking are free.\n\nThe beaches are close by: Torre Ruffa 1 km, Torre Marino 1.9 km, the Capo Vaticano lighthouse 3.8 km. Tropea, with its old town and Santa Maria dell'Isola, is 7 km away.",
+    "de": "Im ersten Stock eines Hauses in Capo Vaticano liegt diese Wohnung mit Balkon und Meerblick – ideal fürs Frühstück und für Sonnenuntergänge an der Costa degli Dei.\n\nInnen: 2 Schlafzimmer, ein Bad, Wohnzimmer mit TV und eine voll ausgestattete Küche. Die Wohnung ist klimatisiert, Bettwäsche und Handtücher sind inklusive. Draußen gibt es einen gepflegten Garten und eine Terrasse; WLAN und Privatparkplatz sind kostenlos.\n\nDie Strände sind nah: Torre Ruffa 1 km, Torre Marino 1,9 km, der Leuchtturm von Capo Vaticano 3,8 km. Tropea mit Altstadt und Santa Maria dell'Isola ist 7 km entfernt.",
+    "pl": "Mieszkanie na pierwszym piętrze domu w Capo Vaticano ma balkon z widokiem na morze – idealny na śniadanie i zachody słońca nad Wybrzeżem Bogów.\n\nW środku: 2 sypialnie, łazienka, salon z telewizorem i w pełni wyposażona kuchnia. Jest klimatyzacja, a pościel i ręczniki są wliczone. Na zewnątrz zadbany ogród i taras; Wi-Fi i prywatny parking są bezpłatne.\n\nPlaże są blisko: Torre Ruffa 1 km, Torre Marino 1,9 km, latarnia w Capo Vaticano 3,8 km. Do Tropei ze starówką i sanktuarium Santa Maria dell'Isola jest 7 km.",
+    "es": "En la primera planta de una casa en Capo Vaticano, este apartamento tiene un balcón con vistas al mar: perfecto para desayunar y ver la puesta de sol sobre la Costa de los Dioses.\n\nDentro: 2 dormitorios, un baño, salón con TV y cocina totalmente equipada. Tiene aire acondicionado y la ropa de cama y las toallas están incluidas. Fuera hay un jardín cuidado y una terraza; el wifi y el aparcamiento privado son gratuitos.\n\nLas playas están cerca: Torre Ruffa a 1 km, Torre Marino a 1,9 km y el faro de Capo Vaticano a 3,8 km. Tropea, con su casco antiguo y Santa Maria dell'Isola, está a 7 km."
+   },
+   "cin": "IT102030C21C76D",
+   "cir": "102030-AAT-00370",
+   "guests": "1–4",
+   "amenities": {
+    "it": [
+     "Vista mare",
+     "Aria condizionata",
+     "TV",
+     "Biancheria da letto e da bagno",
+     "Barbecue"
+    ],
+    "en": [
+     "Sea view",
+     "Air conditioning",
+     "TV",
+     "Bed and bath linen",
+     "Barbecue"
+    ],
+    "de": [
+     "Meerblick",
+     "Klimaanlage",
+     "TV",
+     "Bett- und Badwäsche",
+     "Grill"
+    ],
+    "pl": [
+     "Widok na morze",
+     "Klimatyzacja",
+     "Telewizor",
+     "Pościel i ręczniki",
+     "Grill"
+    ],
+    "es": [
+     "Vistas al mar",
+     "Aire acondicionado",
+     "TV",
+     "Ropa de cama y baño",
+     "Barbacoa"
+    ]
+   },
+   "map": "89866 Gurdurello VV, Calabria"
+  },
+  {
+   "id": "appartamento-sole",
+   "type": "apartment",
+   "title": {
+    "it": "Appartamento Sole",
+    "en": "Sole Apartment",
+    "de": "Apartment Sole",
+    "pl": "Apartament Sole",
+    "es": "Apartamento Sole"
+   },
+   "place": "Santa Domenica di Ricadi",
+   "img": "/media/appartamento-sole-1.jpg",
+   "photos": [
+    "/media/appartamento-sole-2.jpg",
+    "/media/appartamento-sole-3.jpg",
+    "/media/appartamento-sole-4.jpg",
+    "/media/appartamento-sole-5.jpg",
+    "/media/appartamento-sole-6.jpg",
+    "/media/appartamento-sole-7.jpg",
+    "/media/appartamento-sole-8.jpg",
+    "/media/appartamento-sole-9.jpg",
+    "/media/appartamento-sole-10.jpg",
+    "/media/appartamento-sole-11.jpg"
+   ],
+   "desc": {
+    "it": "Una casa tranquilla a Santa Domenica di Ricadi, a 3 km da Tropea: comoda per il mare e per girare la Costa degli Dei senza stress.\n\nHa una camera matrimoniale e una seconda camera con due letti singoli, che si possono unire. Poi cucina attrezzata, bagno e una veranda dove mangiare all'aperto o rilassarsi la sera. Le due camere hanno l'aria condizionata; Wi-Fi e posto auto privato sono gratuiti.\n\nVa bene per famiglie, coppie e piccoli gruppi di amici.",
+    "en": "A quiet house in Santa Domenica di Ricadi, 3 km from Tropea – handy for the beach and for exploring the Coast of the Gods without stress.\n\nIt has a double bedroom and a second bedroom with two single beds that can be pushed together, plus an equipped kitchen, a bathroom and a veranda for eating outdoors or relaxing in the evening. Both bedrooms are air-conditioned; Wi-Fi and a private parking space are free.\n\nGreat for families, couples and small groups of friends.",
+    "de": "Ein ruhiges Haus in Santa Domenica di Ricadi, 3 km von Tropea entfernt – praktisch für den Strand und für Ausflüge an der Costa degli Dei.\n\nEs gibt ein Doppelzimmer und ein zweites Zimmer mit zwei Einzelbetten, die sich zusammenstellen lassen, dazu eine ausgestattete Küche, ein Bad und eine Veranda zum Essen im Freien oder für entspannte Abende. Beide Schlafzimmer sind klimatisiert; WLAN und Privatparkplatz sind kostenlos.\n\nIdeal für Familien, Paare und kleine Freundesgruppen.",
+    "pl": "Spokojny dom w Santa Domenica di Ricadi, 3 km od Tropei – wygodny na plażę i na zwiedzanie Wybrzeża Bogów bez stresu.\n\nMa sypialnię z łóżkiem małżeńskim i drugą sypialnię z dwoma pojedynczymi łóżkami, które można złączyć, a do tego wyposażoną kuchnię, łazienkę i werandę na posiłki na świeżym powietrzu i wieczorny relaks. Obie sypialnie są klimatyzowane; Wi-Fi i prywatne miejsce parkingowe są bezpłatne.\n\nDobry wybór dla rodzin, par i małych grup przyjaciół.",
+    "es": "Una casa tranquila en Santa Domenica di Ricadi, a 3 km de Tropea: cómoda para ir a la playa y recorrer la Costa de los Dioses sin estrés.\n\nTiene un dormitorio doble y un segundo dormitorio con dos camas individuales que se pueden juntar, además de cocina equipada, baño y una veranda para comer al aire libre o relajarse por la noche. Los dos dormitorios tienen aire acondicionado; el wifi y la plaza de aparcamiento privada son gratuitos.\n\nIdeal para familias, parejas y pequeños grupos de amigos."
+   },
+   "cin": "IT102030C25KRUZ7WZ",
+   "cir": "102030-AAT-00390",
+   "amenities": {
+    "it": [
+     "Aria condizionata si nelle camere da letto"
+    ],
+    "en": [
+     "Air conditioning in the bedrooms"
+    ],
+    "de": [
+     "Klimaanlage in den Schlafzimmern"
+    ],
+    "fr": [
+     "Climatisation dans les chambres à coucher"
+    ],
+    "pl": [
+     "Klimatyzacja w sypialniach"
+    ],
+    "ru": [
+     "Кондиционирование воздуха в спальнях"
+    ],
+    "es": [
+     "Aire acondicionado en los dormitorios"
+    ],
+    "cs": [
+     "Klimatizace v ložnicích"
+    ]
+   },
+   "map": "Via tocco santa domenica di ricadi, Calabria"
+  },
+  {
+   "id": "ortensia",
+   "type": "apartment",
+   "title": {
+    "it": "Ortensia"
+   },
+   "place": "Tropea",
+   "img": "/media/ortensia-1.jpg",
+   "photos": [
+    "/media/ortensia-2.jpg",
+    "/media/ortensia-3.jpg",
+    "/media/ortensia-4.jpg",
+    "/media/ortensia-5.jpg",
+    "/media/ortensia-6.jpg",
+    "/media/ortensia-7.jpg",
+    "/media/ortensia-8.jpg",
+    "/media/ortensia-9.jpg",
+    "/media/ortensia-10.jpg",
+    "/media/ortensia-11.jpg",
+    "/media/ortensia-12.jpg",
+    "/media/ortensia-13.jpg",
+    "/media/ortensia-14.jpg",
+    "/media/ortensia-15.jpg"
+   ],
+   "desc": {
+    "it": "Un appartamento a Tropea, comodo per vivere il centro storico e le spiagge senza usare l'auto.\n\nHa una camera matrimoniale, cucina, bagno e un balcone, con due climatizzatori per l'estate. Lenzuola e asciugamani sono inclusi.\n\nÈ pensato soprattutto per le coppie e per chi vuole qualche giorno di mare con Tropea a portata di passeggiata.",
+    "en": "An apartment in Tropea, handy for enjoying the old town and the beaches without a car.\n\nIt has a double bedroom, kitchen, bathroom and a balcony, with two air-conditioning units for the summer. Bed linen and towels are included.\n\nBest suited to couples and anyone who wants a few days by the sea with Tropea within walking distance.",
+    "de": "Eine Wohnung in Tropea – praktisch, um Altstadt und Strände ohne Auto zu genießen.\n\nSie hat ein Doppelzimmer, Küche, Bad und einen Balkon, dazu zwei Klimageräte für den Sommer. Bettwäsche und Handtücher sind inklusive.\n\nVor allem für Paare gedacht und für alle, die ein paar Tage am Meer verbringen und Tropea zu Fuß erkunden möchten.",
+    "pl": "Mieszkanie w Tropei – wygodne, by korzystać ze starówki i plaż bez samochodu.\n\nMa sypialnię z łóżkiem małżeńskim, kuchnię, łazienkę i balkon oraz dwa klimatyzatory na lato. Pościel i ręczniki są wliczone.\n\nNajlepsze dla par i dla tych, którzy chcą spędzić kilka dni nad morzem, mając Tropeę w zasięgu spaceru.",
+    "es": "Un apartamento en Tropea, cómodo para disfrutar del casco antiguo y de las playas sin coche.\n\nTiene un dormitorio doble, cocina, baño y balcón, con dos equipos de aire acondicionado para el verano. La ropa de cama y las toallas están incluidas.\n\nPensado sobre todo para parejas y para quien quiere pasar unos días de mar con Tropea a un paseo."
+   },
+   "cin": "IT102044C2FPQKZPLP",
+   "cir": "102044-AAT-00540",
+   "amenities": {
+    "it": [
+     "Aria condizionata",
+     "Lenzuola e asciugamani",
+     "Bagno privato"
+    ],
+    "en": [
+     "Air conditioning",
+     "Bed linens and towels",
+     "Private bathroom"
+    ],
+    "de": [
+     "Klimaanlage",
+     "Bettwäsche und Handtücher",
+     "Eigenes Badezimmer"
+    ],
+    "fr": [
+     "Climatisation",
+     "Draps et serviettes",
+     "Salle de bain privée"
+    ],
+    "pl": [
+     "Klimatyzacja",
+     "Pościel i ręczniki",
+     "Prywatna łazienka"
+    ],
+    "ru": [
+     "Кондиционирование воздуха",
+     "Постельное белье и полотенца",
+     "Частная ванная комната"
+    ],
+    "es": [
+     "Aire acondicionado",
+     "Ropa de cama y toallas",
+     "Baño privado"
+    ],
+    "cs": [
+     "Klimatizace",
+     "Ložní prádlo a ručníky",
+     "Soukromá koupelna"
+    ]
+   },
+   "map": "Via campo inferiore, Calabria"
+  },
+  {
+   "id": "villa-mimosa",
+   "type": "villa",
+   "title": {
+    "it": "Villa Mimosa"
+   },
+   "place": "Capo Vaticano",
+   "img": "/media/villa-mimosa-capo-vaticano-1.jpg",
+   "photos": [
+    "/media/villa-mimosa-capo-vaticano-2.jpg",
+    "/media/villa-mimosa-capo-vaticano-3.jpg",
+    "/media/villa-mimosa-capo-vaticano-4.jpg",
+    "/media/villa-mimosa-capo-vaticano-5.jpg",
+    "/media/villa-mimosa-capo-vaticano-6.jpg",
+    "/media/villa-mimosa-capo-vaticano-7.jpg",
+    "/media/villa-mimosa-capo-vaticano-8.jpg",
+    "/media/villa-mimosa-capo-vaticano-9.jpg",
+    "/media/villa-mimosa-capo-vaticano-10.jpg",
+    "/media/villa-mimosa-capo-vaticano-11.jpg",
+    "/media/villa-mimosa-capo-vaticano-12.jpg",
+    "/media/villa-mimosa-capo-vaticano-13.jpg",
+    "/media/case-vacanze-2.jpg",
+    "/media/villa-mimosa-1.jpg",
+    "/media/villa-mimosa-3.jpg",
+    "/media/appartamenti-noemi-con-piscina-18.jpg"
+   ],
+   "desc": {
+    "it": "Due villette indipendenti tra gli ulivi di Capo Vaticano, in una zona silenziosa a pochi minuti da Tropea.\n\nLe villette condividono una grande piscina panoramica con lettini, sdraio e un gazebo, da cui si vedono il mare, lo Stretto di Messina e la Sicilia. Per i bambini ci sono un parco giochi (scivoli, altalene, casetta, campetti da calcio, pallavolo e basket) e una mini-fattoria con coniglietti nani e galline.\n\nLa villetta è adatta a 4–5 persone: giardino privato di circa 1.500 m² con barbecue e doccia esterna, veranda coperta con tavolo grande, soggiorno luminoso con TV e cucina open space. Ci sono una camera matrimoniale (con letto aggiuntivo o culla su richiesta), una camera con due letti singoli unibili e un bagno con vasca/doccia. I materassi sono nuovi, in memory foam. Parcheggio, piscina e area giochi sono in comune con l'altra villetta.",
+    "en": "Two separate villas among the olive trees of Capo Vaticano, in a quiet spot a few minutes from Tropea.\n\nThey share a large panoramic pool with sunbeds, loungers and a gazebo, overlooking the sea, the Strait of Messina and Sicily. For children there's a playground (slides, swings, a playhouse, small football, volleyball and basketball pitches) and a mini-farm with dwarf rabbits and hens.\n\nThe villa sleeps 4–5: a private garden of about 1,500 m² with barbecue and outdoor shower, a covered veranda with a large table, a bright living room with TV and an open-plan kitchen. There's a double bedroom (extra bed or cot on request), a bedroom with two single beds that can be joined and a bathroom with bath/shower. The mattresses are new memory foam. Parking, pool and play area are shared with the other villa.",
+    "de": "Zwei unabhängige Ferienhäuser zwischen den Olivenbäumen von Capo Vaticano, ruhig gelegen und nur wenige Minuten von Tropea entfernt.\n\nSie teilen sich einen großen Panoramapool mit Liegen, Sonnenstühlen und Pavillon – mit Blick aufs Meer, die Straße von Messina und Sizilien. Für Kinder gibt es einen Spielplatz (Rutschen, Schaukeln, Spielhaus, kleine Fußball-, Volleyball- und Basketballplätze) und einen Mini-Bauernhof mit Zwergkaninchen und Hühnern.\n\nDas Haus ist für 4–5 Personen geeignet: privater Garten von ca. 1.500 m² mit Grill und Außendusche, überdachte Veranda mit großem Tisch, helles Wohnzimmer mit TV und offene Küche. Es gibt ein Doppelzimmer (Zustellbett oder Babybett auf Anfrage), ein Zimmer mit zwei zusammenstellbaren Einzelbetten und ein Bad mit Wanne/Dusche. Die Matratzen sind neu, aus Memory-Schaum. Parkplatz, Pool und Spielbereich werden mit dem anderen Haus geteilt.",
+    "pl": "Dwa niezależne domki wśród drzew oliwnych w Capo Vaticano, w spokojnej okolicy kilka minut od Tropei.\n\nDomki dzielą duży basen z widokiem na morze, Cieśninę Mesyńską i Sycylię, z leżakami i altaną. Dla dzieci jest plac zabaw (zjeżdżalnie, huśtawki, domek, małe boiska do piłki nożnej, siatkówki i koszykówki) oraz mini-zagroda z królikami miniaturkami i kurami.\n\nDomek pomieści 4–5 osób: prywatny ogród o powierzchni ok. 1500 m² z grillem i prysznicem zewnętrznym, zadaszona weranda z dużym stołem, jasny salon z telewizorem i otwarta kuchnia. Jest sypialnia z łóżkiem małżeńskim (dodatkowe łóżko lub łóżeczko na życzenie), sypialnia z dwoma pojedynczymi łóżkami, które można złączyć, i łazienka z wanną/prysznicem. Materace są nowe, z pianki memory. Parking, basen i plac zabaw są wspólne z drugim domkiem.",
+    "es": "Dos villas independientes entre los olivos de Capo Vaticano, en una zona tranquila a pocos minutos de Tropea.\n\nComparten una gran piscina panorámica con tumbonas y cenador, con vistas al mar, al Estrecho de Mesina y a Sicilia. Para los niños hay un parque infantil (toboganes, columpios, casita, pequeñas pistas de fútbol, voleibol y baloncesto) y una minigranja con conejos enanos y gallinas.\n\nLa villa es para 4–5 personas: jardín privado de unos 1.500 m² con barbacoa y ducha exterior, veranda cubierta con mesa grande, salón luminoso con TV y cocina abierta. Hay un dormitorio doble (cama supletoria o cuna bajo petición), un dormitorio con dos camas individuales que se pueden juntar y un baño con bañera/ducha. Los colchones son nuevos, de viscoelástica. El aparcamiento, la piscina y la zona de juegos se comparten con la otra villa."
+   },
+   "cin": "IT102030C2VR99SC8D",
+   "cir": "102030-AAT-00035",
+   "guests": "6",
+   "amenities": {
+    "it": [
+     "Piscina",
+     "Aria condizionata",
+     "Parcheggio",
+     "Giardino",
+     "lavatrice"
+    ],
+    "en": [
+     "Swimming pool",
+     "Air conditioning",
+     "Parking",
+     "Garden",
+     "Washing machine"
+    ],
+    "de": [
+     "Swimmingpool",
+     "Klimaanlage",
+     "Parkplatz",
+     "Garten",
+     "Waschmaschine"
+    ],
+    "fr": [
+     "Piscine",
+     "Climatisation",
+     "Parking",
+     "Jardin",
+     "Machine à laver"
+    ],
+    "pl": [
+     "Basen",
+     "Klimatyzacja",
+     "Parking",
+     "Ogród",
+     "Pralka"
+    ],
+    "ru": [
+     "Бассейн",
+     "Кондиционирование воздуха",
+     "Парковка",
+     "Сад",
+     "Стиральная машина"
+    ],
+    "es": [
+     "Piscina",
+     "Aire acondicionado",
+     "Aparcamiento",
+     "Jardín",
+     "Lavadora"
+    ],
+    "cs": [
+     "Bazén",
+     "Klimatizace",
+     "Parkoviště",
+     "Zahrada",
+     "Pračka"
+    ]
+   },
+   "map": "Contrada punzolo ricadi, Calabria",
+   "url": "https://www.holidayscalabria.com/villa-mimosa.html"
+  },
+  {
+   "id": "appartamenti-noemi-con-piscina",
+   "type": "apartment",
+   "title": {
+    "it": "Appartamenti Noemi – Con Piscina",
+    "en": "Noemi Apartments – With Pool",
+    "de": "Noemi Wohnungen – Mit Pool",
+    "pl": "Apartamenty Noemi – Z Basenem",
+    "es": "Apartamentos Noemi – Con Piscina"
+   },
+   "place": "Santa Domenica di Ricadi",
+   "img": "/media/appartamenti-noemi-con-piscina-1.jpg",
+   "photos": [
+    "/media/appartamenti-noemi-con-piscina-2.jpg",
+    "/media/appartamenti-noemi-con-piscina-3.jpg",
+    "/media/appartamenti-noemi-con-piscina-4.jpg",
+    "/media/appartamenti-noemi-con-piscina-5.jpg",
+    "/media/appartamenti-noemi-con-piscina-6.jpg",
+    "/media/appartamenti-noemi-con-piscina-8.jpg",
+    "/media/appartamenti-noemi-con-piscina-9.jpg",
+    "/media/appartamenti-noemi-con-piscina-10.jpg",
+    "/media/appartamenti-noemi-con-piscina-11.jpg",
+    "/media/appartamenti-noemi-con-piscina-13.jpg",
+    "/media/appartamenti-noemi-con-piscina-14.jpg",
+    "/media/appartamenti-noemi-con-piscina-15.jpg",
+    "/media/appartamenti-noemi-con-piscina-16.jpg",
+    "/media/appartamenti-noemi-con-piscina-17.jpg",
+    "/media/appartamenti-noemi-con-piscina-18.jpg"
+   ],
+   "desc": {
+    "it": "Appartamenti con piscina a Santa Domenica di Ricadi, a metà strada tra Tropea e Capo Vaticano. Una buona scelta per famiglie e gruppi che vogliono il mare vicino e un tuffo in piscina a fine giornata.",
+    "en": "Apartments with a pool in Santa Domenica di Ricadi, halfway between Tropea and Capo Vaticano. A good choice for families and groups who want the sea nearby and a swim in the pool at the end of the day.",
+    "de": "Ferienwohnungen mit Pool in Santa Domenica di Ricadi, auf halbem Weg zwischen Tropea und Capo Vaticano. Eine gute Wahl für Familien und Gruppen, die das Meer in der Nähe und abends einen Sprung in den Pool möchten.",
+    "pl": "Apartamenty z basenem w Santa Domenica di Ricadi, w połowie drogi między Tropeą a Capo Vaticano. Dobry wybór dla rodzin i grup, które chcą mieć morze blisko, a pod koniec dnia popływać w basenie.",
+    "es": "Apartamentos con piscina en Santa Domenica di Ricadi, a medio camino entre Tropea y Capo Vaticano. Una buena opción para familias y grupos que quieren el mar cerca y un baño en la piscina al final del día."
+   },
+   "map": "Santa Domenica di Ricadi, Calabria",
+   "url": "https://www.holidayscalabria.com/appartamenti-noemi-con-piscina.html"
+  },
+  {
+   "id": "appartamento-natus",
+   "type": "apartment",
+   "title": {
+    "it": "Appartamento Natus",
+    "en": "Natus Apartment",
+    "de": "Natus Apartment",
+    "pl": "Apartament Natus",
+    "es": "Apartamento Natus"
+   },
+   "place": "Tropea",
+   "img": "/media/appartamento-natus-1.jpg",
+   "photos": [
+    "/media/appartamento-natus-2.jpg",
+    "/media/appartamento-natus-3.jpg",
+    "/media/appartamento-natus-4.jpg",
+    "/media/appartamento-natus-5.jpg",
+    "/media/appartamento-natus-6.jpg",
+    "/media/appartamento-natus-7.jpg",
+    "/media/appartamento-natus-8.jpg",
+    "/media/appartamento-natus-9.jpg",
+    "/media/appartamento-natus-10.jpg",
+    "/media/appartamento-natus-11.jpg",
+    "/media/appartamenti-noemi-con-piscina-18.jpg"
+   ],
+   "desc": {
+    "it": "Nel centro storico di Tropea, a 250 metri dalla spiaggia: si esce di casa e si è subito tra i vicoli, i ristoranti e il mare. Ideale per chi vuole lasciare l'auto e girare tutto a piedi.",
+    "en": "In the old town of Tropea, 250 metres from the beach: step outside and you're among the lanes, the restaurants and the sea. Ideal if you want to leave the car and do everything on foot.",
+    "de": "In der Altstadt von Tropea, 250 Meter vom Strand: Vor der Tür beginnen die Gassen, die Restaurants und das Meer. Ideal, wenn du das Auto stehen lassen und alles zu Fuß erleben möchtest.",
+    "pl": "W samym centrum starego miasta w Tropei, 250 metrów od plaży: wychodzisz z domu i od razu jesteś wśród uliczek, restauracji i morza. Idealne, jeśli chcesz zostawić samochód i wszędzie chodzić pieszo.",
+    "es": "En el casco antiguo de Tropea, a 250 metros de la playa: sales de casa y ya estás entre callejuelas, restaurantes y mar. Ideal si quieres dejar el coche y moverte a pie."
+   },
+   "map": "Tropea, Calabria",
+   "url": "https://www.holidayscalabria.com/appartamento-natus.html"
+  },
+  {
+   "id": "casa-sonia-2-camere",
+   "type": "house",
+   "title": {
+    "it": "Casa Sonia – 2 Camere",
+    "en": "Casa Sonia – 2 Bedrooms",
+    "de": "Casa Sonia – 2 Zimmer",
+    "pl": "Casa Sonia – 2 Pokoje",
+    "es": "Casa Sonia – 2 Habitaciones"
+   },
+   "place": "Santa Domenica di Ricadi",
+   "img": "/media/casa-sonia-2-camere-1.jpg",
+   "photos": [
+    "/media/casa-sonia-2-camere-2.jpg",
+    "/media/casa-sonia-2-camere-3.jpg",
+    "/media/casa-sonia-2-camere-4.jpg",
+    "/media/casa-sonia-2-camere-5.jpg",
+    "/media/casa-sonia-2-camere-6.jpg",
+    "/media/casa-sonia-2-camere-7.jpg",
+    "/media/casa-sonia-2-camere-8.jpg",
+    "/media/casa-sonia-2-camere-9.jpg",
+    "/media/casa-sonia-2-camere-10.jpg",
+    "/media/casa-sonia-2-camere-11.jpg",
+    "/media/appartamenti-noemi-con-piscina-18.jpg"
+   ],
+   "desc": {
+    "it": "Casa con due camere a Santa Domenica di Ricadi, a 3 km da Tropea e vicina a Capo Vaticano. Spaziosa e pratica, è pensata per le famiglie.",
+    "en": "A two-bedroom house in Santa Domenica di Ricadi, 3 km from Tropea and close to Capo Vaticano. Roomy and practical, it's designed with families in mind.",
+    "de": "Haus mit zwei Schlafzimmern in Santa Domenica di Ricadi, 3 km von Tropea und nahe Capo Vaticano. Geräumig und praktisch – ideal für Familien.",
+    "pl": "Dom z dwiema sypialniami w Santa Domenica di Ricadi, 3 km od Tropei i niedaleko Capo Vaticano. Przestronny i praktyczny, pomyślany z myślą o rodzinach.",
+    "es": "Casa de dos dormitorios en Santa Domenica di Ricadi, a 3 km de Tropea y cerca de Capo Vaticano. Amplia y práctica, pensada para familias."
+   },
+   "map": "Santa Domenica di Ricadi, Calabria",
+   "url": "https://www.holidayscalabria.com/casa-sonia-2-camere.html"
+  },
+  {
+   "id": "casa-mare",
+   "type": "house",
+   "title": {
+    "it": "Casa Mare"
+   },
+   "place": "Santa Domenica di Ricadi",
+   "img": "/media/casa-sonia-mansarda-1-camera-1-1.jpg",
+   "photos": [
+    "/media/casa-sonia-mansarda-1-camera-1-2.jpg",
+    "/media/casa-sonia-mansarda-1-camera-1-3.jpg",
+    "/media/casa-sonia-mansarda-1-camera-1-4.jpg",
+    "/media/casa-sonia-mansarda-1-camera-1-5.jpg",
+    "/media/casa-sonia-mansarda-1-camera-1-6.jpg",
+    "/media/casa-sonia-mansarda-1-camera-1-7.jpg",
+    "/media/casa-sonia-mansarda-1-camera-1-8.jpg",
+    "/media/casa-sonia-mansarda-1-camera-1-9.jpg",
+    "/media/appartamenti-noemi-con-piscina-18.jpg"
+   ],
+   "desc": {
+    "it": "Una mansarda con una camera a Santa Domenica di Ricadi, vicina a Tropea e a Capo Vaticano. Raccolta e accogliente, è perfetta per una coppia.",
+    "en": "An attic flat with one bedroom in Santa Domenica di Ricadi, close to Tropea and Capo Vaticano. Cosy and welcoming – perfect for a couple.",
+    "de": "Eine Dachwohnung mit einem Schlafzimmer in Santa Domenica di Ricadi, nahe Tropea und Capo Vaticano. Gemütlich und einladend – perfekt für Paare.",
+    "pl": "Mieszkanie na poddaszu z jedną sypialnią w Santa Domenica di Ricadi, blisko Tropei i Capo Vaticano. Przytulne – idealne dla pary.",
+    "es": "Un ático con un dormitorio en Santa Domenica di Ricadi, cerca de Tropea y Capo Vaticano. Acogedor, perfecto para una pareja."
+   },
+   "map": "Santa Domenica di Ricadi, Calabria",
+   "url": "https://www.holidayscalabria.com/casa-sonia-mansarda-1-camera.html"
+  }
+ ]
 }

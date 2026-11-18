@@ -1,0 +1,14 @@
+# Aruba (Apache): indirizzi brevi e pagine riservate fuori da Google
+Options -Indexes
+DirectoryIndex index.html
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^app/?$ gestione.html [L]
+  RewriteRule ^admin(/.*)?$ /app [R=302,L]
+</IfModule>
+<IfModule mod_headers.c>
+  <FilesMatch "^(gestione|area)\.html$">
+    Header set X-Robots-Tag "noindex"
+  </FilesMatch>
+</IfModule>
+ErrorDocument 404 /index.html

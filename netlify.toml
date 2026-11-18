@@ -1,7 +1,7 @@
 # Netlify: a ogni pubblicazione rigenera le pagine del blog e la sitemap
 [build]
   publish = "."
-  command = "python3 tools/build_site.py && python3 tools/build_blog.py"
+  command = "python3 tools/pull_content.py; python3 tools/build_site.py && python3 tools/build_blog.py"
 
 [[headers]]
   for = "/admin/*"
@@ -18,3 +18,10 @@
   for = "/gestione.html"
   [headers.values]
     X-Robots-Tag = "noindex"
+
+# il vecchio pannello (GitHub) non serve più: tutto si fa nell'app
+[[redirects]]
+  from = "/admin/*"
+  to = "/app"
+  status = 302
+  force = true

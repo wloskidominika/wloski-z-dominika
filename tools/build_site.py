@@ -53,6 +53,7 @@ MENU = [  # (indirizzo, testo, pagina)
 ]
 PARENT = {"house": "houses", "hotel": "hotels", "excd": "exc", "expd": "exp", "post": "blog"}
 
+NOSHOW = ' style="display:none"'
 def hidden_nav():
     h = {k for k, v in (load("look.json").get("menu") or {}).items() if v is False}
     if not load("hotels.json").get("page_visible"): h.add("nav_hotel")
@@ -61,7 +62,8 @@ def hidden_nav():
 def header(page, P):
     cur = PARENT.get(page, page)
     HID = hidden_nav()
-    items = "\n".join(f'      <li><a href="{h if h.startswith("#") else P + h}" data-i="{k}"{" class=\"cur\"" if p == cur else ""}></a></li>' for h, k, p in MENU if k not in HID)
+    # le voci nascoste restano nella pagina (invisibili): l'app può riaccenderle subito, senza ripubblicare
+    items = "\n".join(f'      <li{NOSHOW if k in HID else ""}><a href="{h if h.startswith("#") else P + h}" data-i="{k}"{" class=\"cur\"" if p == cur else ""}></a></li>' for h, k, p in MENU)
     return f'''
 <header>
   <div class="wrap nav">
@@ -83,7 +85,8 @@ def header(page, P):
 '''
 
 def footer(P):
-    links = "".join(f'<a href="{P + h}" data-i="{k}"></a>' for h, k, p in MENU if p != "contact" and k not in hidden_nav())
+    HID = hidden_nav()
+    links = "".join(f'<a href="{P + h}" data-i="{k}"{NOSHOW if k in HID else ""}></a>' for h, k, p in MENU if p != "contact")
     links = f'<a href="{P}index.html#lessons" data-i="nav_les"></a>' + links + f'<a href="{P}area.html" data-i="nav_area"></a>'
     return f'''<footer>
   <div class="wrap">
@@ -183,7 +186,8 @@ TILES = [("case-vacanze.html", "nav_house", "vt_house", "houses", "media/villa-m
          ("noleggio-nautico.html", "nav_boat", "vt_boat", "boat", "media/noleggio-nautico-2.jpg"),
          ("foto-e-video.html", "nav_media", "vt_media", "media", "media/tour-gommone-tropea-capo-vaticano-1.jpg")]
 def vacanze():
-    tiles = "\n".join(f'''      <a class="tile" href="{h}" data-tile="{key}"><div class="media-slot" data-src="{img}"></div><div class="tile-body"><h3 data-i="{t}"></h3><p data-i="{d}"></p></div></a>''' for h, t, d, key, img in TILES if t not in hidden_nav())
+    HIDT = hidden_nav()
+    tiles = "\n".join(f'''      <a class="tile" href="{h}" data-tile="{key}"{NOSHOW if t in HIDT else ""}><div class="media-slot" data-src="{img}"></div><div class="tile-body"><h3 data-i="{t}"></h3><p data-i="{d}"></p></div></a>''' for h, t, d, key, img in TILES)
     return f'''<section id="vacanze" style="background:var(--paper)">
   <div class="wrap">
     <div class="section-head center">
@@ -256,7 +260,7 @@ def detail_body(kind, i, item, P, list_href, list_key, back_key):
       <div class="detail-info"><h1>{esc(title)}</h1>{f"<p>📍 {esc(item.get('place'))}</p>" if item.get("place") else ""}</div></div>
       <div class="detail-text">{paras}</div>'''
     return crumbs(P, (list_href, list_key, ""), ("", "", title)) + f'''<section class="detail">
-  <div class="wrap" id="detail" data-kind="{kind}" data-idx="{i}">
+  <div class="wrap" id="detail" data-kind="{kind}" data-id="{esc(item.get('id') or '')}">
     {fallback}
   </div>
   <div class="wrap" style="margin-top:26px"><a class="link" href="{P}{list_href}" data-i="{back_key}"></a></div>
@@ -275,10 +279,14 @@ def short(s, n=155):
 def main():
     houses = load("houses.json").get("items", []) + [dict({"type": "hotel"}, **h) for h in load("hotels.json").get("items", [])]
     excs = load("excursions.json").get("items", [])
-    used = set()
     vis = lambda x: x.get("visible") is not False
-    slugs = {"houses": [slugify(L(h.get("title")), used) if vis(h) else "" for h in houses],
-             "excursions": [slugify(L(x.get("title")), used) if vis(x) else "" for x in excs]}
+    # ogni casa / escursione ha un «id» fisso (= indirizzo della sua pagina); se manca lo creo dal titolo
+    used = set()
+    for it in houses + excs:
+        if it.get("id"): used.add(it["id"])
+    for it in houses + excs:
+        if not it.get("id") or not re.fullmatch(r"[a-z0-9][a-z0-9-]*", str(it["id"])): it["id"] = slugify(L(it.get("title")), used)
+    slugs = {"houses": [h["id"] for h in houses if vis(h)], "excursions": [x["id"] for x in excs if vis(x)]}
     json.dump(slugs, open(os.path.join(ROOT, "content", "slugs.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
     S = {n: sec(n) for n in ("about", "excursions", "lessons", "houses", "services", "gallery")}
@@ -323,16 +331,20 @@ def main():
         hotel = h.get("type") in HOTEL_TYPES
         lst, key, back, pg = ("hotel-bb.html", "nav_hotel", "back_hotels", "hotel") if hotel else ("case-vacanze.html", "nav_house", "back_houses", "house")
         t = L(h.get("title")); place = h.get("place") or ""
-        page(f"casa/{slugs['houses'][i]}.html", pg, f"{t}{' · ' + place if place and place not in t else ''} · {NAME}",
+        page(f"casa/{h['id']}.html", pg, f"{t}{' · ' + place if place and place not in t else ''} · {NAME}",
              short(L(h.get("desc")) or L(h.get("info")) or t), detail_body("house", i, h, "../", lst, key, back),
-             P="../", img=media(h.get("img")) or "media/hero.jpg", body_attrs=f' data-idx="{i}"')
+             P="../", img=media(h.get("img")) or "media/hero.jpg")
     for i, x in enumerate(excs):
         if not vis(x): continue
         exp = x.get("kind") == "exp"
         lst, key, back, pg = ("esperienze.html", "nav_exp", "back_exp", "expd") if exp else ("escursioni.html", "nav_exc", "back_exc", "excd")
         t = L(x.get("title"))
-        page(f"escursione/{slugs['excursions'][i]}.html", pg, f"{t} · {NAME}", short(L(x.get("desc")) or t),
-             detail_body("exc", i, x, "../", lst, key, back), P="../", img=media(x.get("img")) or "media/hero.jpg", body_attrs=f' data-idx="{i}"')
+        page(f"escursione/{x['id']}.html", pg, f"{t} · {NAME}", short(L(x.get("desc")) or t),
+             detail_body("exc", i, x, "../", lst, key, back), P="../", img=media(x.get("img")) or "media/hero.jpg")
+    # pagine «vedi»: mostrano subito le novità aggiunte dall'app (finché non hanno la loro pagina fissa)
+    NOIDX = '<meta name="robots" content="noindex">\n'
+    page("casa/vedi.html", "house", NAME, FULL, detail_body("house", -1, {}, "../", "case-vacanze.html", "nav_house", "back_houses"), P="../", extra=NOIDX)
+    page("escursione/vedi.html", "excd", NAME, FULL, detail_body("exc", -1, {}, "../", "escursioni.html", "nav_exc", "back_exc"), P="../", extra=NOIDX)
 
     # ---------------- modelli del blog (riempiti da tools/build_blog.py) ----------------
     T = os.path.join(ROOT, "tools", "templates")
@@ -353,11 +365,11 @@ def main():
 
     P = "../"
     post_body = crumbs(P, ("blog.html", "nav_blog", "")) + '''<article class="post">
-  <div class="meta"><span class="chip">{{FLAG}} {{CATEGORY}}</span><span class="chip"><time datetime="{{DATE_ISO}}">{{DATE}}</time></span><span class="chip">⏱ {{READ}} min</span></div>
+  <div class="meta" id="postMeta"><span class="chip">{{FLAG}} {{CATEGORY}}</span><span class="chip"><time datetime="{{DATE_ISO}}">{{DATE}}</time></span><span class="chip">⏱ {{READ}} min</span></div>
   <div id="postOther" class="post-other" style="display:none"></div>
-  <h1>{{H1}}</h1>
-  {{COVER}}
-  <div class="post-body">
+  <h1 id="postH1">{{H1}}</h1>
+  <div id="postCover">{{COVER}}</div>
+  <div class="post-body" id="postBody">
 {{BODY}}
   </div>
   <div class="post-cta">

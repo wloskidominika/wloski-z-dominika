@@ -2,7 +2,7 @@
   "name": "Włoski z Dominiką – Gestione",
   "short_name": "Dominika",
   "description": "La tua app: richieste, studenti, clienti, contratti, recensioni e statistiche del sito.",
-  "start_url": "/app",
+  "start_url": "/gestione.html",
   "scope": "/",
   "display": "standalone",
   "background_color": "#FBEBD5",

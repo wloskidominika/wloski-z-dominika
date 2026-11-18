@@ -20,6 +20,7 @@ STATIC_PAGES = ["", "case-vacanze.html", "hotel-bb.html", "escursioni.html", "es
                 "noleggio-nautico.html", "foto-e-video.html", "servizi.html", "blog.html", "privacy.html"]
 
 def esc(s): return html.escape(str(s or ""), quote=True)
+def src(prefix, c): return c if re.match(r"^https?:", c or "") else prefix + (c or "")
 
 def fix_url(u, prefix):
     """/pagina.html -> ../pagina.html dentro /blog/ ; i link esterni restano uguali."""
@@ -84,7 +85,7 @@ def load_posts():
     for f in glob.glob(os.path.join(ROOT, "content", "blog", "*.json")):
         try: p = json.load(open(f, encoding="utf-8"))
         except Exception as e: print("ATTENZIONE: articolo non leggibile", f, e); continue
-        if p.get("draft"): continue
+        if p.get("draft") in (True, "true", "True"): continue
         p["slug"] = os.path.splitext(os.path.basename(f))[0]
         p["lang"] = p.get("lang") or "it"
         p["date"] = str(p.get("date") or datetime.date.today().isoformat())[:10]
@@ -94,7 +95,7 @@ def load_posts():
     return posts
 
 def card(p, prefix=""):
-    cover = f'<div class="media-slot"><img src="{esc(prefix + p["cover"])}" alt="{esc(p.get("cover_alt") or p["title"])}" loading="lazy" class="ok"></div>' if p["cover"] else '<div class="media-slot"></div>'
+    cover = f'<div class="media-slot"><img src="{esc(src(prefix, p["cover"]))}" alt="{esc(p.get("cover_alt") or p["title"])}" loading="lazy" class="ok"></div>' if p["cover"] else '<div class="media-slot"></div>'
     return f'''<article class="card" data-bl="{esc(p["lang"])}">
       <a href="{prefix}blog/{esc(p["slug"])}.html" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;height:100%">
       {cover}
@@ -131,7 +132,7 @@ def main():
         related = "\n".join(card(q, pre) for q in others)
         title = p.get("seo_title") or p["title"]
         url = f'{DOMAIN}/blog/{p["slug"]}.html'
-        img = f'{DOMAIN}/{p["cover"]}' if p["cover"] else f"{DOMAIN}/media/hero.jpg"
+        img = (p["cover"] if p["cover"].startswith("http") else f'{DOMAIN}/{p["cover"]}') if p["cover"] else f"{DOMAIN}/media/hero.jpg"
         ld = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": p["title"], "description": p.get("description", ""),
               "image": img, "datePublished": p["date"], "dateModified": p["date"], "inLanguage": p["lang"], "mainEntityOfPage": url,
               "author": {"@type": "Person", "name": "Dominika"},
@@ -142,7 +143,7 @@ def main():
             "{{LANG}}": esc(p["lang"]), "{{H1}}": esc(p["title"]), "{{CATEGORY}}": esc(p.get("category") or "Blog"),
             "{{FLAG}}": FLAGS.get(p["lang"], ""), "{{DATE}}": esc(nice_date(p["date"], p["lang"])), "{{DATE_ISO}}": p["date"],
             "{{READ}}": str(max(1, round(n / 200))),
-            "{{COVER}}": (f'<img class="post-cover" src="{esc(pre + p["cover"])}" alt="{esc(p.get("cover_alt") or p["title"])}">' if p["cover"] else ""),
+            "{{COVER}}": (f'<img class="post-cover" src="{esc(src(pre, p["cover"]))}" alt="{esc(p.get("cover_alt") or p["title"])}">' if p["cover"] else ""),
             "{{BODY}}": markdown(p.get("body"), pre), "{{RELATED}}": related,
             "{{RELATED_STYLE}}": "" if related else "display:none",
             "{{HREFLANG}}": "\n".join(f'<link rel="alternate" hreflang="{l}" href="{DOMAIN}/blog/{sl}.html">' for l, sl in alts.items())
@@ -153,6 +154,21 @@ def main():
         page = post_tpl
         for k, v in rep.items(): page = page.replace(k, v)
         open(os.path.join(ROOT, "blog", p["slug"] + ".html"), "w", encoding="utf-8").write(page)
+
+    # ---- pagina «leggi»: mostra subito gli articoli nuovi scritti dall'app (finché non hanno la loro pagina) ----
+    dyn = {"{{TITLE}}": "Blog", "{{DESC}}": "", "{{URL}}": f"{DOMAIN}/blog.html", "{{OG_IMAGE}}": f"{DOMAIN}/media/hero.jpg", "{{LANG}}": "it",
+           "{{H1}}": "", "{{CATEGORY}}": "", "{{FLAG}}": "", "{{DATE}}": "", "{{DATE_ISO}}": "", "{{READ}}": "1", "{{COVER}}": "", "{{BODY}}": "",
+           "{{RELATED}}": "", "{{RELATED_STYLE}}": "display:none", "{{HREFLANG}}": '<meta name="robots" content="noindex">', "{{ALTS}}": "{}", "{{JSONLD}}": "{}"}
+    page = post_tpl
+    for k, v in dyn.items(): page = page.replace(k, v)
+    open(os.path.join(ROOT, "blog", "leggi.html"), "w", encoding="utf-8").write(page.replace('data-page="post"', 'data-page="post" data-dyn="1"', 1))
+
+    # ---- tutti gli articoli (anche le bozze): l'app li copia nel database la prima volta ----
+    allp = []
+    for f in sorted(glob.glob(os.path.join(ROOT, "content", "blog", "*.json"))):
+        try: allp.append({"slug": os.path.splitext(os.path.basename(f))[0], "data": json.load(open(f, encoding="utf-8"))})
+        except Exception: pass
+    json.dump({"items": allp}, open(os.path.join(ROOT, "content", "blog-all.json"), "w", encoding="utf-8"), ensure_ascii=False)
 
     # ---- per la Home ----
     idx = [{"slug": p["slug"], "title": p["title"], "description": p.get("description", ""), "lang": p["lang"], "date": p["date"],
