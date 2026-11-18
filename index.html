@@ -122,6 +122,32 @@
   </div>
 </section>
 
+<section id="reviews" data-topic="" style="display:none">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow" data-i="rev_eyebrow"></div>
+      <h2 data-i="rev_title"></h2>
+      <p data-i="rev_sub"></p>
+    </div>
+    <div class="rv-grid" id="rvList"></div>
+    <div class="see-all"><button class="btn btn-line" type="button" id="rvOpen" data-i="rev_write"></button></div>
+    <form class="rv-form" id="rvForm" hidden novalidate>
+      <div class="rv-row">
+        <label><span data-i="rev_name"></span><input name="name" maxlength="80" required></label>
+        <label><span data-i="rev_country"></span><select name="country"><option value=""></option><option value="IT">🇮🇹 IT</option><option value="PL">🇵🇱 PL</option><option value="DE">🇩🇪 DE</option><option value="AT">🇦🇹 AT</option><option value="CH">🇨🇭 CH</option><option value="GB">🇬🇧 GB</option><option value="IE">🇮🇪 IE</option><option value="US">🇺🇸 US</option><option value="ES">🇪🇸 ES</option><option value="FR">🇫🇷 FR</option><option value="NL">🇳🇱 NL</option><option value="BE">🇧🇪 BE</option><option value="CZ">🇨🇿 CZ</option><option value="SE">🇸🇪 SE</option><option value="NO">🇳🇴 NO</option><option value="DK">🇩🇰 DK</option><option value="UA">🇺🇦 UA</option><option value="CA">🇨🇦 CA</option><option value="AU">🇦🇺 AU</option></select></label>
+      </div>
+      <div class="rv-row">
+        <label><span data-i="rev_stars"></span><span class="rv-stars" id="rvStars"><button type="button" class="on" data-star="1" aria-label="1">★</button><button type="button" class="on" data-star="2" aria-label="2">★</button><button type="button" class="on" data-star="3" aria-label="3">★</button><button type="button" class="on" data-star="4" aria-label="4">★</button><button type="button" class="on" data-star="5" aria-label="5">★</button></span></label>
+        <label><span data-i="rev_topic"></span><select name="topic"><option value="lesson" data-i="rev_t_lesson"></option><option value="excursion" data-i="rev_t_excursion"></option><option value="experience" data-i="rev_t_experience"></option><option value="house" data-i="rev_t_house"></option><option value="transfer" data-i="rev_t_transfer"></option><option value="rental" data-i="rev_t_rental"></option><option value="other" data-i="rev_t_other"></option></select></label>
+      </div>
+      <label><span data-i="rev_text"></span><textarea name="body" maxlength="2000" required></textarea></label>
+      <label><span data-i="rev_email"></span><input name="email" type="email" maxlength="200"></label>
+      <p class="rv-note" data-i="rev_privacy"></p>
+      <button class="btn btn-red" data-i="rev_send"></button>
+      <div class="notice" id="rvNotice"></div>
+    </form>
+  </div>
+</section>
 <section id="blog" style="background:var(--paper)">
   <div class="wrap">
     <div class="section-head">

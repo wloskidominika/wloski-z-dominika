@@ -5,8 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Gestione – Włoski z Dominiką</title>
-<link rel="stylesheet" href="fonts/fonts.css">
-<link rel="stylesheet" href="app.css">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#9B2318">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Dominika">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="/media/app-icon-180.png">
+<link rel="icon" href="/media/app-icon-192.png">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/app.css">
 <style>
 .ctrl{display:grid;grid-template-columns:auto auto 1fr auto;gap:10px;align-items:end;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
 .ctrl label{font-size:.78rem}
@@ -19,15 +27,25 @@
 .stat b{display:block;font-family:'Lora',serif;font-size:1.7rem;color:var(--red);font-weight:500}
 .stat span{font-size:.8rem;color:var(--muted);font-weight:700}
 @media (max-width:720px){.ctrl{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}}
+.hsec{font-size:1.25rem;margin:26px 0 12px;color:var(--green-dark)}
+.hsec:first-child{margin-top:4px}
+.hgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.hcard{display:flex;align-items:center;gap:14px;background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:16px 18px;text-decoration:none;color:var(--ink);transition:.15s}
+.hcard:hover{border-color:var(--green);transform:translateY(-1px)}
+.hcard b{font-size:1.7rem;width:52px;height:52px;border-radius:14px;background:var(--cream);display:grid;place-items:center;flex:none}
+.hcard strong{display:block;font-size:1.02rem}
+.hcard span{display:block;color:var(--muted);font-size:.86rem;line-height:1.35}
+.hcard i{margin-left:auto;color:var(--muted);font-style:normal;font-size:1.4rem}
+@media (max-width:720px){ .tabs{display:none} .stats{display:none} header.top .bar{height:60px} .top-actions .btn{padding:6px 10px} }
 </style>
 </head>
 <body>
 <header class="top">
   <div class="wrap bar">
-    <a class="brand" href="index.html"><img src="sun.jpg" alt=""><div><span>Włoski z Dominiką</span><small>Gestione</small></div></a>
+    <a class="brand" href="#home"><img src="/sun.jpg" alt=""><div><span>Włoski z Dominiką</span><small>Gestione</small></div></a>
     <div class="top-actions">
-      <a class="btn btn-line btn-sm" href="admin/">✏️ Modifica sito</a>
-      <a class="btn btn-line btn-sm" href="area.html">👤 Area riservata</a>
+      <a class="btn btn-line btn-sm hidden" href="#home" id="menuBtn">☰ Menu</a>
+      <a class="btn btn-line btn-sm" href="/" target="_blank" rel="noopener">🌐 Il sito</a>
       <button class="btn btn-line btn-sm hidden" id="logoutBtn">Esci</button>
     </div>
   </div>
@@ -35,6 +53,18 @@
 
 <main class="wrap">
   <div class="msg info" id="gate"></div>
+  <div class="card narrow hidden" id="loginBox">
+    <div style="text-align:center;margin-bottom:12px"><img src="/media/app-icon-192.png" alt="" style="width:84px;height:84px;border-radius:50%"></div>
+    <h1 style="text-align:center;font-size:1.6rem;margin-bottom:6px">La tua app</h1>
+    <p class="muted" style="text-align:center;margin-bottom:16px">Richieste, studenti, clienti, contratti, recensioni e statistiche del sito.</p>
+    <form id="loginForm">
+      <label>E-mail<input name="email" type="email" required autocomplete="username"></label>
+      <label>Password<input name="password" type="password" required autocomplete="current-password"></label>
+      <button class="btn btn-red">Entra</button>
+      <button type="button" class="linkbtn" id="forgotBtn">Password dimenticata?</button>
+    </form>
+    <div class="msg" id="loginMsg" style="margin-top:12px"></div>
+  </div>
 
   <section id="app" class="hidden">
     <div class="stats">
@@ -46,16 +76,56 @@
     </div>
 
     <div class="tabs">
-      <button class="on" data-tab="requests">📩 Richieste dal sito <span class="badge hidden" id="newBadge"></span></button>
+      <button class="on" data-tab="home">🏠 Menu</button>
+      <button data-tab="requests">📩 Richieste dal sito <span class="badge hidden" id="newBadge"></span></button>
       <button data-tab="bookings">📅 Prenotazioni <span class="badge hidden" id="pendBadge"></span></button>
       <button data-tab="users">👥 Clienti e studenti</button>
       <button data-tab="materials">📚 Materiali corsi</button>
       <button data-tab="documents">📄 Documenti clienti</button>
+      <button data-tab="reviews">⭐ Recensioni <span class="badge hidden" id="revBadge"></span></button>
       <button data-tab="visits">📊 Visite al sito</button>
     </div>
 
+    <!-- MENU -->
+    <div data-pane="home">
+      <h2 class="hsec">📩 Richieste e prenotazioni</h2>
+      <div class="hgrid">
+        <a class="hcard" href="#requests"><b>📩</b><div><strong>Richieste dal sito</strong><span>Messaggi del modulo «Scrivimi»: leggi, rispondi, archivia</span></div><i>›</i></a>
+        <a class="hcard" href="#bookings"><b>📅</b><div><strong>Prenotazioni</strong><span>Conferma, annulla, link di pagamento, pagato</span></div><i>›</i></a>
+      </div>
+      <h2 class="hsec">🎓 Studenti e 🏠 clienti</h2>
+      <div class="hgrid">
+        <a class="hcard" href="#users"><b>👥</b><div><strong>Clienti e studenti</strong><span>Crea l'accesso (e-mail + password) e mandalo con un clic</span></div><i>›</i></a>
+        <a class="hcard" href="#materials"><b>📚</b><div><strong>Lezioni per gli studenti</strong><span>Carica PDF, Word, audio, video: li vede solo lo studente scelto</span></div><i>›</i></a>
+        <a class="hcard" href="#documents"><b>📄</b><div><strong>Contratti e documenti clienti</strong><span>Carica il contratto: lo vede e lo scarica solo quel cliente</span></div><i>›</i></a>
+      </div>
+      <h2 class="hsec">📊 Statistiche e ⭐ recensioni</h2>
+      <div class="hgrid">
+        <a class="hcard" href="#visits"><b>📈</b><div><strong>Statistiche del sito</strong><span>Chi entra, da quali Paesi, cellulare o computer, da dove arriva</span></div><i>›</i></a>
+        <a class="hcard" href="#reviews"><b>⭐</b><div><strong>Recensioni</strong><span>Approva quelle dei clienti o aggiungine tu</span></div><i>›</i></a>
+      </div>
+      <h2 class="hsec">🌐 Il sito (pagine, testi, foto)</h2>
+      <p class="muted" style="margin:-6px 0 12px">Si apre il pannello del sito: entri con GitHub. Ricorda: salva come bozza e pubblica tutto insieme.</p>
+      <div class="hgrid">
+        <a class="hcard" href="/admin/#/collections/sito/entries/look" target="_blank" rel="noopener"><b>🎨</b><div><strong>Foto e grafica</strong><span>Foto grande in alto, colori, riquadri della home, pagine visibili</span></div><i>›</i></a>
+        <a class="hcard" href="/admin/#/collections/sito/entries/houses" target="_blank" rel="noopener"><b>🏡</b><div><strong>Case vacanze</strong><span>Foto, descrizioni, CIN/CIR, prezzi, link</span></div><i>›</i></a>
+        <a class="hcard" href="/admin/#/collections/sito/entries/hotels" target="_blank" rel="noopener"><b>🏨</b><div><strong>Hotel e B&B</strong><span>Strutture e interruttore della pagina</span></div><i>›</i></a>
+        <a class="hcard" href="/admin/#/collections/sito/entries/excursions" target="_blank" rel="noopener"><b>⛵</b><div><strong>Escursioni ed esperienze</strong><span>Mare, terra, tour, cucina, prezzi, foto</span></div><i>›</i></a>
+        <a class="hcard" href="/admin/#/collections/sito/entries/services" target="_blank" rel="noopener"><b>🚐</b><div><strong>Transfer e noleggi</strong><span>Transfer, auto/scooter/bici, barche e gommoni</span></div><i>›</i></a>
+        <a class="hcard" href="/admin/#/collections/sito/entries/lessons" target="_blank" rel="noopener"><b>🗣️</b><div><strong>Lezioni (pagina del sito)</strong><span>I corsi di italiano e polacco</span></div><i>›</i></a>
+        <a class="hcard" href="/admin/#/collections/sito/entries/gallery" target="_blank" rel="noopener"><b>📸</b><div><strong>Foto e video</strong><span>La galleria del sito</span></div><i>›</i></a>
+        <a class="hcard" href="/admin/#/collections/blog" target="_blank" rel="noopener"><b>📝</b><div><strong>Guide di viaggio (blog)</strong><span>Articoli per Google, in 5 lingue</span></div><i>›</i></a>
+        <a class="hcard" href="/admin/#/collections/sito/entries/settings" target="_blank" rel="noopener"><b>☎️</b><div><strong>Contatti e social</strong><span>Telefono, WhatsApp, Instagram, Facebook, TikTok</span></div><i>›</i></a>
+        <a class="hcard" href="/admin/#/collections/sito/entries/texts" target="_blank" rel="noopener"><b>✏️</b><div><strong>Testi del sito</strong><span>Tutte le frasi del sito, in 5 lingue</span></div><i>›</i></a>
+      </div>
+      <div class="card" style="margin-top:22px" id="installTip">
+        <b>📲 Mettila sulla schermata Home</b>
+        <p class="muted" style="margin-top:6px">iPhone: Safari → pulsante Condividi ⬆️ → «Aggiungi a Home». Android: Chrome → ⋮ → «Installa app». Computer: icona ⊕ nella barra dell'indirizzo.</p>
+      </div>
+    </div>
+
     <!-- RICHIESTE DAL SITO -->
-    <div data-pane="requests">
+    <div data-pane="requests" class="hidden">
       <div class="toolbar">
         <div class="filters">
           <select id="fReq"><option value="new">Nuove</option><option value="answered">Risposte</option><option value="closed">Archiviate</option><option value="all">Tutte</option></select>
@@ -144,6 +214,37 @@
       <div class="toolbar"><label style="max-width:360px">Mostra i materiali di<select id="mFilter"><option value="all">Tutti</option><option value="shared">Solo quelli per tutto il corso</option></select></label></div>
       <div class="list" id="mList"></div>
     </div>
+    <!-- RECENSIONI -->
+    <div data-pane="reviews" class="hidden">
+      <div class="card" style="margin-bottom:24px">
+        <h2 style="font-size:1.35rem;margin-bottom:6px">➕ Aggiungi una recensione</h2>
+        <p class="muted" style="margin-bottom:14px">Copia qui le recensioni <b>vere</b> che hai ricevuto (Google, Facebook, WhatsApp…). Quelle che aggiungi tu vanno subito sul sito.</p>
+        <form id="rvForm">
+          <div class="row">
+            <label>Nome del cliente (es. Anna K.)<input name="name" required maxlength="80"></label>
+            <label>Paese<select name="country"><option value="">—</option><option value="IT">🇮🇹 Italia</option><option value="PL">🇵🇱 Polonia</option><option value="DE">🇩🇪 Germania</option><option value="AT">🇦🇹 Austria</option><option value="CH">🇨🇭 Svizzera</option><option value="GB">🇬🇧 Regno Unito</option><option value="IE">🇮🇪 Irlanda</option><option value="US">🇺🇸 Stati Uniti</option><option value="ES">🇪🇸 Spagna</option><option value="FR">🇫🇷 Francia</option><option value="NL">🇳🇱 Paesi Bassi</option><option value="BE">🇧🇪 Belgio</option><option value="CZ">🇨🇿 Rep. Ceca</option><option value="SE">🇸🇪 Svezia</option><option value="NO">🇳🇴 Norvegia</option><option value="DK">🇩🇰 Danimarca</option><option value="UA">🇺🇦 Ucraina</option><option value="CA">🇨🇦 Canada</option><option value="AU">🇦🇺 Australia</option></select></label>
+          </div>
+          <div class="row">
+            <label>Stelle<select name="rating"><option value="5">★★★★★ 5</option><option value="4">★★★★ 4</option><option value="3">★★★ 3</option><option value="2">★★ 2</option><option value="1">★ 1</option></select></label>
+            <label>Di cosa parla<select name="topic"><option value="lesson">🗣️ Lezioni</option><option value="excursion">⛵ Escursione</option><option value="experience">🌿 Esperienza / guida</option><option value="house">🏡 Casa vacanze / alloggio</option><option value="transfer">🚐 Transfer</option><option value="rental">🚗 Noleggio</option><option value="other">Altro</option></select></label>
+          </div>
+          <div class="row">
+            <label>Da dove viene<select name="source"><option value="">Sito</option><option>Google</option><option>Facebook</option><option>Instagram</option><option>WhatsApp</option><option>Booking</option><option>Airbnb</option><option>TripAdvisor</option></select></label>
+            <label>Lingua della recensione<select name="lang"><option value="it">🇮🇹 Italiano</option><option value="pl">🇵🇱 Polski</option><option value="de">🇩🇪 Deutsch</option><option value="en">🇬🇧 English</option><option value="es">🇪🇸 Español</option></select></label>
+          </div>
+          <label>Testo (copiato com'è, senza cambiarlo)<textarea name="body" required maxlength="2000"></textarea></label>
+          <button class="btn btn-red" style="justify-self:start">Pubblica sul sito</button>
+        </form>
+        <div class="msg" id="rvMsg" style="margin-top:12px"></div>
+      </div>
+      <div class="toolbar">
+        <div class="filters"><select id="fRev"><option value="pending">Da approvare</option><option value="approved">Pubblicate</option><option value="all">Tutte</option></select></div>
+        <button class="btn btn-line btn-sm" id="reloadRv">↻ Aggiorna</button>
+      </div>
+      <p class="muted" style="margin-bottom:14px">Le recensioni scritte dai clienti sul sito arrivano qui <b>in attesa</b>: sul sito compaiono solo dopo che clicchi <b>Pubblica</b>. Non serve pubblicare il sito: si vedono subito.</p>
+      <div class="list" id="rvList"></div>
+    </div>
+
     <!-- VISITE -->
     <div data-pane="visits" class="hidden">
       <div class="toolbar">
@@ -203,7 +304,7 @@ const fmtTs=d=>new Date(d).toLocaleString("it",{day:"numeric",month:"short",hour
 const digits=p=>String(p||"").replace(/[^\d]/g,"");
 
 const cfg=window.WZD_CONFIG||{};
-let sb, bookings=[], users=[], materials=[], documents=[], armed=null;
+let sb, bookings=[], users=[], materials=[], documents=[], reviews=[], armed=null;
 
 /* ---------- accesso ---------- */
 (async()=>{
@@ -212,17 +313,75 @@ let sb, bookings=[], users=[], materials=[], documents=[], armed=null;
     gate.innerHTML="⚠️ La gestione non è ancora collegata al database. Inserisci i dati di Supabase nel file <b>config.js</b> (vedi GUIDA.md)."; gate.classList.add("show"); return;
   }
   sb=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY);
+  if("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js").catch(()=>{});
   const {data:{session}}=await sb.auth.getSession();
-  if(!session){ gate.innerHTML='Per entrare nella gestione accedi prima dall\'<a href="area.html">Area riservata</a>.'; gate.classList.add("show"); return; }
-  const {data:me}=await sb.from("profiles").select("role").eq("id",session.user.id).single();
-  if(me?.role!=="admin"){ gate.innerHTML='Questa pagina è riservata a Dominika. <a href="area.html">Vai alla tua area</a>.'; gate.classList.add("show"); return; }
-  $("#logoutBtn").classList.remove("hidden");
-  $("#app").classList.remove("hidden");
-  loadAll();
+  if(!session){ $("#loginBox").classList.remove("hidden"); return; }
+  await enter(session);
 })();
-$("#logoutBtn").onclick=async()=>{ await sb.auth.signOut(); location.href="area.html"; };
+async function enter(session){
+  const gate=$("#gate");
+  const {data:me}=await sb.from("profiles").select("role").eq("id",session.user.id).single();
+  if(me?.role!=="admin"){ gate.innerHTML='Questa app è riservata a Dominika. <a href="/area.html">Vai alla tua area</a>.'; gate.classList.add("show"); $("#logoutBtn").classList.remove("hidden"); return; }
+  $("#loginBox").classList.add("hidden");
+  $("#logoutBtn").classList.remove("hidden"); $("#menuBtn").classList.remove("hidden");
+  $("#app").classList.remove("hidden");
+  openTab((location.hash||"#home").slice(1));
+  loadAll();
+}
+$("#loginForm").addEventListener("submit",async e=>{
+  e.preventDefault(); const f=e.target, msg=$("#loginMsg");
+  const {data,error}=await sb.auth.signInWithPassword({email:f.email.value.trim(),password:f.password.value});
+  if(error) return show(msg,"E-mail o password non corrette.","err");
+  enter(data.session);
+});
+$("#forgotBtn").onclick=async()=>{
+  const em=$("#loginForm").email.value.trim(); if(!em) return show($("#loginMsg"),"Scrivi prima la tua e-mail.","err");
+  await sb.auth.resetPasswordForEmail(em,{redirectTo:location.origin+"/area.html"});
+  show($("#loginMsg"),"Ti ho mandato un'e-mail per scegliere una nuova password.","ok");
+};
+$("#logoutBtn").onclick=async()=>{ await sb.auth.signOut(); location.href="/app"; };
+function openTab(k){
+  if(!document.querySelector('[data-pane="'+k+'"]')) k="home";
+  $$("[data-tab]").forEach(b=>b.classList.toggle("on",b.dataset.tab===k));
+  $$("[data-pane]").forEach(p=>p.classList.toggle("hidden",p.dataset.pane!==k));
+  if(location.hash.slice(1)!==k) history.replaceState(null,"","#"+k);
+  window.scrollTo({top:0});
+}
+window.addEventListener("hashchange",()=>openTab(location.hash.slice(1)));
 
-async function loadAll(){ await Promise.all([loadRequests(),loadBookings(),loadUsers(),loadMaterials(),loadDocuments()]); stats(); loadVisits(); }
+async function loadAll(){ await Promise.all([loadRequests(),loadBookings(),loadUsers(),loadMaterials(),loadDocuments(),loadReviews()]); stats(); loadVisits(); }
+
+/* ---------- ⭐ recensioni ---------- */
+const TOPN={lesson:"🗣️ Lezioni",excursion:"⛵ Escursione",experience:"🌿 Esperienza",house:"🏡 Alloggio",transfer:"🚐 Transfer",rental:"🚗 Noleggio",other:"Altro"};
+async function loadReviews(){
+  const {data,error}=await sb.from("reviews").select("*").order("created_at",{ascending:false});
+  if(error) return show($("#rvMsg"),"Errore: "+error.message+" — esegui su Supabase il pezzo «RECENSIONI» di setup.sql.","err");
+  reviews=data; renderReviews();
+}
+function renderReviews(){
+  const f=$("#fRev").value, list=reviews.filter(r=>f==="all"||(f==="pending"?!r.approved:r.approved));
+  const pend=reviews.filter(r=>!r.approved).length, b=$("#revBadge"); b.textContent=pend; b.classList.toggle("hidden",!pend);
+  if(!list.length){ $("#rvList").innerHTML='<div class="empty">Nessuna recensione qui.</div>'; return; }
+  $("#rvList").innerHTML=list.map(r=>`<div class="item" data-rv="${r.id}">
+    <div class="item-head"><div>
+      <h3>${"★".repeat(r.rating)}${"☆".repeat(5-r.rating)} · ${esc(r.name)} ${r.country?flag(r.country):""}</h3>
+      <div class="chips">${r.approved?'<span class="chip st-confirmed">Pubblicata</span>':'<span class="chip st-pending">Da approvare</span>'}${r.topic?`<span class="chip">${TOPN[r.topic]||r.topic}</span>`:""}<span class="chip">${esc(r.source||"Sito")}</span>${r.lang?`<span class="chip">${LANGN[r.lang]||r.lang}</span>`:""}</div>
+      ${r.email?`<div class="contact"><a href="mailto:${esc(r.email)}">✉️ ${esc(r.email)}</a></div>`:""}
+    </div><div class="muted"><small>${fmtTs(r.created_at)}</small></div></div>
+    <div class="body-text">${esc(r.body)}</div>
+    <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+      ${r.approved?'<button class="btn btn-line btn-sm" data-rv-hide>Nascondi dal sito</button>':'<button class="btn btn-red btn-sm" data-rv-ok>✓ Pubblica sul sito</button>'}
+      <button class="btn btn-line btn-sm" data-rv-del>${armed==="rv"+r.id?"Sicura?":"🗑 Elimina"}</button>
+    </div></div>`).join("");
+}
+$("#fRev").onchange=renderReviews; $("#reloadRv").onclick=loadReviews;
+$("#rvForm").addEventListener("submit",async e=>{
+  e.preventDefault(); const f=e.target;
+  const row={name:f.name.value.trim(),country:f.country.value||null,rating:+f.rating.value,topic:f.topic.value,source:f.source.value||null,lang:f.lang.value,body:f.body.value.trim(),approved:true};
+  const {error}=await sb.from("reviews").insert(row);
+  if(error) return show($("#rvMsg"),"Errore: "+error.message,"err");
+  f.reset(); show($("#rvMsg"),"Pubblicata! Si vede subito sul sito.","ok"); $("#fRev").value="approved"; loadReviews();
+});
 
 /* ---------- 📊 visite ---------- */
 const CN={IT:"Italia",PL:"Polonia",DE:"Germania",AT:"Austria",CH:"Svizzera",GB:"Regno Unito",IE:"Irlanda",FR:"Francia",ES:"Spagna",PT:"Portogallo",NL:"Paesi Bassi",
@@ -597,7 +756,7 @@ $("#nuForm").addEventListener("submit",async e=>{
 /* ---------- azioni ---------- */
 document.addEventListener("click",async e=>{
   const tb=e.target.closest("[data-tab]");
-  if(tb){ $$("[data-tab]").forEach(b=>b.classList.toggle("on",b===tb)); $$("[data-pane]").forEach(p=>p.classList.toggle("hidden",p.dataset.pane!==tb.dataset.tab)); return; }
+  if(tb){ location.hash=tb.dataset.tab; return; }
 
   const rEl=e.target.closest("[data-r]");
   if(rEl && e.target.closest("[data-save-r]")){
@@ -630,6 +789,20 @@ document.addEventListener("click",async e=>{
     bookings=bookings.filter(b=>b.id!==id); renderBookings(); stats(); return;
   }
 
+  const rvEl=e.target.closest("[data-rv]");
+  if(rvEl){
+    const id=+rvEl.dataset.rv;
+    if(e.target.closest("[data-rv-ok]")||e.target.closest("[data-rv-hide]")){
+      const ok=!!e.target.closest("[data-rv-ok]");
+      const {error}=await sb.from("reviews").update({approved:ok}).eq("id",id);
+      if(!error){ reviews.find(r=>r.id===id).approved=ok; renderReviews(); } return;
+    }
+    if(e.target.closest("[data-rv-del]")){
+      if(armed!=="rv"+id){ armed="rv"+id; renderReviews(); return; }
+      armed=null; const {error}=await sb.from("reviews").delete().eq("id",id);
+      if(!error){ reviews=reviews.filter(r=>r.id!==id); renderReviews(); } return;
+    }
+  }
   const cp=e.target.closest("[data-copy]");
   if(cp){ try{ await navigator.clipboard.writeText(cp.dataset.copy); cp.textContent="✓ Copiato"; }catch(_){ } return; }
 

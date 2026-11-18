@@ -207,6 +207,37 @@ BLOG_HOME = '''<section id="blog" style="background:var(--paper)">
     <div class="see-all"><a class="btn btn-line" href="blog.html" data-i="see_blog"></a></div>
   </div>
 </section>'''
+def reviews_sec(topic=""):
+    tops = "".join(f'<option value="{k}" data-i="rev_t_{k}"></option>' for k in ("lesson","excursion","experience","house","transfer","rental","other"))
+    countries = [("IT","🇮🇹"),("PL","🇵🇱"),("DE","🇩🇪"),("AT","🇦🇹"),("CH","🇨🇭"),("GB","🇬🇧"),("IE","🇮🇪"),("US","🇺🇸"),("ES","🇪🇸"),("FR","🇫🇷"),("NL","🇳🇱"),("BE","🇧🇪"),("CZ","🇨🇿"),("SE","🇸🇪"),("NO","🇳🇴"),("DK","🇩🇰"),("UA","🇺🇦"),("CA","🇨🇦"),("AU","🇦🇺")]
+    copts = '<option value=""></option>' + "".join(f'<option value="{c}">{f} {c}</option>' for c, f in countries)
+    return f'''<section id="reviews" data-topic="{topic}" style="display:none">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow" data-i="rev_eyebrow"></div>
+      <h2 data-i="rev_title"></h2>
+      <p data-i="rev_sub"></p>
+    </div>
+    <div class="rv-grid" id="rvList"></div>
+    <div class="see-all"><button class="btn btn-line" type="button" id="rvOpen" data-i="rev_write"></button></div>
+    <form class="rv-form" id="rvForm" hidden novalidate>
+      <div class="rv-row">
+        <label><span data-i="rev_name"></span><input name="name" maxlength="80" required></label>
+        <label><span data-i="rev_country"></span><select name="country">{copts}</select></label>
+      </div>
+      <div class="rv-row">
+        <label><span data-i="rev_stars"></span><span class="rv-stars" id="rvStars">{"".join(f'<button type="button" class="on" data-star="{i}" aria-label="{i}">★</button>' for i in range(1,6))}</span></label>
+        <label><span data-i="rev_topic"></span><select name="topic">{tops}</select></label>
+      </div>
+      <label><span data-i="rev_text"></span><textarea name="body" maxlength="2000" required></textarea></label>
+      <label><span data-i="rev_email"></span><input name="email" type="email" maxlength="200"></label>
+      <p class="rv-note" data-i="rev_privacy"></p>
+      <button class="btn btn-red" data-i="rev_send"></button>
+      <div class="notice" id="rvNotice"></div>
+    </form>
+  </div>
+</section>'''
+
 LD_HOME = json.dumps({"@context": "https://schema.org", "@type": "TravelAgency", "name": FULL,
   "url": DOMAIN + "/", "logo": DOMAIN + "/logo.jpg", "image": DOMAIN + "/media/hero.jpg",
   "description": "Lezioni di italiano e polacco e vacanze in Calabria: case vacanze, hotel e B&B, escursioni, esperienze locali, transfer e noleggi a Tropea e Capo Vaticano.",
@@ -253,24 +284,24 @@ def main():
     S = {n: sec(n) for n in ("about", "excursions", "lessons", "houses", "services", "gallery")}
     page("index.html", "home", f"{FULL} – lezioni di italiano e polacco e vacanze in Calabria",
          "Lezioni di italiano e polacco e vacanze in Calabria: case vacanze, hotel e B&B, escursioni, esperienze locali, transfer e noleggi a Tropea e Capo Vaticano.",
-         "\n".join([HERO, S["lessons"], vacanze(), S["about"], BLOG_HOME]),
+         "\n".join([HERO, S["lessons"], vacanze(), S["about"], reviews_sec(), BLOG_HOME]),
          extra=f'<script type="application/ld+json">{LD_HOME}</script>\n')
 
     page("case-vacanze.html", "houses", f"Case vacanze a Tropea e Capo Vaticano · {NAME}",
          "Appartamenti, case e ville a Tropea, Capo Vaticano e Ricadi, con foto, dotazioni e codici CIN.",
-         crumbs("", ("", "nav_house", "")) + as_h1(S["houses"]))
+         crumbs("", ("", "nav_house", "")) + as_h1(S["houses"]) + reviews_sec("house"))
     page("hotel-bb.html", "hotels", f"Hotel e B&B a Tropea · {NAME}",
          "Hotel e bed & breakfast selezionati a Tropea e dintorni, per la tua vacanza in Calabria.",
          crumbs("", ("", "nav_hotel", "")) + as_h1(heads(S["houses"], "hotel", "h")).replace('id="houses"', 'id="houses" data-hotels="1"'))
     page("escursioni.html", "exc", f"Escursioni da Tropea via mare e via terra · {NAME}",
          "Isole Eolie, tour in barca e gommone, pesca turistica, Costa Viola, Reggio Calabria e parapendio da Tropea.",
-         crumbs("", ("", "nav_exc", "")) + as_h1(S["excursions"]))
+         crumbs("", ("", "nav_exc", "")) + as_h1(S["excursions"]) + reviews_sec("excursion"))
     page("esperienze.html", "exp", f"Guida turistica ed esperienze locali a Tropea · {NAME}",
          "Visite guidate in italiano, polacco e inglese ed esperienze autentiche in Calabria: cucina contadina, vino, asinelli, musica popolare.",
-         crumbs("", ("", "nav_exp", "")) + as_h1(heads(S["excursions"], "exp", "exc")))
+         crumbs("", ("", "nav_exp", "")) + as_h1(heads(S["excursions"], "exp", "exc")) + reviews_sec("experience"))
     page("transfer.html", "transfer", f"Transfer aeroporto Lamezia Terme – Tropea · {NAME}",
          "Transfer privato dall'aeroporto di Lamezia Terme a Tropea e alla Costa degli Dei, anche di notte.",
-         crumbs("", ("", "nav_tr", "")) + as_h1(heads(S["services"], "tr", "s")))
+         crumbs("", ("", "nav_tr", "")) + as_h1(heads(S["services"], "tr", "s")) + reviews_sec("transfer"))
     page("noleggio.html", "rental", f"Noleggio auto, scooter e bici a Tropea · {NAME}",
          "Noleggio di auto, scooter e bici a Tropea e Capo Vaticano, con consegna in aeroporto o in hotel.",
          crumbs("", ("", "nav_rent", "")) + as_h1(heads(S["services"], "rent", "s")))

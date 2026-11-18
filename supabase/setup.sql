@@ -225,6 +225,42 @@ create policy "visite: leggi"    on public.visits for select to authenticated us
 create policy "visite: cancella" on public.visits for delete to authenticated using (public.is_admin());
 
 -- ---------------------------------------------------------------------
+--  RECENSIONI: i clienti le scrivono dal sito (in attesa), Dominika le
+--  approva o le aggiunge lei dalla Gestione. Sul sito si vedono solo
+--  quelle approvate.
+-- ---------------------------------------------------------------------
+create table if not exists public.reviews (
+  id         bigint generated always as identity primary key,
+  created_at timestamptz not null default now(),
+  name       text not null check (char_length(name) between 1 and 80),
+  country    text check (country is null or char_length(country) <= 2),
+  rating     int  not null check (rating between 1 and 5),
+  topic      text check (topic is null or topic in ('lesson','excursion','experience','house','transfer','rental','other')),
+  body       text not null check (char_length(body) between 5 and 2000),
+  lang       text check (lang is null or char_length(lang) <= 5),
+  source     text check (source is null or char_length(source) <= 40),
+  email      text check (email is null or char_length(email) <= 200),
+  approved   boolean not null default false
+);
+create index if not exists reviews_created_idx on public.reviews (created_at desc);
+alter table public.reviews enable row level security;
+grant insert on public.reviews to anon, authenticated;
+grant select on public.reviews to anon, authenticated;
+grant update, delete on public.reviews to authenticated;
+drop policy if exists "recensioni: scrivi"    on public.reviews;
+drop policy if exists "recensioni: leggi"     on public.reviews;
+drop policy if exists "recensioni: gestisci"  on public.reviews;
+create policy "recensioni: scrivi" on public.reviews for insert to anon, authenticated
+  with check (approved = false or public.is_admin());
+create policy "recensioni: leggi" on public.reviews for select to anon, authenticated
+  using (approved or public.is_admin());
+create policy "recensioni: gestisci" on public.reviews for all to authenticated
+  using (public.is_admin()) with check (public.is_admin());
+-- l'e-mail di chi scrive non deve essere visibile al pubblico
+revoke select on public.reviews from anon;
+grant select (id, created_at, name, country, rating, topic, body, lang, source, approved) on public.reviews to anon;
+
+-- ---------------------------------------------------------------------
 --  RICHIESTE DAL SITO (modulo «Scrivimi»): chiunque può inviarne una,
 --  solo l'amministratrice le legge (pagina gestione.html → 📩 Richieste)
 -- ---------------------------------------------------------------------

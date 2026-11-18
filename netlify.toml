@@ -7,3 +7,14 @@
   for = "/admin/*"
   [headers.values]
     X-Robots-Tag = "noindex"
+
+# La tua app di gestione: wloskizdominika.com/app
+[[redirects]]
+  from = "/app"
+  to = "/gestione.html"
+  status = 200
+
+[[headers]]
+  for = "/gestione.html"
+  [headers.values]
+    X-Robots-Tag = "noindex"

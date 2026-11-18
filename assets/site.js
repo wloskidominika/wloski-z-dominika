@@ -290,7 +290,7 @@ function applyLang(){
   document.querySelectorAll("[data-i]").forEach(el=>{ el.textContent = t(el.dataset.i); });
   document.getElementById("langBtns").innerHTML = LANGS.map(l=>`<button data-lang="${l}">${l.toUpperCase()}</button>`).join("");
   document.querySelectorAll(".lang button").forEach(b=>b.classList.toggle("on", b.dataset.lang===lang));
-  renderExcursions(); renderLessons(); renderHouses(); renderServices(); renderGallery(); renderContact(); renderBlog(); renderDetail();
+  renderExcursions(); renderLessons(); renderHouses(); renderServices(); renderGallery(); renderContact(); renderBlog(); renderDetail(); loadReviews();
 }
 
 /* Blog: ultimi articoli in Home + filtri nella pagina Blog */
@@ -466,4 +466,49 @@ function trackVisit(){
       body:JSON.stringify(row)}).catch(()=>{});
   }catch(_){}
 }
+
+/* ⭐ Recensioni: si leggono e si scrivono nel database (solo quelle approvate sono visibili) */
+let REVIEWS=null, rvStar=5;
+const rvFlag=c=>c&&/^[A-Z]{2}$/.test(c)?String.fromCodePoint(...[...c].map(x=>127397+x.charCodeAt(0))):"";
+function rvApi(){ const c=window.WZD_CONFIG||{}; return (c.SUPABASE_URL&&!/INSERISCI/.test(c.SUPABASE_URL))?c:null; }
+async function loadReviews(){
+  const sec=document.getElementById("reviews"), c=rvApi(); if(!sec||!c) return;
+  sec.style.display="";
+  if(REVIEWS===null){
+    try{
+      const r=await fetch(c.SUPABASE_URL.replace(/\/$/,"")+"/rest/v1/reviews?select=id,created_at,name,country,rating,topic,body,lang,source&approved=eq.true&order=created_at.desc&limit=60",{headers:{apikey:c.SUPABASE_ANON_KEY}});
+      REVIEWS=r.ok?await r.json():[];
+    }catch(_){ REVIEWS=[]; }
+  }
+  renderReviewsSite();
+}
+function renderReviewsSite(){
+  const sec=document.getElementById("reviews"), box=document.getElementById("rvList"); if(!sec||!box||REVIEWS===null) return;
+  const topic=sec.dataset.topic||"";
+  let list=topic?REVIEWS.filter(r=>r.topic===topic):REVIEWS;
+  // prima quelle nella lingua del visitatore
+  list=list.slice().sort((a,b)=>(b.lang===lang)-(a.lang===lang));
+  const max=PAGE==="home"?6:4;
+  box.innerHTML=list.length?list.slice(0,max).map(r=>`<figure class="rv-card">
+      <div class="rv-st" aria-label="${r.rating}/5">${"★".repeat(r.rating)}<span>${"★".repeat(5-r.rating)}</span></div>
+      <blockquote>${esc(r.body)}</blockquote>
+      <figcaption><b>${esc(r.name)}</b> ${rvFlag(r.country)} <small>${r.topic?esc(t("rev_t_"+r.topic)):""}${r.source?" · "+esc(r.source):""}</small></figcaption>
+    </figure>`).join(""):`<p class="rv-empty">${esc(t("rev_empty"))}</p>`;
+}
+document.addEventListener("click",e=>{
+  if(e.target.closest("#rvOpen")){ const f=document.getElementById("rvForm"); f.hidden=!f.hidden; if(!f.hidden){ f.topic.value=(document.getElementById("reviews").dataset.topic||f.topic.value); f.name.focus(); } return; }
+  const s=e.target.closest("[data-star]"); if(s){ rvStar=+s.dataset.star; document.querySelectorAll("#rvStars button").forEach(b=>b.classList.toggle("on",+b.dataset.star<=rvStar)); }
+});
+document.addEventListener("submit",async e=>{
+  if(e.target.id!=="rvForm") return; e.preventDefault();
+  const f=e.target, n=document.getElementById("rvNotice"), c=rvApi(), btn=f.querySelector("button.btn");
+  const row={name:f.name.value.trim(),country:f.country.value||null,rating:rvStar,topic:f.topic.value,body:f.body.value.trim(),email:f.email.value.trim()||null,lang,source:null};
+  if(!row.name||row.body.length<5||!c){ n.textContent=t("rev_err"); n.classList.add("show"); return; }
+  btn.disabled=true;
+  let ok=false;
+  try{ const r=await fetch(c.SUPABASE_URL.replace(/\/$/,"")+"/rest/v1/reviews",{method:"POST",headers:{apikey:c.SUPABASE_ANON_KEY,"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify(row)}); ok=r.ok; }catch(_){}
+  btn.disabled=false;
+  n.textContent=ok?t("rev_thanks"):t("rev_err"); n.classList.add("show");
+  if(ok){ f.reset(); rvStar=5; document.querySelectorAll("#rvStars button").forEach(b=>b.classList.add("on")); }
+});
 loadContent().then(applyLang).catch(e=>console.error("Contenuti non caricati",e)).finally(()=>setTimeout(trackVisit,300));
