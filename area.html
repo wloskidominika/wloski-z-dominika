@@ -14,7 +14,7 @@
     <a class="brand" href="index.html"><img src="sun.jpg" alt=""><div><span>Włoski z Dominiką</span><small data-i="area"></small></div></a>
     <div class="top-actions">
       <div class="lang" id="langBtns"></div>
-      <a class="btn btn-line btn-sm hidden" id="adminLink" href="gestione.html">⚙️ Gestione</a>
+      <a class="btn btn-line btn-sm hidden" id="adminLink" href="/app/">⚙️ Gestione</a>
       <button class="btn btn-line btn-sm hidden" id="logoutBtn" data-i="logout"></button>
     </div>
   </div>
@@ -241,6 +241,7 @@ async function enter(session){
   if(!user){ $("#adminLink").classList.add("hidden"); return; }
   const {data}=await sb.from("profiles").select("*").eq("id",user.id).single();
   profile=data||{full_name:"",courses:[]};
+  if(profile.role==="admin"){ location.replace("/app/"); return; }   // Dominika va dritta nella sua app
   $("#adminLink").classList.toggle("hidden",profile.role!=="admin");
   const f=$("#profileForm"); f.full_name.value=profile.full_name||""; f.email.value=user.email; f.phone.value=profile.phone||"";
   applyLang();
