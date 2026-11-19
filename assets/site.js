@@ -561,11 +561,15 @@ function trackVisit(){
     try{ const r=document.referrer?new URL(document.referrer):null;
       if(r && r.hostname===location.hostname) entry=false; else if(r) source=r.hostname.replace(/^www\./,"").slice(0,100); }catch(_){}
     const q=new URLSearchParams(location.search); if(q.get("utm_source")) source=q.get("utm_source").slice(0,100);
+    const uid=()=>crypto.randomUUID?crypto.randomUUID():"10000000-1000-4000-8000-100000000000".replace(/[018]/g,c=>(c^Math.random()*16>>c/4).toString(16));
+    let sid=null; try{ sid=sessionStorage.getItem("wzd-sid"); if(!sid){ sid=uid(); sessionStorage.setItem("wzd-sid",sid); } }catch(_){ sid=uid(); }
+    VISIT_ID=uid();
     const row={page:location.pathname.slice(0,200),site_lang:lang,browser_lang:bl,country:TZ_COUNTRY[tz]||(/^[A-Z]{2}$/.test(region)?region:null),
-      tz,device,os,browser,source:source||null,entry};
-    fetch(cfg.SUPABASE_URL.replace(/\/$/,"")+"/rest/v1/visits",{method:"POST",keepalive:true,
-      headers:{"apikey":cfg.SUPABASE_ANON_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},
-      body:JSON.stringify(row)}).catch(()=>{});
+      tz,device,os,browser,source:source||null,entry,sid,vid:VISIT_ID};
+    const send=r=>fetch(cfg.SUPABASE_URL.replace(/\/$/,"")+"/rest/v1/visits",{method:"POST",keepalive:true,
+      headers:{"apikey":cfg.SUPABASE_ANON_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify(r)});
+    // se il database non ha ancora le colonne nuove, registro comunque la visita
+    send(row).then(r=>{ if(!r.ok){ VISIT_ID=null; const o=Object.assign({},row); delete o.sid; delete o.vid; return send(o); } }).catch(()=>{});
   }catch(_){}
 }
 
@@ -614,11 +618,19 @@ document.addEventListener("submit",async e=>{
   if(ok){ f.reset(); rvStar=5; document.querySelectorAll("#rvStars button").forEach(b=>b.classList.add("on")); }
 });
 loadContent().then(applyLang).catch(e=>console.error("Contenuti non caricati",e)).finally(countWhenSeen);
-/* conto la visita solo se la pagina resta aperta e visibile almeno 3 secondi (i controlli automatici dei link si chiudono subito) */
+/* conto la visita solo se la pagina resta aperta e visibile almeno 3 secondi (i controlli automatici dei link si chiudono subito),
+   poi segno quanto tempo resta sulla pagina (solo il tempo in cui è davvero visibile) */
+let VISIT_ID=null;
 function countWhenSeen(){
-  let seen=0, done=false, t=null;
-  const tick=()=>{ if(done) return; if(document.visibilityState==="visible") seen+=500; if(seen>=3000){ done=true; clearInterval(t); trackVisit(); } };
-  t=setInterval(tick,500);
+  let seen=0, done=false, sent=-1;
+  setInterval(()=>{ if(document.visibilityState==="visible") seen+=500; if(!done && seen>=3000){ done=true; trackVisit(); } },500);
+  const sendTime=()=>{ const secs=Math.round(seen/1000); if(!VISIT_ID || secs===sent) return; sent=secs;
+    const cfg=window.WZD_CONFIG||{};
+    fetch(cfg.SUPABASE_URL.replace(/\/$/,"")+"/rest/v1/rpc/visit_duration",{method:"POST",keepalive:true,
+      headers:{"apikey":cfg.SUPABASE_ANON_KEY,"Content-Type":"application/json"},body:JSON.stringify({p_vid:VISIT_ID,p_secs:secs})}).catch(()=>{}); };
+  document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="hidden") sendTime(); });
+  window.addEventListener("pagehide",sendTime);
+  setInterval(sendTime,30000);   // anche durante le visite lunghe
 }
 
 /* ✏️ Solo per Dominika (ha aperto l'app su questo telefono/computer): pulsante per modificare la pagina */

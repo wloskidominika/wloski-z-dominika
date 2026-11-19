@@ -36,7 +36,7 @@
 .hcard strong{display:block;font-size:1.02rem}
 .hcard span{display:block;color:var(--muted);font-size:.86rem;line-height:1.35}
 .hcard i{margin-left:auto;color:var(--muted);font-style:normal;font-size:1.4rem}
-@media (max-width:720px){ .tabs{display:none} .stats{display:none} header.top .bar{height:60px} .top-actions{flex-wrap:nowrap;gap:6px} .top-actions .btn{padding:6px 10px} #menuBtn{display:none} .brand span{font-size:1rem} .brand img{width:38px;height:38px} .ibtn{width:30px;height:30px;font-size:.85rem} .item>summary{gap:6px;padding:8px} .item>summary img{width:44px;height:34px} }
+@media (max-width:720px){ .tabs{display:none} .stats{display:none} header.top .bar{height:60px} .top-actions{flex-wrap:nowrap;gap:6px} .bellpanel{top:66px} .top-actions .btn{padding:6px 10px} #menuBtn{display:none} .brand span{font-size:1rem} .brand img{width:38px;height:38px} .ibtn{width:30px;height:30px;font-size:.85rem} .item>summary{gap:6px;padding:8px} .item>summary img{width:44px;height:34px} }
 .panebar{display:flex;align-items:center;gap:12px;margin:-14px 0 18px;position:sticky;top:68px;z-index:15;background:var(--cream);padding:8px 0}
 .panebar h1{font-size:1.45rem;margin:0}
 .backbtn{width:44px;height:44px;flex:none;border-radius:50%;background:#fff;border:1.5px solid var(--line);display:grid;place-items:center;text-decoration:none;color:var(--red);font-size:2rem;line-height:1;padding-bottom:4px}
@@ -74,6 +74,19 @@ details.more>summary{cursor:pointer;color:var(--green);font-weight:700;font-size
 .addpic{display:grid;place-items:center;border:2px dashed var(--line);border-radius:10px;aspect-ratio:4/3;cursor:pointer;color:var(--green);font-weight:700;background:#fff;text-align:center;font-size:.85rem}
 .one-pic{max-width:320px}
 .sub{border-left:3px solid var(--line);padding-left:12px;margin-top:6px}
+.bell{position:relative;width:42px;height:42px;border-radius:50%;border:1.5px solid var(--green);background:#fff;font-size:1.2rem;cursor:pointer;display:grid;place-items:center;flex:none}
+.bcount{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:99px;background:var(--red);color:#fff;font-size:.72rem;font-weight:800;display:grid;place-items:center}
+.bellpanel{position:fixed;top:74px;right:12px;width:min(380px,calc(100vw - 24px));max-height:70vh;overflow:auto;background:#fff;border:1.5px solid var(--line);border-radius:18px;box-shadow:0 16px 40px rgba(0,0,0,.18);z-index:60}
+.bp-head{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#fff}
+.bn{display:flex;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.bn:hover{background:var(--cream)} .bn.fresh{background:#fff6f0} .bn.fresh span{font-weight:700}
+.bn b{font-size:1.2rem} .bn span{font-size:.9rem;line-height:1.3} .bn small{display:block;color:var(--muted);font-weight:400;font-size:.76rem;margin-top:2px}
+#vStats.stats{display:grid!important;grid-template-columns:repeat(3,1fr)}
+@media (max-width:720px){#vStats.stats{grid-template-columns:1fr 1fr}.top-actions .btn-line[href="/"]{display:none}}
+.vsec{grid-column:1/-1;margin:14px 0 -4px} .vsec h2{font-size:1.3rem;margin:0}
+.vfeed{display:flex;flex-direction:column;gap:6px;max-height:420px;overflow:auto}
+.vf{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.84rem;padding:8px 10px;border-radius:10px;background:var(--cream)}
+.vf-t{font-weight:700} .vf-p{flex-basis:100%;color:var(--muted)} .vf-d{font-weight:700;color:var(--green)}
 .need{color:#b3261e;font-weight:800;font-size:.85rem;margin-top:8px}
 .fx.bad{border-color:#d93025;background:#fff6f5}
 details.item.bad{border-color:#d93025}
@@ -87,11 +100,17 @@ details.item.bad{border-color:#d93025}
     <a class="brand" href="#home"><img src="/sun.jpg" alt=""><div><span>Włoski z Dominiką</span><small>Gestione</small></div></a>
     <div class="top-actions">
       <a class="btn btn-line btn-sm hidden" href="#home" id="menuBtn">☰ Menu</a>
+      <button class="bell hidden" id="bellBtn" aria-label="Notifiche" title="Notifiche">🔔<span class="bcount hidden" id="bellCount"></span></button>
       <a class="btn btn-line btn-sm" href="/" target="_blank" rel="noopener">🌐 Il sito</a>
       <button class="btn btn-line btn-sm hidden" id="logoutBtn">Esci</button>
     </div>
   </div>
 </header>
+
+<div class="bellpanel hidden" id="bellPanel">
+  <div class="bp-head"><strong>🔔 Notifiche</strong><button class="btn btn-line btn-sm" id="bellPerm">📲 Avvisi sul dispositivo</button></div>
+  <div id="bellList"></div>
+</div>
 
 <main class="wrap">
   <div class="msg info" id="gate"></div>
@@ -145,7 +164,8 @@ details.item.bad{border-color:#d93025}
       </div>
       <h2 class="hsec">📊 Statistiche e ⭐ recensioni</h2>
       <div class="hgrid">
-        <a class="hcard" href="#visits"><b>📈</b><div><strong>Statistiche del sito</strong><span>Chi entra, da quali Paesi, cellulare o computer, da dove arriva</span></div><i>›</i></a>
+        <a class="hcard" href="#visits"><b>📈</b><div><strong>Statistiche del sito</strong><span>Chi entra, cosa guarda, quanto resta: case, escursioni, transfer, lezioni</span></div><i>›</i></a>
+        <a class="hcard" href="#visits/paesi"><b>📍</b><div><strong>Da dove arrivano (Paesi)</strong><span>Polonia, Germania, Italia…: da quali Paesi e da quali siti arrivano i visitatori</span></div><i>›</i></a>
         <a class="hcard" href="#reviews"><b>⭐</b><div><strong>Recensioni</strong><span>Approva quelle dei clienti o aggiungine tu</span></div><i>›</i></a>
       </div>
       <h2 class="hsec">🌐 Il sito (pagine, testi, foto)</h2>
@@ -420,11 +440,12 @@ function openTab(k){
   if(location.hash.slice(1)!==k) history.replaceState(null,"","#"+k);
   if(b==="edit" && window.openEditor) window.openEditor(arg);
   if(b==="blog" && window.openBlog) window.openBlog(arg);
+  if(b==="visits" && arg) setTimeout(()=>{ const el=document.getElementById("v-"+arg); if(el) el.scrollIntoView({behavior:"smooth",block:"start"}); },400);
   window.scrollTo({top:0});
 }
 window.addEventListener("hashchange",()=>openTab(location.hash.slice(1)));
 
-async function loadAll(){ await Promise.all([loadRequests(),loadBookings(),loadUsers(),loadMaterials(),loadDocuments(),loadReviews()]); stats(); loadVisits(); }
+async function loadAll(){ await Promise.all([loadRequests(),loadBookings(),loadUsers(),loadMaterials(),loadDocuments(),loadReviews()]); stats(); renderBell(); loadVisits(); }
 
 /* ---------- ⭐ recensioni ---------- */
 const TOPN={lesson:"🗣️ Lezioni",excursion:"⛵ Escursione",experience:"🌿 Esperienza",house:"🏡 Alloggio",transfer:"🚐 Transfer",rental:"🚗 Noleggio",other:"Altro"};
@@ -482,8 +503,9 @@ function srcName(s){ if(!s) return "Diretto (link, WhatsApp, preferiti)"; s=s.to
 let visits=[];
 async function loadVisits(){
   const days=+$("#vRange").value, since=new Date(); since.setHours(0,0,0,0); since.setDate(since.getDate()-(days-1));
-  const {data,error}=await sb.from("visits").select("created_at,page,site_lang,browser_lang,country,device,os,browser,source,entry")
-    .gte("created_at",since.toISOString()).order("created_at",{ascending:true}).limit(50000);
+  const cols="created_at,page,site_lang,browser_lang,country,device,os,browser,source,entry";
+  let {data,error}=await sb.from("visits").select(cols+",sid,duration_s").gte("created_at",since.toISOString()).order("created_at",{ascending:true}).limit(50000);
+  if(error) ({data,error}=await sb.from("visits").select(cols).gte("created_at",since.toISOString()).order("created_at",{ascending:true}).limit(50000));
   if(error) return show($("#vMsg"),"Errore: "+error.message+" — hai eseguito l'ultima versione di supabase/setup.sql?","err");
   visits=data; renderVisits(days);
 }
@@ -493,35 +515,110 @@ function barList(title,rows,total,label){
   return `<div class="card vcard"><h3>${title}</h3>${rows.slice(0,12).map(([k,n])=>{ const pc=Math.round(n/total*100);
     return `<div class="vrow"><div class="vlab"><span>${label(k)}</span><b>${n} <small>(${pc}%)</small></b></div><div class="vbar"><i style="width:${Math.max(2,pc)}%"></i></div></div>`; }).join("")}</div>`;
 }
+function dur(s){ s=Math.round(s||0); if(s<60) return s+" s"; const m=Math.floor(s/60), r=s%60; return m<60?m+" min"+(r?" "+r+" s":""):Math.floor(m/60)+" h "+(m%60)+" min"; }
+const CAT=p=>{ p=(p||"/").replace(/\.html$/,"").replace(/^\/+/,"");
+  if(p===""||p==="index") return "🏠 Home (lezioni e vacanze)"; if(p==="case-vacanze"||p.startsWith("casa/")) return "🏡 Case vacanze"; if(p==="hotel-bb") return "🏨 Hotel e B&B";
+  if(p==="escursioni"||p.startsWith("escursione/")) return "⛵ Escursioni"; if(p==="esperienze") return "🧭 Guida ed esperienze"; if(p==="transfer") return "🚐 Transfer";
+  if(p==="noleggio") return "🛵 Noleggio auto/scooter/bici"; if(p==="noleggio-nautico") return "🚤 Noleggio nautico"; if(p==="foto-e-video") return "📸 Foto e video";
+  if(p==="blog"||p.startsWith("blog/")) return "📝 Blog"; if(p==="area") return "👤 Area clienti"; return "Altre pagine"; };
+function sessions(all){
+  const m={}; all.forEach((v,i)=>{ const k=v.sid||("p"+i); (m[k]=m[k]||{pages:[],secs:0,hasDur:false,first:v}).pages.push(v);
+    if(v.duration_s!=null){ m[k].secs+=v.duration_s; m[k].hasDur=true; } });
+  return Object.values(m);
+}
 function renderVisits(days){
   const all=visits, ent=all.filter(v=>v.entry), base=ent.length?ent:all;
+  const ss=sessions(all), withDur=ss.filter(x=>x.hasDur), hasSid=all.some(v=>v.sid);
+  const avg=withDur.length?withDur.reduce((a,x)=>a+x.secs,0)/withDur.length:0;
+  const ppv=hasSid&&ss.length?(all.length/ss.length):0;
   const mob=base.filter(v=>v.device!=="desktop").length;
   const foreign=base.filter(v=>v.country&&v.country!=="IT").length;
-  $("#vStats").innerHTML=`<div class="stat"><b>${ent.length}</b><span>Visite</span></div>
+  const nVis=hasSid?ss.length:ent.length;
+  $("#vStats").innerHTML=`<div class="stat"><b>${nVis}</b><span>Visitatori</span></div>
     <div class="stat"><b>${all.length}</b><span>Pagine viste</span></div>
-    <div class="stat"><b>${base.length?Math.round(mob/base.length*100):0}%</b><span>Da cellulare o tablet</span></div>
+    <div class="stat"><b>${withDur.length?dur(avg):"—"}</b><span>Tempo medio sul sito</span></div>
+    <div class="stat"><b>${ppv?ppv.toFixed(1):"—"}</b><span>Pagine per visita</span></div>
+    <div class="stat"><b>${base.length?Math.round(mob/base.length*100):0}%</b><span>Da cellulare</span></div>
     <div class="stat"><b>${base.length?Math.round(foreign/base.length*100):0}%</b><span>Dall'estero</span></div>`;
-  // grafico per giorno
+  $("#vStats").style.display="";
   const byDay={}; for(let i=0;i<days;i++){ const d=new Date(); d.setDate(d.getDate()-(days-1-i)); byDay[d.toISOString().slice(0,10)]=0; }
   base.forEach(v=>{ const d=new Date(v.created_at); const k=new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10); if(k in byDay) byDay[k]++; });
   const dk=Object.keys(byDay), mx=Math.max(1,...Object.values(byDay));
   const chart=days>1?`<div class="card vcard vwide"><h3>📈 Visite giorno per giorno</h3><div class="vchart">${dk.map(k=>`<div title="${k.split("-").reverse().join("/")}: ${byDay[k]}"><i style="height:${byDay[k]/mx*100}%"></i></div>`).join("")}</div>
     <div class="vaxis"><span>${dk[0].split("-").reverse().slice(0,2).join("/")}</span><span>oggi</span></div></div>`:"";
-  $("#vGrid").innerHTML=chart+
+  // cosa guardano: per sezione, con tempo medio
+  const byCat={}; all.forEach(v=>{ const c=CAT(v.page); const o=byCat[c]=byCat[c]||{n:0,t:0,k:0}; o.n++; if(v.duration_s!=null){ o.t+=v.duration_s; o.k++; } });
+  const catRows=Object.entries(byCat).sort((a,b)=>b[1].n-a[1].n);
+  const cats=`<div class="card vcard"><h3>👀 Cosa guardano</h3>${catRows.length?catRows.map(([c,o])=>{ const pc=Math.round(o.n/all.length*100);
+    return `<div class="vrow"><div class="vlab"><span>${esc(c)}</span><b>${o.n} <small>${o.k?"· ⏱ "+dur(o.t/o.k):""}</small></b></div><div class="vbar"><i style="width:${Math.max(2,pc)}%"></i></div></div>`; }).join(""):'<p class="muted">Ancora nessun dato.</p>'}</div>`;
+  // pagine con tempo medio
+  const byPage={}; all.forEach(v=>{ const p=pageName(v.page); const o=byPage[p]=byPage[p]||{n:0,t:0,k:0}; o.n++; if(v.duration_s!=null){ o.t+=v.duration_s; o.k++; } });
+  const pRows=Object.entries(byPage).sort((a,b)=>b[1].n-a[1].n).slice(0,15);
+  const pages=`<div class="card vcard"><h3>📄 Pagine più viste</h3>${pRows.length?pRows.map(([p,o])=>{ const pc=Math.round(o.n/all.length*100);
+    return `<div class="vrow"><div class="vlab"><span>${esc(p)}</span><b>${o.n} <small>${o.k?"· ⏱ "+dur(o.t/o.k):""}</small></b></div><div class="vbar"><i style="width:${Math.max(2,pc)}%"></i></div></div>`; }).join(""):'<p class="muted">Ancora nessun dato.</p>'}</div>`;
+  // quanto restano
+  const B=[["Meno di 30 secondi",0,30],["30 s – 1 minuto",30,60],["1 – 3 minuti",60,180],["3 – 10 minuti",180,600],["Più di 10 minuti",600,1e9]];
+  const stay=withDur.length?`<div class="card vcard"><h3>⏱ Quanto restano</h3>${B.map(([l,a,b])=>{ const n=withDur.filter(x=>x.secs>=a&&x.secs<b).length, pc=Math.round(n/withDur.length*100);
+    return `<div class="vrow"><div class="vlab"><span>${l}</span><b>${n} <small>(${pc}%)</small></b></div><div class="vbar"><i style="width:${Math.max(2,pc)}%"></i></div></div>`; }).join("")}</div>`
+    :`<div class="card vcard"><h3>⏱ Quanto restano</h3><p class="muted">Il tempo si conta dalle visite nuove: tra poco compaiono qui.</p></div>`;
+  // chi entra: ultime visite
+  const last=ss.slice().sort((a,b)=>new Date(b.first.created_at)-new Date(a.first.created_at)).slice(0,25);
+  const feed=`<div class="card vcard vwide"><h3>🕒 Chi è entrato (ultime visite)</h3>${last.length?`<div class="vfeed">${last.map(x=>{ const v=x.first;
+    return `<div class="vf"><span class="vf-t">${fmtTs(v.created_at)}</span><span>${v.country?flag(v.country)+" "+(CN[v.country]||v.country):"🌍"}</span><span>${DEV[v.device]||""}</span><span>${esc(srcName(v.source))}</span>
+      <span class="vf-p">${x.pages.map(q=>esc(pageName(q.page))).join(" → ")}</span><span class="vf-d">${x.hasDur?"⏱ "+dur(x.secs):""}</span></div>`; }).join("")}</div>`:'<p class="muted">Ancora nessuna visita.</p>'}</div>`;
+  $("#vGrid").innerHTML=chart+cats+stay+feed+pages+
+    `<div id="v-paesi" class="vwide vsec"><h2>📍 Da dove arrivano</h2></div>`+
     barList("🌍 Paese",count(base,v=>v.country||"?"),base.length,c=>c==="?"?"🌍 Non so":`${flag(c)} ${CN[c]||c}`)+
-    barList("📱 Dispositivo",count(base,v=>v.device),base.length,d=>DEV[d]||d)+
+    barList("🔗 Da quale sito o app",count(ent,v=>srcName(v.source)),ent.length||1,s=>esc(s))+
     barList("🗣 Lingua scelta sul sito",count(all,v=>v.site_lang),all.length,l=>LN[l]||l)+
-    barList("🌐 Lingua del browser",count(base,v=>(v.browser_lang||"?").slice(0,2).toLowerCase()),base.length,l=>LN[l]||l.toUpperCase())+
-    barList("🔗 Da dove arrivano",count(ent,v=>srcName(v.source)),ent.length||1,s=>esc(s))+
-    barList("📄 Pagine più viste",count(all,v=>pageName(v.page)),all.length,p=>esc(p))+
-    barList("💻 Sistema",count(base,v=>v.os),base.length,o=>esc(o))+
-    barList("🧭 Browser",count(base,v=>v.browser),base.length,b=>esc(b));
+    barList("🌐 Lingua del telefono/computer",count(base,v=>(v.browser_lang||"?").slice(0,2).toLowerCase()),base.length,l=>LN[l]||l.toUpperCase())+
+    barList("📱 Dispositivo",count(base,v=>v.device),base.length,d=>DEV[d]||d)+
+    barList("💻 Sistema",count(base,v=>v.os),base.length,o=>esc(o));
 }
 function meBtn(){ let off=false; try{ off=!!localStorage.getItem("wzd-notrack"); }catch(_){}
   $("#vMe").textContent=off?"✅ Le mie visite non vengono contate":"🙈 Non contare le mie visite (su questo dispositivo)"; }
 $("#vRange").onchange=loadVisits; $("#vReload").onclick=loadVisits;
 $("#vMe").onclick=()=>{ try{ localStorage.getItem("wzd-notrack")?localStorage.removeItem("wzd-notrack"):localStorage.setItem("wzd-notrack","1"); }catch(_){} meBtn(); };
 meBtn();
+
+/* ---------- 🔔 notifiche ---------- */
+const SEEN_KEY="wzd-notif-seen", SENT_KEY="wzd-notif-sent";
+function notifItems(){
+  let seen=0; try{ seen=+localStorage.getItem(SEEN_KEY)||0; }catch(_){}
+  const it=[], T=x=>new Date(x||0).getTime();
+  (requests||[]).filter(r=>r.status==="new").forEach(r=>it.push({t:T(r.created_at),ic:"📩",tx:"Nuova richiesta: "+(r.topic||"messaggio")+(r.name?" – "+r.name:""),href:"#requests"}));
+  (bookings||[]).filter(b=>b.status==="pending").forEach(b=>it.push({t:T(b.created_at),ic:"📅",tx:"Prenotazione da confermare: "+(KIND[b.kind]||"")+(b.item?" · "+b.item:"")+((b.profiles||{}).full_name?" – "+b.profiles.full_name:""),href:"#bookings"}));
+  (reviews||[]).filter(r=>!r.approved).forEach(r=>it.push({t:T(r.created_at),ic:"⭐",tx:"Recensione da approvare"+(r.name?": "+r.name:""),href:"#reviews"}));
+  return it.sort((a,b)=>b.t-a.t).map(x=>Object.assign(x,{fresh:x.t>seen}));
+}
+function renderBell(){
+  const it=notifItems(), fresh=it.filter(x=>x.fresh).length;
+  $("#bellBtn").classList.remove("hidden");
+  const c=$("#bellCount"); c.textContent=fresh>9?"9+":fresh; c.classList.toggle("hidden",!fresh);
+  $("#bellList").innerHTML=it.length?it.map(x=>`<a class="bn${x.fresh?" fresh":""}" href="${x.href}"><b>${x.ic}</b><span>${esc(x.tx)}<small>${fmtTs(new Date(x.t).toISOString())}</small></span></a>`).join("")
+    :'<p class="muted" style="padding:14px">Nessuna novità: tutto in ordine ✅</p>';
+  try{ if(navigator.setAppBadge){ fresh?navigator.setAppBadge(fresh):navigator.clearAppBadge(); } }catch(_){}
+  // avviso sul dispositivo per le novità mai avvisate
+  let sent=0; try{ sent=+localStorage.getItem(SENT_KEY)||0; }catch(_){}
+  const nuove=it.filter(x=>x.t>sent);
+  if(nuove.length && sent && "Notification" in window && Notification.permission==="granted"){
+    const title=nuove.length>1?nuove.length+" novità nella tua app":nuove[0].tx, opt={body:"Włoski z Dominiką",icon:"/media/app-icon-192.png",tag:"wzd"};
+    (navigator.serviceWorker&&navigator.serviceWorker.ready?navigator.serviceWorker.ready.then(r=>r.showNotification(title,opt)):Promise.reject()).catch(()=>{ try{ new Notification(title,opt); }catch(_){} });
+  }
+  if(it.length) try{ localStorage.setItem(SENT_KEY,String(Math.max(sent,it[0].t))); }catch(_){}
+}
+$("#bellBtn").onclick=e=>{ e.stopPropagation(); const p=$("#bellPanel"), open=p.classList.toggle("hidden")===false;
+  if(open){ renderBell(); try{ localStorage.setItem(SEEN_KEY,String(Date.now())); }catch(_){} setTimeout(()=>{ $("#bellCount").classList.add("hidden"); try{ navigator.clearAppBadge&&navigator.clearAppBadge(); }catch(_){} },300); }
+  permBtn(); };
+document.addEventListener("click",e=>{ if(!e.target.closest("#bellPanel")&&!e.target.closest("#bellBtn")) $("#bellPanel").classList.add("hidden"); });
+$("#bellList").onclick=e=>{ if(e.target.closest("a")) $("#bellPanel").classList.add("hidden"); };
+function permBtn(){ const b=$("#bellPerm"); if(!("Notification" in window)){ b.classList.add("hidden"); return; }
+  b.textContent=Notification.permission==="granted"?"✅ Avvisi attivi":"📲 Attiva gli avvisi"; b.disabled=Notification.permission==="granted"; }
+$("#bellPerm").onclick=async()=>{ try{ await Notification.requestPermission(); }catch(_){} permBtn(); };
+async function pollNotif(){ if(document.visibilityState!=="visible") return;
+  await Promise.all([loadRequests(),loadBookings(),loadReviews()]).catch(()=>{}); stats(); renderBell(); }
+setInterval(pollNotif,60000);
+document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible" && !$("#app").classList.contains("hidden")) pollNotif(); });
 
 /* ---------- richieste dal sito ---------- */
 const RST={new:"Nuova",answered:"Risposta",closed:"Archiviata"};
