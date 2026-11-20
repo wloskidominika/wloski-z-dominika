@@ -86,6 +86,7 @@ const itemUrl = (dir, list, x) => !x || !x.id ? "" : (list || []).includes(x.id)
 const houseUrl = i => itemUrl("casa", SLUGS.houses, (SITE.houses || [])[i]);
 const excUrl = i => itemUrl("escursione", SLUGS.excursions, (SITE.excursions || [])[i]);
 let lang = "it";
+const extUrl = u => u && !/holidayscalabria\./i.test(u) ? u : "";
 try { const b=(navigator.language||"it").slice(0,2); lang = localStorage.getItem("wzd-lang") || (LANGS.includes(b)?b:"it"); } catch(e){}
 if (!LANGS.includes(lang)) lang = "it";
 const t = k => (T[lang]||{})[k] || (T.it||{})[k] || "";
@@ -159,7 +160,7 @@ function renderHouses(){
         ${L(h.info)?`<p>${esc(L(h.info))}</p>`:""}
         ${L(h.desc)?`<p class="clamp">${esc(L(h.desc))}</p>`:""}
         ${h.cin||h.cir?`<div class="codes">${h.cin?"CIN "+esc(h.cin):""}${h.cin&&h.cir?" · ":""}${h.cir?"CIR "+esc(h.cir):""}</div>`:""}
-        <div class="card-foot"><span class="price">${h.price?esc(t("price_from")+" "+h.price):""}</span><div class="btns">${houseUrl(SITE.houses.indexOf(h))?`<a class="link" href="${houseUrl(SITE.houses.indexOf(h))}">${t("details")}</a>`:`<button class="link" data-house="${SITE.houses.indexOf(h)}">${t("details")}</button>`}${h.pay?`<a class="btn btn-red btn-pay" href="${esc(h.pay)}" target="_blank" rel="noopener">💳 ${t("pay_book")}</a>`:""}${h.url?`<a class="btn btn-line" style="padding:10px 20px" href="${esc(h.url)}" target="_blank" rel="noopener">${t("h_btn")} ↗</a>`:`<a class="btn btn-line" style="padding:10px 20px" href="#contact" data-pick="house" data-title="${esc(L(h.title))}">${t("s_info")}</a>`}</div></div>
+        <div class="card-foot"><span class="price">${h.price?esc(t("price_from")+" "+h.price):""}</span><div class="btns">${houseUrl(SITE.houses.indexOf(h))?`<a class="link" href="${houseUrl(SITE.houses.indexOf(h))}">${t("details")}</a>`:`<button class="link" data-house="${SITE.houses.indexOf(h)}">${t("details")}</button>`}${h.pay?`<a class="btn btn-red btn-pay" href="${esc(h.pay)}" target="_blank" rel="noopener">💳 ${t("pay_book")}</a>`:""}${extUrl(h.url)?`<a class="btn btn-line" style="padding:10px 20px" href="${esc(h.url)}" target="_blank" rel="noopener">${t("h_btn")} ↗</a>`:`<a class="btn btn-line" style="padding:10px 20px" href="#contact" data-pick="house" data-title="${esc(L(h.title))}">${t("s_info")}</a>`}</div></div>
       </div>
     </article>`).join("");
 }
@@ -183,7 +184,7 @@ function renderServices(){
       <p class="pre" style="color:var(--muted)">${esc(L(x.desc)||"")}</p>
       ${L(x.price_note)?`<p>💶 ${esc(L(x.price_note))}</p>`:""}
       <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:auto"><span class="price">${x.price?esc(t("price_from")+" "+x.price):""}</span>
-      <div class="btns">${x.pay?`<a class="btn btn-red" href="${esc(x.pay)}" target="_blank" rel="noopener">💳 ${t("pay_book")}</a>`:""}${x.url?`<a class="btn btn-line" href="${esc(x.url)}" target="_blank" rel="noopener">${t("s_more")} ↗</a>`:""}<a class="btn ${x.pay?"btn-line":"btn-red"}" href="#contact" data-pick="other" data-title="${esc(L(x.title))}">${t("s_info")}</a></div></div></div></article>`).join("");
+      <div class="btns">${x.pay?`<a class="btn btn-red" href="${esc(x.pay)}" target="_blank" rel="noopener">💳 ${t("pay_book")}</a>`:""}${extUrl(x.url)?`<a class="btn btn-line" href="${esc(x.url)}" target="_blank" rel="noopener">${t("s_more")} ↗</a>`:""}<a class="btn ${x.pay?"btn-line":"btn-red"}" href="#contact" data-pick="other" data-title="${esc(L(x.title))}">${t("s_info")}</a></div></div></div></article>`).join("");
     return;
   }
   document.getElementById("serviceList").innerHTML = list.map((x)=>{ const si=SITE.services.indexOf(x); return `
@@ -194,7 +195,7 @@ function renderServices(){
         <h3>${esc(L(x.title))}</h3>
         <p class="clamp">${esc(L(x.desc)||"")}</p>
         ${L(x.price_note)?`<p style="font-size:.85rem">💶 ${esc(L(x.price_note))}</p>`:""}
-        <div class="card-foot"><span class="price">${x.price?esc(t("price_from")+" "+x.price):""}</span><div class="btns"><button class="link" data-serv="${si}">${t("details")}</button>${x.pay?`<a class="btn btn-red btn-pay" href="${esc(x.pay)}" target="_blank" rel="noopener">💳 ${t("pay_book")}</a>`:""}${x.url?`<a class="btn btn-line" style="padding:10px 20px" href="${esc(x.url)}" target="_blank" rel="noopener">${t("s_more")} ↗</a>`:`<a class="btn btn-line" style="padding:10px 20px" href="#contact" data-pick="other" data-title="${esc(L(x.title))}">${t("s_info")}</a>`}</div></div>
+        <div class="card-foot"><span class="price">${x.price?esc(t("price_from")+" "+x.price):""}</span><div class="btns"><button class="link" data-serv="${si}">${t("details")}</button>${x.pay?`<a class="btn btn-red btn-pay" href="${esc(x.pay)}" target="_blank" rel="noopener">💳 ${t("pay_book")}</a>`:""}${extUrl(x.url)?`<a class="btn btn-line" style="padding:10px 20px" href="${esc(x.url)}" target="_blank" rel="noopener">${t("s_more")} ↗</a>`:`<a class="btn btn-line" style="padding:10px 20px" href="#contact" data-pick="other" data-title="${esc(L(x.title))}">${t("s_info")}</a>`}</div></div>
       </div>
     </article>`; }).join("");
 }
@@ -267,7 +268,7 @@ function renderDetail(){
         ${L(h.info)?`<p class="muted">${esc(L(h.info))}</p>`:""}
         ${h.price?`<div class="price">${esc(t("price_from")+" "+h.price)}</div>`:""}
         ${h.cin||h.cir?`<div class="codes">${h.cin?"CIN "+esc(h.cin):""}${h.cin&&h.cir?" · ":""}${h.cir?"CIR "+esc(h.cir):""}</div>`:""}
-        <div class="btns">${h.pay?`<a class="btn btn-red" href="${esc(h.pay)}" target="_blank" rel="noopener">💳 ${t("pay_book")}</a>`:""}${h.url?`<a class="btn ${h.pay?"btn-line":"btn-red"}" href="${esc(h.url)}" target="_blank" rel="noopener">${t("h_btn")} ↗</a>`:""}<a class="btn btn-line" href="#contact" data-pick="house" data-title="${esc(L(h.title))}">${t("s_info")}</a></div>
+        <div class="btns">${h.pay?`<a class="btn btn-red" href="${esc(h.pay)}" target="_blank" rel="noopener">💳 ${t("pay_book")}</a>`:""}${extUrl(h.url)?`<a class="btn ${h.pay?"btn-line":"btn-red"}" href="${esc(h.url)}" target="_blank" rel="noopener">${t("h_btn")} ↗</a>`:""}<a class="btn btn-line" href="#contact" data-pick="house" data-title="${esc(L(h.title))}">${t("s_info")}</a></div>
         ${mapUrl?`<p><a class="link" href="${esc(mapUrl)}" target="_blank" rel="noopener">🗺️ ${t("see_map")}</a></p>`:""}
       </div></div>
       <div class="detail-cols"><div class="detail-text">${paras(L(h.desc))}</div>
@@ -436,7 +437,7 @@ document.addEventListener("click", e=>{
       <p class="pre" style="color:var(--muted)">${esc(L(x.desc)||"")}</p>
       ${L(x.price_note)?`<p style="margin-top:12px">💶 ${esc(L(x.price_note))}</p>`:""}
       <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:16px"><span class="price">${x.price?esc(t("price_from")+" "+x.price):""}</span>
-      <div class="btns">${x.pay?`<a class="btn btn-red" href="${esc(x.pay)}" target="_blank" rel="noopener">💳 ${t("pay_book")}</a>`:""}${x.url?`<a class="btn btn-line" href="${esc(x.url)}" target="_blank" rel="noopener">${t("s_more")} ↗</a>`:`<a class="btn ${x.pay?"btn-line":"btn-red"}" href="#contact" data-pick="other" data-title="${esc(L(x.title))}">${t("s_info")}</a>`}</div></div></div></div>`);
+      <div class="btns">${x.pay?`<a class="btn btn-red" href="${esc(x.pay)}" target="_blank" rel="noopener">💳 ${t("pay_book")}</a>`:""}${extUrl(x.url)?`<a class="btn btn-line" href="${esc(x.url)}" target="_blank" rel="noopener">${t("s_more")} ↗</a>`:`<a class="btn ${x.pay?"btn-line":"btn-red"}" href="#contact" data-pick="other" data-title="${esc(L(x.title))}">${t("s_info")}</a>`}</div></div></div></div>`);
     return;
   }
   const hs = e.target.closest("[data-house]");
@@ -454,7 +455,7 @@ document.addEventListener("click", e=>{
       ${mapUrl?`<p><a href="${esc(mapUrl)}" target="_blank" rel="noopener">🗺️ ${t("see_map")}</a></p>`:""}
       ${h.cin||h.cir?`<div class="codes" style="margin:10px 0 16px">${h.cin?"CIN "+esc(h.cin):""}${h.cin&&h.cir?" · ":""}${h.cir?"CIR "+esc(h.cir):""}</div>`:""}
       <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><span class="price">${h.price?esc(t("price_from")+" "+h.price):""}</span>
-      <div class="btns">${h.pay?`<a class="btn btn-red" href="${esc(h.pay)}" target="_blank" rel="noopener">💳 ${t("pay_book")}</a>`:""}${h.url?`<a class="btn btn-line" href="${esc(h.url)}" target="_blank" rel="noopener">${t("h_btn")} ↗</a>`:`<a class="btn btn-red" href="#contact" data-pick="house" data-title="${esc(L(h.title))}">${t("s_info")}</a>`}</div></div></div></div>`);
+      <div class="btns">${h.pay?`<a class="btn btn-red" href="${esc(h.pay)}" target="_blank" rel="noopener">💳 ${t("pay_book")}</a>`:""}${extUrl(h.url)?`<a class="btn btn-line" href="${esc(h.url)}" target="_blank" rel="noopener">${t("h_btn")} ↗</a>`:`<a class="btn btn-red" href="#contact" data-pick="house" data-title="${esc(L(h.title))}">${t("s_info")}</a>`}</div></div></div></div>`);
     return;
   }
   const f = e.target.closest("[data-f]"); if(f){ gFilter=f.dataset.f; document.querySelectorAll("#filters button").forEach(b=>b.classList.toggle("on",b===f)); renderGallery(); return; }
@@ -484,15 +485,29 @@ document.addEventListener("click", e=>{
   const pick = e.target.closest("[data-pick],[data-course]");
   if(pick){
     document.getElementById("topic").value = pick.dataset.pick || pick.dataset.course;
-    if(pick.dataset.title){ document.querySelector("textarea[name=msg]").value = pick.dataset.title + " – "; }
-    else if(pick.dataset.pick==="tr"){ document.querySelector("textarea[name=msg]").value = t("tl_msg") + ": "; }
+    setPick(pick.dataset.title || (pick.dataset.pick==="tr" ? t("tl_msg") : ""));
     closeLB();
   }
   if(e.target.closest(".menu a")) document.getElementById("menu").classList.remove("open");
 });
 
-/* Modulo «Scrivimi»: la richiesta arriva nel pannello (gestione.html → 📩 Richieste)
-   e nell'elenco «Forms» di Netlify. Se nessuno dei due risponde, si apre WhatsApp o l'e-mail. */
+/* «Richiedi informazioni» su una casa, un'escursione, un servizio: il modulo sa per cosa è la richiesta */
+function setPick(title){
+  const box=document.getElementById("pickBox"); if(!box) return;
+  document.getElementById("fItem").value=title||""; document.getElementById("pickName").textContent=title||""; box.hidden=!title; tripFields();
+}
+function tripFields(){
+  const tp=document.getElementById("topic"), row=document.getElementById("tripRow"); if(!tp||!row) return;
+  const v=tp.value; row.style.display=(v==="it"||v==="pl"||v==="tr")?"none":"";
+  document.getElementById("toLab").style.display=(v==="house")?"":"none";
+  const fromLab=row.querySelector('input[name=from]').previousElementSibling; fromLab.textContent=t(v==="house"?"fm_from":"fm_date");
+}
+document.addEventListener("change",e=>{ if(e.target.id==="topic") tripFields(); });
+document.addEventListener("click",e=>{ if(e.target.id==="pickX") setPick(""); });
+setTimeout(tripFields,0);
+
+/* Modulo «Scrivimi»: la richiesta arriva nell'app (📩 Richieste + 🔔) e per e-mail a Dominika.
+   Se nessuno dei due risponde, si apre WhatsApp o l'e-mail. */
 document.getElementById("form").addEventListener("submit", async e=>{
   e.preventDefault();
   const f=e.target, fd=new FormData(f), n=document.getElementById("notice"), btn=f.querySelector('button[type=submit]');
@@ -500,7 +515,12 @@ document.getElementById("form").addEventListener("submit", async e=>{
   const name=(fd.get("name")||"").trim(), mail=(fd.get("email")||"").trim(), phone=(fd.get("phone")||"").trim();
   const okMail=/^\S+@\S+\.\S+$/.test(mail), okPhone=phone.replace(/\D/g,"").length>=6;
   if(!name || (!okMail && !okPhone) || (mail && !okMail)){ n.textContent=t("fm_err"); n.classList.add("show"); return; }
-  const topicTxt=f.topic.selectedOptions[0].textContent, msg=(fd.get("msg")||"").trim();
+  const item=(fd.get("item")||"").trim(), people=(fd.get("people")||"").trim(), d1=fd.get("from")||"", d2=fd.get("to")||"";
+  const topicTxt=(f.topic.selectedOptions[0].textContent+(item?": "+item:"")).slice(0,120);
+  const it=dt=>dt?dt.split("-").reverse().join("/"):"";
+  const det=[item?"📌 "+item:"", people?"👥 "+people+" "+t("fm_people").toLowerCase():"",
+    d1&&d2?"📅 "+it(d1)+" → "+it(d2):d1?"📅 "+it(d1):""].filter(Boolean).join("\n");
+  const msg=[det,(fd.get("msg")||"").trim()].filter(Boolean).join("\n\n");
   btn.disabled=true; n.textContent=t("fm_sending"); n.classList.add("show");
   let saved=false;
   const cfg=window.WZD_CONFIG||{};
@@ -512,13 +532,14 @@ document.getElementById("form").addEventListener("submit", async e=>{
       saved = saved || r.ok;
     }catch(_){}
   }
+  // e-mail a Dominika (dal sito su Aruba)
   try{
-    const body=new URLSearchParams({"form-name":"contatto",name,email:mail,phone,topic:topicTxt,msg,lang,page:location.pathname});
-    const r=await fetch("/",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:body.toString()});
+    const r=await fetch(ROOT+"invia.php",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({name,email:mail,phone,topic:topicTxt,message:msg,lang,page:location.pathname,hp:fd.get("bot-field")||""})});
     saved = saved || r.ok;
   }catch(_){}
   btn.disabled=false;
-  if(saved){ f.reset(); n.textContent=t("fm_sent"); n.classList.add("show"); return; }
+  if(saved){ f.reset(); setPick(""); n.textContent=t("fm_sent"); n.classList.add("show"); return; }
   // piano B: WhatsApp o e-mail
   const text=`${topicTxt} – ${name}${mail?" <"+mail+">":""}${phone?" ☎ "+phone:""}\n\n${msg}`;
   const c=SITE.contact||{}, wa=String(c.whatsapp||c.phone||"").replace(/\D/g,"");

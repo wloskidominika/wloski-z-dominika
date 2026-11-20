@@ -203,7 +203,12 @@
     "tl_p2": "Inglese → Italiano",
     "tl_p3": "Inglese → Polacco",
     "tl_cta": "Chiedi un preventivo",
-    "tl_msg": "Traduzione"
+    "tl_msg": "Traduzione",
+    "fm_item": "Richiesta per",
+    "fm_from": "Arrivo",
+    "fm_to": "Partenza",
+    "fm_people": "Persone",
+    "fm_date": "Data"
   },
   "de": {
     "nav_about": "Über mich",
@@ -409,7 +414,12 @@
     "tl_p2": "Englisch → Italienisch",
     "tl_p3": "Englisch → Polnisch",
     "tl_cta": "Angebot anfragen",
-    "tl_msg": "Übersetzung"
+    "tl_msg": "Übersetzung",
+    "fm_item": "Anfrage für",
+    "fm_from": "Anreise",
+    "fm_to": "Abreise",
+    "fm_people": "Personen",
+    "fm_date": "Datum"
   },
   "en": {
     "nav_about": "About me",
@@ -615,7 +625,12 @@
     "tl_p2": "English → Italian",
     "tl_p3": "English → Polish",
     "tl_cta": "Ask for a quote",
-    "tl_msg": "Translation"
+    "tl_msg": "Translation",
+    "fm_item": "Request for",
+    "fm_from": "Arrival",
+    "fm_to": "Departure",
+    "fm_people": "People",
+    "fm_date": "Date"
   },
   "pl": {
     "nav_about": "O mnie",
@@ -821,7 +836,12 @@
     "tl_p2": "Angielski → Włoski",
     "tl_p3": "Angielski → Polski",
     "tl_cta": "Zapytaj o wycenę",
-    "tl_msg": "Tłumaczenie"
+    "tl_msg": "Tłumaczenie",
+    "fm_item": "Zapytanie o",
+    "fm_from": "Przyjazd",
+    "fm_to": "Wyjazd",
+    "fm_people": "Liczba osób",
+    "fm_date": "Data"
   },
   "es": {
     "nav_about": "Sobre mí",
@@ -1027,6 +1047,11 @@
     "tl_p2": "Inglés → Italiano",
     "tl_p3": "Inglés → Polaco",
     "tl_cta": "Pide un presupuesto",
-    "tl_msg": "Traducción"
+    "tl_msg": "Traducción",
+    "fm_item": "Solicitud para",
+    "fm_from": "Llegada",
+    "fm_to": "Salida",
+    "fm_people": "Personas",
+    "fm_date": "Fecha"
   }
 }

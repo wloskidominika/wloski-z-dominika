@@ -2028,6 +2028,26 @@ collections:
         label: tl_msg  —  «Traduzione»
         widget: string
         required: false
+      - name: fm_item
+        label: fm_item  —  «Richiesta per»
+        widget: string
+        required: false
+      - name: fm_from
+        label: fm_from  —  «Arrivo»
+        widget: string
+        required: false
+      - name: fm_to
+        label: fm_to  —  «Partenza»
+        widget: string
+        required: false
+      - name: fm_people
+        label: fm_people  —  «Persone»
+        widget: string
+        required: false
+      - name: fm_date
+        label: fm_date  —  «Data»
+        widget: string
+        required: false
     - name: de
       label: Testi in Deutsch
       widget: object
@@ -2747,6 +2767,26 @@ collections:
         required: false
       - name: tl_msg
         label: tl_msg  —  «Traduzione»
+        widget: string
+        required: false
+      - name: fm_item
+        label: fm_item  —  «Richiesta per»
+        widget: string
+        required: false
+      - name: fm_from
+        label: fm_from  —  «Arrivo»
+        widget: string
+        required: false
+      - name: fm_to
+        label: fm_to  —  «Partenza»
+        widget: string
+        required: false
+      - name: fm_people
+        label: fm_people  —  «Persone»
+        widget: string
+        required: false
+      - name: fm_date
+        label: fm_date  —  «Data»
         widget: string
         required: false
     - name: en
@@ -3470,6 +3510,26 @@ collections:
         label: tl_msg  —  «Traduzione»
         widget: string
         required: false
+      - name: fm_item
+        label: fm_item  —  «Richiesta per»
+        widget: string
+        required: false
+      - name: fm_from
+        label: fm_from  —  «Arrivo»
+        widget: string
+        required: false
+      - name: fm_to
+        label: fm_to  —  «Partenza»
+        widget: string
+        required: false
+      - name: fm_people
+        label: fm_people  —  «Persone»
+        widget: string
+        required: false
+      - name: fm_date
+        label: fm_date  —  «Data»
+        widget: string
+        required: false
     - name: pl
       label: Testi in Polski
       widget: object
@@ -4191,6 +4251,26 @@ collections:
         label: tl_msg  —  «Traduzione»
         widget: string
         required: false
+      - name: fm_item
+        label: fm_item  —  «Richiesta per»
+        widget: string
+        required: false
+      - name: fm_from
+        label: fm_from  —  «Arrivo»
+        widget: string
+        required: false
+      - name: fm_to
+        label: fm_to  —  «Partenza»
+        widget: string
+        required: false
+      - name: fm_people
+        label: fm_people  —  «Persone»
+        widget: string
+        required: false
+      - name: fm_date
+        label: fm_date  —  «Data»
+        widget: string
+        required: false
     - name: es
       label: Testi in Español
       widget: object
@@ -4910,6 +4990,26 @@ collections:
         required: false
       - name: tl_msg
         label: tl_msg  —  «Traduzione»
+        widget: string
+        required: false
+      - name: fm_item
+        label: fm_item  —  «Richiesta per»
+        widget: string
+        required: false
+      - name: fm_from
+        label: fm_from  —  «Arrivo»
+        widget: string
+        required: false
+      - name: fm_to
+        label: fm_to  —  «Partenza»
+        widget: string
+        required: false
+      - name: fm_people
+        label: fm_people  —  «Persone»
+        widget: string
+        required: false
+      - name: fm_date
+        label: fm_date  —  «Data»
         widget: string
         required: false
 publish_mode: editorial_workflow
