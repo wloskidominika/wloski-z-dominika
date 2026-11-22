@@ -87,6 +87,9 @@ details.more>summary{cursor:pointer;color:var(--green);font-weight:700;font-size
 .vfeed{display:flex;flex-direction:column;gap:6px;max-height:420px;overflow:auto}
 .vf{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.84rem;padding:8px 10px;border-radius:10px;background:var(--cream)}
 .vf-t{font-weight:700} .vf-p{flex-basis:100%;color:var(--muted)} .vf-d{font-weight:700;color:var(--green)}
+.lit{display:flex;flex-direction:column}
+.trbtn{align-self:flex-end;margin:-2px 0 6px;border:1.5px solid var(--green);background:#fff;color:var(--green);border-radius:99px;padding:5px 12px;font-weight:700;font-size:.82rem;cursor:pointer}
+.trbtn:disabled{opacity:.6}
 .need{color:#b3261e;font-weight:800;font-size:.85rem;margin-top:8px}
 .fx.bad{border-color:#d93025;background:#fff6f5}
 details.item.bad{border-color:#d93025}
@@ -125,6 +128,27 @@ details.item.bad{border-color:#d93025}
       <button type="button" class="linkbtn" id="forgotBtn">Password dimenticata?</button>
     </form>
     <div class="msg" id="loginMsg" style="margin-top:12px"></div>
+  </div>
+
+  <div class="card narrow hidden" id="setupBox">
+    <h1 style="text-align:center;font-size:1.5rem;margin-bottom:6px">Primo avvio su Aruba</h1>
+    <p class="muted" style="text-align:center;margin-bottom:16px">Crea il tuo accesso all'app. Il <b>codice di attivazione</b> te l'ha dato Claude.</p>
+    <form id="setupForm">
+      <label>Codice di attivazione<input name="code" required autocomplete="off"></label>
+      <label>La tua e-mail<input name="email" type="email" required autocomplete="username"></label>
+      <label>Scegli la password (almeno 8 caratteri)<input name="password" type="password" required minlength="8" autocomplete="new-password"></label>
+      <button class="btn btn-red">Crea il mio accesso</button>
+    </form>
+    <div class="msg" id="setupMsg" style="margin-top:12px"></div>
+  </div>
+
+  <div class="card narrow hidden" id="newPwBox">
+    <h1 style="text-align:center;font-size:1.5rem;margin-bottom:12px">Nuova password</h1>
+    <form id="newPwForm">
+      <label>Nuova password (almeno 8 caratteri)<input name="password" type="password" required minlength="8" autocomplete="new-password"></label>
+      <button class="btn btn-red">Salva ed entra</button>
+    </form>
+    <div class="msg" id="newPwMsg" style="margin-top:12px"></div>
   </div>
 
   <section id="app" class="hidden">
@@ -181,6 +205,10 @@ details.item.bad{border-color:#d93025}
         <a class="hcard" href="#blog"><b>📝</b><div><strong>Guide di viaggio (blog)</strong><span>Articoli per Google, in 5 lingue</span></div><i>›</i></a>
         <a class="hcard" href="#edit/settings"><b>☎️</b><div><strong>Contatti e social</strong><span>Telefono, WhatsApp, Instagram, Facebook, TikTok</span></div><i>›</i></a>
         <a class="hcard" href="#edit/texts"><b>✏️</b><div><strong>Testi del sito</strong><span>Tutte le frasi del sito, in 5 lingue</span></div><i>›</i></a>
+      </div>
+      <h2 class="hsec">⚙️ Impostazioni</h2>
+      <div class="hgrid">
+        <a class="hcard" href="#settings"><b>⚙️</b><div><strong>Impostazioni dell'app</strong><span>Traduzioni automatiche, città nelle statistiche, password, importa i dati vecchi</span></div><i>›</i></a>
       </div>
       <div class="card" style="margin-top:22px" id="installTip">
         <b>📲 Mettila sulla schermata Home</b>
@@ -296,6 +324,7 @@ details.item.bad{border-color:#d93025}
             <label>Da dove viene<select name="source"><option value="">Sito</option><option>Google</option><option>Facebook</option><option>Instagram</option><option>WhatsApp</option><option>Booking</option><option>Airbnb</option><option>TripAdvisor</option></select></label>
             <label>Lingua della recensione<select name="lang"><option value="it">🇮🇹 Italiano</option><option value="pl">🇵🇱 Polski</option><option value="de">🇩🇪 Deutsch</option><option value="en">🇬🇧 English</option><option value="es">🇪🇸 Español</option></select></label>
           </div>
+          <label>Link alla recensione originale (facoltativo, es. su Facebook)<input name="url" type="url" placeholder="https://www.facebook.com/…"></label>
           <label>Testo (copiato com'è, senza cambiarlo)<textarea name="body" required maxlength="2000"></textarea></label>
           <button class="btn btn-red" style="justify-self:start">Pubblica sul sito</button>
         </form>
@@ -349,6 +378,34 @@ details.item.bad{border-color:#d93025}
       <div class="toolbar"><label style="max-width:360px">Mostra i documenti di<select id="dFilter"><option value="all">Tutti</option></select></label></div>
       <div class="list" id="dList"></div>
     </div>
+    <!-- ⚙️ IMPOSTAZIONI -->
+    <div data-pane="settings" class="hidden">
+      <div class="card" style="margin-bottom:16px">
+        <h3>🌍 Traduzioni automatiche (DeepL)</h3>
+        <p class="muted" style="margin:6px 0 12px">Scrivi in italiano e premi <b>🌍 Traduci</b>: il testo viene tradotto in tedesco, inglese, polacco e spagnolo.
+          Serve una chiave DeepL: crea un account su <a href="https://www.deepl.com/pro-api" target="_blank" rel="noopener">deepl.com/pro-api</a> (c'è anche il piano gratuito fino a 500.000 caratteri al mese), poi copia la «chiave di autenticazione» qui sotto.</p>
+        <div class="row"><input id="setDeepl" placeholder="Incolla qui la chiave DeepL" autocomplete="off"><button class="btn btn-red btn-sm" data-set="deepl_key" data-in="setDeepl">Salva</button></div>
+        <div class="msg" id="setDeeplMsg" style="margin-top:10px"></div>
+      </div>
+      <div class="card" style="margin-bottom:16px">
+        <h3>📍 Città nelle statistiche</h3>
+        <p class="muted" style="margin:6px 0 12px">Le città e i Paesi si calcolano dall'indirizzo internet del visitatore con il servizio ipapi.co (l'indirizzo <b>non</b> viene salvato).
+          Funziona già senza chiave fino a circa 1.000 visite al giorno; se il sito cresce, puoi comprare un piano su <a href="https://ipapi.co/pricing/" target="_blank" rel="noopener">ipapi.co</a> e incollare qui la chiave.</p>
+        <div class="row"><input id="setGeo" placeholder="Chiave ipapi.co (facoltativa)" autocomplete="off"><button class="btn btn-red btn-sm" data-set="geo_key" data-in="setGeo">Salva</button></div>
+        <div class="msg" id="setGeoMsg" style="margin-top:10px"></div>
+      </div>
+      <div class="card" style="margin-bottom:16px">
+        <h3>🔑 La tua password</h3>
+        <form id="myPwForm" class="row" style="margin-top:10px"><input name="password" type="password" minlength="8" required placeholder="Nuova password (almeno 8 caratteri)" autocomplete="new-password"><button class="btn btn-red btn-sm">Cambia</button></form>
+        <div class="msg" id="myPwMsg" style="margin-top:10px"></div>
+      </div>
+      <div class="card">
+        <h3>📥 Importa i dati vecchi (Supabase)</h3>
+        <p class="muted" style="margin:6px 0 12px">Una volta sola: copia qui su Aruba richieste, prenotazioni, recensioni, statistiche, clienti, lezioni e contratti che erano su Supabase.</p>
+        <a class="btn btn-line btn-sm" href="/app/importa.html">Apri l'importazione</a>
+      </div>
+    </div>
+
     <!-- ✏️ MODIFICA IL SITO -->
     <div data-pane="edit" class="hidden">
       <p class="muted" id="edDesc" style="margin-bottom:14px"></p>
@@ -365,15 +422,14 @@ details.item.bad{border-color:#d93025}
       </div>
       <div id="blEdit" class="hidden">
         <div id="blForm"></div>
-        <div class="savebar"><button class="btn btn-line btn-sm" id="blDel" style="margin-right:auto">🗑 Elimina</button><span class="msg" id="blMsg"></span><button class="btn btn-red" id="blSave">💾 Salva</button></div>
+        <div class="savebar"><button class="btn btn-line btn-sm" id="blDel">🗑 Elimina</button><button class="btn btn-line btn-sm" id="blTr" style="margin-right:auto">🌍 Crea le altre lingue</button><span class="msg" id="blMsg"></span><button class="btn btn-red" id="blSave">💾 Salva</button></div>
       </div>
     </div>
   </section>
 </main>
 <footer class="wrap" style="padding:20px;text-align:center;color:var(--muted);font-size:.8rem">Włoski z Dominiką i Podróże do Kalabrii · P.IVA 03800250791 · <a href="/privacy.html">Privacy e Cookie</a></footer>
 
-<script src="/config.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/assets/aruba-db.js"></script>
 <script>
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -391,20 +447,35 @@ let sb, bookings=[], users=[], materials=[], documents=[], reviews=[], armed=nul
 
 /* ---------- accesso ---------- */
 (async()=>{
-  const gate=$("#gate");
-  if(!cfg.SUPABASE_URL||cfg.SUPABASE_URL.includes("INSERISCI")||!window.supabase){
-    gate.innerHTML="⚠️ La gestione non è ancora collegata al database. Inserisci i dati di Supabase nel file <b>config.js</b> (vedi GUIDA.md)."; gate.classList.add("show"); return;
-  }
-  sb=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY);
+  sb=window.supabase.createClient();
   if("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js").catch(()=>{});
-  const {data:{session}}=await sb.auth.getSession();
-  if(!session){ $("#loginBox").classList.remove("hidden"); return; }
+  const tok=new URLSearchParams(location.search).get("reset");
+  if(tok){
+    history.replaceState(null,"",location.pathname+location.hash);
+    const j=await sb.call({a:"reset_login",token:tok});
+    if(!j.error){ $("#newPwBox").classList.remove("hidden"); return; }
+    show($("#loginMsg"),j.error.message,"err");
+  }
+  const {data:{session,setup}}=await sb.auth.getSession();
+  if(!session){ $(setup?"#setupBox":"#loginBox").classList.remove("hidden"); return; }
   await enter(session);
 })();
+$("#setupForm").addEventListener("submit",async e=>{
+  e.preventDefault(); const f=e.target;
+  const {data,error}=await sb.auth.setup({code:f.code.value.trim(),email:f.email.value.trim(),password:f.password.value});
+  if(error) return show($("#setupMsg"),error.message,"err");
+  $("#setupBox").classList.add("hidden"); enter(data.session);
+});
+$("#newPwForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const {error}=await sb.auth.updateUser({password:e.target.password.value});
+  if(error) return show($("#newPwMsg"),error.message,"err");
+  $("#newPwBox").classList.add("hidden"); const {data:{session}}=await sb.auth.getSession(); enter(session);
+});
 async function enter(session){
   const gate=$("#gate");
   const {data:me}=await sb.from("profiles").select("role").eq("id",session.user.id).single();
-  if(me?.role!=="admin"){ gate.innerHTML='Questa app è riservata a Dominika. <a href="/area.html">Vai alla tua area</a>.'; gate.classList.add("show"); $("#logoutBtn").classList.remove("hidden"); return; }
+  if(me?.role!=="admin"){ gate.innerHTML='Questa app è riservata a Dominika.'; gate.classList.add("show"); $("#logoutBtn").classList.remove("hidden"); return; }
   try{ localStorage.setItem("wzd-notrack","1"); }catch(_){}   // le visite di Dominika non si contano
   $("#loginBox").classList.add("hidden");
   $("#logoutBtn").classList.remove("hidden"); $("#menuBtn").classList.remove("hidden");
@@ -412,6 +483,7 @@ async function enter(session){
   openTab((location.hash||"#home").slice(1));
   loadAll();
   if(window.seedSite) window.seedSite();
+  sb.call({a:"settings_status"}).then(j=>{ if(j.data) SETTINGS_OK=j.data; renderSettingsHint(); });
 }
 $("#loginForm").addEventListener("submit",async e=>{
   e.preventDefault(); const f=e.target, msg=$("#loginMsg");
@@ -421,11 +493,11 @@ $("#loginForm").addEventListener("submit",async e=>{
 });
 $("#forgotBtn").onclick=async()=>{
   const em=$("#loginForm").email.value.trim(); if(!em) return show($("#loginMsg"),"Scrivi prima la tua e-mail.","err");
-  await sb.auth.resetPasswordForEmail(em,{redirectTo:location.origin+"/area.html"});
+  await sb.auth.resetPasswordForEmail(em,{redirectTo:location.origin+"/app/"});
   show($("#loginMsg"),"Ti ho mandato un'e-mail per scegliere una nuova password.","ok");
 };
 $("#logoutBtn").onclick=async()=>{ await sb.auth.signOut(); location.href="/app/"; };
-const PANE_TITLES={requests:"📩 Richieste dal sito",bookings:"📅 Prenotazioni",users:"👥 Clienti e studenti",materials:"📚 Lezioni per gli studenti",documents:"📄 Contratti e documenti",reviews:"⭐ Recensioni",visits:"📊 Statistiche del sito",blog:"📝 Guide di viaggio (blog)",edit:"✏️ Il sito"};
+const PANE_TITLES={requests:"📩 Richieste dal sito",bookings:"📅 Prenotazioni",users:"👥 Clienti e studenti",materials:"📚 Lezioni per gli studenti",documents:"📄 Contratti e documenti",reviews:"⭐ Recensioni",visits:"📊 Statistiche del sito",blog:"📝 Guide di viaggio (blog)",edit:"✏️ Il sito",settings:"⚙️ Impostazioni"};
 let curRoute="home";
 function openTab(k){
   k=decodeURIComponent(k||"home");
@@ -440,6 +512,13 @@ function openTab(k){
   if(location.hash.slice(1)!==k) history.replaceState(null,"","#"+k);
   if(b==="edit" && window.openEditor) window.openEditor(arg);
   if(b==="blog" && window.openBlog) window.openBlog(arg);
+  // aprendo una sezione la ricarico, così vedo sempre le ultime novità
+  if(curRoute!=="home" && document.getElementById("app") && !$("#app").classList.contains("hidden")){
+    if(b==="requests") loadRequests().then(()=>{ stats(); renderBell(); });
+    if(b==="bookings") loadBookings().then(()=>{ stats(); renderBell(); });
+    if(b==="reviews") loadReviews().then(()=>{ stats(); renderBell(); });
+    if(b==="visits") loadVisits();
+  }
   if(b==="visits" && arg) setTimeout(()=>{ const el=document.getElementById("v-"+arg); if(el) el.scrollIntoView({behavior:"smooth",block:"start"}); },400);
   window.scrollTo({top:0});
 }
@@ -451,7 +530,7 @@ async function loadAll(){ await Promise.all([loadRequests(),loadBookings(),loadU
 const TOPN={lesson:"🗣️ Lezioni",excursion:"⛵ Escursione",experience:"🌿 Esperienza",house:"🏡 Alloggio",transfer:"🚐 Transfer",rental:"🚗 Noleggio",other:"Altro"};
 async function loadReviews(){
   const {data,error}=await sb.from("reviews").select("*").order("created_at",{ascending:false});
-  if(error) return show($("#rvMsg"),"Errore: "+error.message+" — esegui su Supabase il pezzo «RECENSIONI» di setup.sql.","err");
+  if(error) return show($("#rvMsg"),"Errore: "+error.message,"err");
   reviews=data; renderReviews();
 }
 function renderReviews(){
@@ -473,7 +552,7 @@ function renderReviews(){
 $("#fRev").onchange=renderReviews; $("#reloadRv").onclick=loadReviews;
 $("#rvForm").addEventListener("submit",async e=>{
   e.preventDefault(); const f=e.target;
-  const row={name:f.name.value.trim(),country:f.country.value||null,rating:+f.rating.value,topic:f.topic.value,source:f.source.value||null,lang:f.lang.value,body:f.body.value.trim(),approved:true};
+  const row={name:f.name.value.trim(),country:f.country.value||null,rating:+f.rating.value,topic:f.topic.value,source:f.source.value||null,lang:f.lang.value,body:f.body.value.trim(),url:/^https:\/\//.test(f.url.value.trim())?f.url.value.trim():null,approved:true};
   const {error}=await sb.from("reviews").insert(row);
   if(error) return show($("#rvMsg"),"Errore: "+error.message,"err");
   f.reset(); show($("#rvMsg"),"Pubblicata! Si vede subito sul sito.","ok"); $("#fRev").value="approved"; loadReviews();
@@ -503,11 +582,9 @@ function srcName(s){ if(!s) return "Diretto (link, WhatsApp, preferiti)"; s=s.to
 let visits=[];
 async function loadVisits(){
   const days=+$("#vRange").value, since=new Date(); since.setHours(0,0,0,0); since.setDate(since.getDate()-(days-1));
-  const cols="created_at,page,site_lang,browser_lang,country,device,os,browser,source,entry";
-  let {data,error}=await sb.from("visits").select(cols+",sid,duration_s").gte("created_at",since.toISOString()).order("created_at",{ascending:true}).limit(50000);
-  if(error) ({data,error}=await sb.from("visits").select(cols).gte("created_at",since.toISOString()).order("created_at",{ascending:true}).limit(50000));
-  if(error) return show($("#vMsg"),"Errore: "+error.message+" — hai eseguito l'ultima versione di supabase/setup.sql?","err");
-  visits=data; renderVisits(days);
+  const {data,error}=await sb.call({a:"visits",since:since.toISOString().slice(0,19)+"Z"});
+  if(error) return show($("#vMsg"),"Errore: "+error.message,"err");
+  visits=(data||[]).sort((a,b)=>String(a.created_at).localeCompare(String(b.created_at))); renderVisits(days);
 }
 function count(arr,fn){ const m={}; arr.forEach(x=>{ const k=fn(x); if(k!==null&&k!==undefined) m[k]=(m[k]||0)+1; }); return Object.entries(m).sort((a,b)=>b[1]-a[1]); }
 function barList(title,rows,total,label){
@@ -564,11 +641,12 @@ function renderVisits(days){
   // chi entra: ultime visite
   const last=ss.slice().sort((a,b)=>new Date(b.first.created_at)-new Date(a.first.created_at)).slice(0,25);
   const feed=`<div class="card vcard vwide"><h3>🕒 Chi è entrato (ultime visite)</h3>${last.length?`<div class="vfeed">${last.map(x=>{ const v=x.first;
-    return `<div class="vf"><span class="vf-t">${fmtTs(v.created_at)}</span><span>${v.country?flag(v.country)+" "+(CN[v.country]||v.country):"🌍"}</span><span>${DEV[v.device]||""}</span><span>${esc(srcName(v.source))}</span>
+    return `<div class="vf"><span class="vf-t">${fmtTs(v.created_at)}</span><span>${v.country?flag(v.country)+" "+(v.city?esc(v.city)+", ":"")+(CN[v.country]||v.country):"🌍"}</span><span>${DEV[v.device]||""}</span><span>${esc(srcName(v.source))}</span>
       <span class="vf-p">${x.pages.map(q=>esc(pageName(q.page))).join(" → ")}</span><span class="vf-d">${x.hasDur?"⏱ "+dur(x.secs):""}</span></div>`; }).join("")}</div>`:'<p class="muted">Ancora nessuna visita.</p>'}</div>`;
   $("#vGrid").innerHTML=chart+cats+stay+feed+pages+
     `<div id="v-paesi" class="vwide vsec"><h2>📍 Da dove arrivano</h2></div>`+
     barList("🌍 Paese",count(base,v=>v.country||"?"),base.length,c=>c==="?"?"🌍 Non so":`${flag(c)} ${CN[c]||c}`)+
+    barList("🏙 Città",count(base,v=>v.city?(v.country||"")+"|"+v.city:null),base.filter(v=>v.city).length||1,k=>{ const [c,ci]=k.split("|"); return `${c?flag(c)+" ":""}${esc(ci)}`; })+
     barList("🔗 Da quale sito o app",count(ent,v=>srcName(v.source)),ent.length||1,s=>esc(s))+
     barList("🗣 Lingua scelta sul sito",count(all,v=>v.site_lang),all.length,l=>LN[l]||l)+
     barList("🌐 Lingua del telefono/computer",count(base,v=>(v.browser_lang||"?").slice(0,2).toLowerCase()),base.length,l=>LN[l]||l.toUpperCase())+
@@ -580,6 +658,25 @@ function meBtn(){ let off=false; try{ off=!!localStorage.getItem("wzd-notrack");
 $("#vRange").onchange=loadVisits; $("#vReload").onclick=loadVisits;
 $("#vMe").onclick=()=>{ try{ localStorage.getItem("wzd-notrack")?localStorage.removeItem("wzd-notrack"):localStorage.setItem("wzd-notrack","1"); }catch(_){} meBtn(); };
 meBtn();
+
+/* ---------- ⚙️ impostazioni ---------- */
+let SETTINGS_OK={deepl:false,geo:false};
+function renderSettingsHint(){
+  const d=$("#setDeeplMsg"), g=$("#setGeoMsg");
+  if(d){ d.textContent=SETTINGS_OK.deepl?"✅ Chiave DeepL salvata: le traduzioni automatiche funzionano.":"Nessuna chiave salvata: il pulsante 🌍 Traduci non funziona ancora."; d.className="msg show "+(SETTINGS_OK.deepl?"ok":"info"); }
+  if(g){ g.textContent=SETTINGS_OK.geo?"✅ Chiave salvata.":"Senza chiave: va bene finché le visite sono meno di 1.000 al giorno."; g.className="msg show "+(SETTINGS_OK.geo?"ok":"info"); }
+}
+document.addEventListener("click",async e=>{
+  const b=e.target.closest("[data-set]"); if(!b) return;
+  const inp=$("#"+b.dataset.in), v=inp.value.trim(), msg=$("#"+b.dataset.in+"Msg");
+  const {error}=await sb.from("app_settings").upsert({key:b.dataset.set,value:v},{onConflict:"key"});
+  if(error) return show(msg,"Errore: "+error.message,"err");
+  inp.value=""; const j=await sb.call({a:"settings_status"}); if(j.data) SETTINGS_OK=j.data; renderSettingsHint();
+});
+$("#myPwForm").addEventListener("submit",async e=>{
+  e.preventDefault(); const {error}=await sb.auth.updateUser({password:e.target.password.value});
+  if(error) return show($("#myPwMsg"),error.message,"err"); e.target.reset(); show($("#myPwMsg"),"✅ Password cambiata.","ok");
+});
 
 /* ---------- 🔔 notifiche ---------- */
 const SEEN_KEY="wzd-notif-seen", SENT_KEY="wzd-notif-sent";
@@ -625,7 +722,7 @@ const RST={new:"Nuova",answered:"Risposta",closed:"Archiviata"};
 let requests=[];
 async function loadRequests(){
   const {data,error}=await sb.from("requests").select("*").order("created_at",{ascending:false});
-  if(error) return show($("#rMsg"),"Errore: "+error.message+" — hai eseguito l'ultima versione di supabase/setup.sql?","err");
+  if(error) return show($("#rMsg"),"Errore: "+error.message,"err");
   requests=data; renderRequests();
 }
 function renderRequests(){
@@ -836,7 +933,7 @@ $("#mForm").addEventListener("submit",async e=>{
 /* ---------- documenti clienti ---------- */
 async function loadDocuments(){
   const {data,error}=await sb.from("documents").select("*").order("created_at",{ascending:false});
-  if(error) return show($("#dMsg"),"Errore: "+error.message+" — hai eseguito l'ultima versione di supabase/setup.sql?","err");
+  if(error) return show($("#dMsg"),"Errore: "+error.message,"err");
   documents=data; renderDocuments();
 }
 function renderDocuments(){

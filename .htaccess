@@ -3,6 +3,9 @@ Options -Indexes
 DirectoryIndex index.html
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  # dati dell'app: mai visibili dal browser
+  RewriteRule ^dati(/|$) - [F,L]
+  RewriteRule ^media/up/.*\.(php\d?|phtml|phar|cgi|pl|py|sh)$ - [F,L,NC]
   RewriteRule ^admin(/.*)?$ /app/ [R=302,L]
 </IfModule>
 <IfModule mod_headers.c>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Importa i dati – Włoski z Dominiką</title>
+<link rel="stylesheet" href="/app.css">
+<style>
+  body{background:var(--cream,#fbebd5)} .wrap{max-width:720px;margin:0 auto;padding:28px 18px}
+  .card{background:#fff;border-radius:18px;padding:20px;margin-bottom:16px;border:1.5px solid #ead9c2}
+  label{display:block;font-weight:700;margin:10px 0 4px} input{width:100%;padding:12px;border-radius:12px;border:1.5px solid #ead9c2;font:inherit}
+  .btn{margin-top:14px} #log{font:14px/1.6 ui-monospace,monospace;white-space:pre-wrap;background:#fffaf2;border-radius:12px;padding:12px;max-height:50vh;overflow:auto}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p><a href="/app/#settings">‹ Torna all'app</a></p>
+  <h1>📥 Importa i dati da Supabase</h1>
+  <p class="muted">Una volta sola. Copia su Aruba tutto quello che c'era su Supabase: richieste, prenotazioni, recensioni, statistiche, clienti e studenti, lezioni, contratti, testi e foto del sito. Quello che è già su Aruba non viene toccato.</p>
+  <div class="card" id="needApp" hidden>⚠️ Prima entra nella tua app (<a href="/app/">wloskizdominika.com/app</a>), poi torna qui.</div>
+  <div class="card" id="box" hidden>
+    <p>Scrivi l'e-mail e la password che usavi <b>prima</b> per entrare nell'app (quelle di Supabase).</p>
+    <form id="f">
+      <label>E-mail<input name="email" type="email" required></label>
+      <label>Password<input name="password" type="password" required></label>
+      <button class="btn btn-red">Importa tutto</button>
+    </form>
+  </div>
+  <div class="card"><div id="log">Pronto.</div></div>
+</div>
+<script src="/assets/aruba-db.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const OLD_URL="https://jpmjspntswdqcgrjjjyj.supabase.co", OLD_KEY="sb_publishable_TXRHSO0GyhIJT4jLVIhUmA_wRxGjFVG";
+const A=window.ArubaDB, logEl=document.getElementById("log");
+const log=t=>{ logEl.textContent+="\n"+t; logEl.scrollTop=1e9; };
+(async()=>{
+  const {data}=await A.auth.getSession();
+  if(!data.session){ document.getElementById("needApp").hidden=false; return; }
+  const me=await A.from("profiles").select("role").eq("id",data.session.user.id).single();
+  if(me.data?.role!=="admin"){ document.getElementById("needApp").hidden=false; return; }
+  document.getElementById("box").hidden=false;
+})();
+async function all(old,t){ let out=[],from=0; for(;;){ const {data,error}=await old.from(t).select("*").range(from,from+999); if(error){ log("  ("+t+": "+error.message+")"); return out; } out=out.concat(data); if(data.length<1000) return out; from+=1000; } }
+async function copyFile(old,bucket,path){
+  const {data,error}=await old.storage.from(bucket).download(path); if(error){ log("  ⚠️ file non scaricato: "+path); return false; }
+  const name=path.split("/").pop(); const r=await A.storage.from(bucket).upload(path,new File([data],name,{type:data.type}));
+  if(r.error && !/esiste già/i.test(r.error.message)){ log("  ⚠️ file non caricato: "+path+" ("+r.error.message+")"); return false; } return true;
+}
+/* foto del sito caricate su Supabase: le porto in /media/up e cambio gli indirizzi */
+async function moveSitePhotos(old,obj){
+  let s=JSON.stringify(obj); const re=new RegExp(OLD_URL.replace(/\./g,"\\.")+"/storage/v1/object/public/site/([^\"\\\\]+)","g");
+  const paths=[...new Set([...s.matchAll(re)].map(m=>decodeURIComponent(m[1])))];
+  for(const p of paths){ if(await copyFile(old,"site",p)) s=s.split(OLD_URL+"/storage/v1/object/public/site/"+p).join(location.origin+"/media/up/"+p); }
+  return JSON.parse(s);
+}
+document.getElementById("f").addEventListener("submit",async e=>{
+  e.preventDefault(); const f=e.target, btn=f.querySelector("button"); btn.disabled=true;
+  logEl.textContent="Collegamento a Supabase…";
+  const old=window.supabase.createClient(OLD_URL,OLD_KEY);
+  const {error}=await old.auth.signInWithPassword({email:f.email.value.trim(),password:f.password.value});
+  if(error){ log("❌ E-mail o password di Supabase non corrette."); btn.disabled=false; return; }
+  log("✅ Collegata.\n");
+  for(const t of ["profiles","requests","bookings","reviews","materials","documents","site_content","site_posts","app_settings"]){
+    let rows=await all(old,t); if(!rows.length){ log("• "+t+": vuota"); continue; }
+    if(t==="site_content"||t==="site_posts") rows=await Promise.all(rows.map(async r=>Object.assign(r,{data:await moveSitePhotos(old,r.data)})));
+    if(t==="materials"||t==="documents"){ let n=0; for(const r of rows) if(r.file_path && await copyFile(old,t,r.file_path)) n++; log("  file copiati ("+t+"): "+n); }
+    const j=await A.call({a:"import",table:t,rows});
+    log("• "+t+": "+rows.length+" trovati, "+(j.error?"❌ "+j.error.message:(j.data+" aggiunti")));
+  }
+  const v=await all(old,"visits");
+  if(v.length){ for(let i=0;i<v.length;i+=500){ const j=await A.call({a:"import",table:"visits",rows:v.slice(i,i+500)}); if(j.error){ log("❌ visite: "+j.error.message); break; } } log("• visite: "+v.length+" copiate"); }
+  log("\n🎉 Fatto! Torna all'app: trovi tutto su Aruba.\nNota: i clienti e gli studenti avranno una password nuova: mandagliela da «Clienti e studenti» (🔑 Nuova password).");
+  await old.auth.signOut(); btn.disabled=false;
+});
+</script>
+</body>
+</html>

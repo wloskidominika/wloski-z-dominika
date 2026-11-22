@@ -17,15 +17,19 @@ function fixPaths(o){
   if (o && typeof o === "object") { const r = {}; for (const k in o) r[k] = fixPaths(o[k]); return r; }
   return o;
 }
-/* I contenuti si modificano dall'app (wloskizdominika.com/app) e sono salvati su Supabase:
-   il sito li legge subito da lì. Se Supabase non risponde usa i file in /content. */
+/* Il "motore" del sito su Aruba (/api/db.php): contenuti, richieste, recensioni, visite. */
+const API = "/api/db.php";
+function api(body, keep){
+  return fetch(API, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body), keepalive: !!keep })
+    .then(r => r.json()).catch(() => ({ data: null, error: { message: "net" } }));
+}
+/* I contenuti si modificano dall'app (wloskizdominika.com/app) e il sito li legge subito.
+   Se il motore non risponde usa i file in /content. */
 let REMOTE = null;
 function remoteContent(){
   if (REMOTE) return REMOTE;
-  const c = window.WZD_CONFIG || {};
-  if (!c.SUPABASE_URL || /INSERISCI/.test(c.SUPABASE_URL)) return (REMOTE = Promise.resolve({}));
-  REMOTE = fetch(c.SUPABASE_URL.replace(/\/$/, "") + "/rest/v1/site_content?select=key,data", { headers: { apikey: c.SUPABASE_ANON_KEY } })
-    .then(r => r.ok ? r.json() : []).then(rows => { const o = {}; (rows || []).forEach(x => { if (x && x.data && Object.keys(x.data).length) o[x.key] = x.data; }); return o; })
+  REMOTE = api({ a: "db", table: "site_content", op: "select", select: "key,data" })
+    .then(j => { const o = {}; (j.data || []).forEach(x => { if (x && x.data && Object.keys(x.data).length) o[x.key] = x.data; }); return o; })
     .catch(() => ({}));
   return REMOTE;
 }
@@ -36,8 +40,11 @@ async function loadContent(){
   SLUGS = sl || {};
   SITE = { contact: st.contact, socials: st.socials || [], excursions: ex.items || [], lessonsIT: le.italian, lessonsPL: le.polish, houses: (ho.items || []).concat((hb.items || []).map(h => Object.assign({ type: "hotel" }, h))), gallery: ga.items || [], services: sv.items || [], hotelsPage: !!hb.page_visible };
   GUIDE_LANGS = st.guide_langs || ""; T = tx;
-  if (rc.texts) { try { const base = await fetch(ROOT + "content/texts.json?v=" + Date.now()).then(r => r.json());
-    for (const l in base) { T[l] = Object.assign({}, base[l]); for (const k in (rc.texts[l] || {})) if (rc.texts[l][k]) T[l][k] = rc.texts[l][k]; } } catch(e) {} }
+  // testi salvati nell'app sopra quelli di base (le frasi nuove del sito restano anche se l'app non le ha ancora)
+  if (rc.texts) { try { const base = await fetch(ROOT + "content/texts.json?v=" + Date.now()).then(r => r.json()), saved = rc.texts, merged = {};
+    for (const l of new Set(Object.keys(base).concat(Object.keys(saved)))) { merged[l] = Object.assign({}, base[l] || {});
+      for (const k in (saved[l] || {})) if (saved[l][k]) merged[l][k] = saved[l][k]; }
+    T = merged; } catch(e) {} }
   SITE = fixPaths(SITE);
   if (st.vat) document.getElementById("vat").textContent = "P.IVA " + st.vat;
 }
@@ -330,10 +337,7 @@ async function loadBlog(){
   if (BLOG) return BLOG;
   try { BLOG_STATIC = (await fetch(ROOT + "content/blog-index.json?v=" + Date.now()).then(r => r.json())).items || []; } catch(e) { BLOG_STATIC = []; }
   let live = [];
-  const c = window.WZD_CONFIG || {};
-  if (c.SUPABASE_URL && !/INSERISCI/.test(c.SUPABASE_URL)) {
-    try { const r = await fetch(c.SUPABASE_URL.replace(/\/$/, "") + "/rest/v1/site_posts?select=slug,data", { headers: { apikey: c.SUPABASE_ANON_KEY } }); if (r.ok) live = await r.json(); } catch(e) {}
-  }
+  try { const j = await api({ a: "db", table: "site_posts", op: "select", select: "slug,data" }); live = j.data || []; } catch(_) {}
   live = (live || []).filter(r => r && r.data && !isDraft(r.data.draft)).map(r => { const d = r.data, l = d.lang || "it", dt = String(d.date || "").slice(0,10);
     return { slug: r.slug, title: d.title || "", description: d.description || "", lang: l, date: dt, date_txt: niceDate(dt, l), cover: d.cover || "", cover_alt: d.cover_alt || "", category: d.category || "", body: d.body || "", group: d.group || "", seo_title: d.seo_title || "" }; })
     .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
@@ -523,21 +527,9 @@ document.getElementById("form").addEventListener("submit", async e=>{
   const msg=[det,(fd.get("msg")||"").trim()].filter(Boolean).join("\n\n");
   btn.disabled=true; n.textContent=t("fm_sending"); n.classList.add("show");
   let saved=false;
-  const cfg=window.WZD_CONFIG||{};
-  if(cfg.SUPABASE_URL && !/INSERISCI/.test(cfg.SUPABASE_URL)){
-    try{
-      const r=await fetch(cfg.SUPABASE_URL.replace(/\/$/,"")+"/rest/v1/requests",{method:"POST",
-        headers:{"apikey":cfg.SUPABASE_ANON_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},
-        body:JSON.stringify({name,email:mail||null,phone:phone||null,topic:topicTxt,message:msg||null,lang,page:location.pathname})});
-      saved = saved || r.ok;
-    }catch(_){}
-  }
-  // e-mail a Dominika (dal sito su Aruba)
-  try{
-    const r=await fetch(ROOT+"invia.php",{method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({name,email:mail,phone,topic:topicTxt,message:msg,lang,page:location.pathname,hp:fd.get("bot-field")||""})});
-    saved = saved || r.ok;
-  }catch(_){}
+  // arriva nell'app (🔔) e per e-mail a Dominika, con la lingua scelta dal cliente
+  const j=await api({a:"db",table:"requests",op:"insert",values:{name,email:mail||null,phone:phone||null,topic:topicTxt,message:msg||null,lang,page:location.pathname}});
+  saved = !j.error;
   btn.disabled=false;
   if(saved){ f.reset(); setPick(""); n.textContent=t("fm_sent"); n.classList.add("show"); return; }
   // piano B: WhatsApp o e-mail
@@ -566,8 +558,6 @@ const TZ_COUNTRY = {"Europe/Rome":"IT","Europe/Vatican":"IT","Europe/San_Marino"
  "Asia/Shanghai":"CN","Asia/Kolkata":"IN","Asia/Dubai":"AE","Asia/Jerusalem":"IL","Africa/Johannesburg":"ZA"};
 function trackVisit(){
   try{
-    const cfg=window.WZD_CONFIG||{};
-    if(!cfg.SUPABASE_URL || /INSERISCI/.test(cfg.SUPABASE_URL)) return;
     if(navigator.webdriver || /^(localhost|127\.)/.test(location.hostname)) return;
     /* robot e anteprime automatiche (Facebook, Google, WhatsApp…) non sono persone */
     if(/bot|crawl|spider|slurp|facebookexternalhit|meta-external|facebookcatalog|Headless|Lighthouse|Prerender|PageSpeed|preview|WhatsApp\/|TelegramBot|Twitterbot|Discordbot|Applebot/i.test(navigator.userAgent||"")) return;
@@ -587,25 +577,24 @@ function trackVisit(){
     VISIT_ID=uid();
     const row={page:location.pathname.slice(0,200),site_lang:lang,browser_lang:bl,country:TZ_COUNTRY[tz]||(/^[A-Z]{2}$/.test(region)?region:null),
       tz,device,os,browser,source:source||null,entry,sid,vid:VISIT_ID};
-    const send=r=>fetch(cfg.SUPABASE_URL.replace(/\/$/,"")+"/rest/v1/visits",{method:"POST",keepalive:true,
-      headers:{"apikey":cfg.SUPABASE_ANON_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify(r)});
-    // se il database non ha ancora le colonne nuove, registro comunque la visita
-    send(row).then(r=>{ if(!r.ok){ VISIT_ID=null; const o=Object.assign({},row); delete o.sid; delete o.vid; return send(o); } }).catch(()=>{});
+    api({a:"visit",row},true).then(j=>{ if(j.error) VISIT_ID=null; });
   }catch(_){}
 }
 
 /* ⭐ Recensioni: si leggono e si scrivono nel database (solo quelle approvate sono visibili) */
 let REVIEWS=null, rvStar=5;
 const rvFlag=c=>c&&/^[A-Z]{2}$/.test(c)?String.fromCodePoint(...[...c].map(x=>127397+x.charCodeAt(0))):"";
-function rvApi(){ const c=window.WZD_CONFIG||{}; return (c.SUPABASE_URL&&!/INSERISCI/.test(c.SUPABASE_URL))?c:null; }
+function rvApi(){ return true; }
+const RV_ICON={facebook:'<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" style="vertical-align:-2px"><path fill="#1877F2" d="M24 12a12 12 0 1 0-13.9 11.9v-8.4h-3V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.4l-.5 3.5h-2.9v8.4A12 12 0 0 0 24 12z"/></svg>',
+  google:'<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" style="vertical-align:-2px"><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5a5.6 5.6 0 0 1-2.4 3.6v3h3.9c2.2-2.1 3.5-5.1 3.5-8.8z"/><path fill="#34A853" d="M12 24c3.2 0 6-1.1 7.9-2.9l-3.9-3c-1.1.7-2.4 1.2-4 1.2-3.1 0-5.7-2.1-6.6-4.9h-4v3.1A12 12 0 0 0 12 24z"/><path fill="#FBBC05" d="M5.4 14.4a7.2 7.2 0 0 1 0-4.7V6.6h-4a12 12 0 0 0 0 10.8l4-3z"/><path fill="#EA4335" d="M12 4.8c1.8 0 3.3.6 4.6 1.8l3.4-3.4A12 12 0 0 0 1.4 6.6l4 3.1C6.3 6.9 8.9 4.8 12 4.8z"/></svg>'};
+const rvSrc=r=>{ const k=String(r.source||"").toLowerCase(), ic=RV_ICON[k]||"", txt=ic+" "+esc(r.source);
+  return r.url&&/^https:\/\//.test(r.url)?`<a href="${esc(r.url)}" target="_blank" rel="noopener" style="color:inherit">${txt}</a>`:txt; };
 async function loadReviews(){
   const sec=document.getElementById("reviews"), c=rvApi(); if(!sec||!c) return;
   sec.style.display="";
   if(REVIEWS===null){
-    try{
-      const r=await fetch(c.SUPABASE_URL.replace(/\/$/,"")+"/rest/v1/reviews?select=id,created_at,name,country,rating,topic,body,lang,source&approved=eq.true&order=created_at.desc&limit=60",{headers:{apikey:c.SUPABASE_ANON_KEY}});
-      REVIEWS=r.ok?await r.json():[];
-    }catch(_){ REVIEWS=[]; }
+    const j=await api({a:"db",table:"reviews",op:"select",select:"id,created_at,name,country,rating,topic,body,lang,source,url",order:[["created_at",false]],limit:60});
+    REVIEWS=j.data||[];
   }
   renderReviewsSite();
 }
@@ -619,7 +608,7 @@ function renderReviewsSite(){
   box.innerHTML=list.length?list.slice(0,max).map(r=>`<figure class="rv-card">
       <div class="rv-st" aria-label="${r.rating}/5">${"★".repeat(r.rating)}<span>${"★".repeat(5-r.rating)}</span></div>
       <blockquote>${esc(r.body)}</blockquote>
-      <figcaption><b>${esc(r.name)}</b> ${rvFlag(r.country)} <small>${r.topic?esc(t("rev_t_"+r.topic)):""}${r.source?" · "+esc(r.source):""}</small></figcaption>
+      <figcaption><b>${esc(r.name)}</b> ${rvFlag(r.country)} <small>${r.topic?esc(t("rev_t_"+r.topic)):""}${r.source&&r.source!=="site"?" · "+rvSrc(r):""}</small></figcaption>
     </figure>`).join(""):`<p class="rv-empty">${esc(t("rev_empty"))}</p>`;
 }
 document.addEventListener("click",e=>{
@@ -633,7 +622,7 @@ document.addEventListener("submit",async e=>{
   if(!row.name||row.body.length<5||!c){ n.textContent=t("rev_err"); n.classList.add("show"); return; }
   btn.disabled=true;
   let ok=false;
-  try{ const r=await fetch(c.SUPABASE_URL.replace(/\/$/,"")+"/rest/v1/reviews",{method:"POST",headers:{apikey:c.SUPABASE_ANON_KEY,"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify(row)}); ok=r.ok; }catch(_){}
+  const j=await api({a:"db",table:"reviews",op:"insert",values:row}); ok=!j.error;
   btn.disabled=false;
   n.textContent=ok?t("rev_thanks"):t("rev_err"); n.classList.add("show");
   if(ok){ f.reset(); rvStar=5; document.querySelectorAll("#rvStars button").forEach(b=>b.classList.add("on")); }
@@ -646,26 +635,10 @@ function countWhenSeen(){
   let seen=0, done=false, sent=-1;
   setInterval(()=>{ if(document.visibilityState==="visible") seen+=500; if(!done && seen>=3000){ done=true; trackVisit(); } },500);
   const sendTime=()=>{ const secs=Math.round(seen/1000); if(!VISIT_ID || secs===sent) return; sent=secs;
-    const cfg=window.WZD_CONFIG||{};
-    fetch(cfg.SUPABASE_URL.replace(/\/$/,"")+"/rest/v1/rpc/visit_duration",{method:"POST",keepalive:true,
-      headers:{"apikey":cfg.SUPABASE_ANON_KEY,"Content-Type":"application/json"},body:JSON.stringify({p_vid:VISIT_ID,p_secs:secs})}).catch(()=>{}); };
+    api({a:"visit_dur",vid:VISIT_ID,secs},true); };
   document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="hidden") sendTime(); });
   window.addEventListener("pagehide",sendTime);
   setInterval(sendTime,30000);   // anche durante le visite lunghe
 }
 
-/* ✏️ Solo per Dominika (ha aperto l'app su questo telefono/computer): pulsante per modificare la pagina */
-(function(){
-  let me=false; try{ me=!!localStorage.getItem("wzd-notrack"); }catch(_){}
-  if(!me) return;
-  const MAP={home:"edit/look",houses:"edit/houses",house:"edit/houses",hotels:"edit/hotels",hotel:"edit/hotels",exc:"edit/excursions",excd:"edit/excursions",exp:"edit/excursions",expd:"edit/excursions",
-    transfer:"edit/services",rental:"edit/services",boat:"edit/services",services:"edit/services",media:"edit/gallery",blog:"blog",post:"blog"};
-  const slug=(location.pathname.match(/\/blog\/([^/]+)\.html$/)||[])[1];
-  const to=PAGE==="post"&&slug&&slug!=="leggi"?"blog/"+slug:(MAP[PAGE]||"home");
-  const a=document.createElement("a");
-  a.href="/app/#"+to; a.textContent="✏️ Modifica"; a.title="Modifica questa pagina nella tua app";
-  a.style.cssText="position:fixed;left:16px;bottom:16px;z-index:999;background:#9B2318;color:#fff;padding:12px 18px;border-radius:999px;font:700 15px Lato,sans-serif;text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,.25)";
-  const b=document.createElement("a"); b.href="/app/#edit/texts"; b.textContent="✍️ Testi";
-  b.style.cssText=a.style.cssText; b.style.left="150px"; b.style.background="#4A7A62";
-  document.body.append(a,b);
-})();
+

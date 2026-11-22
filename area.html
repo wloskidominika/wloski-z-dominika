@@ -14,7 +14,6 @@
     <a class="brand" href="index.html"><img src="sun.jpg" alt=""><div><span>Włoski z Dominiką</span><small data-i="area"></small></div></a>
     <div class="top-actions">
       <div class="lang" id="langBtns"></div>
-      <a class="btn btn-line btn-sm hidden" id="adminLink" href="/app/">⚙️ Gestione</a>
       <button class="btn btn-line btn-sm hidden" id="logoutBtn" data-i="logout"></button>
     </div>
   </div>
@@ -135,8 +134,7 @@
 </main>
 <footer class="wrap" style="padding:20px;text-align:center;color:var(--muted);font-size:.8rem">Włoski z Dominiką i Podróże do Kalabrii · P.IVA 03800250791 · <a href="privacy.html">Privacy e Cookie</a></footer>
 
-<script src="config.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/assets/aruba-db.js"></script>
 <script>
 const LANGS=["it","de","en","pl","es"];
 const I={
@@ -194,7 +192,7 @@ function hide(el){ el.className="msg"; }
 
 let recovery=false, sb=null, user=null, profile=null, content={exc:[],houses:[],settings:{}};
 const cfg=window.WZD_CONFIG||{};
-const configured=cfg.SUPABASE_URL && !cfg.SUPABASE_URL.includes("INSERISCI") && window.supabase;
+const configured=!!window.supabase;
 
 function applyLang(){
   document.documentElement.lang=lang;
@@ -238,11 +236,10 @@ async function enter(session){
   $("#authView").classList.toggle("hidden",!!user);
   $("#appView").classList.toggle("hidden",!user);
   $("#logoutBtn").classList.toggle("hidden",!user);
-  if(!user){ $("#adminLink").classList.add("hidden"); return; }
+  if(!user) return;
   const {data}=await sb.from("profiles").select("*").eq("id",user.id).single();
   profile=data||{full_name:"",courses:[]};
-  if(profile.role==="admin"){ location.replace("/app/"); return; }   // Dominika va dritta nella sua app
-  $("#adminLink").classList.toggle("hidden",profile.role!=="admin");
+  if(profile.role==="admin"){ $("#appView").classList.add("hidden"); $("#authView").classList.remove("hidden"); $("#logoutBtn").classList.add("hidden"); show($("#authMsg"),"Questo accesso è per clienti e studenti.","err"); user=null; return; }
   const f=$("#profileForm"); f.full_name.value=profile.full_name||""; f.email.value=user.email; f.phone.value=profile.phone||"";
   applyLang();
 }
@@ -412,7 +409,7 @@ $("#logoutBtn").onclick=async()=>{ await sb.auth.signOut(); };
   applyLang();
   await loadContent(); fillItems();
   if(!configured){ $("#notConfigured").classList.add("show"); $("#authView").classList.remove("hidden"); $$("#authView button, #authView input").forEach(x=>x.disabled=true); return; }
-  sb=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY);
+  sb=window.supabase.createClient();
   sb.auth.onAuthStateChange((ev,session)=>{
     if(ev==="PASSWORD_RECOVERY"){ recovery=true; $("#authView").classList.remove("hidden"); $("#appView").classList.add("hidden"); authTab("reset"); return; }
     if(recovery) return;

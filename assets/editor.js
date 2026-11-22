@@ -1,6 +1,6 @@
 /* =====================================================================
    ✏️ Il sito dentro l'app: case, hotel, escursioni, servizi, foto,
-   testi, contatti e blog. Si salva su Supabase e il sito lo legge subito.
+   testi, contatti e blog. Si salva su Aruba e il sito lo legge subito.
    (usa sb, $, $$, esc, show di gestione.html)
    ===================================================================== */
 const ED_LANGS = ["it", "de", "en", "pl", "es"];
@@ -29,7 +29,7 @@ function markDirty() {
   ED.dirty = true; const m = $("#edMsg"); if (m && ED.key) { m.textContent = "Modifiche non salvate"; m.className = "msg show info"; }
 }
 
-/* ---------- dati: Supabase, oppure i file del sito la prima volta ---------- */
+/* ---------- dati: dal motore su Aruba, oppure i file del sito la prima volta ---------- */
 async function loadKey(key) {
   if (edCache[key]) return edCache[key];
   const { data, error } = await sb.from("site_content").select("data").eq("key", key).maybeSingle();
@@ -81,7 +81,7 @@ window.seedSite = async function () {
   } catch (e) { console.warn("seed", e); }
 };
 
-/* ---------- foto: ridotte sul telefono e caricate su Supabase ---------- */
+/* ---------- foto: ridotte sul telefono e caricate su Aruba ---------- */
 async function shrink(file) {
   if (!/^image\/(jpeg|png|webp|heic|heif)$/i.test(file.type) || file.size < 400000) return file;
   try {
@@ -111,7 +111,7 @@ function pickFiles(accept, multiple) {
 async function withUpload(btn, files, done) {
   const old = btn.innerHTML; btn.innerHTML = "⏳ Carico…"; btn.style.pointerEvents = "none";
   try { for (const f of files) done(await upload(f)); }
-  catch (e) { alert("Caricamento non riuscito: " + (e.message || e) + (/bucket/i.test(e.message || "") ? "\n\nManca lo spazio foto su Supabase: esegui il file sito.sql." : "")); }
+  catch (e) { alert("Caricamento non riuscito: " + (e.message || e)); }
   btn.innerHTML = old; btn.style.pointerEvents = "";
 }
 
@@ -202,14 +202,58 @@ function manyPics(f, arr, set) {
   return box;
 }
 
-/* testo in 5 lingue: l'italiano sempre visibile, le altre si aprono */
+/* testo in 5 lingue: l'italiano sempre visibile, le altre si aprono; 🌍 Traduci le scrive da sole */
+let TR = [];   // i blocchi in 5 lingue del modulo aperto
+const toText = (w, v) => w === "list" ? (Array.isArray(v) ? v.join("\n") : "") : String(v ?? "");
+const fromText = (w, t) => w === "list" ? t.split("\n").map(x => x.trim()).filter(Boolean) : t;
+function setField(el, w, v) { const i = el.querySelector("input,textarea") || el; i.value = w === "list" ? v.join("\n") : v; }
+async function translateTexts(texts, to) {
+  const j = await sb.call({ a: "translate", texts, to, from: "it" });
+  if (j.error) throw new Error(j.error.message);
+  return j.data || {};
+}
 function langBlock(f, obj, set) {
   obj = obj && typeof obj === "object" ? obj : {};
   const sub = Object.fromEntries(f.fields.map(x => [x.name, x]));
-  const row = l => h("div", { class: "lrow" }, h("b", {}, ED_FLAG[l]), input(sub[l] || { widget: "string" }, obj[l], v => { obj[l] = v; set(obj); }));
+  const els = {};
+  const row = l => { const w = (sub[l] || {}).widget || "string"; const el = input(sub[l] || { widget: "string" }, obj[l], v => { obj[l] = v; set(obj); upd(); });
+    els[l] = el; return h("div", { class: "lrow" }, h("b", {}, ED_FLAG[l]), el); };
   const others = ED_LANGS.filter(l => l !== "it" && sub[l]);
-  const filled = others.filter(l => obj[l] && String(obj[l]).length).length;
-  return h("div", {}, row("it"), others.length ? h("details", { class: "more" }, h("summary", {}, `🌍 Altre lingue (${filled}/${others.length} scritte)`), others.map(row)) : null);
+  const sum = h("summary", {});
+  const upd = () => { const n = others.filter(l => obj[l] && toText(sub[l].widget, obj[l]).trim()).length; sum.textContent = `🌍 Altre lingue (${n}/${others.length} scritte)`; };
+  const block = { obj, sub, els, others, set, upd };
+  TR.push(block);
+  const btn = h("button", { type: "button", class: "trbtn", title: "Traduci dall'italiano in tutte le altre lingue" }, "🌍 Traduci");
+  btn.onclick = async () => {
+    const src = toText(sub.it.widget, obj.it).trim(); if (!src) return alert("Scrivi prima il testo in italiano.");
+    const filled = others.filter(l => toText(sub[l].widget, obj[l]).trim());
+    if (filled.length && !confirm("Le altre lingue hanno già un testo: vuoi sostituirlo con la traduzione nuova?")) return;
+    btn.disabled = true; btn.textContent = "⏳ Traduco…";
+    try { const r = await translateTexts([src], others); others.forEach(l => { if (r[l]) { obj[l] = fromText(sub[l].widget, r[l][0]); setField(els[l], sub[l].widget, obj[l]); } }); set(obj); upd(); markDirty(); det.open = true; }
+    catch (e) { alert(e.message); }
+    btn.disabled = false; btn.textContent = "🌍 Traduci";
+  };
+  upd();
+  const det = others.length ? h("details", { class: "more" }, sum, others.map(row)) : null;
+  return h("div", {}, h("div", { class: "lit" }, row("it"), others.length ? btn : null), det);
+}
+/* 🌍 traduce tutto quello che manca nel modulo aperto (solo le lingue vuote) */
+async function translateMissing(btn) {
+  const jobs = {};   // lingua → [{block, text}]
+  TR.forEach(b => { const src = toText(b.sub.it.widget, b.obj.it).trim(); if (!src) return;
+    b.others.forEach(l => { if (!toText(b.sub[l].widget, b.obj[l]).trim()) (jobs[l] = jobs[l] || []).push({ b, src }); }); });
+  const langs = Object.keys(jobs); if (!langs.length) return alert("Non manca niente: tutte le lingue sono già scritte ✅");
+  const n = langs.reduce((a, l) => a + jobs[l].length, 0);
+  if (!confirm(`Traduco ${n} testi mancanti nelle altre lingue?`)) return;
+  btn.disabled = true; const old = btn.textContent; btn.textContent = "⏳ Traduco…";
+  try {
+    for (const l of langs) {
+      const r = await translateTexts(jobs[l].map(x => x.src), [l]);
+      jobs[l].forEach((x, i) => { const w = x.b.sub[l].widget; x.b.obj[l] = fromText(w, r[l][i]); if (x.b.els[l]) setField(x.b.els[l], w, x.b.obj[l]); x.b.set(x.b.obj); x.b.upd(); });
+    }
+    markDirty(); show($("#edMsg"), "✅ Tradotto! Controlla e premi 💾 Salva.", "ok");
+  } catch (e) { alert(e.message); }
+  btn.disabled = false; btn.textContent = old;
 }
 
 /* qualsiasi campo dello schema */
@@ -297,18 +341,27 @@ function textsForm(f, data) {
   ED_LANGS.forEach(l => { data[l] = data[l] || {}; });
   const rows = keys.map(k => {
     const lab = String(k.label || k.name).replace(/^\S+\s+—\s+/, "");
-    const mk = l => h("div", { class: "lrow" }, h("b", {}, ED_FLAG[l]), input({ widget: (data.it[k.name] || "").length > 90 ? "text" : "string" }, data[l][k.name], v => { data[l][k.name] = v; }));
-    const el = h("div", { class: "fx" }, h("label", { class: "fl" }, lab), mk("it"), h("details", { class: "more" }, h("summary", {}, "🌍 Altre lingue"), ED_LANGS.slice(1).map(mk)));
+    const w = (data.it[k.name] || "").length > 90 ? "text" : "string";
+    const obj = {}; ED_LANGS.forEach(l => obj[l] = data[l][k.name]);
+    const fake = { fields: ED_LANGS.map(l => ({ name: l, widget: w })) };
+    const blk = langBlock(fake, obj, o => { ED_LANGS.forEach(l => { data[l][k.name] = o[l]; }); });
+    const el = h("div", { class: "fx" }, h("label", { class: "fl" }, lab), blk);
     el.dataset.q = (lab + " " + ED_LANGS.map(l => data[l][k.name] || "").join(" ")).toLowerCase();
     return el;
   });
   search.oninput = () => { const q = search.value.trim().toLowerCase(); rows.forEach(r => r.style.display = !q || r.dataset.q.includes(q) ? "" : "none"); };
-  box.append(search, ...rows);
+  // le frasi che non compaiono sul sito stanno in fondo, chiuse (così non si modifica la frase sbagliata)
+  const used = new Set(TEXTS_USED || keys.map(k => k.name));
+  const live = rows.filter((r, i) => used.has(keys[i].name)), dead = rows.filter((r, i) => !used.has(keys[i].name));
+  box.append(search, ...live);
+  if (dead.length) box.append(h("details", { class: "more", style: "margin-top:16px" }, h("summary", {}, `Frasi che oggi non compaiono sul sito (${dead.length})`), dead));
   return box;
 }
 
 /* ---------- apri / salva una sezione ---------- */
+let TEXTS_USED = null;
 window.openEditor = async function (key) {
+  if (key === "texts" && !TEXTS_USED) TEXTS_USED = await fetch("/assets/texts-used.json?v=" + Date.now()).then(r => r.json()).catch(() => null);
   if (!ED_KEYS.includes(key)) { location.hash = "home"; return; }
   if (ED.key === key && $("#edForm").childElementCount) return;
   const s = await schema(), def = s.files[key];
@@ -317,9 +370,12 @@ window.openEditor = async function (key) {
   $("#edForm").innerHTML = '<p class="muted">⏳ Carico…</p>'; $("#edMsg").className = "msg";
   let d;
   try { d = clone(await loadKey(key)); }
-  catch (e) { $("#edForm").innerHTML = ""; return show($("#edMsg"), "Errore: " + e.message + (/site_content/.test(e.message) ? " — manca un passaggio su Supabase (file sito.sql)." : ""), "err"); }
+  catch (e) { $("#edForm").innerHTML = ""; return show($("#edMsg"), "Errore: " + e.message, "err"); }
   ED = { key, data: d, dirty: false };
-  const form = $("#edForm"); form.innerHTML = "";
+  const form = $("#edForm"); form.innerHTML = ""; TR = [];
+  const trAll = h("button", { type: "button", class: "btn btn-line btn-sm", style: "margin-bottom:14px" }, "🌍 Traduci tutto quello che manca");
+  trAll.onclick = () => translateMissing(trAll);
+  form.append(trAll);
   if (key === "texts") form.append(textsForm(def.fields ? { fields: def.fields } : {}, d));
   else def.fields.forEach(f => form.append(field(f, () => d[f.name], v => { if (v === undefined) delete d[f.name]; else d[f.name] = v; })));
   $("#edSave").disabled = false;
@@ -406,7 +462,7 @@ function counter(inp, min, max) {
 }
 window.openBlog = async function (slug) {
   $("#blList").classList.toggle("hidden", !!slug); $("#blEdit").classList.toggle("hidden", !slug);
-  try { await loadPosts(); } catch (e) { $("#blItems").innerHTML = `<div class="msg show err">Errore: ${esc(e.message)} — manca un passaggio su Supabase (file sito.sql).</div>`; return; }
+  try { await loadPosts(); } catch (e) { $("#blItems").innerHTML = `<div class="msg show err">Errore: ${esc(e.message)}</div>`; return; }
   if (!slug) { renderPostList(); BL.cur = null; return; }
   $("#backBtn").setAttribute("href", "#blog");
   const s = await schema();
@@ -455,3 +511,32 @@ $("#blDel").onclick = async () => {
 
 /* se l'app era già aperta prima che questo file fosse pronto */
 if (!$("#app").classList.contains("hidden")) { window.seedSite(); const r = location.hash.slice(1); if (/^(edit|blog)/.test(r)) { curRoute = "home"; openTab(r); } }
+
+/* 🌍 blog: crea le versioni dell'articolo nelle altre lingue (come bozze da controllare) */
+$("#blTr").onclick = async () => {
+  const c = BL.cur; if (!c || !c.slug) return alert("Salva prima l'articolo.");
+  if (BL.dirty) return alert("Salva prima le modifiche.");
+  const src = c.data.lang || "it", group = c.data.group || c.slug;
+  const have = new Set(BL.posts.filter(p => (p.data.group || p.slug) === group).map(p => p.data.lang));
+  const to = ED_LANGS.filter(l => l !== src && !have.has(l));
+  if (!to.length) return alert("Questo articolo c'è già in tutte le lingue ✅");
+  if (!confirm("Creo l'articolo tradotto in: " + to.map(l => ED_FLAG[l]).join(", ") + "?\nLe versioni nuove restano in bozza: le controlli e poi le pubblichi.")) return;
+  const F = ["title", "seo_title", "description", "cover_alt", "keyword", "body"].filter(k => String(c.data[k] || "").trim());
+  const btn = $("#blTr"); btn.disabled = true; btn.textContent = "⏳ Traduco…";
+  try {
+    const j = await sb.call({ a: "translate", texts: F.map(k => String(c.data[k])), to, from: src });
+    if (j.error) throw new Error(j.error.message);
+    if (!c.data.group) { c.data.group = group; await sb.from("site_posts").update({ data: c.data }).eq("slug", c.slug); }
+    const used = new Set(BL.posts.map(p => p.slug));
+    for (const l of to) {
+      const d = Object.assign({}, c.data, { lang: l, group, draft: true });
+      F.forEach((k, i) => { d[k] = j.data[l][i]; });
+      let base = slugify(d.title) || (c.slug + "-" + l), s2 = base, n = 2; while (used.has(s2)) s2 = base + "-" + n++; used.add(s2);
+      const { error } = await sb.from("site_posts").upsert({ slug: s2, data: d, updated_at: new Date().toISOString() }, { onConflict: "slug" });
+      if (error) throw new Error(error.message);
+    }
+    await loadPosts(true);
+    show($("#blMsg"), "✅ Create " + to.length + " traduzioni in bozza: le trovi nell'elenco, controllale e pubblicale.", "ok");
+  } catch (e) { alert(e.message); }
+  btn.disabled = false; btn.textContent = "🌍 Crea le altre lingue";
+};

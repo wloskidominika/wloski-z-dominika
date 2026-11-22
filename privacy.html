@@ -32,7 +32,7 @@ mark{background:#FFE58A;padding:0 4px;border-radius:4px}
 <script>
 /* Testi dell'informativa. I dati del titolare (nome, indirizzo, e-mail, P.IVA)
    si prendono da content/settings.json e si modificano dal pannello /admin. */
-const UPDATED = { it:"14 novembre 2026", en:"14 November 2026", pl:"14 listopada 2026" };
+const UPDATED = { it:"23 novembre 2026", en:"23 November 2026", pl:"23 listopada 2026" };
 const LANGS=["it","en","pl"];
 const DOC = {
 it: `
@@ -74,8 +74,8 @@ it: `
 <h2>5. Chi può vedere i dati</h2>
 <p>I dati sono trattati dal titolare. Per far funzionare il sito ci affidiamo a fornitori che agiscono come responsabili del trattamento:</p>
 <ul>
-<li><b>Supabase Inc.</b> – database e accesso all'area riservata (server nell'Unione Europea). Qui salviamo anche <b>statistiche anonime delle visite</b> (pagina vista, lingua, Paese stimato dal fuso orario, tipo di dispositivo, sito di provenienza): senza cookie, senza indirizzo IP e senza dati che ti identificano.</li>
-<li><b>Netlify Inc.</b> – hosting del sito (USA).</li>
+<li><b>Aruba S.p.A.</b> – hosting del sito, archivio dei dati e accesso all'area riservata (server in Italia). Qui salviamo anche <b>statistiche anonime delle visite</b> (pagina vista e tempo di permanenza, lingua, Paese e città, tipo di dispositivo, sito di provenienza): senza cookie e senza dati che ti identificano.</li>
+<li><b>Kloudend Inc. (ipapi.co)</b> – per stimare Paese e città della visita il tuo indirizzo IP viene inviato per un istante a questo servizio (USA); <b>l'indirizzo IP non viene salvato</b>.</li>
 <li><b>GitHub Inc.</b> – archivio dei file e dei contenuti pubblici del sito (USA); non contiene i dati degli utenti.</li>
 </ul>
 <p>Per i fornitori con sede negli USA il trasferimento avviene sulla base del EU-US Data Privacy Framework e/o delle Clausole Contrattuali Standard della Commissione europea.</p>
@@ -100,7 +100,7 @@ it: `
 <table>
 <tr><th>Nome</th><th>A cosa serve</th><th>Durata</th></tr>
 <tr><td>wzd-lang</td><td>Ricorda la lingua che hai scelto</td><td>Finché non la cancelli dal browser</td></tr>
-<tr><td>sb-…-auth-token</td><td>Ti mantiene collegato all'area riservata (Supabase)</td><td>Fino all'uscita (logout) o alla scadenza della sessione</td></tr>
+<tr><td>wzd</td><td>Cookie tecnico: ti mantiene collegato all'area riservata</td><td>Fino all'uscita (logout) o alla scadenza della sessione</td></tr>
 </table>
 <p><b>Video di YouTube:</b> i video sono incorporati in modalità "privacy avanzata" (youtube-nocookie.com) e si caricano solo quando premi play. Da quel momento YouTube (Google) può salvare i propri dati: vedi l'informativa di Google.</p>
 <p><b>Caratteri tipografici:</b> sono ospitati direttamente sul nostro sito, quindi nessun dato viene inviato a Google Fonts.</p>
@@ -146,8 +146,8 @@ en: `
 <h2>5. Who can see the data</h2>
 <p>Data is processed by the controller. To run the website we use providers acting as data processors:</p>
 <ul>
-<li><b>Supabase Inc.</b> – database and members' area login (servers in the European Union). We also store <b>anonymous visit statistics</b> there (page viewed, language, country estimated from the time zone, device type, referring site): no cookies, no IP address and no data that identifies you.</li>
-<li><b>Netlify Inc.</b> – website hosting (USA).</li>
+<li><b>Aruba S.p.A.</b> – website hosting, data storage and members' area login (servers in Italy). We also store <b>anonymous visit statistics</b> there (page viewed and time spent, language, country and city, device type, referring site): no cookies and no data that identifies you.</li>
+<li><b>Kloudend Inc. (ipapi.co)</b> – to estimate the country and city of a visit, your IP address is sent for a moment to this service (USA); <b>the IP address is not stored</b>.</li>
 <li><b>GitHub Inc.</b> – storage of the website's public files and content (USA); contains no user data.</li>
 </ul>
 <p>For US-based providers, transfers rely on the EU-US Data Privacy Framework and/or the European Commission's Standard Contractual Clauses.</p>
@@ -172,7 +172,7 @@ en: `
 <table>
 <tr><th>Name</th><th>Purpose</th><th>Duration</th></tr>
 <tr><td>wzd-lang</td><td>Remembers the language you chose</td><td>Until you clear it in your browser</td></tr>
-<tr><td>sb-…-auth-token</td><td>Keeps you logged in to the members' area (Supabase)</td><td>Until you log out or the session expires</td></tr>
+<tr><td>wzd</td><td>Technical cookie: keeps you logged in to the members' area</td><td>Until you log out or the session expires</td></tr>
 </table>
 <p><b>YouTube videos:</b> videos are embedded in "privacy-enhanced mode" (youtube-nocookie.com) and only load when you press play. From then on YouTube (Google) may store its own data: see Google's privacy policy.</p>
 <p><b>Fonts:</b> fonts are hosted on our own website, so no data is sent to Google Fonts.</p>
@@ -218,8 +218,8 @@ pl: `
 <h2>5. Kto ma dostęp do danych</h2>
 <p>Dane przetwarza administrator. Do działania strony korzystamy z dostawców, którzy działają jako podmioty przetwarzające:</p>
 <ul>
-<li><b>Supabase Inc.</b> – baza danych i logowanie do strefy klienta (serwery w Unii Europejskiej). Przechowujemy tam także <b>anonimowe statystyki odwiedzin</b> (odwiedzona strona, język, kraj szacowany na podstawie strefy czasowej, rodzaj urządzenia, strona, z której przychodzisz): bez plików cookie, bez adresu IP i bez danych, które Cię identyfikują.</li>
-<li><b>Netlify Inc.</b> – hosting strony (USA).</li>
+<li><b>Aruba S.p.A.</b> – hosting strony, przechowywanie danych i logowanie do strefy klienta (serwery we Włoszech). Przechowujemy tam także <b>anonimowe statystyki odwiedzin</b> (odwiedzona strona i czas pobytu, język, kraj i miasto, rodzaj urządzenia, strona, z której przychodzisz): bez plików cookie i bez danych, które Cię identyfikują.</li>
+<li><b>Kloudend Inc. (ipapi.co)</b> – aby oszacować kraj i miasto odwiedzin, Twój adres IP jest na chwilę przesyłany do tej usługi (USA); <b>adres IP nie jest zapisywany</b>.</li>
 <li><b>GitHub Inc.</b> – przechowywanie publicznych plików i treści strony (USA); nie zawiera danych użytkowników.</li>
 </ul>
 <p>W przypadku dostawców z USA przekazanie danych odbywa się na podstawie EU-US Data Privacy Framework i/lub standardowych klauzul umownych Komisji Europejskiej.</p>
@@ -244,7 +244,7 @@ pl: `
 <table>
 <tr><th>Nazwa</th><th>Do czego służy</th><th>Czas przechowywania</th></tr>
 <tr><td>wzd-lang</td><td>Zapamiętuje wybrany język</td><td>Do czasu usunięcia w przeglądarce</td></tr>
-<tr><td>sb-…-auth-token</td><td>Utrzymuje zalogowanie w strefie klienta (Supabase)</td><td>Do wylogowania lub wygaśnięcia sesji</td></tr>
+<tr><td>wzd</td><td>Techniczny plik cookie: utrzymuje zalogowanie w strefie klienta</td><td>Do wylogowania lub wygaśnięcia sesji</td></tr>
 </table>
 <p><b>Filmy z YouTube:</b> filmy są osadzone w „trybie rozszerzonej prywatności” (youtube-nocookie.com) i ładują się dopiero po naciśnięciu „play”. Od tego momentu YouTube (Google) może zapisywać własne dane: zobacz politykę prywatności Google.</p>
 <p><b>Czcionki:</b> są przechowywane na naszej stronie, więc żadne dane nie są wysyłane do Google Fonts.</p>
