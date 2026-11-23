@@ -10,8 +10,8 @@ date_default_timezone_set('UTC');
 const DATA = __DIR__ . '/../dati';
 const GUARD = "<?php exit; ?>\n";
 const SITE_URL = 'https://wloskizdominika.com';
-const NOTIFY_TO = 'info@wloskizdominika.com';          // dove arrivano le richieste del sito
-const MAIL_FROM = 'info@wloskizdominika.com';          // casella del dominio (Aruba la richiede)
+const NOTIFY_TO = 'dominikasloma1998@gmail.com';       // dove arrivano le notifiche (la Gmail di Dominika)
+const MAIL_FROM = 'postmaster@wloskizdominika.com';    // casella del dominio (Aruba la richiede)
 const LANG_NAMES = ['it' => 'Italiano 🇮🇹', 'de' => 'Tedesco 🇩🇪 (Deutsch)', 'en' => 'Inglese 🇬🇧 (English)', 'pl' => 'Polacco 🇵🇱 (Polski)', 'es' => 'Spagnolo 🇪🇸 (Español)'];
 
 header('Content-Type: application/json; charset=utf-8');
