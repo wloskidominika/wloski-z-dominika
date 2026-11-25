@@ -390,7 +390,10 @@ case 'db': {
     $pkc = pk($t);
 
     if ($op === 'select') {
-        $rows = array_values(array_filter(tload($t)['rows'], fn($r) => can_see($t, $r, $u) && match_row($r, $filters)));
+        $all = tload($t)['rows'];
+        // l'e-mail di chi lascia una recensione non è mai pubblica
+        if ($t === 'reviews' && !isAdmin($u)) $all = array_map(function ($r) { unset($r['email']); return $r; }, $all);
+        $rows = array_values(array_filter($all, fn($r) => can_see($t, $r, $u) && match_row($r, $filters)));
         $count = count($rows);
         $rows = apply_order($rows, $order); if ($limit !== null) $rows = array_slice($rows, 0, $limit);
         if (!empty($in['head'])) out(null, null, ['count' => $count]);

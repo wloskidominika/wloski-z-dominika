@@ -3,13 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Privacy e Cookie – Włoski z Dominiką</title>
+<title>Privacy · Cookie · GDPR – Włoski z Dominiką</title>
 <link rel="stylesheet" href="fonts/fonts.css">
 <link rel="stylesheet" href="app.css">
 <style>
 .legal{max-width:820px;margin:0 auto}
 .legal h1{font-size:2.2rem;margin-bottom:6px}
-.legal h2{font-size:1.35rem;margin:30px 0 8px}
+.legal h2{font-size:1.35rem;margin:30px 0 8px;scroll-margin-top:110px}
+.legal table{display:block;overflow-x:auto}
+@media(max-width:520px){header.top{position:static;height:auto}header.top .bar{flex-wrap:wrap;gap:6px;height:auto;padding:8px 0}.top-actions{width:100%;justify-content:space-between}}
 .legal p,.legal li{margin-bottom:8px}
 .legal ul{padding-left:22px}
 .legal table{margin:10px 0;font-size:.92rem;background:#fff;border-radius:10px;overflow:hidden}
@@ -30,250 +32,447 @@ mark{background:#FFE58A;padding:0 4px;border-radius:4px}
 <footer class="wrap" style="padding:20px;text-align:center;color:var(--muted);font-size:.8rem">Włoski z Dominiką i Podróże do Kalabrii · P.IVA <span class="f-vat">03800250791</span></footer>
 
 <script>
-/* Testi dell'informativa. I dati del titolare (nome, indirizzo, e-mail, P.IVA)
-   si prendono da content/settings.json e si modificano dal pannello /admin. */
-const UPDATED = { it:"23 novembre 2026", en:"23 November 2026", pl:"23 listopada 2026" };
-const LANGS=["it","en","pl"];
+/* Testi dell'informativa (IT · DE · EN · PL · ES).
+   Nome, indirizzo, e-mail e P.IVA della titolare si prendono dall'app
+   (Sito → Contatti e social) e, se il motore non risponde, da content/settings.json. */
+const UPDATED = { it:"25 novembre 2026", de:"25. November 2026", en:"25 November 2026", pl:"25 listopada 2026", es:"25 de noviembre de 2026" };
+const LANGS=["it","de","en","pl","es"];
 const DOC = {
 it: `
-<h1>Privacy e Cookie</h1>
+<h1>Privacy, Cookie e GDPR</h1>
 <p class="muted">Informativa ai sensi degli artt. 13–14 del Regolamento (UE) 2016/679 (GDPR) · Ultimo aggiornamento: {updated}</p>
-<div class="toc"><a href="#privacy">Informativa privacy</a> · <a href="#cookie">Cookie policy</a></div>
+<div class="toc"><a href="#privacy">Informativa privacy</a> · <a href="#diritti">I tuoi diritti</a> · <a href="#cookie">Cookie policy</a></div>
 
 <h2 id="privacy">1. Titolare del trattamento</h2>
-<p>{owner}, titolare dell'attività <b>Włoski z Dominiką i Podróże do Kalabrii</b>, P.IVA {vat}, con sede in {address}.<br>Contatto per la privacy: {email}</p>
+<p>{owner}, titolare dell'attività <b>Włoski z Dominiką i Podróże do Kalabrii</b>, P.IVA {vat}{sede}.<br>Contatto per la privacy: {email}</p>
 
 <h2>2. Quali dati trattiamo</h2>
 <ul>
+<li><b>Richieste di informazioni</b> (modulo «Scrivimi» e pulsanti «Richiedi informazioni»): nome, e-mail e/o telefono, lingua scelta, servizio o alloggio che ti interessa, date, numero di persone e il messaggio che scrivi.</li>
+<li><b>Recensioni:</b> nome, Paese, voto, testo ed e-mail. Sul sito pubblichiamo solo nome, Paese, voto e testo, dopo averli controllati; l'e-mail non viene mai pubblicata.</li>
 <li><b>Registrazione all'area riservata:</b> nome e cognome, e-mail, telefono (facoltativo), lingua preferita, password (salvata solo in forma cifrata).</li>
-<li><b>Prenotazioni:</b> tipo di servizio, date, numero di persone, note che scrivi tu, stato della prenotazione e del pagamento, messaggi del titolare.</li>
+<li><b>Prenotazioni:</b> tipo di servizio, date, numero di persone, note che scrivi tu, stato della prenotazione e del pagamento, messaggi del titolare, documenti che ti riguardano (es. contratti).</li>
 <li><b>Corsi di lingua:</b> corsi a cui sei iscritto e accesso ai materiali didattici.</li>
-<li><b>Modulo contatti:</b> il modulo apre il tuo programma di posta; i dati arrivano per e-mail e non vengono salvati sul sito.</li>
-<li><b>Dati tecnici:</b> indirizzo IP e dati del browser registrati automaticamente dai server che ospitano il sito, per sicurezza e funzionamento.</li>
+<li><b>Statistiche anonime delle visite:</b> pagina vista, tempo di permanenza, lingua, Paese e città approssimativi, tipo di dispositivo e sito di provenienza. Non usiamo cookie per questo e non salviamo l'indirizzo IP: questi dati non permettono di identificarti.</li>
+<li><b>Dati tecnici:</b> indirizzo IP e dati del browser registrati automaticamente dal server che ospita il sito, per sicurezza e funzionamento.</li>
 </ul>
-<p>Non chiediamo dati particolari (ad es. salute). Se nelle note scrivi informazioni come allergie o esigenze alimentari, le useremo solo per organizzare il servizio.</p>
+<p>Non chiediamo dati particolari (ad es. sulla salute). Se nelle note scrivi informazioni come allergie o esigenze alimentari, le useremo solo per organizzare il servizio.</p>
 
 <h2>3. Perché li trattiamo e su quale base giuridica</h2>
 <table>
 <tr><th>Finalità</th><th>Base giuridica</th></tr>
-<tr><td>Creare e gestire il tuo account, ricevere e gestire le prenotazioni, erogare lezioni ed escursioni, darti accesso ai materiali</td><td>Esecuzione di un contratto o di misure precontrattuali (art. 6.1.b GDPR)</td></tr>
-<tr><td>Rispondere alle tue richieste di informazioni</td><td>Misure precontrattuali su tua richiesta (art. 6.1.b)</td></tr>
+<tr><td>Rispondere alle tue richieste di informazioni e preparare un preventivo</td><td>Misure precontrattuali su tua richiesta (art. 6.1.b GDPR)</td></tr>
+<tr><td>Creare e gestire il tuo account, gestire le prenotazioni, erogare lezioni, escursioni e servizi, darti accesso ai materiali</td><td>Esecuzione di un contratto (art. 6.1.b)</td></tr>
+<tr><td>Pubblicare la tua recensione</td><td>Tuo consenso, che puoi revocare quando vuoi (art. 6.1.a)</td></tr>
 <tr><td>Gestire i pagamenti online e gli eventuali rimborsi</td><td>Esecuzione di un contratto (art. 6.1.b)</td></tr>
-<tr><td>Adempimenti fiscali e contabili (fatture, ricevute)</td><td>Obbligo di legge (art. 6.1.c)</td></tr>
-<tr><td>Sicurezza del sito e prevenzione di abusi</td><td>Legittimo interesse del titolare (art. 6.1.f)</td></tr>
+<tr><td>Adempimenti fiscali e contabili (fatture, ricevute) e obblighi per gli alloggi turistici</td><td>Obbligo di legge (art. 6.1.c)</td></tr>
+<tr><td>Sicurezza del sito, prevenzione di abusi, statistiche anonime per migliorare il sito</td><td>Legittimo interesse del titolare (art. 6.1.f)</td></tr>
 </table>
 <p>Non usiamo i tuoi dati per pubblicità, profilazione o newsletter, e non li vendiamo a nessuno.</p>
 
 <h2>4. Per quanto tempo li conserviamo</h2>
 <ul>
+<li>Richieste di informazioni: fino a 24 mesi dall'ultimo contatto, se non diventano una prenotazione.</li>
 <li>Dati dell'account e prenotazioni: finché l'account è attivo. Puoi chiederne la cancellazione in qualsiasi momento.</li>
+<li>Recensioni: finché restano pubblicate o finché non ne chiedi la rimozione.</li>
 <li>Dati necessari per fatture e contabilità: 10 anni, come previsto dalla legge.</li>
-<li>Dati tecnici dei server: per il tempo stabilito dai fornitori, di norma pochi giorni o settimane.</li>
+<li>Dati tecnici del server: per il tempo stabilito dal fornitore, di norma pochi giorni o settimane.</li>
 </ul>
 
 <h2>5. Chi può vedere i dati</h2>
-<p>I dati sono trattati dal titolare. Per far funzionare il sito ci affidiamo a fornitori che agiscono come responsabili del trattamento:</p>
+<p>I dati sono trattati solo dal titolare. Per far funzionare il sito ci affidiamo a fornitori che agiscono come responsabili del trattamento:</p>
 <ul>
-<li><b>Aruba S.p.A.</b> – hosting del sito, archivio dei dati e accesso all'area riservata (server in Italia). Qui salviamo anche <b>statistiche anonime delle visite</b> (pagina vista e tempo di permanenza, lingua, Paese e città, tipo di dispositivo, sito di provenienza): senza cookie e senza dati che ti identificano.</li>
-<li><b>Kloudend Inc. (ipapi.co)</b> – per stimare Paese e città della visita il tuo indirizzo IP viene inviato per un istante a questo servizio (USA); <b>l'indirizzo IP non viene salvato</b>.</li>
-<li><b>GitHub Inc.</b> – archivio dei file e dei contenuti pubblici del sito (USA); non contiene i dati degli utenti.</li>
+<li><b>Aruba S.p.A.</b> (Italia) – hosting del sito, archivio dei dati, area riservata e invio delle e-mail. I server sono in Italia.</li>
+<li><b>Google Ireland Ltd.</b> (Gmail) – casella di posta su cui il titolare riceve l'avviso delle nuove richieste e recensioni.</li>
+<li><b>Kloudend Inc.</b> (ipapi.co, USA) – per stimare Paese e città della visita il tuo indirizzo IP viene inviato per un istante a questo servizio; <b>l'indirizzo IP non viene salvato</b>.</li>
 </ul>
-<p>Per i fornitori con sede negli USA il trasferimento avviene sulla base del EU-US Data Privacy Framework e/o delle Clausole Contrattuali Standard della Commissione europea.</p>
-<p>Se paghi online, il pagamento avviene sulla pagina sicura di <b>Stripe</b> o <b>PayPal</b>, che trattano i dati di pagamento come titolari autonomi secondo le proprie informative. Noi non vediamo né conserviamo i dati della tua carta: riceviamo solo la conferma del pagamento, con nome, e-mail e importo.</p>
-<p>Se scegli di scriverci su <b>WhatsApp</b> o di guardare un <b>video di YouTube</b>, quei servizi trattano i dati secondo le proprie informative.</p>
-<p>I dati possono essere comunicati al commercialista per gli obblighi fiscali e alle autorità quando lo richiede la legge.</p>
+<p>Per i fornitori con sede fuori dall'UE il trasferimento avviene sulla base dell'EU-US Data Privacy Framework e/o delle Clausole Contrattuali Standard della Commissione europea.</p>
+<p>Se paghi online, il pagamento avviene sulla pagina sicura di <b>Stripe</b> o <b>PayPal</b>, che trattano i dati di pagamento come titolari autonomi secondo le proprie informative. Noi non vediamo né conserviamo i dati della tua carta.</p>
+<p>Se scegli di scriverci su <b>WhatsApp</b>, di aprire la nostra pagina <b>Facebook</b> o di guardare un <b>video di YouTube</b>, quei servizi trattano i dati secondo le proprie informative. Sul sito ci sono solo dei link: nessun pulsante «Mi piace» o plugin che invii dati a Facebook.</p>
+<p>I dati possono essere comunicati al commercialista per gli obblighi fiscali, ai proprietari degli alloggi o ai fornitori dei servizi che prenoti (solo quanto serve), e alle autorità quando lo richiede la legge.</p>
 
-<h2>6. I tuoi diritti</h2>
-<p>Puoi chiedere in qualsiasi momento di accedere ai tuoi dati, correggerli, cancellarli, limitarne l'uso, riceverli in un formato leggibile (portabilità) o opporti al trattamento basato sul legittimo interesse (artt. 15–22 GDPR). Scrivi a {email}.</p>
-<p>Puoi anche presentare reclamo al <b>Garante per la protezione dei dati personali</b> (www.garanteprivacy.it).</p>
+<h2 id="diritti">6. I tuoi diritti</h2>
+<p>Puoi chiedere in qualsiasi momento di accedere ai tuoi dati, correggerli, cancellarli, limitarne l'uso, riceverli in un formato leggibile (portabilità), opporti al trattamento basato sul legittimo interesse e revocare il consenso dato, senza effetti su quanto fatto prima (artt. 15–22 GDPR). Scrivi a {email}: rispondiamo entro 30 giorni.</p>
+<p>Puoi anche presentare reclamo al <b>Garante per la protezione dei dati personali</b> (www.garanteprivacy.it) o all'autorità del Paese in cui vivi.</p>
 <p>Nome, telefono e lingua li puoi modificare da solo nella sezione <i>Profilo</i> dell'area riservata.</p>
 
 <h2>7. Minori</h2>
 <p>Per registrarsi all'area riservata occorre avere almeno 14 anni. Per i minori di 14 anni la registrazione e le prenotazioni devono essere fatte da un genitore o da chi ne ha la responsabilità.</p>
 
 <h2>8. Dati obbligatori</h2>
-<p>Nome ed e-mail sono necessari per creare l'account e gestire le prenotazioni: senza questi dati non possiamo fornire il servizio. Il telefono è facoltativo.</p>
+<p>Per rispondere a una richiesta servono il nome e un'e-mail o un telefono; per creare l'account servono nome ed e-mail. Senza questi dati non possiamo fornire il servizio. Gli altri dati sono facoltativi.</p>
 
-<h2 id="cookie">9. Cookie policy</h2>
-<p>Questo sito <b>non usa cookie di profilazione, pubblicitari o di statistica</b> e non usa servizi di analisi.</p>
-<p>Usa solo strumenti tecnici, necessari al funzionamento, che salvano dati nel tuo browser (cookie o "local storage"). Per questi la legge non richiede il consenso:</p>
+<h2>9. Sicurezza</h2>
+<p>Il sito usa una connessione cifrata (HTTPS). Le password sono salvate solo in forma cifrata, i documenti personali si aprono solo con link temporanei e i dati sono accessibili solo al titolare.</p>
+
+<h2 id="cookie">10. Cookie policy</h2>
+<p>Questo sito <b>non usa cookie di profilazione, pubblicitari o di statistica di terze parti</b> (niente Google Analytics, niente Facebook Pixel).</p>
+<p>Usa solo strumenti tecnici, necessari al funzionamento, che salvano piccoli dati nel tuo browser. Per questi la legge (art. 122 Codice Privacy e Linee guida del Garante del 10 giugno 2021) <b>non richiede il consenso</b>: per questo non vedi un banner dei cookie.</p>
 <table>
-<tr><th>Nome</th><th>A cosa serve</th><th>Durata</th></tr>
-<tr><td>wzd-lang</td><td>Ricorda la lingua che hai scelto</td><td>Finché non la cancelli dal browser</td></tr>
-<tr><td>wzd</td><td>Cookie tecnico: ti mantiene collegato all'area riservata</td><td>Fino all'uscita (logout) o alla scadenza della sessione</td></tr>
+<tr><th>Nome</th><th>Tipo</th><th>A cosa serve</th><th>Durata</th></tr>
+<tr><td>wzd-lang</td><td>local storage</td><td>Ricorda la lingua che hai scelto</td><td>Finché non la cancelli dal browser</td></tr>
+<tr><td>wzd-sid</td><td>session storage</td><td>Numero casuale per contare una visita una sola volta (anonimo)</td><td>Si cancella quando chiudi la scheda</td></tr>
+<tr><td>wzd</td><td>cookie tecnico</td><td>Ti mantiene collegato all'area riservata (solo se accedi)</td><td>Fino all'uscita o alla chiusura del browser</td></tr>
 </table>
-<p><b>Video di YouTube:</b> i video sono incorporati in modalità "privacy avanzata" (youtube-nocookie.com) e si caricano solo quando premi play. Da quel momento YouTube (Google) può salvare i propri dati: vedi l'informativa di Google.</p>
-<p><b>Caratteri tipografici:</b> sono ospitati direttamente sul nostro sito, quindi nessun dato viene inviato a Google Fonts.</p>
+<p><b>Video di YouTube:</b> i video sono incorporati in modalità «privacy avanzata» (youtube-nocookie.com) e si caricano solo quando premi play. Da quel momento YouTube (Google) può salvare i propri dati: vedi l'informativa di Google.</p>
+<p><b>Caratteri tipografici:</b> sono ospitati sul nostro sito, quindi nessun dato viene inviato a Google Fonts.</p>
 <p>Puoi cancellare questi dati in qualsiasi momento dalle impostazioni del tuo browser.</p>
 `,
+
+de: `
+<h1>Datenschutz, Cookies und DSGVO</h1>
+<p class="muted">Datenschutzerklärung gemäß Art. 13–14 der Verordnung (EU) 2016/679 (DSGVO) · Letzte Aktualisierung: {updated}</p>
+<div class="toc"><a href="#privacy">Datenschutzerklärung</a> · <a href="#diritti">Deine Rechte</a> · <a href="#cookie">Cookie-Richtlinie</a></div>
+
+<h2 id="privacy">1. Verantwortliche</h2>
+<p>{owner}, Inhaberin von <b>Włoski z Dominiką i Podróże do Kalabrii</b>, USt-IdNr. (P.IVA) {vat}{sede}.<br>Kontakt für Datenschutzfragen: {email}</p>
+
+<h2>2. Welche Daten wir verarbeiten</h2>
+<ul>
+<li><b>Anfragen</b> (Formular „Schreib mir“ und Schaltflächen „Informationen anfragen“): Name, E-Mail und/oder Telefon, gewählte Sprache, Leistung oder Unterkunft, die dich interessiert, Daten, Personenzahl und deine Nachricht.</li>
+<li><b>Bewertungen:</b> Name, Land, Sterne, Text und E-Mail. Auf der Website veröffentlichen wir nach Prüfung nur Name, Land, Sterne und Text; die E-Mail wird nie veröffentlicht.</li>
+<li><b>Registrierung im Mitgliederbereich:</b> Vor- und Nachname, E-Mail, Telefon (freiwillig), bevorzugte Sprache, Passwort (nur verschlüsselt gespeichert).</li>
+<li><b>Buchungen:</b> Art der Leistung, Daten, Personenzahl, deine Notizen, Status von Buchung und Zahlung, Nachrichten der Inhaberin, dich betreffende Dokumente (z. B. Verträge).</li>
+<li><b>Sprachkurse:</b> Kurse, für die du angemeldet bist, und Zugang zu den Unterrichtsmaterialien.</li>
+<li><b>Anonyme Besuchsstatistik:</b> aufgerufene Seite, Verweildauer, Sprache, ungefähres Land und Stadt, Gerätetyp und Herkunftsseite. Dafür nutzen wir keine Cookies und speichern keine IP-Adresse: Diese Daten lassen keine Identifizierung zu.</li>
+<li><b>Technische Daten:</b> IP-Adresse und Browserdaten, die der Server automatisch zu Sicherheits- und Betriebszwecken protokolliert.</li>
+</ul>
+<p>Wir fragen keine besonderen Daten ab (z. B. zur Gesundheit). Wenn du in den Notizen z. B. Allergien angibst, nutzen wir das nur zur Organisation der Leistung.</p>
+
+<h2>3. Zwecke und Rechtsgrundlagen</h2>
+<table>
+<tr><th>Zweck</th><th>Rechtsgrundlage</th></tr>
+<tr><td>Beantwortung deiner Anfragen und Erstellung eines Angebots</td><td>Vorvertragliche Maßnahmen auf deine Anfrage (Art. 6 Abs. 1 lit. b DSGVO)</td></tr>
+<tr><td>Konto und Buchungen verwalten, Unterricht, Ausflüge und Leistungen erbringen, Zugang zu Materialien</td><td>Vertragserfüllung (Art. 6 Abs. 1 lit. b)</td></tr>
+<tr><td>Veröffentlichung deiner Bewertung</td><td>Deine Einwilligung, jederzeit widerrufbar (Art. 6 Abs. 1 lit. a)</td></tr>
+<tr><td>Online-Zahlungen und Erstattungen</td><td>Vertragserfüllung (Art. 6 Abs. 1 lit. b)</td></tr>
+<tr><td>Steuer- und Buchhaltungspflichten sowie Pflichten für Ferienunterkünfte</td><td>Rechtliche Verpflichtung (Art. 6 Abs. 1 lit. c)</td></tr>
+<tr><td>Sicherheit der Website, Missbrauchsschutz, anonyme Statistik zur Verbesserung</td><td>Berechtigtes Interesse (Art. 6 Abs. 1 lit. f)</td></tr>
+</table>
+<p>Wir nutzen deine Daten nicht für Werbung, Profiling oder Newsletter und verkaufen sie an niemanden.</p>
+
+<h2>4. Speicherdauer</h2>
+<ul>
+<li>Anfragen: bis zu 24 Monate nach dem letzten Kontakt, wenn daraus keine Buchung wird.</li>
+<li>Konto und Buchungen: solange das Konto aktiv ist. Du kannst jederzeit die Löschung verlangen.</li>
+<li>Bewertungen: solange sie veröffentlicht sind oder bis du die Entfernung verlangst.</li>
+<li>Daten für Rechnungen und Buchhaltung: 10 Jahre, wie gesetzlich vorgeschrieben.</li>
+<li>Technische Serverdaten: nach Vorgabe des Anbieters, meist wenige Tage oder Wochen.</li>
+</ul>
+
+<h2>5. Empfänger</h2>
+<p>Die Daten werden nur von der Inhaberin verarbeitet. Für den Betrieb der Website nutzen wir Dienstleister als Auftragsverarbeiter:</p>
+<ul>
+<li><b>Aruba S.p.A.</b> (Italien) – Hosting, Datenspeicherung, Mitgliederbereich und E-Mail-Versand. Server in Italien.</li>
+<li><b>Google Ireland Ltd.</b> (Gmail) – Postfach, in dem die Inhaberin die Benachrichtigung über neue Anfragen und Bewertungen erhält.</li>
+<li><b>Kloudend Inc.</b> (ipapi.co, USA) – um Land und Stadt des Besuchs zu schätzen, wird deine IP-Adresse kurz an diesen Dienst übermittelt; <b>die IP-Adresse wird nicht gespeichert</b>.</li>
+</ul>
+<p>Übermittlungen an Anbieter außerhalb der EU erfolgen auf Grundlage des EU-US Data Privacy Framework und/oder der Standardvertragsklauseln der EU-Kommission.</p>
+<p>Bei Online-Zahlung erfolgt die Zahlung auf der sicheren Seite von <b>Stripe</b> oder <b>PayPal</b>, die als eigene Verantwortliche nach ihren Datenschutzerklärungen handeln. Wir sehen und speichern keine Kartendaten.</p>
+<p>Wenn du uns über <b>WhatsApp</b> schreibst, unsere <b>Facebook</b>-Seite öffnest oder ein <b>YouTube</b>-Video ansiehst, verarbeiten diese Dienste Daten nach ihren eigenen Bestimmungen. Auf der Website gibt es nur Links: keine „Gefällt mir“-Schaltfläche und kein Plugin, das Daten an Facebook sendet.</p>
+<p>Daten können an die Steuerberatung, an Unterkunftseigentümer oder Anbieter der gebuchten Leistungen (nur soweit nötig) und an Behörden weitergegeben werden, wenn das Gesetz es verlangt.</p>
+
+<h2 id="diritti">6. Deine Rechte</h2>
+<p>Du kannst jederzeit Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung und Datenübertragbarkeit verlangen, der Verarbeitung auf Grundlage berechtigter Interessen widersprechen und eine Einwilligung widerrufen, ohne dass dies frühere Verarbeitungen berührt (Art. 15–22 DSGVO). Schreib an {email}: Wir antworten innerhalb von 30 Tagen.</p>
+<p>Du kannst dich auch beim <b>Garante per la protezione dei dati personali</b> (www.garanteprivacy.it) oder bei der Aufsichtsbehörde deines Landes beschweren.</p>
+<p>Name, Telefon und Sprache kannst du selbst im Bereich <i>Profil</i> des Mitgliederbereichs ändern.</p>
+
+<h2>7. Minderjährige</h2>
+<p>Für die Registrierung musst du mindestens 14 Jahre alt sein. Für Jüngere müssen Registrierung und Buchungen von einem Elternteil oder Erziehungsberechtigten vorgenommen werden.</p>
+
+<h2>8. Pflichtangaben</h2>
+<p>Für die Antwort auf eine Anfrage brauchen wir den Namen und eine E-Mail oder Telefonnummer; für ein Konto Name und E-Mail. Ohne diese Daten können wir die Leistung nicht erbringen. Alle anderen Angaben sind freiwillig.</p>
+
+<h2>9. Sicherheit</h2>
+<p>Die Website nutzt eine verschlüsselte Verbindung (HTTPS). Passwörter werden nur verschlüsselt gespeichert, persönliche Dokumente öffnen sich nur über zeitlich begrenzte Links, und nur die Inhaberin hat Zugriff auf die Daten.</p>
+
+<h2 id="cookie">10. Cookie-Richtlinie</h2>
+<p>Diese Website verwendet <b>keine Profiling-, Werbe- oder Statistik-Cookies von Drittanbietern</b> (kein Google Analytics, kein Facebook-Pixel).</p>
+<p>Sie nutzt nur technisch notwendige Speicherungen im Browser. Dafür ist nach italienischem Recht (Art. 122 Datenschutzkodex, Leitlinien des Garante vom 10. Juni 2021) <b>keine Einwilligung erforderlich</b>: Deshalb siehst du kein Cookie-Banner.</p>
+<table>
+<tr><th>Name</th><th>Art</th><th>Zweck</th><th>Dauer</th></tr>
+<tr><td>wzd-lang</td><td>Local Storage</td><td>Merkt sich die gewählte Sprache</td><td>Bis du sie im Browser löschst</td></tr>
+<tr><td>wzd-sid</td><td>Session Storage</td><td>Zufallszahl, damit ein Besuch nur einmal gezählt wird (anonym)</td><td>Wird beim Schließen des Tabs gelöscht</td></tr>
+<tr><td>wzd</td><td>Technisches Cookie</td><td>Hält dich im Mitgliederbereich angemeldet (nur nach Anmeldung)</td><td>Bis zur Abmeldung oder zum Schließen des Browsers</td></tr>
+</table>
+<p><b>YouTube-Videos:</b> Die Videos sind im „erweiterten Datenschutzmodus“ (youtube-nocookie.com) eingebettet und laden erst, wenn du auf Play drückst. Ab dann kann YouTube (Google) eigene Daten speichern: siehe Datenschutzerklärung von Google.</p>
+<p><b>Schriftarten:</b> Sie liegen auf unserem eigenen Server, es werden keine Daten an Google Fonts gesendet.</p>
+<p>Du kannst diese Daten jederzeit in den Einstellungen deines Browsers löschen.</p>
+`,
+
 en: `
-<h1>Privacy & Cookies</h1>
-<p class="muted">Information notice under Articles 13–14 of Regulation (EU) 2016/679 (GDPR) · Last updated: {updated}</p>
-<p class="muted">The Italian version of this notice is the legally binding one.</p>
-<div class="toc"><a href="#privacy">Privacy notice</a> · <a href="#cookie">Cookie policy</a></div>
+<h1>Privacy, Cookies and GDPR</h1>
+<p class="muted">Privacy notice under Articles 13–14 of Regulation (EU) 2016/679 (GDPR) · Last updated: {updated}</p>
+<div class="toc"><a href="#privacy">Privacy notice</a> · <a href="#diritti">Your rights</a> · <a href="#cookie">Cookie policy</a></div>
 
 <h2 id="privacy">1. Data controller</h2>
-<p>{owner}, owner of <b>Włoski z Dominiką i Podróże do Kalabrii</b>, VAT no. {vat}, based at {address}.<br>Privacy contact: {email}</p>
+<p>{owner}, owner of <b>Włoski z Dominiką i Podróże do Kalabrii</b>, VAT no. (P.IVA) {vat}{sede}.<br>Privacy contact: {email}</p>
 
 <h2>2. What data we process</h2>
 <ul>
+<li><b>Enquiries</b> (“Write to me” form and “Request information” buttons): name, email and/or phone, chosen language, the service or accommodation you are interested in, dates, number of people and your message.</li>
+<li><b>Reviews:</b> name, country, rating, text and email. On the site we publish only name, country, rating and text, after checking them; your email is never published.</li>
 <li><b>Members' area sign-up:</b> full name, email, phone (optional), preferred language, password (stored only in encrypted form).</li>
-<li><b>Bookings:</b> type of service, dates, number of people, notes you write, booking and payment status, messages from us.</li>
-<li><b>Language courses:</b> the courses you're enrolled in and access to teaching materials.</li>
-<li><b>Contact form:</b> the form opens your email app; the data reaches us by email and is not stored on the website.</li>
-<li><b>Technical data:</b> IP address and browser data logged automatically by the servers hosting the site, for security and operation.</li>
+<li><b>Bookings:</b> type of service, dates, number of people, your notes, booking and payment status, messages from the owner, documents concerning you (e.g. contracts).</li>
+<li><b>Language courses:</b> courses you are enrolled in and access to the teaching materials.</li>
+<li><b>Anonymous visit statistics:</b> page viewed, time spent, language, approximate country and city, device type and referring site. We use no cookies for this and do not store your IP address: this data cannot identify you.</li>
+<li><b>Technical data:</b> IP address and browser data logged automatically by the hosting server for security and operation.</li>
 </ul>
-<p>We don't ask for special categories of data (e.g. health). If you write things like allergies or dietary needs in your notes, we use them only to organise the service.</p>
+<p>We do not ask for special categories of data (e.g. health). If you mention things like allergies in your notes, we use them only to organise the service.</p>
 
-<h2>3. Why we process it and legal basis</h2>
+<h2>3. Purposes and legal bases</h2>
 <table>
 <tr><th>Purpose</th><th>Legal basis</th></tr>
-<tr><td>Creating and managing your account, handling bookings, providing lessons and excursions, giving access to materials</td><td>Performance of a contract or pre-contractual steps (Art. 6(1)(b) GDPR)</td></tr>
-<tr><td>Answering your enquiries</td><td>Pre-contractual steps at your request (Art. 6(1)(b))</td></tr>
-<tr><td>Handling online payments and any refunds</td><td>Performance of a contract (Art. 6(1)(b))</td></tr>
-<tr><td>Tax and accounting obligations (invoices, receipts)</td><td>Legal obligation (Art. 6(1)(c))</td></tr>
-<tr><td>Website security and abuse prevention</td><td>Legitimate interest (Art. 6(1)(f))</td></tr>
+<tr><td>Answering your enquiries and preparing a quote</td><td>Pre-contractual steps at your request (Art. 6(1)(b) GDPR)</td></tr>
+<tr><td>Managing your account and bookings, providing lessons, excursions and services, access to materials</td><td>Performance of a contract (Art. 6(1)(b))</td></tr>
+<tr><td>Publishing your review</td><td>Your consent, which you can withdraw at any time (Art. 6(1)(a))</td></tr>
+<tr><td>Online payments and refunds</td><td>Performance of a contract (Art. 6(1)(b))</td></tr>
+<tr><td>Tax and accounting duties and obligations for holiday rentals</td><td>Legal obligation (Art. 6(1)(c))</td></tr>
+<tr><td>Site security, abuse prevention, anonymous statistics to improve the site</td><td>Legitimate interest (Art. 6(1)(f))</td></tr>
 </table>
-<p>We don't use your data for advertising, profiling or newsletters, and we never sell it.</p>
+<p>We do not use your data for advertising, profiling or newsletters, and we never sell it.</p>
 
 <h2>4. How long we keep it</h2>
 <ul>
-<li>Account and booking data: while your account is active. You can ask for deletion at any time.</li>
-<li>Data needed for invoices and accounting: 10 years, as required by Italian law.</li>
-<li>Server technical data: for the period set by the providers, usually a few days or weeks.</li>
+<li>Enquiries: up to 24 months after the last contact, if they do not become a booking.</li>
+<li>Account and bookings: as long as the account is active. You can ask for deletion at any time.</li>
+<li>Reviews: as long as they are published or until you ask for removal.</li>
+<li>Data needed for invoices and accounting: 10 years, as required by law.</li>
+<li>Technical server data: as set by the provider, usually a few days or weeks.</li>
 </ul>
 
 <h2>5. Who can see the data</h2>
-<p>Data is processed by the controller. To run the website we use providers acting as data processors:</p>
+<p>The data is processed only by the owner. To run the site we use providers acting as data processors:</p>
 <ul>
-<li><b>Aruba S.p.A.</b> – website hosting, data storage and members' area login (servers in Italy). We also store <b>anonymous visit statistics</b> there (page viewed and time spent, language, country and city, device type, referring site): no cookies and no data that identifies you.</li>
-<li><b>Kloudend Inc. (ipapi.co)</b> – to estimate the country and city of a visit, your IP address is sent for a moment to this service (USA); <b>the IP address is not stored</b>.</li>
-<li><b>GitHub Inc.</b> – storage of the website's public files and content (USA); contains no user data.</li>
+<li><b>Aruba S.p.A.</b> (Italy) – hosting, data storage, members' area and sending emails. Servers in Italy.</li>
+<li><b>Google Ireland Ltd.</b> (Gmail) – the mailbox where the owner receives notices of new enquiries and reviews.</li>
+<li><b>Kloudend Inc.</b> (ipapi.co, USA) – to estimate the country and city of a visit, your IP address is briefly sent to this service; <b>the IP address is not stored</b>.</li>
 </ul>
-<p>For US-based providers, transfers rely on the EU-US Data Privacy Framework and/or the European Commission's Standard Contractual Clauses.</p>
-<p>If you pay online, payment takes place on the secure page of <b>Stripe</b> or <b>PayPal</b>, which process payment data as independent controllers under their own policies. We never see or store your card details: we only receive the payment confirmation with name, email and amount.</p>
-<p>If you choose to contact us on <b>WhatsApp</b> or watch a <b>YouTube video</b>, those services process data under their own privacy policies.</p>
-<p>Data may be shared with our accountant for tax purposes and with authorities when required by law.</p>
+<p>Transfers to providers outside the EU rely on the EU-US Data Privacy Framework and/or the European Commission's Standard Contractual Clauses.</p>
+<p>If you pay online, payment takes place on the secure page of <b>Stripe</b> or <b>PayPal</b>, which act as independent controllers under their own privacy notices. We never see or store your card details.</p>
+<p>If you write to us on <b>WhatsApp</b>, open our <b>Facebook</b> page or watch a <b>YouTube</b> video, those services process data under their own notices. The site only contains links: no “Like” button or plugin sends data to Facebook.</p>
+<p>Data may be shared with our accountant for tax purposes, with property owners or providers of the services you book (only what is needed), and with authorities when required by law.</p>
 
-<h2>6. Your rights</h2>
-<p>You can ask at any time to access, correct or delete your data, restrict its use, receive it in a portable format, or object to processing based on legitimate interest (Arts. 15–22 GDPR). Write to {email}.</p>
-<p>You can also lodge a complaint with the Italian Data Protection Authority (<b>Garante per la protezione dei dati personali</b>, www.garanteprivacy.it) or the authority in your country.</p>
+<h2 id="diritti">6. Your rights</h2>
+<p>At any time you can ask to access, correct or delete your data, restrict its use, receive it in a portable format, object to processing based on legitimate interest and withdraw your consent, without affecting earlier processing (Arts. 15–22 GDPR). Write to {email}: we reply within 30 days.</p>
+<p>You can also lodge a complaint with the Italian <b>Garante per la protezione dei dati personali</b> (www.garanteprivacy.it) or with the authority of the country where you live.</p>
 <p>You can change your name, phone and language yourself in the <i>Profile</i> section of the members' area.</p>
 
 <h2>7. Minors</h2>
 <p>You must be at least 14 to sign up. For children under 14, sign-up and bookings must be made by a parent or guardian.</p>
 
 <h2>8. Required data</h2>
-<p>Name and email are needed to create an account and handle bookings: without them we can't provide the service. Phone is optional.</p>
+<p>To answer an enquiry we need your name and an email or phone number; to create an account, name and email. Without them we cannot provide the service. Everything else is optional.</p>
 
-<h2 id="cookie">9. Cookie policy</h2>
-<p>This website <b>does not use profiling, advertising or analytics cookies</b> and does not use any analytics service.</p>
-<p>It only uses technical tools needed for it to work, which store data in your browser (cookies or "local storage"). No consent is required for these:</p>
+<h2>9. Security</h2>
+<p>The site uses an encrypted connection (HTTPS). Passwords are stored only in encrypted form, personal documents open only through temporary links, and only the owner can access the data.</p>
+
+<h2 id="cookie">10. Cookie policy</h2>
+<p>This site uses <b>no profiling, advertising or third-party analytics cookies</b> (no Google Analytics, no Facebook Pixel).</p>
+<p>It only uses strictly necessary technical storage in your browser. Under Italian law (Art. 122 Privacy Code and the Garante's guidelines of 10 June 2021) these <b>do not require consent</b>, which is why you don't see a cookie banner.</p>
 <table>
-<tr><th>Name</th><th>Purpose</th><th>Duration</th></tr>
-<tr><td>wzd-lang</td><td>Remembers the language you chose</td><td>Until you clear it in your browser</td></tr>
-<tr><td>wzd</td><td>Technical cookie: keeps you logged in to the members' area</td><td>Until you log out or the session expires</td></tr>
+<tr><th>Name</th><th>Type</th><th>Purpose</th><th>Duration</th></tr>
+<tr><td>wzd-lang</td><td>local storage</td><td>Remembers the language you chose</td><td>Until you clear it in your browser</td></tr>
+<tr><td>wzd-sid</td><td>session storage</td><td>Random number so a visit is counted only once (anonymous)</td><td>Deleted when you close the tab</td></tr>
+<tr><td>wzd</td><td>technical cookie</td><td>Keeps you logged in to the members' area (only if you log in)</td><td>Until you log out or close the browser</td></tr>
 </table>
-<p><b>YouTube videos:</b> videos are embedded in "privacy-enhanced mode" (youtube-nocookie.com) and only load when you press play. From then on YouTube (Google) may store its own data: see Google's privacy policy.</p>
-<p><b>Fonts:</b> fonts are hosted on our own website, so no data is sent to Google Fonts.</p>
-<p>You can delete this data at any time from your browser settings.</p>
+<p><b>YouTube videos:</b> embedded in “privacy-enhanced mode” (youtube-nocookie.com) and loaded only when you press play. From then on YouTube (Google) may store its own data: see Google's privacy policy.</p>
+<p><b>Fonts:</b> hosted on our own server, so no data is sent to Google Fonts.</p>
+<p>You can delete this data at any time in your browser settings.</p>
 `,
+
 pl: `
-<h1>Prywatność i cookies</h1>
-<p class="muted">Informacja na podstawie art. 13–14 Rozporządzenia (UE) 2016/679 (RODO) · Ostatnia aktualizacja: {updated}</p>
-<p class="muted">Wiążąca prawnie jest włoska wersja tej informacji.</p>
-<div class="toc"><a href="#privacy">Polityka prywatności</a> · <a href="#cookie">Polityka cookies</a></div>
+<h1>Prywatność, cookies i RODO</h1>
+<p class="muted">Informacja zgodnie z art. 13–14 Rozporządzenia (UE) 2016/679 (RODO) · Ostatnia aktualizacja: {updated}</p>
+<div class="toc"><a href="#privacy">Polityka prywatności</a> · <a href="#diritti">Twoje prawa</a> · <a href="#cookie">Polityka cookies</a></div>
 
 <h2 id="privacy">1. Administrator danych</h2>
-<p>{owner}, właścicielka działalności <b>Włoski z Dominiką i Podróże do Kalabrii</b>, NIP (P.IVA) {vat}, z siedzibą: {address}.<br>Kontakt w sprawach prywatności: {email}</p>
+<p>{owner}, właścicielka działalności <b>Włoski z Dominiką i Podróże do Kalabrii</b>, NIP (P.IVA) {vat}{sede}.<br>Kontakt w sprawach prywatności: {email}</p>
 
 <h2>2. Jakie dane przetwarzamy</h2>
 <ul>
+<li><b>Zapytania</b> (formularz „Napisz do mnie” i przyciski „Zapytaj o informacje”): imię, e-mail i/lub telefon, wybrany język, usługa lub nocleg, który Cię interesuje, daty, liczba osób i Twoja wiadomość.</li>
+<li><b>Opinie:</b> imię, kraj, ocena, treść i e-mail. Na stronie publikujemy, po sprawdzeniu, tylko imię, kraj, ocenę i treść; e-mail nigdy nie jest publikowany.</li>
 <li><b>Rejestracja w strefie klienta:</b> imię i nazwisko, e-mail, telefon (opcjonalnie), preferowany język, hasło (przechowywane wyłącznie w formie zaszyfrowanej).</li>
-<li><b>Rezerwacje:</b> rodzaj usługi, daty, liczba osób, Twoje uwagi, status rezerwacji i płatności, wiadomości od nas.</li>
+<li><b>Rezerwacje:</b> rodzaj usługi, daty, liczba osób, Twoje uwagi, status rezerwacji i płatności, wiadomości od właścicielki, dokumenty, które Cię dotyczą (np. umowy).</li>
 <li><b>Kursy językowe:</b> kursy, na które jesteś zapisany/a, i dostęp do materiałów.</li>
-<li><b>Formularz kontaktowy:</b> formularz otwiera Twój program pocztowy; dane docierają do nas e-mailem i nie są zapisywane na stronie.</li>
-<li><b>Dane techniczne:</b> adres IP i dane przeglądarki zapisywane automatycznie przez serwery hostujące stronę, w celach bezpieczeństwa i działania.</li>
+<li><b>Anonimowe statystyki odwiedzin:</b> odwiedzona strona, czas pobytu, język, przybliżony kraj i miasto, rodzaj urządzenia i strona, z której przychodzisz. Nie używamy do tego cookies i nie zapisujemy adresu IP: te dane nie pozwalają Cię zidentyfikować.</li>
+<li><b>Dane techniczne:</b> adres IP i dane przeglądarki zapisywane automatycznie przez serwer w celach bezpieczeństwa i działania strony.</li>
 </ul>
-<p>Nie prosimy o dane szczególnych kategorii (np. o zdrowiu). Jeśli w uwagach wpiszesz np. alergie lub wymagania dietetyczne, wykorzystamy je wyłącznie do organizacji usługi.</p>
+<p>Nie prosimy o dane szczególne (np. o zdrowiu). Jeśli w uwagach podasz np. alergie, użyjemy ich wyłącznie do organizacji usługi.</p>
 
 <h2>3. Cele i podstawy prawne</h2>
 <table>
 <tr><th>Cel</th><th>Podstawa prawna</th></tr>
-<tr><td>Założenie i obsługa konta, obsługa rezerwacji, realizacja lekcji i wycieczek, dostęp do materiałów</td><td>Wykonanie umowy lub działania przed jej zawarciem (art. 6 ust. 1 lit. b RODO)</td></tr>
-<tr><td>Odpowiedzi na zapytania</td><td>Działania na Twoje żądanie przed zawarciem umowy (art. 6 ust. 1 lit. b)</td></tr>
-<tr><td>Obsługa płatności online i ewentualnych zwrotów</td><td>Wykonanie umowy (art. 6 ust. 1 lit. b)</td></tr>
-<tr><td>Obowiązki podatkowe i księgowe (faktury, paragony)</td><td>Obowiązek prawny (art. 6 ust. 1 lit. c)</td></tr>
-<tr><td>Bezpieczeństwo strony i zapobieganie nadużyciom</td><td>Prawnie uzasadniony interes (art. 6 ust. 1 lit. f)</td></tr>
+<tr><td>Odpowiedź na zapytania i przygotowanie oferty</td><td>Działania przed zawarciem umowy na Twoje żądanie (art. 6 ust. 1 lit. b RODO)</td></tr>
+<tr><td>Obsługa konta i rezerwacji, prowadzenie lekcji, wycieczek i usług, dostęp do materiałów</td><td>Wykonanie umowy (art. 6 ust. 1 lit. b)</td></tr>
+<tr><td>Publikacja Twojej opinii</td><td>Twoja zgoda, którą możesz w każdej chwili wycofać (art. 6 ust. 1 lit. a)</td></tr>
+<tr><td>Płatności online i ewentualne zwroty</td><td>Wykonanie umowy (art. 6 ust. 1 lit. b)</td></tr>
+<tr><td>Obowiązki podatkowe i księgowe oraz obowiązki dotyczące noclegów turystycznych</td><td>Obowiązek prawny (art. 6 ust. 1 lit. c)</td></tr>
+<tr><td>Bezpieczeństwo strony, zapobieganie nadużyciom, anonimowe statystyki</td><td>Prawnie uzasadniony interes (art. 6 ust. 1 lit. f)</td></tr>
 </table>
-<p>Nie wykorzystujemy Twoich danych do reklamy, profilowania ani newslettera i nikomu ich nie sprzedajemy.</p>
+<p>Nie wykorzystujemy Twoich danych do reklamy, profilowania ani newsletterów i nikomu ich nie sprzedajemy.</p>
 
 <h2>4. Jak długo przechowujemy dane</h2>
 <ul>
-<li>Dane konta i rezerwacji: dopóki konto jest aktywne. W każdej chwili możesz poprosić o ich usunięcie.</li>
-<li>Dane potrzebne do faktur i księgowości: 10 lat, zgodnie z prawem włoskim.</li>
-<li>Dane techniczne serwerów: przez okres ustalony przez dostawców, zwykle kilka dni lub tygodni.</li>
+<li>Zapytania: do 24 miesięcy od ostatniego kontaktu, jeśli nie zamienią się w rezerwację.</li>
+<li>Konto i rezerwacje: dopóki konto jest aktywne. W każdej chwili możesz poprosić o usunięcie.</li>
+<li>Opinie: dopóki są opublikowane lub do czasu prośby o usunięcie.</li>
+<li>Dane potrzebne do faktur i księgowości: 10 lat, zgodnie z prawem.</li>
+<li>Dane techniczne serwera: zgodnie z zasadami dostawcy, zwykle kilka dni lub tygodni.</li>
 </ul>
 
 <h2>5. Kto ma dostęp do danych</h2>
-<p>Dane przetwarza administrator. Do działania strony korzystamy z dostawców, którzy działają jako podmioty przetwarzające:</p>
+<p>Dane przetwarza wyłącznie właścicielka. Do działania strony korzystamy z dostawców, którzy są podmiotami przetwarzającymi:</p>
 <ul>
-<li><b>Aruba S.p.A.</b> – hosting strony, przechowywanie danych i logowanie do strefy klienta (serwery we Włoszech). Przechowujemy tam także <b>anonimowe statystyki odwiedzin</b> (odwiedzona strona i czas pobytu, język, kraj i miasto, rodzaj urządzenia, strona, z której przychodzisz): bez plików cookie i bez danych, które Cię identyfikują.</li>
-<li><b>Kloudend Inc. (ipapi.co)</b> – aby oszacować kraj i miasto odwiedzin, Twój adres IP jest na chwilę przesyłany do tej usługi (USA); <b>adres IP nie jest zapisywany</b>.</li>
-<li><b>GitHub Inc.</b> – przechowywanie publicznych plików i treści strony (USA); nie zawiera danych użytkowników.</li>
+<li><b>Aruba S.p.A.</b> (Włochy) – hosting, przechowywanie danych, strefa klienta i wysyłka e-maili. Serwery we Włoszech.</li>
+<li><b>Google Ireland Ltd.</b> (Gmail) – skrzynka, na którą właścicielka otrzymuje powiadomienia o nowych zapytaniach i opiniach.</li>
+<li><b>Kloudend Inc.</b> (ipapi.co, USA) – aby oszacować kraj i miasto odwiedzin, Twój adres IP jest na chwilę przesyłany do tej usługi; <b>adres IP nie jest zapisywany</b>.</li>
 </ul>
-<p>W przypadku dostawców z USA przekazanie danych odbywa się na podstawie EU-US Data Privacy Framework i/lub standardowych klauzul umownych Komisji Europejskiej.</p>
-<p>Jeśli płacisz online, płatność odbywa się na bezpiecznej stronie <b>Stripe</b> lub <b>PayPal</b>, które przetwarzają dane płatnicze jako niezależni administratorzy według własnych zasad. Nie widzimy ani nie przechowujemy danych Twojej karty: otrzymujemy tylko potwierdzenie płatności z imieniem, e-mailem i kwotą.</p>
-<p>Jeśli zdecydujesz się napisać do nas na <b>WhatsAppie</b> lub obejrzeć <b>film z YouTube</b>, te serwisy przetwarzają dane według własnych zasad.</p>
-<p>Dane mogą zostać przekazane księgowej/księgowemu w celach podatkowych oraz organom, gdy wymaga tego prawo.</p>
+<p>Przekazywanie danych poza UE odbywa się na podstawie EU-US Data Privacy Framework i/lub standardowych klauzul umownych Komisji Europejskiej.</p>
+<p>Płatności online odbywają się na bezpiecznej stronie <b>Stripe</b> lub <b>PayPal</b>, które działają jako odrębni administratorzy zgodnie z własnymi politykami. Nie widzimy i nie przechowujemy danych Twojej karty.</p>
+<p>Jeśli napiszesz do nas na <b>WhatsApp</b>, otworzysz naszą stronę na <b>Facebooku</b> lub obejrzysz film na <b>YouTube</b>, te serwisy przetwarzają dane według własnych zasad. Na stronie są tylko linki: żaden przycisk „Lubię to” ani wtyczka nie wysyła danych do Facebooka.</p>
+<p>Dane mogą być przekazane księgowej w celach podatkowych, właścicielom noclegów lub dostawcom rezerwowanych usług (tylko w niezbędnym zakresie) oraz organom, gdy wymaga tego prawo.</p>
 
-<h2>6. Twoje prawa</h2>
-<p>W każdej chwili możesz zażądać dostępu do swoich danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, otrzymania ich w formacie przenośnym lub wnieść sprzeciw wobec przetwarzania opartego na uzasadnionym interesie (art. 15–22 RODO). Napisz na {email}.</p>
-<p>Możesz też złożyć skargę do włoskiego organu nadzorczego (<b>Garante per la protezione dei dati personali</b>, www.garanteprivacy.it) lub do Prezesa UODO w Polsce.</p>
-<p>Imię, telefon i język możesz zmienić samodzielnie w zakładce <i>Profil</i> strefy klienta.</p>
+<h2 id="diritti">6. Twoje prawa</h2>
+<p>W każdej chwili możesz żądać dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przeniesienia, wnieść sprzeciw wobec przetwarzania opartego na uzasadnionym interesie i wycofać zgodę, bez wpływu na wcześniejsze przetwarzanie (art. 15–22 RODO). Napisz na {email}: odpowiemy w ciągu 30 dni.</p>
+<p>Możesz też złożyć skargę do włoskiego <b>Garante per la protezione dei dati personali</b> (www.garanteprivacy.it) lub do organu w swoim kraju (w Polsce: Prezes UODO, uodo.gov.pl).</p>
+<p>Imię, telefon i język możesz zmienić samodzielnie w sekcji <i>Profil</i> strefy klienta.</p>
 
 <h2>7. Osoby niepełnoletnie</h2>
-<p>Aby się zarejestrować, trzeba mieć co najmniej 14 lat. W przypadku dzieci poniżej 14 lat rejestracji i rezerwacji dokonuje rodzic lub opiekun.</p>
+<p>Aby się zarejestrować, trzeba mieć co najmniej 14 lat. W przypadku młodszych dzieci rejestracji i rezerwacji dokonuje rodzic lub opiekun.</p>
 
 <h2>8. Dane obowiązkowe</h2>
-<p>Imię i e-mail są potrzebne do założenia konta i obsługi rezerwacji: bez nich nie możemy świadczyć usługi. Telefon jest opcjonalny.</p>
+<p>Aby odpowiedzieć na zapytanie, potrzebujemy imienia oraz e-maila lub telefonu; do założenia konta – imienia i e-maila. Bez nich nie możemy zrealizować usługi. Pozostałe dane są dobrowolne.</p>
 
-<h2 id="cookie">9. Polityka cookies</h2>
-<p>Ta strona <b>nie używa plików cookie profilujących, reklamowych ani analitycznych</b> i nie korzysta z żadnych narzędzi statystycznych.</p>
-<p>Używa wyłącznie narzędzi technicznych, niezbędnych do działania, które zapisują dane w Twojej przeglądarce (cookies lub „local storage”). Nie wymagają one zgody:</p>
+<h2>9. Bezpieczeństwo</h2>
+<p>Strona korzysta z szyfrowanego połączenia (HTTPS). Hasła są przechowywane wyłącznie w formie zaszyfrowanej, dokumenty osobiste otwierają się tylko przez linki czasowe, a dostęp do danych ma wyłącznie właścicielka.</p>
+
+<h2 id="cookie">10. Polityka cookies</h2>
+<p>Ta strona <b>nie używa plików cookies profilujących, reklamowych ani statystycznych firm trzecich</b> (bez Google Analytics, bez Piksela Facebooka).</p>
+<p>Korzysta tylko z niezbędnych technicznych danych zapisywanych w przeglądarce. Zgodnie z prawem włoskim (art. 122 Kodeksu prywatności i wytyczne Garante z 10 czerwca 2021) <b>nie wymagają one zgody</b>, dlatego nie widzisz banera cookies.</p>
 <table>
-<tr><th>Nazwa</th><th>Do czego służy</th><th>Czas przechowywania</th></tr>
-<tr><td>wzd-lang</td><td>Zapamiętuje wybrany język</td><td>Do czasu usunięcia w przeglądarce</td></tr>
-<tr><td>wzd</td><td>Techniczny plik cookie: utrzymuje zalogowanie w strefie klienta</td><td>Do wylogowania lub wygaśnięcia sesji</td></tr>
+<tr><th>Nazwa</th><th>Rodzaj</th><th>Do czego służy</th><th>Czas</th></tr>
+<tr><td>wzd-lang</td><td>local storage</td><td>Zapamiętuje wybrany język</td><td>Dopóki go nie usuniesz w przeglądarce</td></tr>
+<tr><td>wzd-sid</td><td>session storage</td><td>Losowa liczba, by policzyć wizytę tylko raz (anonimowo)</td><td>Usuwana po zamknięciu karty</td></tr>
+<tr><td>wzd</td><td>techniczny plik cookie</td><td>Utrzymuje zalogowanie w strefie klienta (tylko po zalogowaniu)</td><td>Do wylogowania lub zamknięcia przeglądarki</td></tr>
 </table>
-<p><b>Filmy z YouTube:</b> filmy są osadzone w „trybie rozszerzonej prywatności” (youtube-nocookie.com) i ładują się dopiero po naciśnięciu „play”. Od tego momentu YouTube (Google) może zapisywać własne dane: zobacz politykę prywatności Google.</p>
-<p><b>Czcionki:</b> są przechowywane na naszej stronie, więc żadne dane nie są wysyłane do Google Fonts.</p>
+<p><b>Filmy YouTube:</b> osadzone w „trybie rozszerzonej prywatności” (youtube-nocookie.com) i ładowane dopiero po naciśnięciu play. Od tego momentu YouTube (Google) może zapisywać własne dane: zobacz politykę prywatności Google.</p>
+<p><b>Czcionki:</b> są przechowywane na naszym serwerze, więc żadne dane nie trafiają do Google Fonts.</p>
 <p>Możesz w każdej chwili usunąć te dane w ustawieniach przeglądarki.</p>
+`,
+
+es: `
+<h1>Privacidad, cookies y RGPD</h1>
+<p class="muted">Información según los arts. 13–14 del Reglamento (UE) 2016/679 (RGPD) · Última actualización: {updated}</p>
+<div class="toc"><a href="#privacy">Política de privacidad</a> · <a href="#diritti">Tus derechos</a> · <a href="#cookie">Política de cookies</a></div>
+
+<h2 id="privacy">1. Responsable del tratamiento</h2>
+<p>{owner}, titular de la actividad <b>Włoski z Dominiką i Podróże do Kalabrii</b>, NIF-IVA (P.IVA) {vat}{sede}.<br>Contacto para privacidad: {email}</p>
+
+<h2>2. Qué datos tratamos</h2>
+<ul>
+<li><b>Solicitudes de información</b> (formulario «Escríbeme» y botones «Solicitar información»): nombre, e-mail y/o teléfono, idioma elegido, servicio o alojamiento que te interesa, fechas, número de personas y tu mensaje.</li>
+<li><b>Opiniones:</b> nombre, país, valoración, texto y e-mail. En la web publicamos, tras revisarlos, solo nombre, país, valoración y texto; el e-mail nunca se publica.</li>
+<li><b>Registro en el área privada:</b> nombre y apellidos, e-mail, teléfono (opcional), idioma preferido, contraseña (guardada solo cifrada).</li>
+<li><b>Reservas:</b> tipo de servicio, fechas, número de personas, tus notas, estado de la reserva y del pago, mensajes de la titular, documentos que te afectan (p. ej. contratos).</li>
+<li><b>Cursos de idiomas:</b> cursos en los que estás inscrito/a y acceso a los materiales.</li>
+<li><b>Estadísticas anónimas de visitas:</b> página vista, tiempo de permanencia, idioma, país y ciudad aproximados, tipo de dispositivo y sitio de procedencia. No usamos cookies para ello ni guardamos la dirección IP: estos datos no permiten identificarte.</li>
+<li><b>Datos técnicos:</b> dirección IP y datos del navegador registrados automáticamente por el servidor por seguridad y funcionamiento.</li>
+</ul>
+<p>No pedimos datos especiales (p. ej. de salud). Si en las notas indicas alergias o necesidades alimentarias, las usaremos solo para organizar el servicio.</p>
+
+<h2>3. Finalidades y bases jurídicas</h2>
+<table>
+<tr><th>Finalidad</th><th>Base jurídica</th></tr>
+<tr><td>Responder a tus solicitudes y preparar un presupuesto</td><td>Medidas precontractuales a petición tuya (art. 6.1.b RGPD)</td></tr>
+<tr><td>Gestionar tu cuenta y reservas, prestar clases, excursiones y servicios, acceso a materiales</td><td>Ejecución de un contrato (art. 6.1.b)</td></tr>
+<tr><td>Publicar tu opinión</td><td>Tu consentimiento, que puedes retirar cuando quieras (art. 6.1.a)</td></tr>
+<tr><td>Pagos online y posibles reembolsos</td><td>Ejecución de un contrato (art. 6.1.b)</td></tr>
+<tr><td>Obligaciones fiscales y contables y obligaciones de los alojamientos turísticos</td><td>Obligación legal (art. 6.1.c)</td></tr>
+<tr><td>Seguridad del sitio, prevención de abusos, estadísticas anónimas para mejorarlo</td><td>Interés legítimo (art. 6.1.f)</td></tr>
+</table>
+<p>No usamos tus datos para publicidad, perfiles ni boletines, y no los vendemos a nadie.</p>
+
+<h2>4. Cuánto tiempo los conservamos</h2>
+<ul>
+<li>Solicitudes: hasta 24 meses desde el último contacto, si no se convierten en reserva.</li>
+<li>Cuenta y reservas: mientras la cuenta esté activa. Puedes pedir su eliminación en cualquier momento.</li>
+<li>Opiniones: mientras estén publicadas o hasta que pidas retirarlas.</li>
+<li>Datos necesarios para facturas y contabilidad: 10 años, según la ley.</li>
+<li>Datos técnicos del servidor: según el proveedor, normalmente pocos días o semanas.</li>
+</ul>
+
+<h2>5. Quién puede ver los datos</h2>
+<p>Los datos los trata solo la titular. Para que el sitio funcione usamos proveedores que actúan como encargados del tratamiento:</p>
+<ul>
+<li><b>Aruba S.p.A.</b> (Italia) – alojamiento web, almacenamiento de datos, área privada y envío de e-mails. Servidores en Italia.</li>
+<li><b>Google Ireland Ltd.</b> (Gmail) – buzón donde la titular recibe el aviso de nuevas solicitudes y opiniones.</li>
+<li><b>Kloudend Inc.</b> (ipapi.co, EE. UU.) – para estimar el país y la ciudad de la visita, tu dirección IP se envía un instante a este servicio; <b>la dirección IP no se guarda</b>.</li>
+</ul>
+<p>Las transferencias fuera de la UE se basan en el EU-US Data Privacy Framework y/o en las Cláusulas Contractuales Tipo de la Comisión Europea.</p>
+<p>Si pagas online, el pago se hace en la página segura de <b>Stripe</b> o <b>PayPal</b>, que actúan como responsables independientes según sus propias políticas. Nunca vemos ni guardamos los datos de tu tarjeta.</p>
+<p>Si nos escribes por <b>WhatsApp</b>, abres nuestra página de <b>Facebook</b> o ves un vídeo de <b>YouTube</b>, esos servicios tratan los datos según sus propias políticas. En la web solo hay enlaces: ningún botón «Me gusta» ni plugin envía datos a Facebook.</p>
+<p>Los datos pueden comunicarse al gestor fiscal, a los propietarios de los alojamientos o proveedores de los servicios que reserves (solo lo necesario) y a las autoridades cuando la ley lo exija.</p>
+
+<h2 id="diritti">6. Tus derechos</h2>
+<p>Puedes pedir en cualquier momento el acceso a tus datos, su rectificación, supresión, limitación, portabilidad, oponerte al tratamiento basado en interés legítimo y retirar tu consentimiento, sin afectar a lo hecho antes (arts. 15–22 RGPD). Escribe a {email}: respondemos en 30 días.</p>
+<p>También puedes reclamar ante el <b>Garante per la protezione dei dati personali</b> italiano (www.garanteprivacy.it) o ante la autoridad de tu país (en España: AEPD, aepd.es).</p>
+<p>Puedes cambiar tú mismo/a el nombre, el teléfono y el idioma en la sección <i>Perfil</i> del área privada.</p>
+
+<h2>7. Menores</h2>
+<p>Para registrarse hay que tener al menos 14 años. Para menores de 14 años, el registro y las reservas los hace un padre, una madre o un tutor.</p>
+
+<h2>8. Datos obligatorios</h2>
+<p>Para responder a una solicitud necesitamos tu nombre y un e-mail o teléfono; para crear una cuenta, nombre y e-mail. Sin ellos no podemos prestar el servicio. El resto es opcional.</p>
+
+<h2>9. Seguridad</h2>
+<p>El sitio usa conexión cifrada (HTTPS). Las contraseñas se guardan solo cifradas, los documentos personales se abren solo con enlaces temporales y solo la titular tiene acceso a los datos.</p>
+
+<h2 id="cookie">10. Política de cookies</h2>
+<p>Este sitio <b>no usa cookies de perfiles, publicitarias ni de analítica de terceros</b> (ni Google Analytics, ni Píxel de Facebook).</p>
+<p>Solo usa almacenamiento técnico necesario en tu navegador. Según la ley italiana (art. 122 del Código de Privacidad y directrices del Garante de 10 de junio de 2021) <b>no requiere consentimiento</b>, por eso no ves un banner de cookies.</p>
+<table>
+<tr><th>Nombre</th><th>Tipo</th><th>Para qué sirve</th><th>Duración</th></tr>
+<tr><td>wzd-lang</td><td>local storage</td><td>Recuerda el idioma que elegiste</td><td>Hasta que lo borres del navegador</td></tr>
+<tr><td>wzd-sid</td><td>session storage</td><td>Número aleatorio para contar una visita una sola vez (anónimo)</td><td>Se borra al cerrar la pestaña</td></tr>
+<tr><td>wzd</td><td>cookie técnica</td><td>Mantiene tu sesión en el área privada (solo si entras)</td><td>Hasta que salgas o cierres el navegador</td></tr>
+</table>
+<p><b>Vídeos de YouTube:</b> insertados en «modo de privacidad mejorada» (youtube-nocookie.com) y cargados solo cuando pulsas play. Desde entonces YouTube (Google) puede guardar sus propios datos: consulta la política de Google.</p>
+<p><b>Tipografías:</b> alojadas en nuestro servidor, así que no se envían datos a Google Fonts.</p>
+<p>Puedes borrar estos datos en cualquier momento desde los ajustes de tu navegador.</p>
 `
 };
-const BACK={it:"← Torna al sito",en:"← Back to site",pl:"← Wróć na stronę"};
+const BACK={it:"← Torna al sito",de:"← Zurück zur Website",en:"← Back to site",pl:"← Wróć na stronę",es:"← Volver a la web"};
+const SEDE={it:", con sede in ",de:", Sitz: ",en:", based in ",pl:", z siedzibą: ",es:", con sede en "};
 
 let lang="it";
-try{ const s=localStorage.getItem("wzd-lang")||(navigator.language||"it").slice(0,2); lang = s==="it"||s==="pl" ? s : (s==="en"||s==="de"||s==="es" ? "en" : "it"); }catch(e){}
+try{ const s=localStorage.getItem("wzd-lang")||(navigator.language||"it").slice(0,2); lang = LANGS.includes(s) ? s : "en"; }catch(e){}
 let S={};
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const todo=t=>`<mark>${t}</mark>`;
 function render(){
   document.documentElement.lang=lang;
   document.getElementById("langBtns").innerHTML=LANGS.map(l=>`<button data-lang="${l}" class="${l===lang?"on":""}">${l.toUpperCase()}</button>`).join("");
   document.getElementById("backBtn").textContent=BACK[lang];
   const c=S.contact||{};
+  const mail=c.email?`<a href="mailto:${esc(c.email)}"><b>${esc(c.email)}</b></a>`:"";
+  const tel=(c.phone||c.whatsapp)?`<b>${esc(c.phone||"+"+c.whatsapp)}</b> (WhatsApp)`:"";
   const html=DOC[lang]
     .replaceAll("{updated}",UPDATED[lang])
-    .replaceAll("{owner}",S.owner_name?esc(S.owner_name):todo(lang==="it"?"NOME E COGNOME DEL TITOLARE":lang==="pl"?"IMIĘ I NAZWISKO":"FULL NAME"))
-    .replaceAll("{address}",S.address?esc(S.address):todo(lang==="it"?"INDIRIZZO":lang==="pl"?"ADRES":"ADDRESS"))
+    .replaceAll("{owner}",esc(S.owner_name||"Dominika Sloma"))
+    .replaceAll("{sede}",S.address?SEDE[lang]+esc(S.address):"")
     .replaceAll("{vat}",esc(S.vat||"03800250791"))
-    .replaceAll("{email}",c.email?`<b>${esc(c.email)}</b>`:(c.phone||c.whatsapp)?`<b>${esc(c.phone||"+"+c.whatsapp)}</b> (WhatsApp)`:todo("E-MAIL"));
+    .replaceAll("{email}",[mail,tel].filter(Boolean).join(" · ")||"WhatsApp");
   document.getElementById("doc").innerHTML=html;
   if(location.hash){ const el=document.querySelector(location.hash); if(el) el.scrollIntoView(); }
 }
-document.addEventListener("click",e=>{ const b=e.target.closest("[data-lang]"); if(b){ lang=b.dataset.lang; render(); } });
-fetch("content/settings.json").then(r=>r.json()).then(s=>{ S=s; if(s.vat) document.querySelector(".f-vat").textContent=s.vat; }).catch(()=>{}).finally(render);
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-lang]"); if(b){ lang=b.dataset.lang; try{localStorage.setItem("wzd-lang",lang);}catch(x){} render(); } });
+/* prima i dati salvati nell'app, poi il file di base */
+fetch("api/db.php",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({a:"db",table:"site_content",op:"select",select:"key,data",filters:[["key","eq","settings"]]})})
+  .then(r=>r.json()).then(j=>{ const row=(j.data||[]).find(x=>x&&x.key==="settings"); if(row&&row.data&&Object.keys(row.data).length) return row.data; throw 0; })
+  .catch(()=>fetch("content/settings.json").then(r=>r.json()))
+  .then(s=>{ S=s||{}; if(S.vat) document.querySelector(".f-vat").textContent=S.vat; })
+  .catch(()=>{}).finally(render);
 </script>
 </body>
 </html>
