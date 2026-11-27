@@ -70,7 +70,7 @@ async function loadLook(){
   const mn = LOOK.menu || {};
   let hb = (await remoteContent()).hotels;
   if (!hb) { try { hb = await fetch(ROOT + "content/hotels.json?v=" + Date.now()).then(r => r.json()); } catch(e) { hb = {}; } }
-  const off = k => mn[k] === false || (k === "nav_hotel" && !hb.page_visible);
+  const off = k => { if (k === "nav_hotel_m") k = "nav_hotel"; return mn[k] === false || (k === "nav_hotel" && !hb.page_visible); };
   document.querySelectorAll(".menu a[data-i], .f-links a[data-i], .nav-right a[data-i]").forEach(a => { (a.closest("li") || a).style.display = off(a.dataset.i) ? "none" : ""; });
   const TILE_NAV = { houses:"nav_house", hotels:"nav_hotel", exc:"nav_exc", exp:"nav_exp", transfer:"nav_tr", rental:"nav_rent", boat:"nav_boat", media:"nav_media" };
   for (const k in TILE_NAV) document.querySelectorAll('[data-tile="' + k + '"]').forEach(el => el.style.display = off(TILE_NAV[k]) ? "none" : "");
@@ -81,7 +81,7 @@ async function loadLook(){
 /* ===================== Logika strony / Logica ===================== */
 const PAGE = document.body.dataset.page || "home";
 const HOME_MAX = { exc: 6, house: 6, serv: 3, gal: 8 };
-const HOTEL_TYPES = ["hotel","bnb"];
+const HOTEL_TYPES = ["hotel","bnb","residence","village"];
 /* quali elementi mostra ogni pagina */
 const isHotel = h => HOTEL_TYPES.includes(h.type);
 const isVis = x => x && x.visible !== false;

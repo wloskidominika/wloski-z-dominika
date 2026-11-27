@@ -165,7 +165,7 @@ collections:
         widget: image
         required: false
       - name: hotels
-        label: Hotel e B&B
+        label: Hotel, B&B, Residence e Villaggi
         widget: image
         required: false
       - name: exc
@@ -522,9 +522,7 @@ collections:
           value: villa
         - label: Agriturismo
           value: agriturismo
-        - label: Residence
-          value: residence
-        hint: Per hotel e B&B usa la sezione «🏨 Hotel e B&B».
+        hint: Per hotel, B&B, residence e villaggi turistici usa la sezione «🏨 Hotel, B&B, Residence e Villaggi».
       - name: title
         label: Nome
         widget: object
@@ -719,11 +717,11 @@ collections:
         widget: string
         required: false
   - name: hotels
-    label: 🏨 Hotel e B&B
+    label: 🏨 Hotel, B&B, Residence e Villaggi
     file: content/hotels.json
     fields:
     - name: page_visible
-      label: 👁️ Mostra la pagina «Hotel e B&B» sul sito (menu e Home)
+      label: 👁️ Mostra la pagina «Hotel, B&B, Residence e Villaggi» sul sito (menu e Home)
       widget: boolean
       default: false
       required: false
@@ -748,6 +746,10 @@ collections:
           value: hotel
         - label: B&B
           value: bnb
+        - label: Residence
+          value: residence
+        - label: Villaggio turistico
+          value: village
         default: hotel
       - name: title
         label: Nome
@@ -942,7 +944,7 @@ collections:
         label: Link al sito esterno (Booking, Airbnb, holidayscalabria.com…). Se vuoto, il pulsante porta al modulo contatti
         widget: string
         required: false
-    description: Le strutture che aggiungi qui compaiono nella pagina «Hotel e B&B». Accendi «Mostra la pagina» quando sei pronta.
+    description: Le strutture che aggiungi qui compaiono nella pagina «Hotel, B&B, Residence e Villaggi». Accendi «Mostra la pagina» quando sei pronta.
   - name: services
     label: 🧭 Servizi (Transfer, Noleggio e altri)
     file: content/services.json
@@ -1833,7 +1835,7 @@ collections:
         widget: string
         required: false
       - name: nav_hotel
-        label: nav_hotel  —  «Hotel e B&B»
+        label: nav_hotel  —  «Hotel, B&B, Residence e Villaggi»
         widget: string
         required: false
       - name: nav_exp
@@ -1913,7 +1915,7 @@ collections:
         widget: string
         required: false
       - name: hotel_title
-        label: hotel_title  —  «Hotel e B&B»
+        label: hotel_title  —  «Hotel, B&B, Residence e Villaggi»
         widget: string
         required: false
       - name: hotel_sub
@@ -1949,7 +1951,7 @@ collections:
         widget: string
         required: false
       - name: pt_hotels
-        label: pt_hotels  —  «Hotel e B&B a Tropea»
+        label: pt_hotels  —  «Hotel, B&B, Residence e Villaggi turistici a Tropea»
         widget: string
         required: false
       - name: pt_exp
@@ -2574,7 +2576,7 @@ collections:
         widget: string
         required: false
       - name: nav_hotel
-        label: nav_hotel  —  «Hotel e B&B»
+        label: nav_hotel  —  «Hotel, B&B, Residence e Villaggi»
         widget: string
         required: false
       - name: nav_exp
@@ -2654,7 +2656,7 @@ collections:
         widget: string
         required: false
       - name: hotel_title
-        label: hotel_title  —  «Hotel e B&B»
+        label: hotel_title  —  «Hotel, B&B, Residence e Villaggi»
         widget: string
         required: false
       - name: hotel_sub
@@ -2690,7 +2692,7 @@ collections:
         widget: string
         required: false
       - name: pt_hotels
-        label: pt_hotels  —  «Hotel e B&B a Tropea»
+        label: pt_hotels  —  «Hotel, B&B, Residence e Villaggi turistici a Tropea»
         widget: string
         required: false
       - name: pt_exp
@@ -3315,7 +3317,7 @@ collections:
         widget: string
         required: false
       - name: nav_hotel
-        label: nav_hotel  —  «Hotel e B&B»
+        label: nav_hotel  —  «Hotel, B&B, Residence e Villaggi»
         widget: string
         required: false
       - name: nav_exp
@@ -3395,7 +3397,7 @@ collections:
         widget: string
         required: false
       - name: hotel_title
-        label: hotel_title  —  «Hotel e B&B»
+        label: hotel_title  —  «Hotel, B&B, Residence e Villaggi»
         widget: string
         required: false
       - name: hotel_sub
@@ -3431,7 +3433,7 @@ collections:
         widget: string
         required: false
       - name: pt_hotels
-        label: pt_hotels  —  «Hotel e B&B a Tropea»
+        label: pt_hotels  —  «Hotel, B&B, Residence e Villaggi turistici a Tropea»
         widget: string
         required: false
       - name: pt_exp
@@ -4056,7 +4058,7 @@ collections:
         widget: string
         required: false
       - name: nav_hotel
-        label: nav_hotel  —  «Hotel e B&B»
+        label: nav_hotel  —  «Hotel, B&B, Residence e Villaggi»
         widget: string
         required: false
       - name: nav_exp
@@ -4136,7 +4138,7 @@ collections:
         widget: string
         required: false
       - name: hotel_title
-        label: hotel_title  —  «Hotel e B&B»
+        label: hotel_title  —  «Hotel, B&B, Residence e Villaggi»
         widget: string
         required: false
       - name: hotel_sub
@@ -4172,7 +4174,7 @@ collections:
         widget: string
         required: false
       - name: pt_hotels
-        label: pt_hotels  —  «Hotel e B&B a Tropea»
+        label: pt_hotels  —  «Hotel, B&B, Residence e Villaggi turistici a Tropea»
         widget: string
         required: false
       - name: pt_exp
@@ -4797,7 +4799,7 @@ collections:
         widget: string
         required: false
       - name: nav_hotel
-        label: nav_hotel  —  «Hotel e B&B»
+        label: nav_hotel  —  «Hotel, B&B, Residence e Villaggi»
         widget: string
         required: false
       - name: nav_exp
@@ -4877,7 +4879,7 @@ collections:
         widget: string
         required: false
       - name: hotel_title
-        label: hotel_title  —  «Hotel e B&B»
+        label: hotel_title  —  «Hotel, B&B, Residence e Villaggi»
         widget: string
         required: false
       - name: hotel_sub
@@ -4913,7 +4915,7 @@ collections:
         widget: string
         required: false
       - name: pt_hotels
-        label: pt_hotels  —  «Hotel e B&B a Tropea»
+        label: pt_hotels  —  «Hotel, B&B, Residence e Villaggi turistici a Tropea»
         widget: string
         required: false
       - name: pt_exp

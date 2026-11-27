@@ -41,7 +41,7 @@ def slugify(s, used):
 # ---------------- menu ----------------
 MENU = [  # (indirizzo, testo, pagina)
     ("case-vacanze.html", "nav_house", "houses"),
-    ("hotel-bb.html", "nav_hotel", "hotels"),
+    ("hotel-bb.html", "nav_hotel_m", "hotels"),
     ("escursioni.html", "nav_exc", "exc"),
     ("esperienze.html", "nav_exp", "exp"),
     ("transfer.html", "nav_tr", "transfer"),
@@ -63,7 +63,7 @@ def header(page, P):
     cur = PARENT.get(page, page)
     HID = hidden_nav()
     # le voci nascoste restano nella pagina (invisibili): l'app può riaccenderle subito, senza ripubblicare
-    items = "\n".join(f'      <li{NOSHOW if k in HID else ""}><a href="{h if h.startswith("#") else P + h}" data-i="{k}"{" class=\"cur\"" if p == cur else ""}></a></li>' for h, k, p in MENU)
+    items = "\n".join(f'      <li{NOSHOW if k.replace("nav_hotel_m", "nav_hotel") in HID else ""}><a href="{h if h.startswith("#") else P + h}" data-i="{k}"{" class=\"cur\"" if p == cur else ""}></a></li>' for h, k, p in MENU)
     return f'''
 <header>
   <div class="wrap nav">
@@ -244,12 +244,12 @@ def reviews_sec(topic=""):
 
 LD_HOME = json.dumps({"@context": "https://schema.org", "@type": "TravelAgency", "name": FULL,
   "url": DOMAIN + "/", "logo": DOMAIN + "/logo.jpg", "image": DOMAIN + "/media/hero.jpg",
-  "description": "Lezioni di italiano e polacco, traduzioni (polacco, inglese, italiano) e vacanze in Calabria: case vacanze, hotel e B&B, escursioni, esperienze locali, transfer e noleggi a Tropea e Capo Vaticano.",
+  "description": "Lezioni di italiano e polacco, traduzioni (polacco, inglese, italiano) e vacanze in Calabria: case vacanze, hotel, B&B, residence e villaggi turistici, escursioni, esperienze locali, transfer e noleggi a Tropea e Capo Vaticano.",
   "areaServed": ["Tropea", "Capo Vaticano", "Calabria"], "availableLanguage": ["it", "pl", "en", "de", "es"], "vatID": "IT03800250791",
   "sameAs": ["https://www.facebook.com/profile.php?id=61556969993687"]}, ensure_ascii=False)
 
 # ---------------- pagine di dettaglio ----------------
-HOTEL_TYPES = ("hotel", "bnb")
+HOTEL_TYPES = ("hotel", "bnb", "residence", "village")
 
 def detail_body(kind, i, item, P, list_href, list_key, back_key):
     title = L(item.get("title"))
@@ -291,15 +291,15 @@ def main():
 
     S = {n: sec(n) for n in ("about", "excursions", "lessons", "houses", "services", "gallery")}
     page("index.html", "home", f"{FULL} – lezioni di italiano e polacco e vacanze in Calabria",
-         "Lezioni di italiano e polacco, traduzioni (polacco, inglese, italiano) e vacanze in Calabria: case vacanze, hotel e B&B, escursioni, esperienze locali, transfer e noleggi a Tropea e Capo Vaticano.",
+         "Lezioni di italiano e polacco, traduzioni (polacco, inglese, italiano) e vacanze in Calabria: case vacanze, hotel, B&B, residence e villaggi turistici, escursioni, esperienze locali, transfer e noleggi a Tropea e Capo Vaticano.",
          "\n".join([HERO, S["lessons"], vacanze(), S["about"], reviews_sec(), BLOG_HOME]),
          extra=f'<script type="application/ld+json">{LD_HOME}</script>\n')
 
     page("case-vacanze.html", "houses", f"Case vacanze a Tropea e Capo Vaticano · {NAME}",
          "Appartamenti, case e ville a Tropea, Capo Vaticano e Ricadi, con foto, dotazioni e codici CIN.",
          crumbs("", ("", "nav_house", "")) + as_h1(S["houses"]) + reviews_sec("house"))
-    page("hotel-bb.html", "hotels", f"Hotel e B&B a Tropea · {NAME}",
-         "Hotel e bed & breakfast selezionati a Tropea e dintorni, per la tua vacanza in Calabria.",
+    page("hotel-bb.html", "hotels", f"Hotel, B&B, Residence e Villaggi turistici a Tropea · {NAME}",
+         "Hotel, bed & breakfast, residence e villaggi turistici selezionati a Tropea e Capo Vaticano, per la tua vacanza in Calabria.",
          crumbs("", ("", "nav_hotel", "")) + as_h1(heads(S["houses"], "hotel", "h")).replace('id="houses"', 'id="houses" data-hotels="1"'))
     page("escursioni.html", "exc", f"Escursioni da Tropea via mare e via terra · {NAME}",
          "Isole Eolie, tour in barca e gommone, pesca turistica, Costa Viola, Reggio Calabria e parapendio da Tropea.",

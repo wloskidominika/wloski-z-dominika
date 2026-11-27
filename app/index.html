@@ -197,7 +197,7 @@ details.item.bad{border-color:#d93025}
       <div class="hgrid">
         <a class="hcard" href="#edit/look"><b>🎨</b><div><strong>Foto e grafica</strong><span>Foto grande in alto, colori, riquadri della home, pagine visibili</span></div><i>›</i></a>
         <a class="hcard" href="#edit/houses"><b>🏡</b><div><strong>Case vacanze</strong><span>Aggiungi o modifica: foto, descrizioni, CIN/CIR obbligatori, prezzi</span></div><i>›</i></a>
-        <a class="hcard" href="#edit/hotels"><b>🏨</b><div><strong>Hotel e B&B</strong><span>Aggiungi strutture (CIN/CIR obbligatori) e accendi la pagina</span></div><i>›</i></a>
+        <a class="hcard" href="#edit/hotels"><b>🏨</b><div><strong>Hotel, B&B, Residence e Villaggi</strong><span>Aggiungi hotel, B&B, residence e villaggi turistici (CIN/CIR obbligatori)</span></div><i>›</i></a>
         <a class="hcard" href="#edit/excursions"><b>⛵</b><div><strong>Escursioni ed esperienze</strong><span>Aggiungi o modifica: mare, terra, tour, cucina, prezzi, foto</span></div><i>›</i></a>
         <a class="hcard" href="#edit/services"><b>🚐</b><div><strong>Servizi</strong><span>Aggiungi nuovi servizi: transfer, noleggi auto/scooter/bici, barche e altro</span></div><i>›</i></a>
         <a class="hcard" href="#edit/lessons"><b>🗣️</b><div><strong>Lezioni (pagina del sito)</strong><span>I corsi di italiano e polacco</span></div><i>›</i></a>
@@ -568,7 +568,7 @@ const flag=c=>c&&/^[A-Z]{2}$/.test(c)?String.fromCodePoint(...[...c].map(x=>1273
 const LN={it:"🇮🇹 Italiano",pl:"🇵🇱 Polski",de:"🇩🇪 Deutsch",en:"🇬🇧 English",es:"🇪🇸 Español"};
 const DEV={mobile:"📱 Cellulare",tablet:"📲 Tablet",desktop:"💻 Computer"};
 function pageName(p){ p=(p||"/").replace(/\.html$/,"").replace(/^\/+/,"");
-  const M={"":"🏠 Home",index:"🏠 Home","case-vacanze":"Case vacanze","hotel-bb":"Hotel e B&B",escursioni:"Escursioni",esperienze:"Guida ed esperienze",transfer:"Transfer",
+  const M={"":"🏠 Home",index:"🏠 Home","case-vacanze":"Case vacanze","hotel-bb":"Hotel, B&B, Residence e Villaggi",escursioni:"Escursioni",esperienze:"Guida ed esperienze",transfer:"Transfer",
     noleggio:"Noleggio auto/scooter/bici","noleggio-nautico":"Noleggio nautico","foto-e-video":"Foto e video",blog:"Blog",area:"Area riservata",privacy:"Privacy",servizi:"Servizi"};
   if(M[p]!==undefined) return M[p];
   if(p.startsWith("casa/")) return "🏡 "+p.slice(5).replace(/-/g," ");
@@ -594,7 +594,7 @@ function barList(title,rows,total,label){
 }
 function dur(s){ s=Math.round(s||0); if(s<60) return s+" s"; const m=Math.floor(s/60), r=s%60; return m<60?m+" min"+(r?" "+r+" s":""):Math.floor(m/60)+" h "+(m%60)+" min"; }
 const CAT=p=>{ p=(p||"/").replace(/\.html$/,"").replace(/^\/+/,"");
-  if(p===""||p==="index") return "🏠 Home (lezioni e vacanze)"; if(p==="case-vacanze"||p.startsWith("casa/")) return "🏡 Case vacanze"; if(p==="hotel-bb") return "🏨 Hotel e B&B";
+  if(p===""||p==="index") return "🏠 Home (lezioni e vacanze)"; if(p==="case-vacanze"||p.startsWith("casa/")) return "🏡 Case vacanze"; if(p==="hotel-bb") return "🏨 Hotel, B&B, Residence e Villaggi";
   if(p==="escursioni"||p.startsWith("escursione/")) return "⛵ Escursioni"; if(p==="esperienze") return "🧭 Guida ed esperienze"; if(p==="transfer") return "🚐 Transfer";
   if(p==="noleggio") return "🛵 Noleggio auto/scooter/bici"; if(p==="noleggio-nautico") return "🚤 Noleggio nautico"; if(p==="foto-e-video") return "📸 Foto e video";
   if(p==="blog"||p.startsWith("blog/")) return "📝 Blog"; if(p==="area") return "👤 Area clienti"; return "Altre pagine"; };

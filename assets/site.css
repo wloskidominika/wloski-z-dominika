@@ -244,7 +244,7 @@ header .wrap.nav{max-width:1380px}
 .nav-right .les-btn{border:1.5px solid var(--green);color:var(--green);padding:6px 14px;border-radius:999px;font-size:.85rem}
 .nav-right .les-btn:hover{background:var(--green);color:#fff}
 .mainnav{border-top:1px solid rgba(155,35,24,.08)}
-.mainnav .menu{max-width:1380px;margin:0 auto;padding:0 24px;min-height:46px;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px 24px}
+.mainnav .menu{max-width:1380px;margin:0 auto;padding:0 24px;min-height:46px;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px 18px}
 .mainnav .menu a{font-size:.92rem}
 .menu a.cur{color:var(--red);border-bottom:2px solid var(--orange)}
 .m-only{display:none}
